@@ -17,8 +17,8 @@ endif()
 message(STATUS "PYTHON: ${PYTHON}")
 
 IF(NOT CMAKE_BUILD_TYPE)
-    # SET(CMAKE_BUILD_TYPE "DEBUG")
-    SET(CMAKE_BUILD_TYPE "RELEASE")
+    SET(CMAKE_BUILD_TYPE "DEBUG")
+    #SET(CMAKE_BUILD_TYPE "RELEASE")
     #SET(CMAKE_BUILD_TYPE "RELWITHDEBINFO")
     #SET(CMAKE_BUILD_TYPE "MINSIZEREL")
 ENDIF()
@@ -28,7 +28,10 @@ include_directories("inc")
 # default planner
 include_directories("default_planner")
 
-file(GLOB SOURCES "src/*.cpp" "default_planner/*.cpp")
+file(GLOB SOURCES "src/*.cpp" "default_planner/*.cpp" "my_scheduler/*.cpp")
+
+#my stuff
+include_directories("my_scheduler")
 
 
 # Find Boost

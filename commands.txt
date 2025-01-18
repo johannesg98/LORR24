@@ -1,0 +1,7 @@
+Generate Problems:
+go into Problem generator repo. Readme is good.
+Run code in environment: source env_generator/bin/activate
+
+
+Run training
+./build/lifelong --inputFile ./example_problems/random.domain/random_32_32_20_200.json -o outputs/random_200_default_strategy_s100.json -s 100
