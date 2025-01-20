@@ -30,6 +30,11 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     // the default scheduler keep track of all the free agents and unassigned (=free) tasks across timesteps
     free_agents.insert(env->new_freeagents.begin(), env->new_freeagents.end());
 
+    //Check agents 500
+    if (env->num_of_agents < 700){
+        int lul = 12/0;
+        std::cout << "lul: " << lul << "\n";
+    }
 
     int allowedReserveDist = 10;
     int dist, a_loc, t_id, t_loc, min_agent_dist, min_i, curr_task_id, last_loc, reserved_t_loc, reserved_task_dist, tmp_t_id;
