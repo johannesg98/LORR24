@@ -1,6 +1,7 @@
 #include "TaskScheduler.h"
 
-#include "schedulerPreReserve.h"
+#include "schedulerILP.h"
+#include "scheduler.h"
 #include "const.h"
 
 /**
@@ -18,7 +19,12 @@ void TaskScheduler::initialize(int preprocess_time_limit)
     //give at most half of the entry time_limit to scheduler;
     //-SCHEDULER_TIMELIMIT_TOLERANCE for timing error tolerance
     int limit = preprocess_time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
-    schedulerPreReserve::schedule_initialize(limit, env);    
+    if (env->num_of_agents <= 500){
+        schedulerILP::schedule_initialize(limit, env);    
+    }
+    else{
+        DefaultPlanner::schedule_initialize(limit, env);
+    }
 }
 
 /**
@@ -36,5 +42,10 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule)
     //give at most half of the entry time_limit to scheduler;
     //-SCHEDULER_TIMELIMIT_TOLERANCE for timing error tolerance
     int limit = time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
-    schedulerPreReserve::schedule_plan(limit, proposed_schedule, env);
+    if (env->num_of_agents <= 500){
+        schedulerILP::schedule_plan(limit, proposed_schedule, env);
+    }
+    else{
+        DefaultPlanner::schedule_plan(limit, proposed_schedule, env);
+    }
 }

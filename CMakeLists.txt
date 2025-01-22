@@ -32,6 +32,12 @@ file(GLOB SOURCES "src/*.cpp" "default_planner/*.cpp" "my_scheduler/*.cpp")
 
 #my stuff
 include_directories("my_scheduler")
+include_directories("third_party_libraries/or-tools/include")
+link_directories("third_party_libraries/or-tools/lib")
+
+
+
+
 
 
 # Find Boost
@@ -76,6 +82,7 @@ ELSE()
 
     add_executable(lifelong ${SOURCES} )
     target_link_libraries(lifelong ${Boost_LIBRARIES})
+    target_link_libraries(lifelong ortools absl_base absl_strings)
     target_compile_definitions(lifelong PRIVATE PYTHON=${PYTHON_FLAG})
 ENDIF()
 
