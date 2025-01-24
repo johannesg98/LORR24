@@ -34,6 +34,15 @@ void MAPFPlanner::plan(int time_limit,vector<Action> & actions)
     // use the remaining time after task schedule for path planning, -PLANNER_TIMELIMIT_TOLERANCE for timing error tolerance;
     int limit = time_limit - std::chrono::duration_cast<milliseconds>(std::chrono::steady_clock::now() - env->plan_start_time).count() - DefaultPlanner::PLANNER_TIMELIMIT_TOLERANCE;
 
+    std::cout << "Time left for planning: " << limit << std::endl;
+
+
+    auto now = std::chrono::high_resolution_clock::now();
+    
     DefaultPlanner::plan(limit, actions, env);
+
+    std::chrono::duration<double> passed = std::chrono::high_resolution_clock::now() - now;
+    std::cout << "Time planning used: " << passed.count() << " seconds" << std::endl;
+
     return;
 }

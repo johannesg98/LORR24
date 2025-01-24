@@ -102,6 +102,72 @@ int get_h(SharedEnvironment* env, int source, int target){
 	return get_heuristic(global_heuristictable.at(target), env, source, &global_neighbors);
 }
 
+// XYZmystuff
+int get_heuristic_limited(HeuristicTable& ht, SharedEnvironment* env, int source, Neighbors* ns){
+		if (ht.htable[source] < MAX_TIMESTEP) return ht.htable[source];
+
+		std::vector<int> neighbors;
+		int cost, diff;
+		while (!ht.open.empty())
+		{
+			HNode curr = ht.open.front();
+			ht.open.pop_front();
+
+			
+			getNeighborLocs(ns,neighbors,curr.location);
+
+			
+			for (int next : neighbors)
+			{
+				cost = curr.value + 1;
+				diff = curr.location - next;
+				
+				assert(next >= 0 && next < env->map.size());
+				//set current cost for reversed direction
+
+				if (cost >= ht.htable[next] )
+					continue;
+
+				ht.open.emplace_back(next,0, cost);
+				ht.htable[next] = cost;
+				
+			}
+
+			if (source == curr.location)
+				return curr.value;
+		}
+
+
+		return MAX_TIMESTEP;
+}
+
+// XYZmystuff
+int get_h_limited(SharedEnvironment* env, int source, int target){
+	int sourceR = source / env->cols;
+	int sourceC = source % env->cols;
+	int targetR = target / env->cols;
+	int targetC = target % env->cols;
+
+	int dist = static_cast<int>(1.3 * std::abs(sourceR - targetR) + std::abs(sourceC - targetC));
+
+	if (dist > 20) {
+		return dist;
+	}
+
+
+
+
+	if (global_heuristictable.empty()){
+		init_heuristics(env);
+	}
+
+	if (global_heuristictable.at(target).empty()){
+		init_heuristic(global_heuristictable.at(target),env,target);
+	}
+
+	return get_heuristic(global_heuristictable.at(target), env, source, &global_neighbors);
+}
+
 
 
 void init_dist_2_path(Dist2Path& dp, SharedEnvironment* env, Traj& path){

@@ -12,15 +12,17 @@ int main() {
     std::srand(std::time(nullptr));
 
     // Problem size
-    const int num_agents = 600;
-    const int num_tasks = 300;
+    const int num_agents = 200;
+    const int num_tasks = 100;
 
     // Generate a random cost matrix
     std::vector<std::vector<int>> cost_matrix(num_agents, std::vector<int>(num_tasks));
     for (int i = 0; i < num_agents; ++i) {
         for (int j = 0; j < num_tasks; ++j) {
             cost_matrix[i][j] = 2 + (std::rand() % 99);  // Random cost in [2, 100]
+            std::cout << cost_matrix[i][j] << "  ";
         }
+        std::cout << "\n";
     }
 
     auto start = std::chrono::high_resolution_clock::now();
@@ -103,7 +105,7 @@ int main() {
             }
         }
         if (!solutionFound){
-            // std::cout << "Keine Loesung gefunden du Spacko XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+            std::cout << "Keine Loesung gefunden XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
         }
     }
 
