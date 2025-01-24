@@ -20,11 +20,6 @@ int get_heuristic(HeuristicTable& ht, SharedEnvironment* env, int source, Neighb
 
 int get_h(SharedEnvironment* env, int source, int target);
 
-// XYZmystuff
-int get_heuristic_limited(HeuristicTable& ht, SharedEnvironment* env, int source, Neighbors* ns);
-int get_h_limited(SharedEnvironment* env, int source, int target);
-
-
 void init_dist_2_path(Dist2Path& dp, SharedEnvironment* env, Traj& path);
 
 std::pair<int,int> get_source_2_path(Dist2Path& dp, SharedEnvironment* env, int source, Neighbors* ns);

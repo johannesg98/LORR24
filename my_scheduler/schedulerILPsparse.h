@@ -20,6 +20,8 @@ void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env);
 
 void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  SharedEnvironment* env);
 
+int get_h_limited(SharedEnvironment* env, int source, int target);
+
 }
 
 #endif

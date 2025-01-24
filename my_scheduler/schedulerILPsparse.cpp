@@ -11,13 +11,13 @@ std::vector<int> free_tasks;
 void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
 {   
     std::cout << "preprocessing started" << std::endl;
+    auto now = std::chrono::high_resolution_clock::now();
 
     DefaultPlanner::init_heuristics(env);
     mt.seed(0);
 
-    auto now = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < env->map.size(); i++){
-        std::cout << "Field " << i << " of " <<  env->map.size() << std::endl; 
+        // std::cout << "Field " << i << " of " <<  env->map.size() << std::endl; 
         for (int j = 0; j < env->map.size(); j++){
             if (env->map[i] == 0 && env->map[j] == 0){
                 DefaultPlanner::get_h(env, i, j);
@@ -25,18 +25,17 @@ void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
         }
     }
 
+    #ifndef NDEBUG
     std::chrono::duration<double> passed = std::chrono::high_resolution_clock::now() - now;
     std::cout << "A* heuristic initialisation: " << passed.count() << " seconds" << std::endl;
-
     std::this_thread::sleep_for(std::chrono::seconds(3));
-
+    #endif
+    
     return;
 }
 
 void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  SharedEnvironment* env)
 {   
-    std::cout << "Planner started" << std::endl;
-
     auto now = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> passed;
     clock_t start = clock();
@@ -67,13 +66,14 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
         int a_loc, t_loc, curr_task_id;
 
+        #ifndef NDEBUG
         passed = std::chrono::high_resolution_clock::now() - now;
         std::cout << "Time beginning: " << passed.count() << " seconds" << std::endl;
         now = std::chrono::high_resolution_clock::now();
+        #endif
 
 
-
-        // Generate cost matrix
+        // Generate cost matrix - potetnial improvement: only do optimization, cost, etc. for agents who have no task or are at their last task
         std::vector<std::vector<int>> cost_matrix(num_agents, std::vector<int>(num_tasks));
         for (int i = 0; i < num_agents; ++i) {
 
@@ -86,17 +86,19 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
             for (int j = 0; j < num_tasks; ++j) {
                 t_loc = env->task_pool[free_tasks[j]].locations[0];
-                cost_matrix[i][j] = DefaultPlanner::get_h_limited(env, a_loc, t_loc);
+                cost_matrix[i][j] = get_h_limited(env, a_loc, t_loc);
+                // cost_matrix[i][j] = DefaultPlanner::get_h(env, a_loc, t_loc);
             }
         }
 
-
+        #ifndef NDEBUG
         passed = std::chrono::high_resolution_clock::now() - now;
         std::cout << "Time cost matrix: " << passed.count() << " seconds" << std::endl;
         now = std::chrono::high_resolution_clock::now();
+        #endif
 
         // Generate activation matrix aka 1 where we consider the cost and 0 where we assume the cost is so bad that we dont consider it during optimization
-        int number_of_pairs_to_consider = 5;
+        int number_of_pairs_to_consider = 3;
 
         std::vector<std::vector<int>> activation_matrix;
         if (number_of_pairs_to_consider >= std::min(num_agents, num_tasks)) {
@@ -153,10 +155,12 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
             }
         }
 
+        #ifndef NDEBUG
         passed = std::chrono::high_resolution_clock::now() - now;
         std::cout << "Time activation matrix: " << passed.count() << " seconds" << std::endl;
         now = std::chrono::high_resolution_clock::now();
-            
+        #endif
+
         // Create the solver
         std::unique_ptr<MPSolver> solver(MPSolver::CreateSolver("CBC"));
         if (!solver) {
@@ -255,10 +259,11 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
             }
         }
 
+        #ifndef NDEBUG
         passed = std::chrono::high_resolution_clock::now() - now;
         std::cout << "Time create solver, objective, constrains, etc. : " << passed.count() << " seconds" << std::endl;
         now = std::chrono::high_resolution_clock::now();
-        
+        #endif
         
 
         auto startElapsed = std::chrono::high_resolution_clock::now();
@@ -266,6 +271,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
         const MPSolver::ResultStatus result_status = solver->Solve();
 
         //solver time
+        #ifndef NDEBUG
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsed = end - startElapsed;
         std::cout << "Time Solver: " << elapsed.count() << " seconds" << std::endl;
@@ -274,6 +280,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
         if (result_status != MPSolver::OPTIMAL) {
             std::cerr << "The problem does not have an optimal solution!" << std::endl;
         }
+        #endif
 
         std::vector<int> tasks_to_remove;
 
@@ -291,9 +298,11 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
                         }
                     }
                 }
+                #ifndef NDEBUG
                 if (!solutionFound){
                     std::cout << "Keine Loesung gefunden du Nuss XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
                 }
+                #endif
             }
         }
 
@@ -304,10 +313,11 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
             free_tasks.erase(free_tasks.begin() + index);
         }
 
-
+        #ifndef NDEBUG
         passed = std::chrono::high_resolution_clock::now() - now;
         std::cout << "Time rest : " << passed.count() << " seconds" << std::endl;
         now = std::chrono::high_resolution_clock::now();;
+        #endif
     }
 
 
@@ -319,4 +329,34 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     #endif
     return;
 }
+
+int get_h_limited(SharedEnvironment* env, int source, int target){
+	// int sourceR = source / env->cols;
+	// int sourceC = source % env->cols;
+	// int targetR = target / env->cols;
+	// int targetC = target % env->cols;
+
+	// int dist = static_cast<int>(1.3 * std::abs(sourceR - targetR) + std::abs(sourceC - targetC));
+
+	int dist = static_cast<int>(1.3 * std::abs((source / env->cols) - (target / env->cols)) + std::abs((source % env->cols) - (target % env->cols)));
+
+	if (dist > 20) {
+		return dist;
+	}
+
+
+
+
+	if (DefaultPlanner::global_heuristictable.empty()){
+		DefaultPlanner::init_heuristics(env);
+	}
+
+	if (DefaultPlanner::global_heuristictable.at(target).empty()){
+		DefaultPlanner::init_heuristic(DefaultPlanner::global_heuristictable.at(target),env,target);
+	}
+
+	return DefaultPlanner::get_heuristic(DefaultPlanner::global_heuristictable.at(target), env, source, &DefaultPlanner::global_neighbors);
+}
+
+
 }//end namespace
