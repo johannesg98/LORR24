@@ -5,6 +5,7 @@ namespace schedulerTEMPLATE{
 std::mt19937 mt;
 std::unordered_set<int> free_agents;
 std::unordered_set<int> free_tasks;
+int tasksCounter;
 
 void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
 {
@@ -12,6 +13,7 @@ void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
     DefaultPlanner::init_heuristics(env);
     mt.seed(0);
     return;
+    tasksCounter= 0;
 }
 
 void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  SharedEnvironment* env)
@@ -31,7 +33,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
     // iterate over the free agents to decide which task to assign to each of them
     std::unordered_set<int>::iterator it = free_agents.begin();
-    while (it != free_agents.end())
+    while (it != free_agents.end() && tasksCounter < env->num_of_agents)
     {
         //keep assigning until timeout
         if (std::chrono::steady_clock::now() > endtime)
@@ -77,6 +79,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
             proposed_schedule[i] = min_task_i;
             it = free_agents.erase(it);
             free_tasks.erase(min_task_i);
+            tasksCounter++;
         }
         // nothing to assign
         else{
