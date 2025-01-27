@@ -17,7 +17,9 @@ void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
     mt.seed(0);
 
     for (int i = 0; i < env->map.size(); i++){
-        // std::cout << "Field " << i << " of " <<  env->map.size() << std::endl; 
+        #ifndef NDEBUG
+        std::cout << "Field " << i << " of " <<  env->map.size() << std::endl; 
+        #endif
         for (int j = 0; j < env->map.size(); j++){
             if (env->map[i] == 0 && env->map[j] == 0){
                 DefaultPlanner::get_h(env, i, j);
@@ -30,7 +32,7 @@ void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
     std::cout << "A* heuristic initialisation: " << passed.count() << " seconds" << std::endl;
     std::this_thread::sleep_for(std::chrono::seconds(3));
     #endif
-    
+
     return;
 }
 

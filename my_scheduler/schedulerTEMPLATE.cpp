@@ -6,6 +6,7 @@ std::mt19937 mt;
 std::unordered_set<int> free_agents;
 std::unordered_set<int> free_tasks;
 int tasksCounter;
+int numRevealedTasks;
 
 void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
 {
@@ -30,10 +31,14 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     int min_task_i, min_task_makespan, dist, c_loc, count;
     clock_t start = clock();
 
+    if (env->curr_timestep == 0){
+        numRevealedTasks = free_tasks.size();
+    }
+
 
     // iterate over the free agents to decide which task to assign to each of them
     std::unordered_set<int>::iterator it = free_agents.begin();
-    while (it != free_agents.end() && tasksCounter < env->num_of_agents)
+    while (it != free_agents.end() && tasksCounter < numRevealedTasks)
     {
         //keep assigning until timeout
         if (std::chrono::steady_clock::now() > endtime)
