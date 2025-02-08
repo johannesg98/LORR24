@@ -27,7 +27,8 @@ void TaskScheduler::initialize(int preprocess_time_limit)
     //else{
     //    DefaultPlanner::schedule_initialize(limit, env);
     //}
-    schedulerTEMPLATE::schedule_initialize(limit, env);  
+    // schedulerILPsparse::schedule_initialize(limit, env);  
+    DefaultPlanner::schedule_initialize(limit, env);
 }
 
 /**
@@ -51,5 +52,6 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule)
     //else{
     //    DefaultPlanner::schedule_plan(limit, proposed_schedule, env);
     //}
-    schedulerTEMPLATE::schedule_plan(limit, proposed_schedule, env);
+    // schedulerILPsparse::schedule_plan(limit, proposed_schedule, env);
+    DefaultPlanner::schedule_plan(limit, proposed_schedule, env);
 }

@@ -25,11 +25,12 @@ public:
         moves[1] = cols;
         moves[2] = -1;
         moves[3] = -cols;
-
     };
 
     bool is_valid(const vector<State>& prev, const vector<Action> & action, int timestep);
-    void set_logger(Logger* logger){this->logger = logger;}
+    void set_logger(Logger* logger){
+        this->logger = logger;
+    }
 
     vector<State> result_states(const vector<State>& prev, const vector<Action> & action){
         vector<State> next(prev.size());
@@ -38,7 +39,7 @@ public:
         }
         return next;
     };
-
+    
 
 protected:
     const Grid& grid;

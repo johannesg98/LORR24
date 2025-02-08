@@ -178,13 +178,14 @@ void TaskManager::sync_shared_env(SharedEnvironment* env)
  * @param timestep the current timestep.
  */
 void TaskManager::reveal_tasks(int timestep)
-{
+{   
     new_tasks.clear(); //prepare to push all new revealed tasks to the shared environment
     while (ongoing_tasks.size() < num_tasks_reveal)
-    {
+    {   
         int i = task_id%tasks.size();
         list<int> locs = tasks[i];
         Task* task = new Task(task_id,locs,timestep);
+        
         ongoing_tasks[task->task_id] = task;
         all_tasks.push_back(task);
         new_tasks.push_back(task->task_id);         // record the new tasks

@@ -3,7 +3,7 @@
 using json = nlohmann::ordered_json;
 
 vector<State> Simulator::move(vector<Action>& actions) 
-{
+{   
     //bool move_valid = true;
     for (int k = 0; k < num_of_agents; k++)
     {
@@ -17,6 +17,8 @@ vector<State> Simulator::move(vector<Action>& actions)
             planner_movements[k].push_back(actions[k]);
         }
     }
+
+    
 
     if (!model->is_valid(curr_states, actions,timestep))
     {
@@ -33,6 +35,7 @@ vector<State> Simulator::move(vector<Action>& actions)
         actual_movements[k].push_back(actions[k]);
     }
     //return move_valid;
+
     return curr_states;
 }
 
