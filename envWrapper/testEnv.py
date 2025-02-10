@@ -11,19 +11,15 @@ import envWrapper
 env = envWrapper.LRRenv(
     inputFile="./example_problems/random.domain/random_32_32_20_200.json",
     outputFile="./outputs/pyTest.json",
-    simulationTime=10,
+    simulationTime=100,
     planTimeLimit=300,
     preprocessTimeLimit=30000
 )
 
 
 # Reset environment with optional new parameters
-env.reset()
+state, _, done = env.reset()
 
-print("reset env done py\n")
-
-# Step through the environment
-done = False
 while not done:
     # Take a step in the environment
     state, reward, done = env.step()

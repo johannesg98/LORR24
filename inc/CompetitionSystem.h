@@ -11,6 +11,11 @@
 #include <future>
 #include "Simulator.h"
 
+enum class RewardType {
+    INVALID,
+    TASKFINISHED
+};
+
 class BaseSystem
 {
 public:
@@ -77,6 +82,12 @@ public:
     //void saveSimulationIssues(const string &fileName) const;
     void saveResults(const string &fileName, int screen) const;
 
+    //new functions for RL
+    void initializeExtendedBaseSystem(int simulation_time);
+    bool step();
+    double get_reward(RewardType type);
+    
+
 
 protected:
     Grid map;
@@ -130,6 +141,9 @@ protected:
     void log_preprocessing(bool succ);
     // void log_event_assigned(int agent_id, int task_id, int timestep);
     // void log_event_finished(int agent_id, int task_id, int timestep);
+
+    //new functions for RL
+    int num_of_task_finish_last_call = 0;
 
 };
 

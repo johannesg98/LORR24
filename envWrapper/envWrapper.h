@@ -11,7 +11,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/tokenizer.hpp>
 #include "../inc/nlohmann/json.hpp"
-#include "ExtendedBaseSystem.h"
+#include "../inc/CompetitionSystem.h"
 #include "../inc/Evaluation.h"
 
 namespace po = boost::program_options;
@@ -26,7 +26,8 @@ private:
     ActionModelWithRotate* model = nullptr;
     std::optional<Grid> grid;
     std::vector<int> agents;
-    std::vector<list<int>> tasks ;
+    std::vector<list<int>> tasks;
+    RewardType rewardType;
 
     // Command-line arguments stored as class variables
     std::string inputFile;
@@ -41,7 +42,7 @@ private:
     int logDetailLevel;
 
     // Variables as in driver.cpp 
-    std::unique_ptr<ExtendedBaseSystem> system_ptr;
+    std::unique_ptr<BaseSystem> system_ptr;
 
 public:
     // Constructor with parameters
@@ -55,11 +56,12 @@ public:
         int planTimeLimit = 10000,
         int preprocessTimeLimit = 30000,
         std::string logFile = "",
-        int logDetailLevel = 1
+        int logDetailLevel = 1,
+        RewardType rewardType = RewardType::TASKFINISHED
     );
 
     // Function declarations
-    void reset(
+    std::tuple<std::vector<double>, double, bool> reset(
         std::string inputFile_ = "",
         std::string outputFile_ = "",
         int outputScreen_ = -1,
@@ -69,7 +71,8 @@ public:
         int planTimeLimit_ = -1,
         int preprocessTimeLimit_ = -1,
         std::string logFile_ = "",
-        int logDetailLevel_ = -1
+        int logDetailLevel_ = -1,
+        RewardType rewardType_ = RewardType::INVALID
     );
     std::tuple<std::vector<double>, double, bool> step();
 };
