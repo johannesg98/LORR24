@@ -7,6 +7,7 @@ std::unordered_set<int> free_agents;
 std::unordered_set<int> free_tasks;
 int tasksCounter;
 int numRevealedTasks;
+int numErrands = 0;
 
 void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
 {
@@ -33,12 +34,18 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
     if (env->curr_timestep == 0){
         numRevealedTasks = free_tasks.size();
-    }
+        for (int t_id : free_tasks){
+            int tasksize = env->task_pool[t_id].locations.size();
+            if (tasksize > numErrands){
+                numErrands = tasksize;
+            }
 
+        }
+    }
 
     // iterate over the free agents to decide which task to assign to each of them
     std::unordered_set<int>::iterator it = free_agents.begin();
-    while (it != free_agents.end() && tasksCounter < numRevealedTasks)
+    while (it != free_agents.end() && tasksCounter < numErrands * 10)
     {
         //keep assigning until timeout
         if (std::chrono::steady_clock::now() > endtime)
