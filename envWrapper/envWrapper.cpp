@@ -13,22 +13,25 @@ LRRenv::LRRenv(
     int preprocessTimeLimit,
     std::string logFile,
     int logDetailLevel,
-    RewardType rewardType
+    RewardType rewardType,
+    std::unordered_set<std::string> observationTypes
 ) 
-: done(false), step_count(0), state{0.0, 0.0}, 
+: done(false), step_count(0), 
   inputFile(inputFile), outputFile(outputFile), 
   outputScreen(outputScreen), evaluationMode(evaluationMode),
   simulationTime(simulationTime), fileStoragePath(fileStoragePath),
   planTimeLimit(planTimeLimit), preprocessTimeLimit(preprocessTimeLimit),
-  logFile(logFile), logDetailLevel(logDetailLevel), rewardType(rewardType) {
+  logFile(logFile), logDetailLevel(logDetailLevel), rewardType(rewardType),
+  observationTypes(std::move(observationTypes)) {
     std::cout << "Environment constructed" << std::endl;
 }
 
 // reset function with optional arguments to change environment
-std::tuple<std::vector<double>, double, bool> LRRenv::reset(
+std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     std::string inputFile_, std::string outputFile_, int outputScreen_,
     bool evaluationMode_, int simulationTime_, std::string fileStoragePath_,
-    int planTimeLimit_, int preprocessTimeLimit_, std::string logFile_, int logDetailLevel_, RewardType rewardType_
+    int planTimeLimit_, int preprocessTimeLimit_, std::string logFile_, int logDetailLevel_, RewardType rewardType_,
+    std::unordered_set<std::string> observationTypes_
 ) {
     std::cout << "reset started cpp" << std::endl;
 
@@ -47,6 +50,7 @@ std::tuple<std::vector<double>, double, bool> LRRenv::reset(
     if (!logFile_.empty()) logFile = logFile_;
     if (logDetailLevel_ != -1) logDetailLevel = logDetailLevel_;
     if (rewardType_ != RewardType::INVALID) rewardType = rewardType_;
+    if (!observationTypes_.count("-1")) observationTypes = observationTypes_;
 
     // create base folder as in driver.cpp
     boost::filesystem::path p(inputFile);
@@ -123,15 +127,23 @@ std::tuple<std::vector<double>, double, bool> LRRenv::reset(
     system_ptr->set_preprocess_time_limit(preprocessTimeLimit);
     system_ptr->set_num_tasks_reveal(read_param_json<float>(data, "numTasksReveal", 1));
 
+    //new functions for RL
+    if (observationTypes.count("node-basics")){
+        system_ptr->loadNodes(base_folder + read_param_json<std::string>(data, "nodeFile"));
+    }
+
     //initializes the environment as in BaseSystem::simulate
     system_ptr->initializeExtendedBaseSystem(simulationTime);
 
     //get obs,reward,done
 
-    std::cout << "reset done cpp" << std::endl;
+    
 
     double reward = 0.0;
-    return {state, reward, done};
+    pybind11::dict obs = system_ptr->get_observation(observationTypes);
+
+    std::cout << "reset done cpp" << std::endl;
+    return {obs, reward, done};
 
 
     //for this function: just try to figure out how to return the obs, reward, done, etc. from the env that is set up
@@ -144,11 +156,12 @@ std::tuple<std::vector<double>, double, bool> LRRenv::reset(
 
 }
 
-std::tuple<std::vector<double>, double, bool> LRRenv::step() {
+std::tuple<pybind11::dict, double, bool> LRRenv::step() {
 
     done = system_ptr->step();
 
     double reward = system_ptr->get_reward(RewardType::TASKFINISHED);
+    pybind11::dict obs = system_ptr->get_observation(observationTypes);
 
     if (done){
         system_ptr->saveResults(outputFile,outputScreen);
@@ -156,7 +169,7 @@ std::tuple<std::vector<double>, double, bool> LRRenv::step() {
         delete logger;
     }
 
-    return {state, reward, done};
+    return {obs, reward, done};
 }
 
 
@@ -168,7 +181,7 @@ PYBIND11_MODULE(envWrapper, m) {
         .export_values();
     pybind11::class_<LRRenv>(m, "LRRenv")
         .def(pybind11::init<
-            std::string, std::string, int, bool, int, std::string, int, int, std::string, int, RewardType>(),
+            std::string, std::string, int, bool, int, std::string, int, int, std::string, int, RewardType, std::unordered_set<std::string>>(),
             pybind11::arg("inputFile"),
             pybind11::arg("outputFile") = "./outputs/pyTest.json",
             pybind11::arg("outputScreen") = 1,
@@ -179,7 +192,9 @@ PYBIND11_MODULE(envWrapper, m) {
             pybind11::arg("preprocessTimeLimit") = 30000,
             pybind11::arg("logFile") = "",
             pybind11::arg("logDetailLevel") = 1,
-            pybind11::arg("rewardType") = RewardType::TASKFINISHED)
+            pybind11::arg("rewardType") = RewardType::TASKFINISHED,
+            pybind11::arg("observationTypes") = std::unordered_set<std::string>()
+        )
         .def("reset", &LRRenv::reset,
             pybind11::arg("inputFile_") = "",
             pybind11::arg("outputFile_") = "",
@@ -191,6 +206,8 @@ PYBIND11_MODULE(envWrapper, m) {
             pybind11::arg("preprocessTimeLimit_") = -1,
             pybind11::arg("logFile_") = "",
             pybind11::arg("logDetailLevel_") = -1,
-            pybind11::arg("rewardType_") = RewardType::INVALID)
+            pybind11::arg("rewardType_") = RewardType::INVALID,
+            pybind11::arg("observationTypes_") = std::unordered_set<std::string>{"-1"}
+        )
         .def("step", &LRRenv::step);
 }

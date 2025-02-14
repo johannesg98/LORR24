@@ -26,3 +26,17 @@ make
 
 add envWrapper to python path (not sure if necessary):
 export PYTHONPATH=/home/johannes/LORR24_johannesg98/envWrapper/build:$PYTHONPATH
+
+
+Map creation of 4x3 world:
+Go to masterarbeit/Benchmark-Archive/2023 Competition/Problem Generator
+Create Map (edit width and height according to comment in .yaml file):
+python3 ./script/warehouse_map_generator.py --config ./fulfillment_config.yaml
+Task generation:
+python3 ./script/warehouse_task_generator.py --map ./myWorld/warehouse_4x3.map  --taskNum 10000 --taskFile ./myWorld/tasks_4x3.tasks --errandNum 2
+Agent and folder creation (in tmpVenv):
+python3 ./script/benchmark_generator.py  --mapFile ./myWorld/warehouse_4x3.map  --problemName warehouse_4x3 --taskFile ./myWorld/tasks_4x3.tasks --teamSizes 100 --benchmark_folder ./4x3
+Graph nodes creation
+python3 script/createGraphNodes.py --mapFile "myWorld/warehouse_4x3.map" --outputFile "myWorld/warehouse_4x3.nodes"
+.json file: edit numTaskReveal to 1.5, remove strategy, add region line:
+"nodeFile": "nodes/warehouse_4x3.nodes"

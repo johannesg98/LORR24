@@ -11,6 +11,12 @@
 #include <future>
 #include "Simulator.h"
 
+//RL added stuff
+#include "Nodes.h"
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+
+
 enum class RewardType {
     INVALID,
     TASKFINISHED
@@ -86,6 +92,8 @@ public:
     void initializeExtendedBaseSystem(int simulation_time);
     bool step();
     double get_reward(RewardType type);
+    void loadNodes(const std::string& fname);
+    pybind11::dict get_observation(std::unordered_set<std::string>& observationTypes);
     
 
 
@@ -144,6 +152,8 @@ protected:
 
     //new functions for RL
     int num_of_task_finish_last_call = 0;
+    std::unique_ptr<Nodes> nodes;
+    
 
 };
 

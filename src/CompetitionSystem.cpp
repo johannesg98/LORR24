@@ -391,12 +391,11 @@ void BaseSystem::saveResults(const string &fileName, int screen) const
 void BaseSystem::initializeExtendedBaseSystem(int simulation_time) {
     initialize();
     this->simulation_time = simulation_time;
+    sync_shared_env();
 }
 
 bool BaseSystem::step(){
     bool done = false;
-
-    sync_shared_env();
 
     auto start = std::chrono::steady_clock::now();
 
@@ -426,6 +425,8 @@ bool BaseSystem::step(){
 
     logger->log_info("Step done.", simulator.get_curr_timestep());
 
+    sync_shared_env();
+
     return done;
 }
 
@@ -438,8 +439,47 @@ double BaseSystem::get_reward(RewardType type){
         return reward;
     }
     else{
-        std::cout << "Error: Reward type not supported." << std::endl;
+        throw std::invalid_argument("Error: Reward type not supported.");
     }
 }
 
+void BaseSystem::loadNodes(const std::string& fname){
+    nodes = std::make_unique<Nodes>(fname);
+}
+
+
+
+pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& observationTypes){
+    pybind11::dict obs;
+
+    if (observationTypes.count("node-basics")){
+
+        // agents per node
+        // free agents per node
+        std::vector<int> agents_per_node(nodes->nodes.size(), 0);
+        std::vector<int> free_agents_per_node(nodes->nodes.size(), 0);
+        for (int i=0; i < env->num_of_agents; i++){
+            int loc = env->curr_states[i].location;
+            int node = nodes->regions[loc];
+            agents_per_node[node]++;
+            if (env->curr_task_schedule[i] == -1){
+                free_agents_per_node[node]++;
+            }
+        }
+        obs["agents_per_node"] = agents_per_node;
+        obs["free_agents_per_node"] = free_agents_per_node;
+
+        // free tasks per node
+        std::vector<int> free_tasks_per_node(nodes->nodes.size(), 0);
+        for (const auto& [id, task] : env->task_pool){
+            if (task.agent_assigned == -1){
+                int node = nodes->regions[task.locations[0]];
+                free_tasks_per_node[node]++;
+            }
+        }
+        obs["free_tasks_per_node"] = free_tasks_per_node;
+    }
+
+    return obs;
+}
 

@@ -21,13 +21,13 @@ class LRRenv {
 private:
     bool done;
     int step_count;
-    std::vector<double> state;
     Logger* logger = nullptr;
     ActionModelWithRotate* model = nullptr;
     std::optional<Grid> grid;
     std::vector<int> agents;
     std::vector<list<int>> tasks;
     RewardType rewardType;
+    std::unordered_set<std::string> observationTypes;
 
     // Command-line arguments stored as class variables
     std::string inputFile;
@@ -57,11 +57,12 @@ public:
         int preprocessTimeLimit = 30000,
         std::string logFile = "",
         int logDetailLevel = 1,
-        RewardType rewardType = RewardType::TASKFINISHED
+        RewardType rewardType = RewardType::TASKFINISHED,
+        std::unordered_set<std::string> observationTypes = {}
     );
 
     // Function declarations
-    std::tuple<std::vector<double>, double, bool> reset(
+    std::tuple<pybind11::dict, double, bool> reset(
         std::string inputFile_ = "",
         std::string outputFile_ = "",
         int outputScreen_ = -1,
@@ -72,9 +73,10 @@ public:
         int preprocessTimeLimit_ = -1,
         std::string logFile_ = "",
         int logDetailLevel_ = -1,
-        RewardType rewardType_ = RewardType::INVALID
+        RewardType rewardType_ = RewardType::INVALID,
+        std::unordered_set<std::string> observationTypes_ = {"-1"}
     );
-    std::tuple<std::vector<double>, double, bool> step();
+    std::tuple<pybind11::dict, double, bool> step();
 };
 
 #endif // LRR_ENV_H
