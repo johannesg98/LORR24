@@ -77,6 +77,12 @@ public:
         std::unordered_set<std::string> observationTypes_ = {"-1"}
     );
     std::tuple<pybind11::dict, double, bool> step();
+    void make_env_params_available();
+    int nNodes = -1;
+    int nAgents = -1;
+    int nTasks = -1;
+    std::vector<std::vector<int>> AdjacencyMatrix;
+    std::vector<std::vector<int>> NodeCostMatrix;
 };
 
 #endif // LRR_ENV_H

@@ -5,6 +5,8 @@
 #include "nlohmann/json.hpp"
 #include <functional>
 #include <Logger.h>
+#include <heuristics.h>
+
 
 using json = nlohmann::ordered_json;
 
@@ -443,8 +445,9 @@ double BaseSystem::get_reward(RewardType type){
     }
 }
 
-void BaseSystem::loadNodes(const std::string& fname){
+int BaseSystem::loadNodes(const std::string& fname){
     nodes = std::make_unique<Nodes>(fname);
+    return nodes->nNodes;
 }
 
 
@@ -456,8 +459,8 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
 
         // agents per node
         // free agents per node
-        std::vector<int> agents_per_node(nodes->nodes.size(), 0);
-        std::vector<int> free_agents_per_node(nodes->nodes.size(), 0);
+        std::vector<int> agents_per_node(nodes->nNodes, 0);
+        std::vector<int> free_agents_per_node(nodes->nNodes, 0);
         for (int i=0; i < env->num_of_agents; i++){
             int loc = env->curr_states[i].location;
             int node = nodes->regions[loc];
@@ -470,7 +473,7 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
         obs["free_agents_per_node"] = free_agents_per_node;
 
         // free tasks per node
-        std::vector<int> free_tasks_per_node(nodes->nodes.size(), 0);
+        std::vector<int> free_tasks_per_node(nodes->nNodes, 0);
         for (const auto& [id, task] : env->task_pool){
             if (task.agent_assigned == -1){
                 int node = nodes->regions[task.locations[0]];
@@ -481,5 +484,24 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
     }
 
     return obs;
+}
+
+std::tuple<int,int,std::vector<std::vector<int>>,std::vector<std::vector<int>>> BaseSystem::get_env_vals(){
+    int max_num_agents = env->num_of_agents;
+    int max_num_tasks = env->task_pool.size();
+    std::vector<std::vector<int>> AdjacencyMatrix = nodes->AdjacencyMatrix;
+
+    // rebalancing optimizer cost matrix
+    std::vector<std::vector<int>> NodeCostMatrix;
+    NodeCostMatrix.resize(nodes->nNodes,std::vector<int>(nodes->nNodes,0));
+    for (int i=0; i<nodes->nNodes; i++){
+        int start_loc = nodes->nodes[i];
+        for (int j=0; j<nodes->nNodes; j++){
+            int target_loc = nodes->nodes[j];
+            NodeCostMatrix[i][j] = DefaultPlanner::get_h(env, start_loc, target_loc);
+        }
+    }
+
+    return {max_num_agents, max_num_tasks, AdjacencyMatrix, NodeCostMatrix};
 }
 

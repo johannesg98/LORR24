@@ -23,6 +23,39 @@ LRRenv::LRRenv(
   planTimeLimit(planTimeLimit), preprocessTimeLimit(preprocessTimeLimit),
   logFile(logFile), logDetailLevel(logDetailLevel), rewardType(rewardType),
   observationTypes(std::move(observationTypes)) {
+
+    // //load already here to get nNodes
+    // if (this->observationTypes.count("node-basics")){
+    //     auto input_json_file = inputFile;
+    //     json data;
+    //     std::ifstream f(input_json_file);
+    //     try{
+    //         data = json::parse(f);
+    //     }
+    //     catch (json::parse_error error){
+    //         std::cerr << "Failed to load " << input_json_file << std::endl;
+    //         std::cerr << "Message: " << error.what() << std::endl;
+    //         exit(1);
+    //     }
+    //     boost::filesystem::path p(inputFile);
+    //     boost::filesystem::path dir = p.parent_path();
+    //     std::string base_folder = dir.string();
+    //     if (base_folder.size() > 0 && base_folder.back() != '/'){
+    //         base_folder += "/";
+    //     }
+    //     std::string fname = base_folder + read_param_json<std::string>(data, "nodeFile");
+    //     std::ifstream myfile(fname.c_str());
+    //     if (!myfile.is_open()) {
+    //         std::cout << "Node file " << fname << " does not exist." << std::endl;
+    //         exit(-1);
+    //     }
+
+    //     std::string dummy;
+    //     myfile >> dummy >> dummy >> dummy >> dummy >> dummy >> nNodes;
+    // }
+
+    reset();
+
     std::cout << "Environment constructed" << std::endl;
 }
 
@@ -129,11 +162,15 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
 
     //new functions for RL
     if (observationTypes.count("node-basics")){
-        system_ptr->loadNodes(base_folder + read_param_json<std::string>(data, "nodeFile"));
+        nNodes = system_ptr->loadNodes(base_folder + read_param_json<std::string>(data, "nodeFile"));
     }
 
     //initializes the environment as in BaseSystem::simulate
     system_ptr->initializeExtendedBaseSystem(simulationTime);
+
+    
+
+
 
     //get obs,reward,done
 
@@ -170,6 +207,14 @@ std::tuple<pybind11::dict, double, bool> LRRenv::step() {
     }
 
     return {obs, reward, done};
+}
+
+void LRRenv::make_env_params_available(){
+    reset();
+    std::tie(nAgents, nTasks, AdjacencyMatrix, NodeCostMatrix) = system_ptr->get_env_vals();
+
+
+    return;
 }
 
 
@@ -209,5 +254,11 @@ PYBIND11_MODULE(envWrapper, m) {
             pybind11::arg("rewardType_") = RewardType::INVALID,
             pybind11::arg("observationTypes_") = std::unordered_set<std::string>{"-1"}
         )
-        .def("step", &LRRenv::step);
+        .def("step", &LRRenv::step)
+        .def("make_env_params_available", &LRRenv::make_env_params_available)
+        .def_readwrite("nNodes", &LRRenv::nNodes)
+        .def_readwrite("nAgents", &LRRenv::nAgents)
+        .def_readwrite("nTasks", &LRRenv::nTasks)
+        .def_readwrite("AdjacencyMatrix", &LRRenv::AdjacencyMatrix)
+        .def_readwrite("NodeCostMatrix", &LRRenv::NodeCostMatrix);
 }

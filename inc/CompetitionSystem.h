@@ -92,8 +92,10 @@ public:
     void initializeExtendedBaseSystem(int simulation_time);
     bool step();
     double get_reward(RewardType type);
-    void loadNodes(const std::string& fname);
+    int loadNodes(const std::string& fname);
     pybind11::dict get_observation(std::unordered_set<std::string>& observationTypes);
+    std::tuple<int,int,std::vector<std::vector<int>>,std::vector<std::vector<int>>> get_env_vals();
+
     
 
 
@@ -153,6 +155,7 @@ protected:
     //new functions for RL
     int num_of_task_finish_last_call = 0;
     std::unique_ptr<Nodes> nodes;
+    
     
 
 };
