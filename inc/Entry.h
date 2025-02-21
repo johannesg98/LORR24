@@ -5,6 +5,9 @@
 #include "MAPFPlanner.h"
 #include "TaskScheduler.h"
 
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+
 
 class Entry
 {
@@ -30,7 +33,7 @@ public:
     virtual void initialize(int preprocess_time_limit);
 
     // return next actions and the proposed task schedule for all agents
-    virtual void compute(int time_limit, std::vector<Action> & plan, std::vector<int> & proposed_schedule);
+    virtual void compute(int time_limit, std::vector<Action> & plan, std::vector<int> & proposed_schedule, const std::unordered_map<std::string, pybind11::object>& action_dict = {});
 
     void update_goal_locations(std::vector<int> & proposed_schedule);
 };

@@ -1,6 +1,6 @@
+cmake_minimum_required(VERSION 3.16)
 project(lifelong)
 
-cmake_minimum_required(VERSION 3.16)
 set(CMAKE_CXX_STANDARD 17)
 
 # Set the default value of PYTHON to false
@@ -48,6 +48,9 @@ find_package( Boost 1.49.0 REQUIRED COMPONENTS program_options system filesystem
 include_directories( ${Boost_INCLUDE_DIRS} )
 
 
+
+
+
 IF(PYTHON)
     message(STATUS "Python support is enabled")
 
@@ -78,12 +81,17 @@ IF(PYTHON)
 
 ELSE()
     message(STATUS "Python support is disabled")
-    
+
+    #copied to IF(PYTHON) to here because always needed after for envWrapper
+    find_package(pybind11 REQUIRED)
 
     add_executable(lifelong ${SOURCES} )
-    target_link_libraries(lifelong ${Boost_LIBRARIES})
-    target_link_libraries(lifelong ortools absl_base absl_strings)
+    target_link_libraries(lifelong PRIVATE ${Boost_LIBRARIES})
+    target_link_libraries(lifelong PRIVATE ortools absl_base absl_strings)
     target_compile_definitions(lifelong PRIVATE PYTHON=${PYTHON_FLAG})
+
+    #copied to IF(PYTHON) to here because always needed after for envWrapper
+    target_link_libraries(lifelong PRIVATE pybind11::embed ${Boost_LIBRARIES})
 ENDIF()
 
 

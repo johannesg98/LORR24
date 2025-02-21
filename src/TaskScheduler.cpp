@@ -3,6 +3,7 @@
 #include "schedulerILP.h"
 #include "schedulerILPsparse.h"
 #include "schedulerTEMPLATE.h"
+#include "schedulerRL.h"
 #include "scheduler.h"
 #include "const.h"
 
@@ -21,13 +22,8 @@ void TaskScheduler::initialize(int preprocess_time_limit)
     //give at most half of the entry time_limit to scheduler;
     //-SCHEDULER_TIMELIMIT_TOLERANCE for timing error tolerance
     int limit = preprocess_time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
-    // if (env->num_of_agents <= 4000){
-    //    schedulerILPsparse::schedule_initialize(limit, env);    
-    //}
-    //else{
-    //    DefaultPlanner::schedule_initialize(limit, env);
-    //}
-    // schedulerILPsparse::schedule_initialize(limit, env);  
+    
+    schedulerRL::schedule_initialize(limit, env);
     DefaultPlanner::schedule_initialize(limit, env);
 }
 
@@ -41,17 +37,16 @@ void TaskScheduler::initialize(int preprocess_time_limit)
  * @param proposed_schedule A reference to a vector that will be populated with the proposed schedule (next task id for each agent).
  */
 
-void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule)
+void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, const std::unordered_map<std::string, pybind11::object>& action_dict)
 {
     //give at most half of the entry time_limit to scheduler;
     //-SCHEDULER_TIMELIMIT_TOLERANCE for timing error tolerance
     int limit = time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
-    //if (env->num_of_agents <= 4000){
-    //    schedulerILPsparse::schedule_plan(limit, proposed_schedule, env);
-    //}
-    //else{
-    //    DefaultPlanner::schedule_plan(limit, proposed_schedule, env);
-    //}
-    // schedulerILPsparse::schedule_plan(limit, proposed_schedule, env);
-    DefaultPlanner::schedule_plan(limit, proposed_schedule, env);
+    
+    if(action_dict.empty()){
+        DefaultPlanner::schedule_plan(limit, proposed_schedule, env);
+    }
+    else{
+        schedulerRL::schedule_plan(limit, proposed_schedule, env, action_dict);
+    }
 }

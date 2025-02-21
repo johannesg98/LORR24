@@ -76,7 +76,7 @@ public:
         RewardType rewardType_ = RewardType::INVALID,
         std::unordered_set<std::string> observationTypes_ = {"-1"}
     );
-    std::tuple<pybind11::dict, double, bool> step();
+    std::tuple<pybind11::dict, double, bool> step(const std::unordered_map<std::string, pybind11::object>& action_dict = {});
     void make_env_params_available();
     int nNodes = -1;
     int nAgents = -1;

@@ -1,5 +1,5 @@
-#ifndef SCHEDULERPRE
-#define SCHEDULERPRE
+#ifndef SCHEDULERTEMPLATE
+#define SCHEDULERTEMPLATE
 
 #include "Types.h"
 #include "SharedEnv.h"

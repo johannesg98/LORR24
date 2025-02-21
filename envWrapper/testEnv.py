@@ -17,9 +17,6 @@ env = envWrapper.LRRenv(
     observationTypes={"node-basics"}
 )
 env.make_env_params_available()
-print(f"VOR RESET nNodes: {env.nNodes}, nAgents: {env.nAgents}, nTasks: {env.nTasks}")
-print("Node Cost Matrix: ")
-print(env.NodeCostMatrix)
 
 # Reset environment with optional new parameters
 obs, reward, done = env.reset()
@@ -29,6 +26,7 @@ print(f"Reward: {reward}, Done: {done}")
 print(f"Free agents: {obs["free_agents_per_node"]}")
 print(f"Free tasks: {obs["free_tasks_per_node"]}")
 print(f"nNodes: {env.nNodes}, nAgents: {env.nAgents}, nTasks: {env.nTasks}")
+
 
 #//obs = env.get_observation().to_py_dict()
 #oder: obs = env.get_observation() aber kp muss eh aus reset rausgeholt werden
@@ -40,6 +38,5 @@ while not done:
     print(f"Reward: {reward}, Done: {done}")
     print(f"Free agents: {obs["free_agents_per_node"]}")
     print(f"Free tasks: {obs["free_tasks_per_node"]}")
-    print(f"Type of free agents: {type(obs["free_agents_per_node"])}")
 
 print("Simulation complete.")

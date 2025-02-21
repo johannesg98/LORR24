@@ -3,69 +3,33 @@
 
 // constructor
 LRRenv::LRRenv(
-    std::string inputFile,
-    std::string outputFile,
-    int outputScreen,
-    bool evaluationMode,
-    int simulationTime,
-    std::string fileStoragePath,
-    int planTimeLimit,
-    int preprocessTimeLimit,
-    std::string logFile,
-    int logDetailLevel,
-    RewardType rewardType,
-    std::unordered_set<std::string> observationTypes
-) 
-: done(false), step_count(0), 
-  inputFile(inputFile), outputFile(outputFile), 
-  outputScreen(outputScreen), evaluationMode(evaluationMode),
-  simulationTime(simulationTime), fileStoragePath(fileStoragePath),
-  planTimeLimit(planTimeLimit), preprocessTimeLimit(preprocessTimeLimit),
-  logFile(logFile), logDetailLevel(logDetailLevel), rewardType(rewardType),
-  observationTypes(std::move(observationTypes)) {
-
-    // //load already here to get nNodes
-    // if (this->observationTypes.count("node-basics")){
-    //     auto input_json_file = inputFile;
-    //     json data;
-    //     std::ifstream f(input_json_file);
-    //     try{
-    //         data = json::parse(f);
-    //     }
-    //     catch (json::parse_error error){
-    //         std::cerr << "Failed to load " << input_json_file << std::endl;
-    //         std::cerr << "Message: " << error.what() << std::endl;
-    //         exit(1);
-    //     }
-    //     boost::filesystem::path p(inputFile);
-    //     boost::filesystem::path dir = p.parent_path();
-    //     std::string base_folder = dir.string();
-    //     if (base_folder.size() > 0 && base_folder.back() != '/'){
-    //         base_folder += "/";
-    //     }
-    //     std::string fname = base_folder + read_param_json<std::string>(data, "nodeFile");
-    //     std::ifstream myfile(fname.c_str());
-    //     if (!myfile.is_open()) {
-    //         std::cout << "Node file " << fname << " does not exist." << std::endl;
-    //         exit(-1);
-    //     }
-
-    //     std::string dummy;
-    //     myfile >> dummy >> dummy >> dummy >> dummy >> dummy >> nNodes;
-    // }
-
-    reset();
-
+                std::string inputFile,
+                std::string outputFile,
+                int outputScreen,
+                bool evaluationMode,
+                int simulationTime,
+                std::string fileStoragePath,
+                int planTimeLimit,
+                int preprocessTimeLimit,
+                std::string logFile,
+                int logDetailLevel,
+                RewardType rewardType,
+                std::unordered_set<std::string> observationTypes
+                ) 
+                : done(false), step_count(0), inputFile(inputFile), outputFile(outputFile), outputScreen(outputScreen), evaluationMode(evaluationMode),
+                simulationTime(simulationTime), fileStoragePath(fileStoragePath), planTimeLimit(planTimeLimit), preprocessTimeLimit(preprocessTimeLimit),
+                logFile(logFile), logDetailLevel(logDetailLevel), rewardType(rewardType), observationTypes(std::move(observationTypes))
+{
     std::cout << "Environment constructed" << std::endl;
 }
 
 // reset function with optional arguments to change environment
 std::tuple<pybind11::dict, double, bool> LRRenv::reset(
-    std::string inputFile_, std::string outputFile_, int outputScreen_,
-    bool evaluationMode_, int simulationTime_, std::string fileStoragePath_,
-    int planTimeLimit_, int preprocessTimeLimit_, std::string logFile_, int logDetailLevel_, RewardType rewardType_,
-    std::unordered_set<std::string> observationTypes_
-) {
+                                                        std::string inputFile_, std::string outputFile_, int outputScreen_,
+                                                        bool evaluationMode_, int simulationTime_, std::string fileStoragePath_,
+                                                        int planTimeLimit_, int preprocessTimeLimit_, std::string logFile_, int logDetailLevel_, RewardType rewardType_,
+                                                        std::unordered_set<std::string> observationTypes_)
+{
     std::cout << "reset started cpp" << std::endl;
 
     done = false;
@@ -168,34 +132,17 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     //initializes the environment as in BaseSystem::simulate
     system_ptr->initializeExtendedBaseSystem(simulationTime);
 
-    
-
-
-
-    //get obs,reward,done
-
-    
 
     double reward = 0.0;
     pybind11::dict obs = system_ptr->get_observation(observationTypes);
 
     std::cout << "reset done cpp" << std::endl;
     return {obs, reward, done};
-
-
-    //for this function: just try to figure out how to return the obs, reward, done, etc. from the env that is set up
-    //maybe do it in initialize if not accessable otherwise
-
-    //in step: just put sync_shared_env(); and planner->compute()  and then the move stuff from simulate for loop.
-    // most other things can probably be ignored. Especially keep "started" just always false (default), then it probably works
-
-    //dunno if we need to close something in the end. Just look what simulate() and driver.cpp do afterwards
-
 }
 
-std::tuple<pybind11::dict, double, bool> LRRenv::step() {
 
-    done = system_ptr->step();
+std::tuple<pybind11::dict, double, bool> LRRenv::step(const std::unordered_map<std::string, pybind11::object>& action_dict) {
+    done = system_ptr->step(action_dict);
 
     double reward = system_ptr->get_reward(RewardType::TASKFINISHED);
     pybind11::dict obs = system_ptr->get_observation(observationTypes);
@@ -209,11 +156,10 @@ std::tuple<pybind11::dict, double, bool> LRRenv::step() {
     return {obs, reward, done};
 }
 
+
 void LRRenv::make_env_params_available(){
     reset();
     std::tie(nAgents, nTasks, AdjacencyMatrix, NodeCostMatrix) = system_ptr->get_env_vals();
-
-
     return;
 }
 
@@ -254,7 +200,8 @@ PYBIND11_MODULE(envWrapper, m) {
             pybind11::arg("rewardType_") = RewardType::INVALID,
             pybind11::arg("observationTypes_") = std::unordered_set<std::string>{"-1"}
         )
-        .def("step", &LRRenv::step)
+        .def("step", &LRRenv::step, 
+            pybind11::arg("reb_action") = pybind11::dict())   
         .def("make_env_params_available", &LRRenv::make_env_params_available)
         .def_readwrite("nNodes", &LRRenv::nNodes)
         .def_readwrite("nAgents", &LRRenv::nAgents)

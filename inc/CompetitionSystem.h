@@ -12,7 +12,6 @@
 #include "Simulator.h"
 
 //RL added stuff
-#include "Nodes.h"
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
@@ -90,7 +89,7 @@ public:
 
     //new functions for RL
     void initializeExtendedBaseSystem(int simulation_time);
-    bool step();
+    bool step(const std::unordered_map<std::string, pybind11::object>& action_dict = {});
     double get_reward(RewardType type);
     int loadNodes(const std::string& fname);
     pybind11::dict get_observation(std::unordered_set<std::string>& observationTypes);
@@ -154,7 +153,6 @@ protected:
 
     //new functions for RL
     int num_of_task_finish_last_call = 0;
-    std::unique_ptr<Nodes> nodes;
     
     
 
