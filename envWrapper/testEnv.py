@@ -26,12 +26,6 @@ for i in range(number_of_runs):
     this_reward = 0
     # Reset environment with optional new parameters
     obs, reward, done = env.reset()
-    # env.step()
-    # env.step()
-    # env.step()
-    # env.step()
-    # env.step()
-    # obs, reward, done = env.reset()
 
     print("RESET PYTHON")
     print(f"Reward: {reward}, Done: {done}")
@@ -39,9 +33,6 @@ for i in range(number_of_runs):
     print(f"Free tasks: {obs["free_tasks_per_node"]}")
     print(f"nNodes: {env.nNodes}, nAgents: {env.nAgents}, nTasks: {env.nTasks}")
 
-
-    #//obs = env.get_observation().to_py_dict()
-    #oder: obs = env.get_observation() aber kp muss eh aus reset rausgeholt werden
 
     while not done:
         # Take a step in the environment

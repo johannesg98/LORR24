@@ -30,8 +30,6 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
                                                         int planTimeLimit_, int preprocessTimeLimit_, std::string logFile_, int logDetailLevel_, RewardType rewardType_,
                                                         std::unordered_set<std::string> observationTypes_)
 {   
-    schedulerRL::reset_globals();
-
     std::cout << "reset started cpp" << std::endl;
 
     done = false;

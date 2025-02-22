@@ -12,26 +12,8 @@
 #include "planner.h"
 #include "search.h"
 
-// namespace DefaultPlanner{
-//     extern std::vector<int> decision; 
-//     extern std::vector<int> prev_decision;
-//     extern std::vector<double> p;
-//     extern std::vector<State> prev_states;
-//     extern std::vector<State> next_states;
-//     extern std::vector<int> ids;
-//     extern std::vector<double> p_copy;
-//     extern std::vector<bool> occupied;
-//     extern std::vector<DCR> decided;
-//     extern std::vector<bool> checked;
-//     extern std::vector<bool> require_guide_path;
-//     extern std::vector<int> dummy_goals;
-//     extern TrajLNS trajLNS;
-//     extern std::vector<double> t;
-// }
 
 namespace schedulerRL{
-
-void reset_globals();
 
 void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env);
 

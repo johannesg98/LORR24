@@ -6,36 +6,12 @@ std::mt19937 mt;
 std::unordered_set<int> free_agents;
 std::unordered_set<int> free_tasks;
 
-void reset_globals() {
-    free_agents.clear();
-    free_tasks.clear();
-    DefaultPlanner::global_heuristictable.clear();
-    DefaultPlanner::global_neighbors.clear();
-
-    // DefaultPlanner::decision.clear();
-    // DefaultPlanner::prev_decision.clear();
-    // DefaultPlanner::p.clear();
-    // DefaultPlanner::prev_states.clear();
-    // DefaultPlanner::next_states.clear();
-    // DefaultPlanner::ids.clear();
-    // DefaultPlanner::p_copy.clear();
-    // DefaultPlanner::occupied.clear();
-    // DefaultPlanner::decided.clear();
-    // DefaultPlanner::checked.clear();
-    // DefaultPlanner::require_guide_path.clear();
-    // DefaultPlanner::dummy_goals.clear();
-    // DefaultPlanner::trajLNS = DefaultPlanner::TrajLNS();
-    // DefaultPlanner::t.clear();
-
-    DefaultPlanner::reset_planner();
-
-
-    std::cout << "reset globals done" << std::endl;
-    return;
-}
 
 void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
-{
+{   
+    free_agents.clear();
+    free_tasks.clear();
+
     // cout<<"schedule initialise limit" << preprocess_time_limit<<endl;
     DefaultPlanner::init_heuristics(env);
     mt.seed(0);
