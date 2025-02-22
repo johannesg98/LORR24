@@ -6,6 +6,34 @@ std::mt19937 mt;
 std::unordered_set<int> free_agents;
 std::unordered_set<int> free_tasks;
 
+void reset_globals() {
+    free_agents.clear();
+    free_tasks.clear();
+    DefaultPlanner::global_heuristictable.clear();
+    DefaultPlanner::global_neighbors.clear();
+
+    // DefaultPlanner::decision.clear();
+    // DefaultPlanner::prev_decision.clear();
+    // DefaultPlanner::p.clear();
+    // DefaultPlanner::prev_states.clear();
+    // DefaultPlanner::next_states.clear();
+    // DefaultPlanner::ids.clear();
+    // DefaultPlanner::p_copy.clear();
+    // DefaultPlanner::occupied.clear();
+    // DefaultPlanner::decided.clear();
+    // DefaultPlanner::checked.clear();
+    // DefaultPlanner::require_guide_path.clear();
+    // DefaultPlanner::dummy_goals.clear();
+    // DefaultPlanner::trajLNS = DefaultPlanner::TrajLNS();
+    // DefaultPlanner::t.clear();
+
+    DefaultPlanner::reset_planner();
+
+
+    std::cout << "reset globals done" << std::endl;
+    return;
+}
+
 void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
 {
     // cout<<"schedule initialise limit" << preprocess_time_limit<<endl;
@@ -30,25 +58,25 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     count = 0;
 
     
-    std::unordered_map<pair<int,int>, int> reb_action = action_dict.at("reb_action").cast<std::unordered_map<pair<int,int>, int>>();
+    std::map<pair<int,int>, int> reb_action = action_dict.at("reb_action").cast<std::map<pair<int,int>, int>>();
 
     // create a list of tasks per node
-    std::vector<std::vector<int>> tasks_per_node(env->nNodes);
-    for (int task_id = 0; task_id < env->nTasks; task_id++){
+    std::vector<std::vector<int>> tasks_per_node(env->nodes->nNodes);
+    for (int task_id = 0; task_id < env->task_pool.size(); task_id++){
         task_loc = env->task_pool[task_id].locations[0];
-        node_id = env->nodes.regions[task_loc];
+        node_id = env->nodes->regions[task_loc];
         tasks_per_node[node_id].push_back(task_id);
     }
-    std::vector<std::vector<int>> free_agents_per_node(env->nNodes);
+    std::vector<std::vector<int>> free_agents_per_node(env->nodes->nNodes);
     for (int agent_id : free_agents){
         agent_loc = env->curr_states[agent_id].location;
-        node_id = env->nodes.regions[agent_loc];
+        node_id = env->nodes->regions[agent_loc];
         free_agents_per_node[node_id].push_back(agent_id);
     }
     bool timeout = false;
-    for (int goal_node = 0; goal_node < env->nNodes && !timeout; goal_node++){
+    for (int goal_node = 0; goal_node < env->nodes->nNodes && !timeout; goal_node++){
         std::vector<int> start_nodes;
-        for (int start_node = 0; start_node < env->nNodes; start_node++){
+        for (int start_node = 0; start_node < env->nodes->nNodes; start_node++){
             if (start_node != goal_node){
                 if(reb_action[{start_node, goal_node}] == 1){
                     start_nodes.push_back(start_node);

@@ -24,6 +24,24 @@ namespace DefaultPlanner{
     TrajLNS trajLNS;
     std::mt19937 mt1;
 
+    void reset_planner(){
+        decision.clear();
+        prev_decision.clear();
+        p.clear();
+        prev_states.clear();
+        next_states.clear();
+        ids.clear();
+        p_copy.clear();
+        occupied.clear();
+        decided.clear();
+        checked.clear();
+        require_guide_path.clear();
+        dummy_goals.clear();
+        // trajLNS.clear();
+        return;
+        
+    }
+
     /**
      * @brief Default planner initialization
      * 

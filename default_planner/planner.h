@@ -8,6 +8,7 @@
 
 namespace DefaultPlanner{
 
+    void reset_planner();
     
     void initialize(int preprocess_time_limit, SharedEnvironment* env);
 

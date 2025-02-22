@@ -9,7 +9,10 @@ std::unordered_set<int> free_agents;
 std::vector<int> free_tasks;
 
 void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
-{   
+{       
+    free_agents.clear();
+    free_tasks.clear();
+    
     std::cout << "preprocessing started" << std::endl;
     auto now = std::chrono::high_resolution_clock::now();
 

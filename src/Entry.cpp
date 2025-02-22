@@ -19,7 +19,7 @@ void Entry::initialize(int preprocess_time_limit)
 //  2. a next action that specifies how each agent should move in the next timestep.
 //NB: the parameter time_limit is specified in milliseconds.
 void Entry::compute(int time_limit, std::vector<Action> & plan, std::vector<int> & proposed_schedule, const std::unordered_map<std::string, pybind11::object>& action_dict)
-{
+{   
     //call the task scheduler to assign tasks to agents
     scheduler->plan(time_limit,proposed_schedule, action_dict);
 
@@ -33,7 +33,7 @@ void Entry::compute(int time_limit, std::vector<Action> & plan, std::vector<int>
 
 // Set the next goal locations for each agent based on the proposed schedule
 void Entry::update_goal_locations(std::vector<int> & proposed_schedule)
-{
+{   
     // record the proposed schedule so that we can tell the planner
     env->curr_task_schedule = proposed_schedule;
 
@@ -42,11 +42,13 @@ void Entry::update_goal_locations(std::vector<int> & proposed_schedule)
     {
         env->goal_locations[i].clear();
         int t_id = proposed_schedule[i];
+       
         if (t_id == -1)
             continue;
 
-        int i_loc = env->task_pool[t_id].idx_next_loc;
+        int i_loc = env->task_pool[t_id].idx_next_loc;        
         env->goal_locations[i].push_back({env->task_pool[t_id].locations.at(i_loc), env->task_pool[t_id].t_revealed});
     }
+
     return;
 }

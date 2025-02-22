@@ -29,7 +29,9 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
                                                         bool evaluationMode_, int simulationTime_, std::string fileStoragePath_,
                                                         int planTimeLimit_, int preprocessTimeLimit_, std::string logFile_, int logDetailLevel_, RewardType rewardType_,
                                                         std::unordered_set<std::string> observationTypes_)
-{
+{   
+    schedulerRL::reset_globals();
+
     std::cout << "reset started cpp" << std::endl;
 
     done = false;
@@ -144,6 +146,7 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
 std::tuple<pybind11::dict, double, bool> LRRenv::step(const std::unordered_map<std::string, pybind11::object>& action_dict) {
     done = system_ptr->step(action_dict);
 
+
     double reward = system_ptr->get_reward(RewardType::TASKFINISHED);
     pybind11::dict obs = system_ptr->get_observation(observationTypes);
 
@@ -151,6 +154,7 @@ std::tuple<pybind11::dict, double, bool> LRRenv::step(const std::unordered_map<s
         system_ptr->saveResults(outputFile,outputScreen);
         delete model;
         delete logger;
+        std::cout << "Environment closed" << std::endl;
     }
 
     return {obs, reward, done};

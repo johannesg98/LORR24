@@ -215,9 +215,11 @@ void BaseSystem::initialize()
         _exit(124);
 
     // initialize_goal_locations();
+
     task_manager.reveal_tasks(timestep); //this also intialize env->new_tasks
 
     sync_shared_env();
+
 
     solution_costs.resize(num_of_agents);
     for (int a = 0; a < num_of_agents; a++)
@@ -405,15 +407,12 @@ bool BaseSystem::step(const std::unordered_map<std::string, pybind11::object>& a
 
     planner->compute(plan_time_limit, proposed_actions, proposed_schedule, action_dict);
 
-    
-
     auto end = std::chrono::steady_clock::now();
     auto diff = end-start;
     planner_times.push_back(std::chrono::duration<double>(diff).count());
 
-    if (simulator.get_curr_timestep() >= simulation_time){
+    if (simulator.get_curr_timestep() == simulation_time){
         done = true;
-        done;
     }
 
     for (int a = 0; a < num_of_agents; a++){
@@ -428,6 +427,7 @@ bool BaseSystem::step(const std::unordered_map<std::string, pybind11::object>& a
     logger->log_info("Step done.", simulator.get_curr_timestep());
 
     sync_shared_env();
+
 
     return done;
 }

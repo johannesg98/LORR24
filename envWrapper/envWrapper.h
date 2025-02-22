@@ -13,6 +13,7 @@
 #include "../inc/nlohmann/json.hpp"
 #include "../inc/CompetitionSystem.h"
 #include "../inc/Evaluation.h"
+#include "../my_scheduler/schedulerRL.h"
 
 namespace po = boost::program_options;
 using json = nlohmann::json;
