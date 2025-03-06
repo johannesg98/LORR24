@@ -1,0 +1,8 @@
+{
+    "mapFile": "maps/warehouse_1x1.map",
+    "agentFile": "agents/warehouse_1x1_100.agents",
+    "teamSize": 1,
+    "taskFile": "tasks/tasks_1x1.tasks",
+    "numTasksReveal": 1,
+    "nodeFile": "nodes/warehouse_1x1_centered.nodes"
+}

@@ -120,12 +120,12 @@ class EnforcementPropagator : public SatPropagator {
   // All enforcement will be copied there, and we will create Span out of this.
   // Note that we don't store the span so that we are not invalidated on buffer_
   // resizing.
-  util_intops::StrongVector<EnforcementId, int> starts_;
+  absl::StrongVector<EnforcementId, int> starts_;
   std::vector<Literal> buffer_;
 
-  util_intops::StrongVector<EnforcementId, EnforcementStatus> statuses_;
-  util_intops::StrongVector<
-      EnforcementId, std::function<void(EnforcementId, EnforcementStatus)>>
+  absl::StrongVector<EnforcementId, EnforcementStatus> statuses_;
+  absl::StrongVector<EnforcementId,
+                     std::function<void(EnforcementId, EnforcementStatus)>>
       callbacks_;
 
   // Used to restore status and call callback on untrail.
@@ -134,7 +134,7 @@ class EnforcementPropagator : public SatPropagator {
   int64_t rev_stamp_ = 0;
 
   // We use a two watcher scheme.
-  util_intops::StrongVector<LiteralIndex, absl::InlinedVector<EnforcementId, 6>>
+  absl::StrongVector<LiteralIndex, absl::InlinedVector<EnforcementId, 6>>
       watcher_;
 
   std::vector<Literal> temp_literals_;
@@ -279,9 +279,9 @@ class ConstraintPropagationOrder {
   // For each variable we only keep the constraint id that pushes it further.
   // In case of tie, we only keep the first to be registered.
   Bitset64<IntegerVariable> var_has_entry_;
-  util_intops::StrongVector<IntegerVariable, int> var_to_id_;
-  util_intops::StrongVector<IntegerVariable, IntegerValue> var_to_lb_;
-  util_intops::StrongVector<IntegerVariable, int> var_to_pos_;
+  absl::StrongVector<IntegerVariable, int> var_to_id_;
+  absl::StrongVector<IntegerVariable, IntegerValue> var_to_lb_;
+  absl::StrongVector<IntegerVariable, int> var_to_pos_;
   std::vector<IntegerVariable> to_clear_;
 
   // Set/queue of constraints to be propagated.
@@ -297,9 +297,7 @@ class ConstraintPropagationOrder {
 // - Lack detection and propagation of at least one of these linear is true
 //   which can be used to propagate more bound if a variable appear in all these
 //   constraint.
-class LinearPropagator : public PropagatorInterface,
-                         ReversibleInterface,
-                         LazyReasonInterface {
+class LinearPropagator : public PropagatorInterface, ReversibleInterface {
  public:
   explicit LinearPropagator(Model* model);
   ~LinearPropagator() override;
@@ -315,12 +313,6 @@ class LinearPropagator : public PropagatorInterface,
                      absl::Span<const IntegerValue> coeffs,
                      IntegerValue upper_bound);
 
-  // For LazyReasonInterface.
-  void Explain(int id, IntegerValue propagation_slack,
-               IntegerVariable var_to_explain, int trail_index,
-               std::vector<Literal>* literals_reason,
-               std::vector<int>* trail_indices_reason) final;
-
  private:
   // We try to pack the struct as much as possible. Using a maximum size of
   // 1 << 29 should be okay since we split long constraint anyway. Technically
@@ -331,8 +323,7 @@ class LinearPropagator : public PropagatorInterface,
   // initial size and enf_id that are only needed when we push something.
   struct ConstraintInfo {
     unsigned int enf_status : 2;
-    // With Visual Studio or minGW, using bool here breaks the struct packing.
-    unsigned int all_coeffs_are_one : 1;
+    bool all_coeffs_are_one : 1;
     unsigned int initial_size : 29;  // Const. The size including all terms.
 
     EnforcementId enf_id;  // Const. The id in enforcement_propagator_.
@@ -341,8 +332,10 @@ class LinearPropagator : public PropagatorInterface,
     IntegerValue rev_rhs;  // The current rhs, updated on fixed terms.
   };
 
+#if !defined(_MSC_VER)
   static_assert(sizeof(ConstraintInfo) == 24,
                 "ERROR_ConstraintInfo_is_not_well_compacted");
+#endif  // !defined(_MSC_VER)
 
   absl::Span<IntegerValue> GetCoeffs(const ConstraintInfo& info);
   absl::Span<IntegerVariable> GetVariables(const ConstraintInfo& info);
@@ -401,7 +394,6 @@ class LinearPropagator : public PropagatorInterface,
   // Per constraint info used during propagation. Note that we keep pointer for
   // the rev_size/rhs there, so we do need a deque.
   std::deque<ConstraintInfo> infos_;
-  std::vector<IntegerValue> initial_rhs_;
 
   // Buffer of the constraints data.
   std::vector<IntegerVariable> variables_buffer_;
@@ -429,15 +421,15 @@ class LinearPropagator : public PropagatorInterface,
   std::vector<int> unenforced_constraints_;
 
   // Watchers.
-  util_intops::StrongVector<IntegerVariable, bool> is_watched_;
-  util_intops::StrongVector<IntegerVariable, absl::InlinedVector<int, 6>>
+  absl::StrongVector<IntegerVariable, bool> is_watched_;
+  absl::StrongVector<IntegerVariable, absl::InlinedVector<int, 6>>
       var_to_constraint_ids_;
 
   // For an heuristic similar to Tarjan contribution to Bellman-Ford algorithm.
   // We mark for each variable the last constraint that pushed it, and also keep
   // the count of propagated variable for each constraint.
   SparseBitset<IntegerVariable> propagated_by_was_set_;
-  util_intops::StrongVector<IntegerVariable, int> propagated_by_;
+  absl::StrongVector<IntegerVariable, int> propagated_by_;
   std::vector<int> id_to_propagation_count_;
 
   // Used by DissasembleSubtreeAndAddToQueue().

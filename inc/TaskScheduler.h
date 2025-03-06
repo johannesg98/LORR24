@@ -10,6 +10,7 @@ class TaskScheduler
 {
     public:
         SharedEnvironment* env;
+        std::vector<int> task_search_start_times;
 
         TaskScheduler(SharedEnvironment* env): env(env){};
         TaskScheduler(){env = new SharedEnvironment();};

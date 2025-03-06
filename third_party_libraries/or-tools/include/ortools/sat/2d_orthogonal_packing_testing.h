@@ -17,7 +17,6 @@
 #include <vector>
 
 #include "absl/random/bit_gen_ref.h"
-#include "absl/types/span.h"
 #include "ortools/sat/diffn_util.h"
 
 namespace operations_research {
@@ -27,7 +26,7 @@ std::vector<Rectangle> GenerateNonConflictingRectangles(int num_rectangles,
                                                         absl::BitGenRef random);
 
 std::vector<RectangleInRange> MakeItemsFromRectangles(
-    absl::Span<const Rectangle> rectangles, double slack_factor,
+    const std::vector<Rectangle>& rectangles, double slack_factor,
     absl::BitGenRef random);
 
 std::vector<ItemForPairwiseRestriction>

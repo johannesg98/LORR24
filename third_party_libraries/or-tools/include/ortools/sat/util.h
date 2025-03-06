@@ -25,7 +25,6 @@
 #include <utility>
 #include <vector>
 
-#include "absl/base/macros.h"
 #include "absl/container/btree_set.h"
 #include "absl/container/inlined_vector.h"
 #include "absl/log/check.h"
@@ -37,7 +36,6 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/span.h"
 #include "ortools/base/logging.h"
-#include "ortools/base/mathutil.h"
 #include "ortools/sat/model.h"
 #include "ortools/sat/sat_base.h"
 #include "ortools/sat/sat_parameters.pb.h"
@@ -152,41 +150,6 @@ class CompactVectorVector {
   std::vector<int> starts_;
   std::vector<int> sizes_;
   std::vector<V> buffer_;
-};
-
-// We often have a vector with fixed capacity reserved outside the hot loops.
-// Using this class instead save the capacity but most importantly link a lot
-// less code for the push_back() calls which allow more inlining.
-//
-// TODO(user): Add more functions and unit-test.
-template <typename T>
-class FixedCapacityVector {
- public:
-  void ClearAndReserve(size_t size) {
-    size_ = 0;
-    data_.reset(new T[size]);
-  }
-
-  T* data() const { return data_.get(); }
-  T* begin() const { return data_.get(); }
-  T* end() const { return data_.get() + size_; }
-  size_t size() const { return size_; }
-  bool empty() const { return size_ == 0; }
-
-  T operator[](int i) const { return data_[i]; }
-  T& operator[](int i) { return data_[i]; }
-
-  T back() const { return data_[size_ - 1]; }
-  T& back() { return data_[size_ - 1]; }
-
-  void clear() { size_ = 0; }
-  void resize(size_t size) { size_ = size; }
-  void pop_back() { --size_; }
-  void push_back(T t) { data_[size_++] = t; }
-
- private:
-  int size_ = 0;
-  std::unique_ptr<T[]> data_ = nullptr;
 };
 
 // Prints a positive number with separators for easier reading (ex: 1'348'065).
@@ -583,7 +546,7 @@ class Percentile {
   // Returns number of stored records.
   int64_t NumRecords() const { return records_.size(); }
 
-  // Note that this runs in O(n) for n records.
+  // Note that this is not fast and runs in O(n log n) for n records.
   double GetPercentile(double percent);
 
  private:

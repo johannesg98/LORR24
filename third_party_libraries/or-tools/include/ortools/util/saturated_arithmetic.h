@@ -19,7 +19,6 @@
 #include <type_traits>
 
 #include "absl/base/casts.h"
-#include "absl/log/check.h"
 #include "ortools/base/types.h"
 #include "ortools/util/bitset.h"
 

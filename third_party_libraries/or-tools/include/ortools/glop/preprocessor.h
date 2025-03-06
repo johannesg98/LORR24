@@ -268,7 +268,7 @@ class RowDeletionHelper {
 // EmptyColumnPreprocessor
 // --------------------------------------------------------
 // Removes the empty columns from the problem.
-class EmptyColumnPreprocessor final : public Preprocessor {
+class EmptyColumnPreprocessor : public Preprocessor {
  public:
   explicit EmptyColumnPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -292,7 +292,7 @@ class EmptyColumnPreprocessor final : public Preprocessor {
 // usually called duplicates. The notion is the same once the problem has been
 // scaled. However, during presolve the columns can't be assumed to be scaled,
 // so it makes sense to use the more general notion of proportional columns.
-class ProportionalColumnPreprocessor final : public Preprocessor {
+class ProportionalColumnPreprocessor : public Preprocessor {
  public:
   explicit ProportionalColumnPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -333,7 +333,7 @@ class ProportionalColumnPreprocessor final : public Preprocessor {
 // Removes the proportional rows from the problem.
 // The linear programming literature also calls such rows duplicates, see the
 // same remark above for columns in ProportionalColumnPreprocessor.
-class ProportionalRowPreprocessor final : public Preprocessor {
+class ProportionalRowPreprocessor : public Preprocessor {
  public:
   explicit ProportionalRowPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -433,7 +433,7 @@ class SingletonUndo {
 
 // Deletes as many singleton rows or singleton columns as possible. Note that
 // each time we delete a row or a column, new singletons may be created.
-class SingletonPreprocessor final : public Preprocessor {
+class SingletonPreprocessor : public Preprocessor {
  public:
   explicit SingletonPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -504,10 +504,10 @@ class SingletonPreprocessor final : public Preprocessor {
 
   // This is used as a "cache" by MakeConstraintAnEqualityIfPossible() to avoid
   // scanning more than once each row. See the code to see how this is used.
-  util_intops::StrongVector<RowIndex, bool> row_sum_is_cached_;
-  util_intops::StrongVector<RowIndex, SumWithNegativeInfiniteAndOneMissing>
+  absl::StrongVector<RowIndex, bool> row_sum_is_cached_;
+  absl::StrongVector<RowIndex, SumWithNegativeInfiniteAndOneMissing>
       row_lb_sum_;
-  util_intops::StrongVector<RowIndex, SumWithPositiveInfiniteAndOneMissing>
+  absl::StrongVector<RowIndex, SumWithPositiveInfiniteAndOneMissing>
       row_ub_sum_;
 
   // TODO(user): It is annoying that we need to store a part of the matrix that
@@ -522,7 +522,7 @@ class SingletonPreprocessor final : public Preprocessor {
 // FixedVariablePreprocessor
 // --------------------------------------------------------
 // Removes the fixed variables from the problem.
-class FixedVariablePreprocessor final : public Preprocessor {
+class FixedVariablePreprocessor : public Preprocessor {
  public:
   explicit FixedVariablePreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -557,7 +557,7 @@ class FixedVariablePreprocessor final : public Preprocessor {
 // later by the FreeConstraintPreprocessor.
 //
 // * Otherwise, wo do nothing.
-class ForcingAndImpliedFreeConstraintPreprocessor final : public Preprocessor {
+class ForcingAndImpliedFreeConstraintPreprocessor : public Preprocessor {
  public:
   explicit ForcingAndImpliedFreeConstraintPreprocessor(
       const GlopParameters* parameters)
@@ -603,7 +603,7 @@ class ForcingAndImpliedFreeConstraintPreprocessor final : public Preprocessor {
 // TODO(user): Only process doubleton columns so we have more chance in the
 // later passes to create more doubleton columns? Such columns lead to a smaller
 // problem thanks to the DoubletonFreeColumnPreprocessor.
-class ImpliedFreePreprocessor final : public Preprocessor {
+class ImpliedFreePreprocessor : public Preprocessor {
  public:
   explicit ImpliedFreePreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -649,7 +649,7 @@ class ImpliedFreePreprocessor final : public Preprocessor {
 // solver open source codes as of July 2013. All of them only process such
 // columns if one of the two rows is also an equality which is not actually
 // required. Most probably, commercial solvers do use it though.
-class DoubletonFreeColumnPreprocessor final : public Preprocessor {
+class DoubletonFreeColumnPreprocessor : public Preprocessor {
  public:
   explicit DoubletonFreeColumnPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -700,7 +700,7 @@ class DoubletonFreeColumnPreprocessor final : public Preprocessor {
 // translated into bounds on the reduced costs or the columns, which may force
 // variables to their bounds. This is called forcing and dominated columns in
 // the Andersen & Andersen paper.
-class UnconstrainedVariablePreprocessor final : public Preprocessor {
+class UnconstrainedVariablePreprocessor : public Preprocessor {
  public:
   explicit UnconstrainedVariablePreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -752,7 +752,7 @@ class UnconstrainedVariablePreprocessor final : public Preprocessor {
 // FreeConstraintPreprocessor
 // --------------------------------------------------------
 // Removes the constraints with no bounds from the problem.
-class FreeConstraintPreprocessor final : public Preprocessor {
+class FreeConstraintPreprocessor : public Preprocessor {
  public:
   explicit FreeConstraintPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -771,7 +771,7 @@ class FreeConstraintPreprocessor final : public Preprocessor {
 // EmptyConstraintPreprocessor
 // --------------------------------------------------------
 // Removes the constraints with no coefficients from the problem.
-class EmptyConstraintPreprocessor final : public Preprocessor {
+class EmptyConstraintPreprocessor : public Preprocessor {
  public:
   explicit EmptyConstraintPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -793,7 +793,7 @@ class EmptyConstraintPreprocessor final : public Preprocessor {
 // with only one entry) is positive. This is because this way the column will
 // be transformed in an identity column by the scaling. This will lead to more
 // efficient solve when this column is involved.
-class SingletonColumnSignPreprocessor final : public Preprocessor {
+class SingletonColumnSignPreprocessor : public Preprocessor {
  public:
   explicit SingletonColumnSignPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -815,7 +815,7 @@ class SingletonColumnSignPreprocessor final : public Preprocessor {
 // Reduce equality constraints involving two variables (i.e. aX + bY = c),
 // by substitution (and thus removal) of one of the variables by the other
 // in all the constraints that it is involved in.
-class DoubletonEqualityRowPreprocessor final : public Preprocessor {
+class DoubletonEqualityRowPreprocessor : public Preprocessor {
  public:
   explicit DoubletonEqualityRowPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -904,7 +904,7 @@ void FixConstraintWithFixedStatuses(const DenseColumn& row_lower_bounds,
 //
 // IMPORTANT: FreeConstraintPreprocessor() must be called first since this
 // preprocessor does not deal correctly with free constraints.
-class DualizerPreprocessor final : public Preprocessor {
+class DualizerPreprocessor : public Preprocessor {
  public:
   explicit DualizerPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -962,7 +962,7 @@ class DualizerPreprocessor final : public Preprocessor {
 // the ImpliedFreePreprocessor. However, shifting a variable with a domain like
 // [-1e10, 1e10] may introduce numerical issues. Relax the definition of
 // a free variable so that only having a domain containing 0.0 is enough?
-class ShiftVariableBoundsPreprocessor final : public Preprocessor {
+class ShiftVariableBoundsPreprocessor : public Preprocessor {
  public:
   explicit ShiftVariableBoundsPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -992,7 +992,7 @@ class ShiftVariableBoundsPreprocessor final : public Preprocessor {
 // --------------------------------------------------------
 // Scales the SparseMatrix of the linear program using a SparseMatrixScaler.
 // This is only applied if the parameter use_scaling is true.
-class ScalingPreprocessor final : public Preprocessor {
+class ScalingPreprocessor : public Preprocessor {
  public:
   explicit ScalingPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -1015,7 +1015,7 @@ class ScalingPreprocessor final : public Preprocessor {
 // ToMinimizationPreprocessor
 // --------------------------------------------------------
 // Changes the problem from maximization to minimization (if applicable).
-class ToMinimizationPreprocessor final : public Preprocessor {
+class ToMinimizationPreprocessor : public Preprocessor {
  public:
   explicit ToMinimizationPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}
@@ -1046,7 +1046,7 @@ class ToMinimizationPreprocessor final : public Preprocessor {
 // memory for no good reason. The internal matrix representation used in glop is
 // a lot more efficient, and there is no point keeping the slacks in
 // LinearProgram. It is also bad for incrementaly modifying the LP.
-class AddSlackVariablesPreprocessor final : public Preprocessor {
+class AddSlackVariablesPreprocessor : public Preprocessor {
  public:
   explicit AddSlackVariablesPreprocessor(const GlopParameters* parameters)
       : Preprocessor(parameters) {}

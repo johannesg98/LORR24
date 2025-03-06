@@ -2,13 +2,10 @@ import hydra
 from omegaconf import DictConfig
 import os 
 import torch
-import json
-from hydra import initialize, compose
-
 import sys
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-build_path = os.path.join(script_dir, "build")
+build_path = os.path.join(script_dir, "../envWrapper/build")
 sys.path.append(build_path)
 
 import envWrapper
@@ -22,10 +19,10 @@ def setup_model(cfg, env, parser, device):
     cfg = cfg.model
     if model_name == "a2c":
         from src.algos.a2c import A2C
-        return A2C(env=env, input_size=cfg.input_size,cfg=cfg, parser=parser, device=device).to(device)
-    # elif model_name == "sac" or model_name =="cql":
-    #     from src.algos.sac import SAC
-    #     return SAC(env=env, input_size=cfg.input_size, cfg=cfg, parser=parser, device=device).to(device)
+        return A2C(env=env, input_size=cfg.input_size,cfg=cfg, parser=parser, train_dir=script_dir, device=device).to(device)
+    elif model_name == "sac":
+        from src.algos.sac import SAC
+        return SAC(env=env, input_size=cfg.input_size, cfg=cfg, parser=parser, train_dir=script_dir, device=device).to(device)
     else:
         raise ValueError(f"Unknown model or baseline: {model_name}")
 
@@ -43,16 +40,17 @@ def load_actor_weights(model, path):
     model.actor.load_state_dict(actor_encoder_state)
     return model
 
-@hydra.main(version_base=None, config_path="src/config/", config_name="config")
+@hydra.main(version_base=None, config_path=os.path.join(script_dir, "src/config/"), config_name="config")
 def main(cfg: DictConfig):
     
     env = envWrapper.LRRenv(
-    inputFile="./example_problems/custom_warehouse.domain/warehouse_4x3_100.json",
-    outputFile="./outputs/trainRL.json",
-    simulationTime=cfg.model.max_steps,
-    planTimeLimit=300,
-    preprocessTimeLimit=30000,
-    observationTypes={"node-basics"}
+        inputFile=os.path.join(script_dir, "../example_problems/custom_warehouse.domain/warehouse_1x1_100.json"),
+        outputFile=os.path.join(script_dir, "../outputs/trainRL.json"),
+        simulationTime=cfg.model.max_steps,
+        planTimeLimit=70,
+        preprocessTimeLimit=30000,
+        observationTypes={"node-basics"},
+        random_agents_and_tasks="true"
     )
     env.make_env_params_available()
     
@@ -62,6 +60,11 @@ def main(cfg: DictConfig):
     device = torch.device("cuda" if use_cuda else "cpu")
     
     model = setup_model(cfg, env, parser, device)
+
+    if cfg.model.tensorboard:
+        from torch.utils.tensorboard import SummaryWriter
+        from datetime import datetime
+        model.tensorboard = SummaryWriter(os.path.join(script_dir, "logs/", cfg.model.checkpoint_path, datetime.now().strftime("%Y%m%d-%H%M%S")))
     
     model.wandb = None
     if cfg.model.wandb: 
@@ -69,12 +72,12 @@ def main(cfg: DictConfig):
         config = {}
         for key in cfg.model.keys():
             config[key] = cfg.model[key]
-        wandb = wandb.init(
-            project="",
-            entity="",
-            config=config,
+        wandb5 = wandb.init(
+            project="mit_a2c_scheduler",
+            entity="johannesg98-org",
+            config=config
         )
-        model.wandb = wandb
+        model.wandb = wandb5
 
     model.learn(cfg) #online RL
 

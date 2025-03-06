@@ -1,5 +1,5 @@
-includedir=/root/or-tools/or-tools_x86_64_Ubuntu-22.04_cpp_v9.11.4210/include
-libdir=/root/or-tools/or-tools_x86_64_Ubuntu-22.04_cpp_v9.11.4210/lib
+includedir=/root/or-tools/or-tools_x86_64_Ubuntu-24.04_cpp_v9.10.4067/include
+libdir=/root/or-tools/or-tools_x86_64_Ubuntu-24.04_cpp_v9.10.4067/lib
 
 Name: re2
 Description: RE2 is a fast, safe, thread-friendly regular expression engine.

@@ -215,6 +215,8 @@ class SAC(nn.Module):
 
         if self.wandb is not None:
             self.wandb.log({"Q1": q1.mean().item()})
+        if self.tensorboard is not None:
+            self.tensorboard.add_scalar("Q1", q1.mean().item(), self.i_episode)
         with torch.no_grad():
             # Target actions come from *current* policy
             a2, logp_a2 = self.actor(next_state_batch, edge_index2)
@@ -338,6 +340,8 @@ class SAC(nn.Module):
                 p_targ.data.add_((1 - self.polyak) * p.data)
         if self.wandb is not None:
             self.wandb.log({"Q1 Loss": loss_q1.item()})
+        if self.tensorboard is not None:
+            self.tensorboard.add_scalar("Q1 Loss", loss_q1.item(), self.i_episode)
         if not only_q:
             # Freeze Q-networks so you don't waste computational effort
             # computing gradients for them during the policy learning step.
@@ -361,6 +365,8 @@ class SAC(nn.Module):
 
             if self.wandb is not None:
                 self.wandb.log({"Policy Loss": loss_pi.item()})
+            if self.tensorboard is not None:
+                self.tensorboard.add_scalar("Policy Loss", loss_pi.item(), self.i_episode)
 
     def _get_action_and_values(self, data, num_actions, batch_size, action_dim):
       
@@ -471,6 +477,10 @@ class SAC(nn.Module):
                     epochs.update(1000)
                     if self.wandb is not None:
                         self.wandb.log({"Reward": np.mean(episode_reward), "Served Demand": np.mean(episode_served_demand), "Rebalancing Cost": np.mean(episode_rebalancing_cost), "Step": step})
+                    if self.tensorboard is not None:
+                        self.tensorboard.add_scalar("Reward", np.mean(episode_reward), step)
+                        self.tensorboard.add_scalar("Served Demand", np.mean(episode_served_demand), step)
+                        self.tensorboard.add_scalar("Rebalancing Cost", np.mean(episode_rebalancing_cost), step)
                 self.save_checkpoint(
                 path=f"ckpt/{cfg.model.checkpoint_path}.pth"
                 )
@@ -485,6 +495,7 @@ class SAC(nn.Module):
             self.train()  # set model in train mode
 
             for i_episode in epochs:
+                self.i_episode = i_episode
                 if sim =='sumo':
                     traci.start(sumo_cmd)
                 obs, rew = self.env.reset()  # initialize environment
@@ -530,7 +541,11 @@ class SAC(nn.Module):
                     f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | ServedDemand: {episode_served_demand:.2f} | Reb. Cost: {episode_rebalancing_cost:.2f}"
                 )
                 if self.wandb is not None:
-                        self.wandb.log({"Reward": episode_reward, "Served Demand": episode_served_demand, "Rebalancing Cost": episode_rebalancing_cost, "Step": i_episode})
+                    self.wandb.log({"Reward": episode_reward, "Served Demand": episode_served_demand, "Rebalancing Cost": episode_rebalancing_cost, "Step": i_episode})
+                if self.tensorboard is not None:
+                    self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
+                    self.tensorboard.add_scalar("Served Demand", episode_served_demand, i_episode)
+                    self.tensorboard.add_scalar("Rebalancing Cost", episode_rebalancing_cost, i_episode)
                         
                 self.save_checkpoint(
                     path=f"ckpt/{cfg.model.checkpoint_path}.pth"

@@ -21,10 +21,11 @@
 // simple static methods; because the Java wrapping of the latter made them hard
 // to find (whereas the class methods are easy to find).
 
-#include <cstdint>
 #include <functional>
 #include <string>
 #include <utility>
+
+#include "ortools/base/types.h"
 
 namespace operations_research {
 class FunctionSwigTestHelpers {
@@ -78,7 +79,7 @@ class FunctionSwigTestHelpers {
 
   static void NoOpStringToVoid(std::function<void(std::string)> fun,
                                std::string x) {
-    fun(std::move(x));
+    fun(x);
   }
 };
 
@@ -86,7 +87,7 @@ class DelayedFunctionSwigTestHelpers {
  public:
   explicit DelayedFunctionSwigTestHelpers(
       std::function<int64_t(int64_t, int64_t)> fun)
-      : fun_(std::move(fun)) {}
+      : fun_(fun) {}
 
   int64_t NoOpInt64PairToInt64(int64_t x, int64_t y) { return fun_(x, y); }
 

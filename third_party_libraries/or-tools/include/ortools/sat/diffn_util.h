@@ -25,7 +25,6 @@
 #include <vector>
 
 #include "absl/container/flat_hash_set.h"
-#include "absl/container/inlined_vector.h"
 #include "absl/log/check.h"
 #include "absl/random/bit_gen_ref.h"
 #include "absl/strings/str_format.h"
@@ -43,7 +42,7 @@ struct Rectangle {
   IntegerValue y_min;
   IntegerValue y_max;
 
-  void GrowToInclude(const Rectangle& other) {
+  void TakeUnionWith(const Rectangle& other) {
     x_min = std::min(x_min, other.x_min);
     y_min = std::min(y_min, other.y_min);
     x_max = std::max(x_max, other.x_max);
@@ -60,10 +59,6 @@ struct Rectangle {
   // Returns an empty rectangle if no intersection.
   Rectangle Intersect(const Rectangle& other) const;
   IntegerValue IntersectArea(const Rectangle& other) const;
-
-  // Returns `this \ other` as a set of disjoint rectangles of non-empty area.
-  // The resulting vector will have at most four elements.
-  absl::InlinedVector<Rectangle, 4> SetDifference(const Rectangle& other) const;
 
   template <typename Sink>
   friend void AbslStringify(Sink& sink, const Rectangle& r) {
@@ -164,8 +159,8 @@ absl::Span<int> FilterBoxesAndRandomize(
 // box" conflict. As we remove this box, the total energy decrease, so we might
 // remove more. This works in O(n log n).
 absl::Span<int> FilterBoxesThatAreTooLarge(
-    absl::Span<const Rectangle> cached_rectangles,
-    absl::Span<const IntegerValue> energies, absl::Span<int> boxes);
+    const std::vector<Rectangle>& cached_rectangles,
+    const std::vector<IntegerValue>& energies, absl::Span<int> boxes);
 
 struct IndexedInterval {
   int index;
@@ -404,8 +399,6 @@ struct RectangleInRange {
     }
   }
 
-  Rectangle GetBoudingBox() const { return bounding_area; }
-
   // Returns an empty rectangle if it is possible for no intersection to happen.
   Rectangle GetMinimumIntersection(const Rectangle& containing_area) const {
     IntegerValue smallest_area = std::numeric_limits<IntegerValue>::max();
@@ -598,14 +591,8 @@ FindRectanglesResult FindRectanglesWithEnergyConflictMC(
 
 // Render a packing solution as a Graphviz dot file. Only works in the "neato"
 // or "fdp" Graphviz backends.
-std::string RenderDot(std::optional<Rectangle> bb,
+std::string RenderDot(std::pair<IntegerValue, IntegerValue> bb_sizes,
                       absl::Span<const Rectangle> solution);
-
-// Given a bounding box and a list of rectangles inside that bounding box,
-// returns a list of rectangles partitioning the empty area inside the bounding
-// box.
-std::vector<Rectangle> FindEmptySpaces(
-    const Rectangle& bounding_box, std::vector<Rectangle> ocupied_rectangles);
 
 }  // namespace sat
 }  // namespace operations_research

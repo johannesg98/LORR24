@@ -3,21 +3,20 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 from collections import namedtuple
-from src.misc.utils import dictsum
 from src.nets.actor import GNNActor
 from src.nets.critic import GNNValue
 from src.algos.reb_flow_solver import solveRebFlow
 import os 
 from tqdm import trange
 import sys
-if 'SUMO_HOME' in os.environ:
-    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+
+from src.helperfunctions.skip_actor import skip_actor
+
 
 SavedAction = namedtuple('SavedAction', ['log_prob', 'value'])
 args = namedtuple('args', ('render', 'gamma', 'log_interval'))
 args.render= True
-args.gamma = 0.97
+args.gamma = 0.0
 args.log_interval = 10
 #########################################
 ############## A2C AGENT ################
@@ -27,7 +26,7 @@ class A2C(nn.Module):
     """
     Advantage Actor Critic algorithm for the AMoD control problem. 
     """
-    def __init__(self, env, input_size, cfg,parser, eps=np.finfo(np.float32).eps.item(), device=torch.device("cpu")):
+    def __init__(self, env, input_size, cfg, parser, train_dir, eps=np.finfo(np.float32).eps.item(), device=torch.device("cpu")):
         super(A2C, self).__init__()
         self.env = env
         self.eps = eps
@@ -41,11 +40,13 @@ class A2C(nn.Module):
         self.parser = parser
         self.cplexpath = cfg.cplexpath
         self.directory = cfg.directory
+        self.train_dir = train_dir
         self.optimizers = self.configure_optimizers()
         
         # action & reward buffer
         self.saved_actions = []
         self.rewards = []
+        self.train_mask = []
         self.to(self.device)
     
     def forward(self, obs, jitter=1e-20):
@@ -96,16 +97,17 @@ class A2C(nn.Module):
             returns.insert(0, R)
 
         returns = torch.tensor(returns)
-        returns = (returns - returns.mean()) / (returns.std() + self.eps)
+        # returns = (returns - returns.mean()) / (returns.std() + self.eps)
 
-        for (log_prob, value), R in zip(saved_actions, returns):
-            advantage = R - value.item()
+        for (log_prob, value), R, mask in zip(saved_actions, returns, self.train_mask):
+            if mask:
+                advantage = R - value.item()
 
-            # calculate actor (policy) loss 
-            policy_losses.append(-log_prob * advantage)
+                # calculate actor (policy) loss 
+                policy_losses.append(-log_prob * advantage)
 
-            # calculate critic (value) loss using L1 smooth loss
-            value_losses.append(F.smooth_l1_loss(value, torch.tensor([R]).to(self.device)))
+                # calculate critic (value) loss using L1 smooth loss
+                value_losses.append(F.smooth_l1_loss(value, torch.tensor([R]).to(self.device)))
 
         # take gradient steps
         self.optimizers['a_optimizer'].zero_grad()
@@ -121,66 +123,107 @@ class A2C(nn.Module):
         # reset rewards and action buffer
         del self.rewards[:]
         del self.saved_actions[:]
+        del self.train_mask[:]
 
         return [loss.item() for loss in value_losses], [loss.item() for loss in policy_losses]
     
     def learn(self, cfg):
+
+        if cfg.model.load_from_ckeckpoint:
+            self.load_checkpoint(path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}.pth"))
+            print("last checkpoint loaded")
 
         train_episodes = cfg.model.max_episodes #set max number of training episodes
         T = cfg.model.max_steps #set episode length
         epochs = trange(train_episodes)     # epoch iterator
         best_reward = -np.inf   # set best reward
         self.train()   # set model in train mode
+        self.num_tasks_finished_store = []
         
         for i_episode in epochs:
     
-            # Initialize the reward
+            self.episode_num_tasks_finished = 0
             episode_reward = 0
-            episode_served_demand = 0
-            episode_rebalancing_cost = 0
-            episode_rebalanced_vehicles = 0
-            # Reset the environment
-            obs, rew, _ = self.env.reset()  # initialize environment
+            
+            obs, rew, _ = self.env.reset()
            
-            self.rewards.append(rew)
+            #self.rewards.append(rew)
             for step in range(T):
-                # take matching step (Step 1 in paper)
-                action_rl = self.select_action(obs)
                 
+                action_rl = self.select_action(obs)
+                # action_rl = skip_actor(self.env, obs)
+
                 total_agents = sum(obs["free_agents_per_node"])
-                desired_dist = self.assign_discrete_actions(self, total_agents, action_rl)
+                desired_agent_dist = self.assign_discrete_actions(total_agents, action_rl)
 
                 reb_action = solveRebFlow(
                     self.env,
                     obs,
-                    desired_dist,
+                    desired_agent_dist,
                     self.cplexpath,
-                )
-                new_obs, rew, done, info = self.env.step(reb_action=reb_action)
-               
+                ) 
+                action_dict = {"reb_action": reb_action}
+
+                new_obs, reward_dict, done = self.env.step(action_dict)
+
+                rew = reward_dict["A*-distance"] + reward_dict["idle-agents"]
                 self.rewards.append(rew)
-                # track performance over episode
                 episode_reward += rew
-                episode_served_demand += info["profit"]
-                episode_rebalancing_cost += info["rebalancing_cost"]
-                # stop episode if terminating conditions are met
+
+                self.episode_num_tasks_finished += reward_dict["task-finished"]
+
+                # train mask
+                if total_agents > 0:
+                    self.train_mask.append(True)
+                else:
+                    self.train_mask.append(False)
+
+                print(f"Episode {i_episode+1} | Step {step+1} | Free agents (before step): {sum(obs['free_agents_per_node'])} | A*-reward: {reward_dict['A*-distance']} | Idle agents reward: {reward_dict['idle-agents']} | Total reward: {rew} | Tasks finished (after step): {reward_dict["task-finished"]}")
+                # print(f"\nxxxxxxxxxxxxxxxxxxx STEP {step} started xxxxxxxxxxxxxxxxxxx")
+
+                # print(f"obs:     free_agents_per_node: {obs['free_agents_per_node']}")
+                # print(f"new_obs: free_agents_per_node: {new_obs['free_agents_per_node']}")
+                # print(f"free_tasks_per_node : {obs['free_tasks_per_node']}")
+                # print(f"agents_per_node     : {obs['agents_per_node']}")  
+                # print("action_rl (result from skip_actor): ", action_rl.tolist())
+                # print(f"desired_agent_dist  : {desired_agent_dist.tolist()}")
+                # for i in range(self.env.nNodes):
+                #     for j in range(self.env.nNodes):
+                #         if reb_action[(i,j)] > 0:
+                #             print(f"reb_action node {i} to {j}: {reb_action[(i,j)]}")
+
+
                 if done:
                     break
+                obs = new_obs
+                
             
             # perform on-policy backprop
-            p_loss, v_loss = self.training_step()
+            v_loss, p_loss = self.training_step()
 
             # Send current statistics to screen
-            epochs.set_description(f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | ServedDemand: {episode_served_demand:.2f} | Reb. Cost: {episode_rebalancing_cost:.2f}")
+            epochs.set_description(f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | Tasks Finished: {self.episode_num_tasks_finished}")
+            
+            if cfg.model.wandb:
+                self.wandb.log({"Reward": episode_reward, "Policy Loss": p_loss, "Value Loss": v_loss})
+
+            self.num_tasks_finished_store.append(self.episode_num_tasks_finished)
+
+            if cfg.model.tensorboard:
+                self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
+                self.tensorboard.add_scalar("Tasks Finished", self.episode_num_tasks_finished, i_episode)
+                self.tensorboard.add_scalar("Policy Loss", np.array(p_loss).mean(), i_episode)
+                self.tensorboard.add_scalar("Value Loss", np.array(v_loss).mean(), i_episode)
             
             self.save_checkpoint(
-                path=f"ckpt/{cfg.model.checkpoint_path}.pth"
+                path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}.pth")
             )
             if episode_reward > best_reward: 
                 best_reward = episode_reward
                 self.save_checkpoint(
-                    path=f"ckpt/{cfg.model.checkpoint_path}_best.pth"
+                    path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}_best.pth")
                 )
+        print("Average reward over all episodes: ", np.mean(self.num_tasks_finished_store))
     
     def test_agent(self, test_episodes, env, cplexpath, matching_steps, agent_name):
         epochs = range(test_episodes)  # epoch iterator

@@ -207,7 +207,7 @@ class ThetaLambdaTree {
     IntegerType max_of_energy_delta;
   };
 
-  TreeNode ComposeTreeNodes(const TreeNode& left, const TreeNode& right);
+  TreeNode ComposeTreeNodes(TreeNode left, TreeNode right);
 
   int GetLeafFromEvent(int event) const;
   int GetEventFromLeaf(int leaf) const;

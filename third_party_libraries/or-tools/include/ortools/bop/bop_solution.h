@@ -81,10 +81,10 @@ class BopSolution {
   }
 
   // For range based iteration, i.e. for (const bool value : solution) {...}.
-  util_intops::StrongVector<VariableIndex, bool>::const_iterator begin() const {
+  absl::StrongVector<VariableIndex, bool>::const_iterator begin() const {
     return values_.begin();
   }
-  util_intops::StrongVector<VariableIndex, bool>::const_iterator end() const {
+  absl::StrongVector<VariableIndex, bool>::const_iterator end() const {
     return values_.end();
   }
 
@@ -103,7 +103,7 @@ class BopSolution {
 
   const sat::LinearBooleanProblem* problem_;
   std::string name_;
-  util_intops::StrongVector<VariableIndex, bool> values_;
+  absl::StrongVector<VariableIndex, bool> values_;
 
   // Those are mutable because they behave as const values for a given solution
   // but for performance reasons we want to be lazy on their computation,

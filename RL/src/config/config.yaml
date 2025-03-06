@@ -1,2 +1,2 @@
 defaults:
-  - model: a2c         
+  - model: sac         

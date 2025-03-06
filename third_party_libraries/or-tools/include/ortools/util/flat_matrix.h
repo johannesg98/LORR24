@@ -20,7 +20,6 @@
 // vector had a fixed size: vector<vector<>> has much worse performance in a
 // highly concurrent setting, because it does a lot of memory allocations.
 
-#include <cstddef>
 #include <vector>
 
 #include "absl/types/span.h"

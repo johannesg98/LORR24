@@ -24,7 +24,6 @@
 #ifndef OR_TOOLS_ALGORITHMS_FIND_GRAPH_SYMMETRIES_H_
 #define OR_TOOLS_ALGORITHMS_FIND_GRAPH_SYMMETRIES_H_
 
-#include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>

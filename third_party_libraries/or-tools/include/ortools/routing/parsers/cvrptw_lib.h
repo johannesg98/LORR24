@@ -70,7 +70,7 @@ class LocationContainer {
 
   std::mt19937 randomizer_;
   const int64_t speed_;
-  util_intops::StrongVector<RoutingIndexManager::NodeIndex, Location> locations_;
+  absl::StrongVector<RoutingIndexManager::NodeIndex, Location> locations_;
 };
 
 // Random demand.

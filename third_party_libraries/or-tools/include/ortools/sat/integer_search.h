@@ -29,7 +29,6 @@
 #include <vector>
 
 #include "absl/container/flat_hash_set.h"
-#include "absl/types/span.h"
 #include "ortools/sat/clause.h"
 #include "ortools/sat/cp_model.pb.h"
 #include "ortools/sat/implied_bounds.h"
@@ -262,7 +261,7 @@ std::function<bool()> SatSolverRestartPolicy(Model* model);
 // Concatenates each input_heuristic with a default heuristic that instantiate
 // all the problem's Boolean variables, into a new vector.
 std::vector<std::function<BooleanOrIntegerLiteral()>> CompleteHeuristics(
-    absl::Span<const std::function<BooleanOrIntegerLiteral()>>
+    const std::vector<std::function<BooleanOrIntegerLiteral()>>&
         incomplete_heuristics,
     const std::function<BooleanOrIntegerLiteral()>& completion_heuristic);
 

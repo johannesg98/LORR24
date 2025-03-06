@@ -411,10 +411,6 @@ bool BaseSystem::step(const std::unordered_map<std::string, pybind11::object>& a
     auto diff = end-start;
     planner_times.push_back(std::chrono::duration<double>(diff).count());
 
-    if (simulator.get_curr_timestep() == simulation_time){
-        done = true;
-    }
-
     for (int a = 0; a < num_of_agents; a++){
         if (!env->goal_locations[a].empty())
             solution_costs[a]++;
@@ -428,21 +424,34 @@ bool BaseSystem::step(const std::unordered_map<std::string, pybind11::object>& a
 
     sync_shared_env();
 
+    if (simulator.get_curr_timestep() == simulation_time){
+        done = true;
+    }
 
     return done;
 }
 
-double BaseSystem::get_reward(RewardType type){
-    double reward;
+pybind11::dict BaseSystem::get_reward(){
+    pybind11::dict reward_dict;
 
-    if (type == RewardType::TASKFINISHED){
-        reward = task_manager.num_of_task_finish - num_of_task_finish_last_call;
-        num_of_task_finish_last_call = task_manager.num_of_task_finish;
-        return reward;
-    }
-    else{
-        throw std::invalid_argument("Error: Reward type not supported.");
-    }
+    reward_dict["task-finished"] = task_manager.num_of_task_finish - num_of_task_finish_last_call;
+    num_of_task_finish_last_call = task_manager.num_of_task_finish;
+  
+    reward_dict["A*-distance"] = env->Astar_reward;
+
+    reward_dict["idle-agents"] = env->idle_agents_reward;
+
+    reward_dict["tasks-assigned"] = env->tasks_assigned_reward;
+    
+    return reward_dict;
+}
+
+pybind11::dict BaseSystem::get_info(){
+    pybind11::dict info_dict;
+
+    info_dict["task-search-durations"] = env->task_search_durations;
+    
+    return info_dict;
 }
 
 int BaseSystem::loadNodes(const std::string& fname){

@@ -177,6 +177,13 @@ def main(cfg: DictConfig):
         )
         model.wandb = wandb
 
+    if cfg.model.tensorboard:
+        from torch.utils.tensorboard import SummaryWriter
+        from datetime import datetime
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        model.tensorboard = SummaryWriter(os.path.join(script_dir, "logs/", cfg.model.checkpoint_path, datetime.now().strftime("%Y%m%d-%H%M%S")))
+    
+
     if hasattr(cfg.model, "data_path"): 
         Dataset = setup_dataset(cfg, env, device)
         model.learn(cfg, Dataset) #offline RL or BC

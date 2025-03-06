@@ -16,11 +16,6 @@
 #include <pybind11/stl.h>
 
 
-enum class RewardType {
-    INVALID,
-    TASKFINISHED
-};
-
 class BaseSystem
 {
 public:
@@ -90,7 +85,8 @@ public:
     //new functions for RL
     void initializeExtendedBaseSystem(int simulation_time);
     bool step(const std::unordered_map<std::string, pybind11::object>& action_dict = {});
-    double get_reward(RewardType type);
+    pybind11::dict get_reward();
+    pybind11::dict get_info();
     int loadNodes(const std::string& fname);
     pybind11::dict get_observation(std::unordered_set<std::string>& observationTypes);
     std::tuple<int,int,std::vector<std::vector<int>>,std::vector<std::vector<int>>> get_env_vals();

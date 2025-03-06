@@ -112,41 +112,35 @@ inline Options Defaults() { return 0xBABA; }
 
 // The caller should free the File after closing it by passing *f to delete.
 absl::Status Open(absl::string_view filename, absl::string_view mode, File** f,
-                  Options options);
+                  int flags);
 // The caller should free the File after closing it by passing the returned
 // pointer to delete.
-File* OpenOrDie(absl::string_view filename, absl::string_view mode,
-                Options options);
+File* OpenOrDie(absl::string_view filename, absl::string_view mode, int flags);
 absl::Status GetTextProto(absl::string_view filename,
-                          google::protobuf::Message* proto, Options options);
+                          google::protobuf::Message* proto, int flags);
 template <typename T>
-absl::StatusOr<T> GetTextProto(absl::string_view filename, Options options) {
+absl::StatusOr<T> GetTextProto(absl::string_view filename, int flags) {
   T proto;
-  RETURN_IF_ERROR(GetTextProto(filename, &proto, options));
+  RETURN_IF_ERROR(GetTextProto(filename, &proto, flags));
   return proto;
 }
 absl::Status SetTextProto(absl::string_view filename,
-                          const google::protobuf::Message& proto,
-                          Options options);
+                          const google::protobuf::Message& proto, int flags);
 absl::Status GetBinaryProto(absl::string_view filename,
-                            google::protobuf::Message* proto, Options options);
+                            google::protobuf::Message* proto, int flags);
 template <typename T>
-absl::StatusOr<T> GetBinaryProto(absl::string_view filename, Options options) {
+absl::StatusOr<T> GetBinaryProto(absl::string_view filename, int flags) {
   T proto;
-  RETURN_IF_ERROR(GetBinaryProto(filename, &proto, options));
+  RETURN_IF_ERROR(GetBinaryProto(filename, &proto, flags));
   return proto;
 }
 absl::Status SetBinaryProto(absl::string_view filename,
-                            const google::protobuf::Message& proto,
-                            Options options);
+                            const google::protobuf::Message& proto, int flags);
 absl::Status SetContents(absl::string_view filename, absl::string_view contents,
-                         Options options);
-absl::StatusOr<std::string> GetContents(absl::string_view path,
-                                        Options options);
+                         int flags);
 absl::Status GetContents(absl::string_view filename, std::string* output,
-                         Options options);
-absl::Status WriteString(File* file, absl::string_view contents,
-                         Options options);
+                         int flags);
+absl::Status WriteString(File* file, absl::string_view contents, int flags);
 
 bool ReadFileToString(absl::string_view file_name, std::string* output);
 bool WriteStringToFile(absl::string_view data, absl::string_view file_name);
@@ -163,8 +157,8 @@ bool WriteProtoToFile(const google::protobuf::Message& proto,
 void WriteProtoToFileOrDie(const google::protobuf::Message& proto,
                            absl::string_view file_name);
 
-absl::Status Delete(absl::string_view path, Options options);
-absl::Status Exists(absl::string_view path, Options options);
+absl::Status Delete(absl::string_view path, int flags);
+absl::Status Exists(absl::string_view path, int flags);
 
 }  // namespace file
 

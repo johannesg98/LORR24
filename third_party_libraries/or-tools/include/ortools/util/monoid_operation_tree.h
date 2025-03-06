@@ -16,7 +16,6 @@
 
 #include <algorithm>
 #include <string>
-#include <vector>
 
 #include "absl/strings/str_format.h"
 #include "ortools/base/logging.h"

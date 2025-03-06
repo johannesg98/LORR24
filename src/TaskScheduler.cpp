@@ -23,8 +23,10 @@ void TaskScheduler::initialize(int preprocess_time_limit)
     //-SCHEDULER_TIMELIMIT_TOLERANCE for timing error tolerance
     int limit = preprocess_time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
     
-    schedulerRL::schedule_initialize(limit, env);
     DefaultPlanner::schedule_initialize(limit, env);
+    schedulerRL::schedule_initialize(limit, env);
+
+    task_search_start_times.resize(env->num_of_agents, 0);
 }
 
 /**
@@ -43,10 +45,41 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     //-SCHEDULER_TIMELIMIT_TOLERANCE for timing error tolerance
     int limit = time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
     
+    std::vector<int> proposed_schedule_old = proposed_schedule;
+
     if(action_dict.empty()){
         DefaultPlanner::schedule_plan(limit, proposed_schedule, env);
     }
     else{
         schedulerRL::schedule_plan(limit, proposed_schedule, env, action_dict);
     }
+
+    double Astar_reward = 0;
+    double idle_agents = 0;
+    int tasks_assigned = 0;
+    std::vector<int> task_search_durations;
+    int max_dist = env->rows + env->cols;
+    for (int agent = 0; agent < proposed_schedule_old.size(); agent++){
+        if (proposed_schedule_old[agent] == -1 && task_search_start_times[agent] == -1){
+            task_search_start_times[agent] = env->curr_timestep;
+        }
+        if (proposed_schedule_old[agent] == -1 && proposed_schedule[agent] != -1){
+            int dist = DefaultPlanner::get_h(env, env->curr_states[agent].location, env->task_pool[proposed_schedule[agent]].locations[0]);
+            double rew = max_dist - dist;
+            rew = static_cast<float>(rew) / max_dist;
+            rew = rew*rew;    // rew^4, otherwise often high rewards
+            Astar_reward += rew;
+            tasks_assigned++;
+            task_search_durations.push_back(env->curr_timestep - task_search_start_times[agent]);
+            task_search_start_times[agent] = -1;
+        }
+        if (proposed_schedule[agent] == -1){
+            idle_agents++;
+        }
+    }
+    env->Astar_reward = Astar_reward;
+    env->idle_agents_reward = -idle_agents; // /10
+    env->tasks_assigned_reward = tasks_assigned;
+    env->task_search_durations = task_search_durations;
+    
 }

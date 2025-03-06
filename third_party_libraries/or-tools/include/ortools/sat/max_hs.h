@@ -95,7 +95,7 @@ class HittingSetOptimizer {
   bool ComputeInitialMpModel();
 
   // Project the at_most_one constraint on the set of extracted variables.
-  void ProjectAndAddAtMostOne(absl::Span<const Literal> literals);
+  void ProjectAndAddAtMostOne(const std::vector<Literal>& literals);
 
   // Project the linear constraint on the set of extracted variables. Non
   // extracted variables are used to 'extend' the lower and upper bound of the
@@ -114,7 +114,7 @@ class HittingSetOptimizer {
   void TightenMpModel();
 
   // Processes the cores from the SAT solver and add them to the MPModel.
-  void AddCoresToTheMpModel(absl::Span<const std::vector<Literal>> cores);
+  void AddCoresToTheMpModel(const std::vector<std::vector<Literal>>& cores);
 
   // Builds the assumptions from the current MP solution.
   std::vector<Literal> BuildAssumptions(
@@ -163,7 +163,7 @@ class HittingSetOptimizer {
   // variables.
   // By convention, we always associate the MPVariableProto with both the
   // positive and the negative SAT variable.
-  util_intops::StrongVector<IntegerVariable, int> sat_var_to_mp_var_;
+  absl::StrongVector<IntegerVariable, int> sat_var_to_mp_var_;
 
   // The list of <positive sat var, mp var proto> created during the
   // ExtractVariable() method.

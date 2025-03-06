@@ -27,8 +27,9 @@ private:
     std::optional<Grid> grid;
     std::vector<int> agents;
     std::vector<list<int>> tasks;
-    RewardType rewardType;
+    std::string rewardType;
     std::unordered_set<std::string> observationTypes;
+    std::string random_agents_and_tasks;
 
     // Command-line arguments stored as class variables
     std::string inputFile;
@@ -58,8 +59,9 @@ public:
         int preprocessTimeLimit = 30000,
         std::string logFile = "",
         int logDetailLevel = 1,
-        RewardType rewardType = RewardType::TASKFINISHED,
-        std::unordered_set<std::string> observationTypes = {}
+        std::string rewardType = "task-finished",
+        std::unordered_set<std::string> observationTypes = {},
+        std::string random_agents_and_tasks = "true"
     );
 
     // Function declarations
@@ -74,10 +76,11 @@ public:
         int preprocessTimeLimit_ = -1,
         std::string logFile_ = "",
         int logDetailLevel_ = -1,
-        RewardType rewardType_ = RewardType::INVALID,
-        std::unordered_set<std::string> observationTypes_ = {"-1"}
+        std::string rewardType_ = "invalid",
+        std::unordered_set<std::string> observationTypes_ = {"-1"},
+        std::string random_agents_and_tasks = "no_input"
     );
-    std::tuple<pybind11::dict, double, bool> step(const std::unordered_map<std::string, pybind11::object>& action_dict = {});
+    std::tuple<pybind11::dict, pybind11::dict, bool, pybind11::dict> step(const std::unordered_map<std::string, pybind11::object>& action_dict = {});
     void make_env_params_available();
     int nNodes = -1;
     int nAgents = -1;

@@ -14,15 +14,19 @@
 #ifndef OR_TOOLS_SAT_LINEAR_CONSTRAINT_MANAGER_H_
 #define OR_TOOLS_SAT_LINEAR_CONSTRAINT_MANAGER_H_
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/container/btree_map.h"
 #include "absl/container/flat_hash_map.h"
+#include "absl/container/flat_hash_set.h"
 #include "absl/strings/string_view.h"
 #include "ortools/base/strong_vector.h"
+#include "ortools/glop/revised_simplex.h"
 #include "ortools/glop/variables_info.h"
 #include "ortools/lp_data/lp_types.h"
 #include "ortools/sat/integer.h"
@@ -43,8 +47,7 @@ namespace sat {
 // case where we have many different LinearProgrammingConstraint and a lot of
 // variable, we could theoretically use up a quadratic amount of memory
 // otherwise.
-struct ModelLpValues
-    : public util_intops::StrongVector<IntegerVariable, double> {
+struct ModelLpValues : public absl::StrongVector<IntegerVariable, double> {
   ModelLpValues() = default;
 };
 
@@ -146,8 +149,8 @@ class LinearConstraintManager {
   void AddAllConstraintsToLp();
 
   // All the constraints managed by this class.
-  const util_intops::StrongVector<ConstraintIndex, ConstraintInfo>&
-  AllConstraints() const {
+  const absl::StrongVector<ConstraintIndex, ConstraintInfo>& AllConstraints()
+      const {
     return constraint_infos_;
   }
 
@@ -158,7 +161,7 @@ class LinearConstraintManager {
   }
 
   // To simplify CutGenerator api.
-  const util_intops::StrongVector<IntegerVariable, double>& LpValues() {
+  const absl::StrongVector<IntegerVariable, double>& LpValues() {
     return expanded_lp_solution_;
   }
 
@@ -179,9 +182,9 @@ class LinearConstraintManager {
     return type_to_num_cuts_;
   }
 
-  // If a debug solution has been loaded, this checks if the given constraint
-  // cut it or not. Returns true if and only if everything is fine and the cut
-  // does not violate the loaded solution.
+  // If a debug solution has been loaded, this checks if the given constaint cut
+  // it or not. Returns true iff everything is fine and the cut does not violate
+  // the loaded solution.
   bool DebugCheckConstraint(const LinearConstraint& cut);
 
  private:
@@ -189,7 +192,7 @@ class LinearConstraintManager {
   // LP. Note that such constraints can be added back later by the heuristic
   // responsible for adding new constraints from the pool.
   //
-  // Returns true if and only if one or more constraints where removed.
+  // Returns true iff one or more constraints where removed.
   //
   // If the solutions_state is empty, then this function does nothing and
   // returns false (this is used for tests). Otherwise, the solutions_state is
@@ -228,7 +231,7 @@ class LinearConstraintManager {
   // Optimization to avoid calling SimplifyConstraint() when not needed.
   int64_t last_simplification_timestamp_ = 0;
 
-  util_intops::StrongVector<ConstraintIndex, ConstraintInfo> constraint_infos_;
+  absl::StrongVector<ConstraintIndex, ConstraintInfo> constraint_infos_;
 
   // The subset of constraints currently in the lp.
   std::vector<ConstraintIndex> lp_constraints_;
@@ -294,9 +297,8 @@ class TopNCuts {
   explicit TopNCuts(int n) : cuts_(n) {}
 
   // Adds a cut to the local pool.
-  void AddCut(
-      LinearConstraint ct, absl::string_view name,
-      const util_intops::StrongVector<IntegerVariable, double>& lp_solution);
+  void AddCut(LinearConstraint ct, absl::string_view name,
+              const absl::StrongVector<IntegerVariable, double>& lp_solution);
 
   // Empty the local pool and add all its content to the manager.
   void TransferToManager(LinearConstraintManager* manager);

@@ -826,7 +826,6 @@ class SatParameters final : public ::google::protobuf::Message
     kIgnoreSubsolversFieldNumber = 209,
     kSubsolverParamsFieldNumber = 210,
     kExtraSubsolversFieldNumber = 219,
-    kFilterSubsolversFieldNumber = 293,
     kDefaultRestartAlgorithmsFieldNumber = 70,
     kNameFieldNumber = 171,
     kLogPrefixFieldNumber = 185,
@@ -851,77 +850,70 @@ class SatParameters final : public ::google::protobuf::Message
     kUsePbResolutionFieldNumber = 43,
     kMinimizeReductionDuringPbResolutionFieldNumber = 48,
     kDetectTableWithCostFieldNumber = 216,
+    kUseOptionalVariablesFieldNumber = 108,
+    kUseCombinedNoOverlapFieldNumber = 133,
+    kPolishLpSolutionFieldNumber = 175,
+    kOnlyAddCutsAtLevelZeroFieldNumber = 92,
     kInterleaveBatchSizeFieldNumber = 134,
+    kInterleaveSearchFieldNumber = 136,
+    kDebugPostsolveWithFullSolverFieldNumber = 162,
+    kDebugCrashOnBadHintFieldNumber = 195,
+    kMaxSatReverseAssumptionOrderFieldNumber = 52,
+    kEnumerateAllSolutionsFieldNumber = 87,
+    kKeepAllFeasibleSolutionsInPresolveFieldNumber = 173,
     kFillTightenedDomainsInResponseFieldNumber = 132,
     kFillAdditionalSolutionsInResponseFieldNumber = 194,
-    kStopAfterFirstSolutionFieldNumber = 98,
-    kStopAfterPresolveFieldNumber = 149,
     kPermutePresolveConstraintOrderFieldNumber = 179,
     kUseAbslRandomFieldNumber = 180,
     kLogSearchProgressFieldNumber = 41,
     kLogSubsolverStatisticsFieldNumber = 189,
-    kPolishLpSolutionFieldNumber = 175,
-    kOnlyAddCutsAtLevelZeroFieldNumber = 92,
-    kAddObjectiveCutFieldNumber = 197,
-    kExploitBestSolutionFieldNumber = 130,
-    kDebugMaxNumPresolveOperationsFieldNumber = 151,
-    kRandomizeSearchFieldNumber = 103,
-    kPushAllTasksTowardStartFieldNumber = 262,
-    kUseOptionalVariablesFieldNumber = 108,
-    kUseCombinedNoOverlapFieldNumber = 133,
-    kDebugPostsolveWithFullSolverFieldNumber = 162,
-    kDebugCrashOnBadHintFieldNumber = 195,
-    kMaxSatReverseAssumptionOrderFieldNumber = 52,
-    kUseStrongPropagationInDisjunctiveFieldNumber = 230,
-    kOptimizeWithCoreFieldNumber = 83,
-    kOptimizeWithLbTreeSearchFieldNumber = 188,
-    kSaveLpBasisInLbTreeSearchFieldNumber = 284,
-    kOptimizeWithMaxHsFieldNumber = 85,
+    kStopAfterFirstSolutionFieldNumber = 98,
+    kStopAfterPresolveFieldNumber = 149,
+    kStopAfterRootPropagationFieldNumber = 252,
+    kUseLnsOnlyFieldNumber = 101,
     kRelativeGapLimitFieldNumber = 160,
+    kDebugMaxNumPresolveOperationsFieldNumber = 151,
     kUseTimetableEdgeFindingInCumulativeFieldNumber = 79,
     kUseHardPrecedencesInCumulativeFieldNumber = 215,
     kExploitAllPrecedencesFieldNumber = 220,
     kUseTimetablingInNoOverlap2DFieldNumber = 200,
-    kUseLsOnlyFieldNumber = 240,
-    kUseSharedTreeSearchFieldNumber = 236,
-    kEnumerateAllSolutionsFieldNumber = 87,
-    kKeepAllFeasibleSolutionsInPresolveFieldNumber = 173,
-    kStopAfterRootPropagationFieldNumber = 252,
-    kUseLnsOnlyFieldNumber = 101,
-    kUseLbRelaxLnsFieldNumber = 255,
-    kDiversifyLnsParamsFieldNumber = 137,
+    kUseProbingSearchFieldNumber = 176,
+    kUseObjectiveLbSearchFieldNumber = 228,
+    kUseObjectiveShavingSearchFieldNumber = 253,
+    kOptimizeWithCoreFieldNumber = 83,
+    kExpandAlldiffConstraintsFieldNumber = 170,
+    kDisableConstraintExpansionFieldNumber = 181,
     kEncodeComplexLinearConstraintWithIntegerFieldNumber = 223,
     kPresolveExtractIntegerEnforcementFieldNumber = 174,
-    kInterleaveSearchFieldNumber = 136,
-    kShareGlueClausesFieldNumber = 285,
+    kOptimizeWithLbTreeSearchFieldNumber = 188,
+    kOptimizeWithMaxHsFieldNumber = 85,
+    kTestFeasibilityJumpFieldNumber = 240,
+    kUseSharedTreeSearchFieldNumber = 236,
+    kUseLbRelaxLnsFieldNumber = 255,
+    kDiversifyLnsParamsFieldNumber = 137,
+    kRandomizeSearchFieldNumber = 103,
+    kPushAllTasksTowardStartFieldNumber = 262,
+    kAddObjectiveCutFieldNumber = 197,
+    kExploitBestSolutionFieldNumber = 130,
+    kExploitRelaxationSolutionFieldNumber = 161,
+    kDetectLinearizedProductFieldNumber = 277,
     kNumWorkersFieldNumber = 206,
+    kUseStrongPropagationInDisjunctiveFieldNumber = 230,
+    kUseDynamicPrecedenceInDisjunctiveFieldNumber = 263,
+    kUseDynamicPrecedenceInCumulativeFieldNumber = 268,
+    kUseOverloadCheckerInCumulativeFieldNumber = 78,
     kUseEnergeticReasoningInNoOverlap2DFieldNumber = 213,
     kUseAreaEnergeticReasoningInNoOverlap2DFieldNumber = 271,
     kRepairHintFieldNumber = 167,
     kFixVariablesToTheirHintedValueFieldNumber = 192,
-    kExploitRelaxationSolutionFieldNumber = 161,
-    kDetectLinearizedProductFieldNumber = 277,
+    kSharedTreeNumWorkersFieldNumber = 235,
+    kSharedTreeSplitStrategyFieldNumber = 239,
     kMipScaleLargeDomainFieldNumber = 225,
     kOnlySolveIpFieldNumber = 222,
-    kUseDynamicPrecedenceInDisjunctiveFieldNumber = 263,
-    kUseDynamicPrecedenceInCumulativeFieldNumber = 268,
-    kUseOverloadCheckerInCumulativeFieldNumber = 78,
-    kUseConservativeScaleOverloadCheckerFieldNumber = 286,
-    kExpandAlldiffConstraintsFieldNumber = 170,
-    kExpandReservoirUsingCircuitFieldNumber = 288,
-    kEncodeCumulativeAsReservoirFieldNumber = 287,
-    kDisableConstraintExpansionFieldNumber = 181,
-    kSharedTreeNumWorkersFieldNumber = 235,
-    kUseProbingSearchFieldNumber = 176,
-    kUseObjectiveLbSearchFieldNumber = 228,
-    kUseObjectiveShavingSearchFieldNumber = 253,
-    kUseVariablesShavingSearchFieldNumber = 289,
-    kSharedTreeSplitStrategyFieldNumber = 239,
-    kNumViolationLsFieldNumber = 244,
     kMipTreatHighMagnitudeBoundsAsInfinityFieldNumber = 278,
+    kNumViolationLsFieldNumber = 244,
+    kFeasibilityJumpVarRandomizationProbabilityFieldNumber = 247,
     kMaxLinMaxSizeForExpansionFieldNumber = 280,
-    kMaxNumDeterministicBatchesFieldNumber = 291,
-    kNumFullSubsolversFieldNumber = 294,
     kSharedTreeWorkerMinRestartsPerSubtreeFieldNumber = 282,
     kInitialPolarityFieldNumber = 2,
     kMinimizationAlgorithmFieldNumber = 4,
@@ -976,79 +968,78 @@ class SatParameters final : public ::google::protobuf::Message
     kMaxConsecutiveInactiveCountFieldNumber = 121,
     kPseudoCostReliabilityThresholdFieldNumber = 123,
     kMipMaxBoundFieldNumber = 124,
-    kMipVarScalingFieldNumber = 125,
     kNewConstraintsBatchSizeFieldNumber = 122,
-    kExploitIntegerLpSolutionFieldNumber = 94,
-    kExploitAllLpSolutionFieldNumber = 116,
-    kExploitObjectiveFieldNumber = 131,
-    kMipAutomaticallyScaleVariablesFieldNumber = 166,
+    kMipMaxActivityExponentFieldNumber = 127,
+    kMipVarScalingFieldNumber = 125,
     kMipWantedPrecisionFieldNumber = 126,
     kMipCheckPrecisionFieldNumber = 128,
-    kMipMaxActivityExponentFieldNumber = 127,
     kMaxPresolveIterationsFieldNumber = 138,
-    kUseExactLpReasonFieldNumber = 109,
-    kCatchSigintSignalFieldNumber = 135,
-    kUseImpliedBoundsFieldNumber = 144,
-    kConvertIntervalsFieldNumber = 177,
-    kPresolveSubstitutionLevelFieldNumber = 147,
+    kAddCgCutsFieldNumber = 117,
+    kAddMirCutsFieldNumber = 120,
+    kAddZeroHalfCutsFieldNumber = 169,
+    kAddCliqueCutsFieldNumber = 172,
     kMergeNoOverlapWorkLimitFieldNumber = 145,
     kMergeAtMostOneWorkLimitFieldNumber = 146,
+    kPresolveSubstitutionLevelFieldNumber = 147,
     kMaxAllDiffCutSizeFieldNumber = 148,
     kUseSatInprocessingFieldNumber = 163,
     kShareObjectiveBoundsFieldNumber = 113,
     kShareLevelZeroBoundsFieldNumber = 114,
     kShareBinaryClausesFieldNumber = 203,
+    kExploitAllLpSolutionFieldNumber = 116,
+    kExploitObjectiveFieldNumber = 131,
+    kMipAutomaticallyScaleVariablesFieldNumber = 166,
+    kMipComputeTrueObjectiveBoundFieldNumber = 198,
     kHintConflictLimitFieldNumber = 153,
     kMaxCutRoundsAtLevelZeroFieldNumber = 154,
     kCutMaxActiveCountValueFieldNumber = 155,
     kCutActiveCountDecayFieldNumber = 156,
     kCutCleanupTargetFieldNumber = 157,
-    kNewLinearPropagationFieldNumber = 224,
-    kAddCgCutsFieldNumber = 117,
-    kAddMirCutsFieldNumber = 120,
-    kAddZeroHalfCutsFieldNumber = 169,
-    kAbsoluteGapLimitFieldNumber = 159,
-    kFpRoundingFieldNumber = 165,
-    kAutoDetectGreaterThanAtLeastOneOfFieldNumber = 95,
-    kUseLnsFieldNumber = 283,
-    kUseRinsLnsFieldNumber = 129,
-    kUseFeasibilityPumpFieldNumber = 164,
-    kPolarityRephaseIncrementFieldNumber = 168,
-    kAddCliqueCutsFieldNumber = 172,
     kAddRltCutsFieldNumber = 279,
     kAddLinMaxCutsFieldNumber = 152,
     kAddLpConstraintsLazilyFieldNumber = 112,
+    kExploitIntegerLpSolutionFieldNumber = 94,
+    kAbsoluteGapLimitFieldNumber = 159,
+    kFpRoundingFieldNumber = 165,
+    kPolarityRephaseIncrementFieldNumber = 168,
+    kCatchSigintSignalFieldNumber = 135,
+    kUseImpliedBoundsFieldNumber = 144,
+    kConvertIntervalsFieldNumber = 177,
+    kNewLinearPropagationFieldNumber = 224,
+    kUseLnsFieldNumber = 283,
+    kUseRinsLnsFieldNumber = 129,
+    kUseFeasibilityPumpFieldNumber = 164,
+    kUseExactLpReasonFieldNumber = 109,
+    kUseFeasibilityJumpFieldNumber = 265,
+    kFeasibilityJumpEnableRestartsFieldNumber = 250,
+    kInstantiateAllVariablesFieldNumber = 106,
+    kAutoDetectGreaterThanAtLeastOneOfFieldNumber = 95,
     kSymmetryLevelFieldNumber = 183,
-    kMaxDomainSizeWhenEncodingEqNeqConstraintsFieldNumber = 191,
     kClauseCleanupRatioFieldNumber = 190,
+    kMaxDomainSizeWhenEncodingEqNeqConstraintsFieldNumber = 191,
     kUseDisjunctiveConstraintInCumulativeFieldNumber = 80,
     kUseDualSchedulingHeuristicsFieldNumber = 214,
     kUseExtendedProbingFieldNumber = 269,
     kUseShavingInProbingSearchFieldNumber = 204,
     kSolutionPoolSizeFieldNumber = 193,
     kCutLevelFieldNumber = 196,
-    kMipComputeTrueObjectiveBoundFieldNumber = 198,
     kMipMaxValidMagnitudeFieldNumber = 199,
     kPresolveInclusionWorkLimitFieldNumber = 201,
     kShavingSearchDeterministicTimeFieldNumber = 205,
+    kMinNumLnsWorkersFieldNumber = 211,
     kExpandReservoirConstraintsFieldNumber = 182,
     kIgnoreNamesFieldNumber = 202,
     kInferAllDiffsFieldNumber = 233,
     kFindBigLinearOverlapFieldNumber = 234,
-    kTableCompressionLevelFieldNumber = 217,
     kPropagationLoopDetectionFactorFieldNumber = 221,
-    kProbingDeterministicTimeLimitFieldNumber = 226,
+    kTableCompressionLevelFieldNumber = 217,
     kRootLpIterationsFieldNumber = 227,
-    kMaxSizeToCreatePrecedenceLiteralsInDisjunctiveFieldNumber = 229,
-    kUseFeasibilityJumpFieldNumber = 265,
-    kFeasibilityJumpEnableRestartsFieldNumber = 250,
-    kSharedTreeWorkerEnableTrailSharingFieldNumber = 295,
-    kInstantiateAllVariablesFieldNumber = 106,
-    kSharedTreeMaxNodesPerWorkerFieldNumber = 238,
+    kProbingDeterministicTimeLimitFieldNumber = 226,
     kMipDropToleranceFieldNumber = 232,
+    kMaxSizeToCreatePrecedenceLiteralsInDisjunctiveFieldNumber = 229,
+    kSharedTreeMaxNodesPerWorkerFieldNumber = 238,
     kSharedTreeWorkerObjectiveSplitProbabilityFieldNumber = 237,
     kFeasibilityJumpDecayFieldNumber = 242,
-    kFeasibilityJumpVarRandomizationProbabilityFieldNumber = 247,
     kFeasibilityJumpVarPerburbationRangeRatioFieldNumber = 248,
     kViolationLsPerturbationPeriodFieldNumber = 249,
     kLinearSplitSizeFieldNumber = 256,
@@ -1067,8 +1058,6 @@ class SatParameters final : public ::google::protobuf::Message
     kMaxPairsPairwiseReasoningInNoOverlap2DFieldNumber = 276,
     kInprocessingMinimizationDtimeFieldNumber = 275,
     kSharedTreeOpenLeavesPerWorkerFieldNumber = 281,
-    kShavingSearchThresholdFieldNumber = 290,
-    kFeasibilityJumpBatchDtimeFieldNumber = 292,
   };
   // repeated .operations_research.sat.SatParameters.RestartAlgorithm restart_algorithms = 61;
   int restart_algorithms_size() const;
@@ -1188,34 +1177,6 @@ class SatParameters final : public ::google::protobuf::Message
   private:
   const ::google::protobuf::RepeatedPtrField<std::string>& _internal_extra_subsolvers() const;
   ::google::protobuf::RepeatedPtrField<std::string>* _internal_mutable_extra_subsolvers();
-
-  public:
-  // repeated string filter_subsolvers = 293;
-  int filter_subsolvers_size() const;
-  private:
-  int _internal_filter_subsolvers_size() const;
-
-  public:
-  void clear_filter_subsolvers() ;
-  const std::string& filter_subsolvers(int index) const;
-  std::string* mutable_filter_subsolvers(int index);
-  void set_filter_subsolvers(int index, const std::string& value);
-  void set_filter_subsolvers(int index, std::string&& value);
-  void set_filter_subsolvers(int index, const char* value);
-  void set_filter_subsolvers(int index, const char* value, std::size_t size);
-  void set_filter_subsolvers(int index, absl::string_view value);
-  std::string* add_filter_subsolvers();
-  void add_filter_subsolvers(const std::string& value);
-  void add_filter_subsolvers(std::string&& value);
-  void add_filter_subsolvers(const char* value);
-  void add_filter_subsolvers(const char* value, std::size_t size);
-  void add_filter_subsolvers(absl::string_view value);
-  const ::google::protobuf::RepeatedPtrField<std::string>& filter_subsolvers() const;
-  ::google::protobuf::RepeatedPtrField<std::string>* mutable_filter_subsolvers();
-
-  private:
-  const ::google::protobuf::RepeatedPtrField<std::string>& _internal_filter_subsolvers() const;
-  ::google::protobuf::RepeatedPtrField<std::string>* _internal_mutable_filter_subsolvers();
 
   public:
   // optional string default_restart_algorithms = 70 [default = "LUBY_RESTART,LBD_MOVING_AVERAGE_RESTART,DL_MOVING_AVERAGE_RESTART"];
@@ -1500,6 +1461,50 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_detect_table_with_cost(bool value);
 
   public:
+  // optional bool use_optional_variables = 108 [default = false];
+  bool has_use_optional_variables() const;
+  void clear_use_optional_variables() ;
+  bool use_optional_variables() const;
+  void set_use_optional_variables(bool value);
+
+  private:
+  bool _internal_use_optional_variables() const;
+  void _internal_set_use_optional_variables(bool value);
+
+  public:
+  // optional bool use_combined_no_overlap = 133 [default = false];
+  bool has_use_combined_no_overlap() const;
+  void clear_use_combined_no_overlap() ;
+  bool use_combined_no_overlap() const;
+  void set_use_combined_no_overlap(bool value);
+
+  private:
+  bool _internal_use_combined_no_overlap() const;
+  void _internal_set_use_combined_no_overlap(bool value);
+
+  public:
+  // optional bool polish_lp_solution = 175 [default = false];
+  bool has_polish_lp_solution() const;
+  void clear_polish_lp_solution() ;
+  bool polish_lp_solution() const;
+  void set_polish_lp_solution(bool value);
+
+  private:
+  bool _internal_polish_lp_solution() const;
+  void _internal_set_polish_lp_solution(bool value);
+
+  public:
+  // optional bool only_add_cuts_at_level_zero = 92 [default = false];
+  bool has_only_add_cuts_at_level_zero() const;
+  void clear_only_add_cuts_at_level_zero() ;
+  bool only_add_cuts_at_level_zero() const;
+  void set_only_add_cuts_at_level_zero(bool value);
+
+  private:
+  bool _internal_only_add_cuts_at_level_zero() const;
+  void _internal_set_only_add_cuts_at_level_zero(bool value);
+
+  public:
   // optional int32 interleave_batch_size = 134 [default = 0];
   bool has_interleave_batch_size() const;
   void clear_interleave_batch_size() ;
@@ -1509,6 +1514,72 @@ class SatParameters final : public ::google::protobuf::Message
   private:
   ::int32_t _internal_interleave_batch_size() const;
   void _internal_set_interleave_batch_size(::int32_t value);
+
+  public:
+  // optional bool interleave_search = 136 [default = false];
+  bool has_interleave_search() const;
+  void clear_interleave_search() ;
+  bool interleave_search() const;
+  void set_interleave_search(bool value);
+
+  private:
+  bool _internal_interleave_search() const;
+  void _internal_set_interleave_search(bool value);
+
+  public:
+  // optional bool debug_postsolve_with_full_solver = 162 [default = false];
+  bool has_debug_postsolve_with_full_solver() const;
+  void clear_debug_postsolve_with_full_solver() ;
+  bool debug_postsolve_with_full_solver() const;
+  void set_debug_postsolve_with_full_solver(bool value);
+
+  private:
+  bool _internal_debug_postsolve_with_full_solver() const;
+  void _internal_set_debug_postsolve_with_full_solver(bool value);
+
+  public:
+  // optional bool debug_crash_on_bad_hint = 195 [default = false];
+  bool has_debug_crash_on_bad_hint() const;
+  void clear_debug_crash_on_bad_hint() ;
+  bool debug_crash_on_bad_hint() const;
+  void set_debug_crash_on_bad_hint(bool value);
+
+  private:
+  bool _internal_debug_crash_on_bad_hint() const;
+  void _internal_set_debug_crash_on_bad_hint(bool value);
+
+  public:
+  // optional bool max_sat_reverse_assumption_order = 52 [default = false];
+  bool has_max_sat_reverse_assumption_order() const;
+  void clear_max_sat_reverse_assumption_order() ;
+  bool max_sat_reverse_assumption_order() const;
+  void set_max_sat_reverse_assumption_order(bool value);
+
+  private:
+  bool _internal_max_sat_reverse_assumption_order() const;
+  void _internal_set_max_sat_reverse_assumption_order(bool value);
+
+  public:
+  // optional bool enumerate_all_solutions = 87 [default = false];
+  bool has_enumerate_all_solutions() const;
+  void clear_enumerate_all_solutions() ;
+  bool enumerate_all_solutions() const;
+  void set_enumerate_all_solutions(bool value);
+
+  private:
+  bool _internal_enumerate_all_solutions() const;
+  void _internal_set_enumerate_all_solutions(bool value);
+
+  public:
+  // optional bool keep_all_feasible_solutions_in_presolve = 173 [default = false];
+  bool has_keep_all_feasible_solutions_in_presolve() const;
+  void clear_keep_all_feasible_solutions_in_presolve() ;
+  bool keep_all_feasible_solutions_in_presolve() const;
+  void set_keep_all_feasible_solutions_in_presolve(bool value);
+
+  private:
+  bool _internal_keep_all_feasible_solutions_in_presolve() const;
+  void _internal_set_keep_all_feasible_solutions_in_presolve(bool value);
 
   public:
   // optional bool fill_tightened_domains_in_response = 132 [default = false];
@@ -1531,28 +1602,6 @@ class SatParameters final : public ::google::protobuf::Message
   private:
   bool _internal_fill_additional_solutions_in_response() const;
   void _internal_set_fill_additional_solutions_in_response(bool value);
-
-  public:
-  // optional bool stop_after_first_solution = 98 [default = false];
-  bool has_stop_after_first_solution() const;
-  void clear_stop_after_first_solution() ;
-  bool stop_after_first_solution() const;
-  void set_stop_after_first_solution(bool value);
-
-  private:
-  bool _internal_stop_after_first_solution() const;
-  void _internal_set_stop_after_first_solution(bool value);
-
-  public:
-  // optional bool stop_after_presolve = 149 [default = false];
-  bool has_stop_after_presolve() const;
-  void clear_stop_after_presolve() ;
-  bool stop_after_presolve() const;
-  void set_stop_after_presolve(bool value);
-
-  private:
-  bool _internal_stop_after_presolve() const;
-  void _internal_set_stop_after_presolve(bool value);
 
   public:
   // optional bool permute_presolve_constraint_order = 179 [default = false];
@@ -1599,191 +1648,48 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_log_subsolver_statistics(bool value);
 
   public:
-  // optional bool polish_lp_solution = 175 [default = false];
-  bool has_polish_lp_solution() const;
-  void clear_polish_lp_solution() ;
-  bool polish_lp_solution() const;
-  void set_polish_lp_solution(bool value);
+  // optional bool stop_after_first_solution = 98 [default = false];
+  bool has_stop_after_first_solution() const;
+  void clear_stop_after_first_solution() ;
+  bool stop_after_first_solution() const;
+  void set_stop_after_first_solution(bool value);
 
   private:
-  bool _internal_polish_lp_solution() const;
-  void _internal_set_polish_lp_solution(bool value);
+  bool _internal_stop_after_first_solution() const;
+  void _internal_set_stop_after_first_solution(bool value);
 
   public:
-  // optional bool only_add_cuts_at_level_zero = 92 [default = false];
-  bool has_only_add_cuts_at_level_zero() const;
-  void clear_only_add_cuts_at_level_zero() ;
-  bool only_add_cuts_at_level_zero() const;
-  void set_only_add_cuts_at_level_zero(bool value);
+  // optional bool stop_after_presolve = 149 [default = false];
+  bool has_stop_after_presolve() const;
+  void clear_stop_after_presolve() ;
+  bool stop_after_presolve() const;
+  void set_stop_after_presolve(bool value);
 
   private:
-  bool _internal_only_add_cuts_at_level_zero() const;
-  void _internal_set_only_add_cuts_at_level_zero(bool value);
+  bool _internal_stop_after_presolve() const;
+  void _internal_set_stop_after_presolve(bool value);
 
   public:
-  // optional bool add_objective_cut = 197 [default = false];
-  bool has_add_objective_cut() const;
-  void clear_add_objective_cut() ;
-  bool add_objective_cut() const;
-  void set_add_objective_cut(bool value);
+  // optional bool stop_after_root_propagation = 252 [default = false];
+  bool has_stop_after_root_propagation() const;
+  void clear_stop_after_root_propagation() ;
+  bool stop_after_root_propagation() const;
+  void set_stop_after_root_propagation(bool value);
 
   private:
-  bool _internal_add_objective_cut() const;
-  void _internal_set_add_objective_cut(bool value);
+  bool _internal_stop_after_root_propagation() const;
+  void _internal_set_stop_after_root_propagation(bool value);
 
   public:
-  // optional bool exploit_best_solution = 130 [default = false];
-  bool has_exploit_best_solution() const;
-  void clear_exploit_best_solution() ;
-  bool exploit_best_solution() const;
-  void set_exploit_best_solution(bool value);
+  // optional bool use_lns_only = 101 [default = false];
+  bool has_use_lns_only() const;
+  void clear_use_lns_only() ;
+  bool use_lns_only() const;
+  void set_use_lns_only(bool value);
 
   private:
-  bool _internal_exploit_best_solution() const;
-  void _internal_set_exploit_best_solution(bool value);
-
-  public:
-  // optional int32 debug_max_num_presolve_operations = 151 [default = 0];
-  bool has_debug_max_num_presolve_operations() const;
-  void clear_debug_max_num_presolve_operations() ;
-  ::int32_t debug_max_num_presolve_operations() const;
-  void set_debug_max_num_presolve_operations(::int32_t value);
-
-  private:
-  ::int32_t _internal_debug_max_num_presolve_operations() const;
-  void _internal_set_debug_max_num_presolve_operations(::int32_t value);
-
-  public:
-  // optional bool randomize_search = 103 [default = false];
-  bool has_randomize_search() const;
-  void clear_randomize_search() ;
-  bool randomize_search() const;
-  void set_randomize_search(bool value);
-
-  private:
-  bool _internal_randomize_search() const;
-  void _internal_set_randomize_search(bool value);
-
-  public:
-  // optional bool push_all_tasks_toward_start = 262 [default = false];
-  bool has_push_all_tasks_toward_start() const;
-  void clear_push_all_tasks_toward_start() ;
-  bool push_all_tasks_toward_start() const;
-  void set_push_all_tasks_toward_start(bool value);
-
-  private:
-  bool _internal_push_all_tasks_toward_start() const;
-  void _internal_set_push_all_tasks_toward_start(bool value);
-
-  public:
-  // optional bool use_optional_variables = 108 [default = false];
-  bool has_use_optional_variables() const;
-  void clear_use_optional_variables() ;
-  bool use_optional_variables() const;
-  void set_use_optional_variables(bool value);
-
-  private:
-  bool _internal_use_optional_variables() const;
-  void _internal_set_use_optional_variables(bool value);
-
-  public:
-  // optional bool use_combined_no_overlap = 133 [default = false];
-  bool has_use_combined_no_overlap() const;
-  void clear_use_combined_no_overlap() ;
-  bool use_combined_no_overlap() const;
-  void set_use_combined_no_overlap(bool value);
-
-  private:
-  bool _internal_use_combined_no_overlap() const;
-  void _internal_set_use_combined_no_overlap(bool value);
-
-  public:
-  // optional bool debug_postsolve_with_full_solver = 162 [default = false];
-  bool has_debug_postsolve_with_full_solver() const;
-  void clear_debug_postsolve_with_full_solver() ;
-  bool debug_postsolve_with_full_solver() const;
-  void set_debug_postsolve_with_full_solver(bool value);
-
-  private:
-  bool _internal_debug_postsolve_with_full_solver() const;
-  void _internal_set_debug_postsolve_with_full_solver(bool value);
-
-  public:
-  // optional bool debug_crash_on_bad_hint = 195 [default = false];
-  bool has_debug_crash_on_bad_hint() const;
-  void clear_debug_crash_on_bad_hint() ;
-  bool debug_crash_on_bad_hint() const;
-  void set_debug_crash_on_bad_hint(bool value);
-
-  private:
-  bool _internal_debug_crash_on_bad_hint() const;
-  void _internal_set_debug_crash_on_bad_hint(bool value);
-
-  public:
-  // optional bool max_sat_reverse_assumption_order = 52 [default = false];
-  bool has_max_sat_reverse_assumption_order() const;
-  void clear_max_sat_reverse_assumption_order() ;
-  bool max_sat_reverse_assumption_order() const;
-  void set_max_sat_reverse_assumption_order(bool value);
-
-  private:
-  bool _internal_max_sat_reverse_assumption_order() const;
-  void _internal_set_max_sat_reverse_assumption_order(bool value);
-
-  public:
-  // optional bool use_strong_propagation_in_disjunctive = 230 [default = false];
-  bool has_use_strong_propagation_in_disjunctive() const;
-  void clear_use_strong_propagation_in_disjunctive() ;
-  bool use_strong_propagation_in_disjunctive() const;
-  void set_use_strong_propagation_in_disjunctive(bool value);
-
-  private:
-  bool _internal_use_strong_propagation_in_disjunctive() const;
-  void _internal_set_use_strong_propagation_in_disjunctive(bool value);
-
-  public:
-  // optional bool optimize_with_core = 83 [default = false];
-  bool has_optimize_with_core() const;
-  void clear_optimize_with_core() ;
-  bool optimize_with_core() const;
-  void set_optimize_with_core(bool value);
-
-  private:
-  bool _internal_optimize_with_core() const;
-  void _internal_set_optimize_with_core(bool value);
-
-  public:
-  // optional bool optimize_with_lb_tree_search = 188 [default = false];
-  bool has_optimize_with_lb_tree_search() const;
-  void clear_optimize_with_lb_tree_search() ;
-  bool optimize_with_lb_tree_search() const;
-  void set_optimize_with_lb_tree_search(bool value);
-
-  private:
-  bool _internal_optimize_with_lb_tree_search() const;
-  void _internal_set_optimize_with_lb_tree_search(bool value);
-
-  public:
-  // optional bool save_lp_basis_in_lb_tree_search = 284 [default = false];
-  bool has_save_lp_basis_in_lb_tree_search() const;
-  void clear_save_lp_basis_in_lb_tree_search() ;
-  bool save_lp_basis_in_lb_tree_search() const;
-  void set_save_lp_basis_in_lb_tree_search(bool value);
-
-  private:
-  bool _internal_save_lp_basis_in_lb_tree_search() const;
-  void _internal_set_save_lp_basis_in_lb_tree_search(bool value);
-
-  public:
-  // optional bool optimize_with_max_hs = 85 [default = false];
-  bool has_optimize_with_max_hs() const;
-  void clear_optimize_with_max_hs() ;
-  bool optimize_with_max_hs() const;
-  void set_optimize_with_max_hs(bool value);
-
-  private:
-  bool _internal_optimize_with_max_hs() const;
-  void _internal_set_optimize_with_max_hs(bool value);
+  bool _internal_use_lns_only() const;
+  void _internal_set_use_lns_only(bool value);
 
   public:
   // optional double relative_gap_limit = 160 [default = 0];
@@ -1795,6 +1701,17 @@ class SatParameters final : public ::google::protobuf::Message
   private:
   double _internal_relative_gap_limit() const;
   void _internal_set_relative_gap_limit(double value);
+
+  public:
+  // optional int32 debug_max_num_presolve_operations = 151 [default = 0];
+  bool has_debug_max_num_presolve_operations() const;
+  void clear_debug_max_num_presolve_operations() ;
+  ::int32_t debug_max_num_presolve_operations() const;
+  void set_debug_max_num_presolve_operations(::int32_t value);
+
+  private:
+  ::int32_t _internal_debug_max_num_presolve_operations() const;
+  void _internal_set_debug_max_num_presolve_operations(::int32_t value);
 
   public:
   // optional bool use_timetable_edge_finding_in_cumulative = 79 [default = false];
@@ -1841,92 +1758,70 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_use_timetabling_in_no_overlap_2d(bool value);
 
   public:
-  // optional bool use_ls_only = 240 [default = false];
-  bool has_use_ls_only() const;
-  void clear_use_ls_only() ;
-  bool use_ls_only() const;
-  void set_use_ls_only(bool value);
+  // optional bool use_probing_search = 176 [default = false];
+  bool has_use_probing_search() const;
+  void clear_use_probing_search() ;
+  bool use_probing_search() const;
+  void set_use_probing_search(bool value);
 
   private:
-  bool _internal_use_ls_only() const;
-  void _internal_set_use_ls_only(bool value);
+  bool _internal_use_probing_search() const;
+  void _internal_set_use_probing_search(bool value);
 
   public:
-  // optional bool use_shared_tree_search = 236 [default = false];
-  bool has_use_shared_tree_search() const;
-  void clear_use_shared_tree_search() ;
-  bool use_shared_tree_search() const;
-  void set_use_shared_tree_search(bool value);
+  // optional bool use_objective_lb_search = 228 [default = false];
+  bool has_use_objective_lb_search() const;
+  void clear_use_objective_lb_search() ;
+  bool use_objective_lb_search() const;
+  void set_use_objective_lb_search(bool value);
 
   private:
-  bool _internal_use_shared_tree_search() const;
-  void _internal_set_use_shared_tree_search(bool value);
+  bool _internal_use_objective_lb_search() const;
+  void _internal_set_use_objective_lb_search(bool value);
 
   public:
-  // optional bool enumerate_all_solutions = 87 [default = false];
-  bool has_enumerate_all_solutions() const;
-  void clear_enumerate_all_solutions() ;
-  bool enumerate_all_solutions() const;
-  void set_enumerate_all_solutions(bool value);
+  // optional bool use_objective_shaving_search = 253 [default = false];
+  bool has_use_objective_shaving_search() const;
+  void clear_use_objective_shaving_search() ;
+  bool use_objective_shaving_search() const;
+  void set_use_objective_shaving_search(bool value);
 
   private:
-  bool _internal_enumerate_all_solutions() const;
-  void _internal_set_enumerate_all_solutions(bool value);
+  bool _internal_use_objective_shaving_search() const;
+  void _internal_set_use_objective_shaving_search(bool value);
 
   public:
-  // optional bool keep_all_feasible_solutions_in_presolve = 173 [default = false];
-  bool has_keep_all_feasible_solutions_in_presolve() const;
-  void clear_keep_all_feasible_solutions_in_presolve() ;
-  bool keep_all_feasible_solutions_in_presolve() const;
-  void set_keep_all_feasible_solutions_in_presolve(bool value);
+  // optional bool optimize_with_core = 83 [default = false];
+  bool has_optimize_with_core() const;
+  void clear_optimize_with_core() ;
+  bool optimize_with_core() const;
+  void set_optimize_with_core(bool value);
 
   private:
-  bool _internal_keep_all_feasible_solutions_in_presolve() const;
-  void _internal_set_keep_all_feasible_solutions_in_presolve(bool value);
+  bool _internal_optimize_with_core() const;
+  void _internal_set_optimize_with_core(bool value);
 
   public:
-  // optional bool stop_after_root_propagation = 252 [default = false];
-  bool has_stop_after_root_propagation() const;
-  void clear_stop_after_root_propagation() ;
-  bool stop_after_root_propagation() const;
-  void set_stop_after_root_propagation(bool value);
+  // optional bool expand_alldiff_constraints = 170 [default = false];
+  bool has_expand_alldiff_constraints() const;
+  void clear_expand_alldiff_constraints() ;
+  bool expand_alldiff_constraints() const;
+  void set_expand_alldiff_constraints(bool value);
 
   private:
-  bool _internal_stop_after_root_propagation() const;
-  void _internal_set_stop_after_root_propagation(bool value);
+  bool _internal_expand_alldiff_constraints() const;
+  void _internal_set_expand_alldiff_constraints(bool value);
 
   public:
-  // optional bool use_lns_only = 101 [default = false];
-  bool has_use_lns_only() const;
-  void clear_use_lns_only() ;
-  bool use_lns_only() const;
-  void set_use_lns_only(bool value);
+  // optional bool disable_constraint_expansion = 181 [default = false];
+  bool has_disable_constraint_expansion() const;
+  void clear_disable_constraint_expansion() ;
+  bool disable_constraint_expansion() const;
+  void set_disable_constraint_expansion(bool value);
 
   private:
-  bool _internal_use_lns_only() const;
-  void _internal_set_use_lns_only(bool value);
-
-  public:
-  // optional bool use_lb_relax_lns = 255 [default = false];
-  bool has_use_lb_relax_lns() const;
-  void clear_use_lb_relax_lns() ;
-  bool use_lb_relax_lns() const;
-  void set_use_lb_relax_lns(bool value);
-
-  private:
-  bool _internal_use_lb_relax_lns() const;
-  void _internal_set_use_lb_relax_lns(bool value);
-
-  public:
-  // optional bool diversify_lns_params = 137 [default = false];
-  bool has_diversify_lns_params() const;
-  void clear_diversify_lns_params() ;
-  bool diversify_lns_params() const;
-  void set_diversify_lns_params(bool value);
-
-  private:
-  bool _internal_diversify_lns_params() const;
-  void _internal_set_diversify_lns_params(bool value);
+  bool _internal_disable_constraint_expansion() const;
+  void _internal_set_disable_constraint_expansion(bool value);
 
   public:
   // optional bool encode_complex_linear_constraint_with_integer = 223 [default = false];
@@ -1951,26 +1846,136 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_presolve_extract_integer_enforcement(bool value);
 
   public:
-  // optional bool interleave_search = 136 [default = false];
-  bool has_interleave_search() const;
-  void clear_interleave_search() ;
-  bool interleave_search() const;
-  void set_interleave_search(bool value);
+  // optional bool optimize_with_lb_tree_search = 188 [default = false];
+  bool has_optimize_with_lb_tree_search() const;
+  void clear_optimize_with_lb_tree_search() ;
+  bool optimize_with_lb_tree_search() const;
+  void set_optimize_with_lb_tree_search(bool value);
 
   private:
-  bool _internal_interleave_search() const;
-  void _internal_set_interleave_search(bool value);
+  bool _internal_optimize_with_lb_tree_search() const;
+  void _internal_set_optimize_with_lb_tree_search(bool value);
 
   public:
-  // optional bool share_glue_clauses = 285 [default = false];
-  bool has_share_glue_clauses() const;
-  void clear_share_glue_clauses() ;
-  bool share_glue_clauses() const;
-  void set_share_glue_clauses(bool value);
+  // optional bool optimize_with_max_hs = 85 [default = false];
+  bool has_optimize_with_max_hs() const;
+  void clear_optimize_with_max_hs() ;
+  bool optimize_with_max_hs() const;
+  void set_optimize_with_max_hs(bool value);
 
   private:
-  bool _internal_share_glue_clauses() const;
-  void _internal_set_share_glue_clauses(bool value);
+  bool _internal_optimize_with_max_hs() const;
+  void _internal_set_optimize_with_max_hs(bool value);
+
+  public:
+  // optional bool test_feasibility_jump = 240 [default = false];
+  bool has_test_feasibility_jump() const;
+  void clear_test_feasibility_jump() ;
+  bool test_feasibility_jump() const;
+  void set_test_feasibility_jump(bool value);
+
+  private:
+  bool _internal_test_feasibility_jump() const;
+  void _internal_set_test_feasibility_jump(bool value);
+
+  public:
+  // optional bool use_shared_tree_search = 236 [default = false];
+  bool has_use_shared_tree_search() const;
+  void clear_use_shared_tree_search() ;
+  bool use_shared_tree_search() const;
+  void set_use_shared_tree_search(bool value);
+
+  private:
+  bool _internal_use_shared_tree_search() const;
+  void _internal_set_use_shared_tree_search(bool value);
+
+  public:
+  // optional bool use_lb_relax_lns = 255 [default = false];
+  bool has_use_lb_relax_lns() const;
+  void clear_use_lb_relax_lns() ;
+  bool use_lb_relax_lns() const;
+  void set_use_lb_relax_lns(bool value);
+
+  private:
+  bool _internal_use_lb_relax_lns() const;
+  void _internal_set_use_lb_relax_lns(bool value);
+
+  public:
+  // optional bool diversify_lns_params = 137 [default = false];
+  bool has_diversify_lns_params() const;
+  void clear_diversify_lns_params() ;
+  bool diversify_lns_params() const;
+  void set_diversify_lns_params(bool value);
+
+  private:
+  bool _internal_diversify_lns_params() const;
+  void _internal_set_diversify_lns_params(bool value);
+
+  public:
+  // optional bool randomize_search = 103 [default = false];
+  bool has_randomize_search() const;
+  void clear_randomize_search() ;
+  bool randomize_search() const;
+  void set_randomize_search(bool value);
+
+  private:
+  bool _internal_randomize_search() const;
+  void _internal_set_randomize_search(bool value);
+
+  public:
+  // optional bool push_all_tasks_toward_start = 262 [default = false];
+  bool has_push_all_tasks_toward_start() const;
+  void clear_push_all_tasks_toward_start() ;
+  bool push_all_tasks_toward_start() const;
+  void set_push_all_tasks_toward_start(bool value);
+
+  private:
+  bool _internal_push_all_tasks_toward_start() const;
+  void _internal_set_push_all_tasks_toward_start(bool value);
+
+  public:
+  // optional bool add_objective_cut = 197 [default = false];
+  bool has_add_objective_cut() const;
+  void clear_add_objective_cut() ;
+  bool add_objective_cut() const;
+  void set_add_objective_cut(bool value);
+
+  private:
+  bool _internal_add_objective_cut() const;
+  void _internal_set_add_objective_cut(bool value);
+
+  public:
+  // optional bool exploit_best_solution = 130 [default = false];
+  bool has_exploit_best_solution() const;
+  void clear_exploit_best_solution() ;
+  bool exploit_best_solution() const;
+  void set_exploit_best_solution(bool value);
+
+  private:
+  bool _internal_exploit_best_solution() const;
+  void _internal_set_exploit_best_solution(bool value);
+
+  public:
+  // optional bool exploit_relaxation_solution = 161 [default = false];
+  bool has_exploit_relaxation_solution() const;
+  void clear_exploit_relaxation_solution() ;
+  bool exploit_relaxation_solution() const;
+  void set_exploit_relaxation_solution(bool value);
+
+  private:
+  bool _internal_exploit_relaxation_solution() const;
+  void _internal_set_exploit_relaxation_solution(bool value);
+
+  public:
+  // optional bool detect_linearized_product = 277 [default = false];
+  bool has_detect_linearized_product() const;
+  void clear_detect_linearized_product() ;
+  bool detect_linearized_product() const;
+  void set_detect_linearized_product(bool value);
+
+  private:
+  bool _internal_detect_linearized_product() const;
+  void _internal_set_detect_linearized_product(bool value);
 
   public:
   // optional int32 num_workers = 206 [default = 0];
@@ -1982,6 +1987,50 @@ class SatParameters final : public ::google::protobuf::Message
   private:
   ::int32_t _internal_num_workers() const;
   void _internal_set_num_workers(::int32_t value);
+
+  public:
+  // optional bool use_strong_propagation_in_disjunctive = 230 [default = false];
+  bool has_use_strong_propagation_in_disjunctive() const;
+  void clear_use_strong_propagation_in_disjunctive() ;
+  bool use_strong_propagation_in_disjunctive() const;
+  void set_use_strong_propagation_in_disjunctive(bool value);
+
+  private:
+  bool _internal_use_strong_propagation_in_disjunctive() const;
+  void _internal_set_use_strong_propagation_in_disjunctive(bool value);
+
+  public:
+  // optional bool use_dynamic_precedence_in_disjunctive = 263 [default = false];
+  bool has_use_dynamic_precedence_in_disjunctive() const;
+  void clear_use_dynamic_precedence_in_disjunctive() ;
+  bool use_dynamic_precedence_in_disjunctive() const;
+  void set_use_dynamic_precedence_in_disjunctive(bool value);
+
+  private:
+  bool _internal_use_dynamic_precedence_in_disjunctive() const;
+  void _internal_set_use_dynamic_precedence_in_disjunctive(bool value);
+
+  public:
+  // optional bool use_dynamic_precedence_in_cumulative = 268 [default = false];
+  bool has_use_dynamic_precedence_in_cumulative() const;
+  void clear_use_dynamic_precedence_in_cumulative() ;
+  bool use_dynamic_precedence_in_cumulative() const;
+  void set_use_dynamic_precedence_in_cumulative(bool value);
+
+  private:
+  bool _internal_use_dynamic_precedence_in_cumulative() const;
+  void _internal_set_use_dynamic_precedence_in_cumulative(bool value);
+
+  public:
+  // optional bool use_overload_checker_in_cumulative = 78 [default = false];
+  bool has_use_overload_checker_in_cumulative() const;
+  void clear_use_overload_checker_in_cumulative() ;
+  bool use_overload_checker_in_cumulative() const;
+  void set_use_overload_checker_in_cumulative(bool value);
+
+  private:
+  bool _internal_use_overload_checker_in_cumulative() const;
+  void _internal_set_use_overload_checker_in_cumulative(bool value);
 
   public:
   // optional bool use_energetic_reasoning_in_no_overlap_2d = 213 [default = false];
@@ -2028,26 +2077,26 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_fix_variables_to_their_hinted_value(bool value);
 
   public:
-  // optional bool exploit_relaxation_solution = 161 [default = false];
-  bool has_exploit_relaxation_solution() const;
-  void clear_exploit_relaxation_solution() ;
-  bool exploit_relaxation_solution() const;
-  void set_exploit_relaxation_solution(bool value);
+  // optional int32 shared_tree_num_workers = 235 [default = 0];
+  bool has_shared_tree_num_workers() const;
+  void clear_shared_tree_num_workers() ;
+  ::int32_t shared_tree_num_workers() const;
+  void set_shared_tree_num_workers(::int32_t value);
 
   private:
-  bool _internal_exploit_relaxation_solution() const;
-  void _internal_set_exploit_relaxation_solution(bool value);
+  ::int32_t _internal_shared_tree_num_workers() const;
+  void _internal_set_shared_tree_num_workers(::int32_t value);
 
   public:
-  // optional bool detect_linearized_product = 277 [default = false];
-  bool has_detect_linearized_product() const;
-  void clear_detect_linearized_product() ;
-  bool detect_linearized_product() const;
-  void set_detect_linearized_product(bool value);
+  // optional .operations_research.sat.SatParameters.SharedTreeSplitStrategy shared_tree_split_strategy = 239 [default = SPLIT_STRATEGY_AUTO];
+  bool has_shared_tree_split_strategy() const;
+  void clear_shared_tree_split_strategy() ;
+  ::operations_research::sat::SatParameters_SharedTreeSplitStrategy shared_tree_split_strategy() const;
+  void set_shared_tree_split_strategy(::operations_research::sat::SatParameters_SharedTreeSplitStrategy value);
 
   private:
-  bool _internal_detect_linearized_product() const;
-  void _internal_set_detect_linearized_product(bool value);
+  ::operations_research::sat::SatParameters_SharedTreeSplitStrategy _internal_shared_tree_split_strategy() const;
+  void _internal_set_shared_tree_split_strategy(::operations_research::sat::SatParameters_SharedTreeSplitStrategy value);
 
   public:
   // optional bool mip_scale_large_domain = 225 [default = false];
@@ -2072,158 +2121,15 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_only_solve_ip(bool value);
 
   public:
-  // optional bool use_dynamic_precedence_in_disjunctive = 263 [default = false];
-  bool has_use_dynamic_precedence_in_disjunctive() const;
-  void clear_use_dynamic_precedence_in_disjunctive() ;
-  bool use_dynamic_precedence_in_disjunctive() const;
-  void set_use_dynamic_precedence_in_disjunctive(bool value);
+  // optional bool mip_treat_high_magnitude_bounds_as_infinity = 278 [default = false];
+  bool has_mip_treat_high_magnitude_bounds_as_infinity() const;
+  void clear_mip_treat_high_magnitude_bounds_as_infinity() ;
+  bool mip_treat_high_magnitude_bounds_as_infinity() const;
+  void set_mip_treat_high_magnitude_bounds_as_infinity(bool value);
 
   private:
-  bool _internal_use_dynamic_precedence_in_disjunctive() const;
-  void _internal_set_use_dynamic_precedence_in_disjunctive(bool value);
-
-  public:
-  // optional bool use_dynamic_precedence_in_cumulative = 268 [default = false];
-  bool has_use_dynamic_precedence_in_cumulative() const;
-  void clear_use_dynamic_precedence_in_cumulative() ;
-  bool use_dynamic_precedence_in_cumulative() const;
-  void set_use_dynamic_precedence_in_cumulative(bool value);
-
-  private:
-  bool _internal_use_dynamic_precedence_in_cumulative() const;
-  void _internal_set_use_dynamic_precedence_in_cumulative(bool value);
-
-  public:
-  // optional bool use_overload_checker_in_cumulative = 78 [default = false];
-  bool has_use_overload_checker_in_cumulative() const;
-  void clear_use_overload_checker_in_cumulative() ;
-  bool use_overload_checker_in_cumulative() const;
-  void set_use_overload_checker_in_cumulative(bool value);
-
-  private:
-  bool _internal_use_overload_checker_in_cumulative() const;
-  void _internal_set_use_overload_checker_in_cumulative(bool value);
-
-  public:
-  // optional bool use_conservative_scale_overload_checker = 286 [default = false];
-  bool has_use_conservative_scale_overload_checker() const;
-  void clear_use_conservative_scale_overload_checker() ;
-  bool use_conservative_scale_overload_checker() const;
-  void set_use_conservative_scale_overload_checker(bool value);
-
-  private:
-  bool _internal_use_conservative_scale_overload_checker() const;
-  void _internal_set_use_conservative_scale_overload_checker(bool value);
-
-  public:
-  // optional bool expand_alldiff_constraints = 170 [default = false];
-  bool has_expand_alldiff_constraints() const;
-  void clear_expand_alldiff_constraints() ;
-  bool expand_alldiff_constraints() const;
-  void set_expand_alldiff_constraints(bool value);
-
-  private:
-  bool _internal_expand_alldiff_constraints() const;
-  void _internal_set_expand_alldiff_constraints(bool value);
-
-  public:
-  // optional bool expand_reservoir_using_circuit = 288 [default = false];
-  bool has_expand_reservoir_using_circuit() const;
-  void clear_expand_reservoir_using_circuit() ;
-  bool expand_reservoir_using_circuit() const;
-  void set_expand_reservoir_using_circuit(bool value);
-
-  private:
-  bool _internal_expand_reservoir_using_circuit() const;
-  void _internal_set_expand_reservoir_using_circuit(bool value);
-
-  public:
-  // optional bool encode_cumulative_as_reservoir = 287 [default = false];
-  bool has_encode_cumulative_as_reservoir() const;
-  void clear_encode_cumulative_as_reservoir() ;
-  bool encode_cumulative_as_reservoir() const;
-  void set_encode_cumulative_as_reservoir(bool value);
-
-  private:
-  bool _internal_encode_cumulative_as_reservoir() const;
-  void _internal_set_encode_cumulative_as_reservoir(bool value);
-
-  public:
-  // optional bool disable_constraint_expansion = 181 [default = false];
-  bool has_disable_constraint_expansion() const;
-  void clear_disable_constraint_expansion() ;
-  bool disable_constraint_expansion() const;
-  void set_disable_constraint_expansion(bool value);
-
-  private:
-  bool _internal_disable_constraint_expansion() const;
-  void _internal_set_disable_constraint_expansion(bool value);
-
-  public:
-  // optional int32 shared_tree_num_workers = 235 [default = 0];
-  bool has_shared_tree_num_workers() const;
-  void clear_shared_tree_num_workers() ;
-  ::int32_t shared_tree_num_workers() const;
-  void set_shared_tree_num_workers(::int32_t value);
-
-  private:
-  ::int32_t _internal_shared_tree_num_workers() const;
-  void _internal_set_shared_tree_num_workers(::int32_t value);
-
-  public:
-  // optional bool use_probing_search = 176 [default = false];
-  bool has_use_probing_search() const;
-  void clear_use_probing_search() ;
-  bool use_probing_search() const;
-  void set_use_probing_search(bool value);
-
-  private:
-  bool _internal_use_probing_search() const;
-  void _internal_set_use_probing_search(bool value);
-
-  public:
-  // optional bool use_objective_lb_search = 228 [default = false];
-  bool has_use_objective_lb_search() const;
-  void clear_use_objective_lb_search() ;
-  bool use_objective_lb_search() const;
-  void set_use_objective_lb_search(bool value);
-
-  private:
-  bool _internal_use_objective_lb_search() const;
-  void _internal_set_use_objective_lb_search(bool value);
-
-  public:
-  // optional bool use_objective_shaving_search = 253 [default = false];
-  bool has_use_objective_shaving_search() const;
-  void clear_use_objective_shaving_search() ;
-  bool use_objective_shaving_search() const;
-  void set_use_objective_shaving_search(bool value);
-
-  private:
-  bool _internal_use_objective_shaving_search() const;
-  void _internal_set_use_objective_shaving_search(bool value);
-
-  public:
-  // optional bool use_variables_shaving_search = 289 [default = false];
-  bool has_use_variables_shaving_search() const;
-  void clear_use_variables_shaving_search() ;
-  bool use_variables_shaving_search() const;
-  void set_use_variables_shaving_search(bool value);
-
-  private:
-  bool _internal_use_variables_shaving_search() const;
-  void _internal_set_use_variables_shaving_search(bool value);
-
-  public:
-  // optional .operations_research.sat.SatParameters.SharedTreeSplitStrategy shared_tree_split_strategy = 239 [default = SPLIT_STRATEGY_AUTO];
-  bool has_shared_tree_split_strategy() const;
-  void clear_shared_tree_split_strategy() ;
-  ::operations_research::sat::SatParameters_SharedTreeSplitStrategy shared_tree_split_strategy() const;
-  void set_shared_tree_split_strategy(::operations_research::sat::SatParameters_SharedTreeSplitStrategy value);
-
-  private:
-  ::operations_research::sat::SatParameters_SharedTreeSplitStrategy _internal_shared_tree_split_strategy() const;
-  void _internal_set_shared_tree_split_strategy(::operations_research::sat::SatParameters_SharedTreeSplitStrategy value);
+  bool _internal_mip_treat_high_magnitude_bounds_as_infinity() const;
+  void _internal_set_mip_treat_high_magnitude_bounds_as_infinity(bool value);
 
   public:
   // optional int32 num_violation_ls = 244 [default = 0];
@@ -2237,15 +2143,15 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_num_violation_ls(::int32_t value);
 
   public:
-  // optional bool mip_treat_high_magnitude_bounds_as_infinity = 278 [default = false];
-  bool has_mip_treat_high_magnitude_bounds_as_infinity() const;
-  void clear_mip_treat_high_magnitude_bounds_as_infinity() ;
-  bool mip_treat_high_magnitude_bounds_as_infinity() const;
-  void set_mip_treat_high_magnitude_bounds_as_infinity(bool value);
+  // optional double feasibility_jump_var_randomization_probability = 247 [default = 0];
+  bool has_feasibility_jump_var_randomization_probability() const;
+  void clear_feasibility_jump_var_randomization_probability() ;
+  double feasibility_jump_var_randomization_probability() const;
+  void set_feasibility_jump_var_randomization_probability(double value);
 
   private:
-  bool _internal_mip_treat_high_magnitude_bounds_as_infinity() const;
-  void _internal_set_mip_treat_high_magnitude_bounds_as_infinity(bool value);
+  double _internal_feasibility_jump_var_randomization_probability() const;
+  void _internal_set_feasibility_jump_var_randomization_probability(double value);
 
   public:
   // optional int32 max_lin_max_size_for_expansion = 280 [default = 0];
@@ -2259,29 +2165,7 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_max_lin_max_size_for_expansion(::int32_t value);
 
   public:
-  // optional int32 max_num_deterministic_batches = 291 [default = 0];
-  bool has_max_num_deterministic_batches() const;
-  void clear_max_num_deterministic_batches() ;
-  ::int32_t max_num_deterministic_batches() const;
-  void set_max_num_deterministic_batches(::int32_t value);
-
-  private:
-  ::int32_t _internal_max_num_deterministic_batches() const;
-  void _internal_set_max_num_deterministic_batches(::int32_t value);
-
-  public:
-  // optional int32 num_full_subsolvers = 294 [default = 0];
-  bool has_num_full_subsolvers() const;
-  void clear_num_full_subsolvers() ;
-  ::int32_t num_full_subsolvers() const;
-  void set_num_full_subsolvers(::int32_t value);
-
-  private:
-  ::int32_t _internal_num_full_subsolvers() const;
-  void _internal_set_num_full_subsolvers(::int32_t value);
-
-  public:
-  // optional int32 shared_tree_worker_min_restarts_per_subtree = 282 [default = 1];
+  // optional int32 shared_tree_worker_min_restarts_per_subtree = 282 [default = 32];
   bool has_shared_tree_worker_min_restarts_per_subtree() const;
   void clear_shared_tree_worker_min_restarts_per_subtree() ;
   ::int32_t shared_tree_worker_min_restarts_per_subtree() const;
@@ -2875,17 +2759,6 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_mip_max_bound(double value);
 
   public:
-  // optional double mip_var_scaling = 125 [default = 1];
-  bool has_mip_var_scaling() const;
-  void clear_mip_var_scaling() ;
-  double mip_var_scaling() const;
-  void set_mip_var_scaling(double value);
-
-  private:
-  double _internal_mip_var_scaling() const;
-  void _internal_set_mip_var_scaling(double value);
-
-  public:
   // optional int32 new_constraints_batch_size = 122 [default = 50];
   bool has_new_constraints_batch_size() const;
   void clear_new_constraints_batch_size() ;
@@ -2897,48 +2770,26 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_new_constraints_batch_size(::int32_t value);
 
   public:
-  // optional bool exploit_integer_lp_solution = 94 [default = true];
-  bool has_exploit_integer_lp_solution() const;
-  void clear_exploit_integer_lp_solution() ;
-  bool exploit_integer_lp_solution() const;
-  void set_exploit_integer_lp_solution(bool value);
+  // optional int32 mip_max_activity_exponent = 127 [default = 53];
+  bool has_mip_max_activity_exponent() const;
+  void clear_mip_max_activity_exponent() ;
+  ::int32_t mip_max_activity_exponent() const;
+  void set_mip_max_activity_exponent(::int32_t value);
 
   private:
-  bool _internal_exploit_integer_lp_solution() const;
-  void _internal_set_exploit_integer_lp_solution(bool value);
+  ::int32_t _internal_mip_max_activity_exponent() const;
+  void _internal_set_mip_max_activity_exponent(::int32_t value);
 
   public:
-  // optional bool exploit_all_lp_solution = 116 [default = true];
-  bool has_exploit_all_lp_solution() const;
-  void clear_exploit_all_lp_solution() ;
-  bool exploit_all_lp_solution() const;
-  void set_exploit_all_lp_solution(bool value);
+  // optional double mip_var_scaling = 125 [default = 1];
+  bool has_mip_var_scaling() const;
+  void clear_mip_var_scaling() ;
+  double mip_var_scaling() const;
+  void set_mip_var_scaling(double value);
 
   private:
-  bool _internal_exploit_all_lp_solution() const;
-  void _internal_set_exploit_all_lp_solution(bool value);
-
-  public:
-  // optional bool exploit_objective = 131 [default = true];
-  bool has_exploit_objective() const;
-  void clear_exploit_objective() ;
-  bool exploit_objective() const;
-  void set_exploit_objective(bool value);
-
-  private:
-  bool _internal_exploit_objective() const;
-  void _internal_set_exploit_objective(bool value);
-
-  public:
-  // optional bool mip_automatically_scale_variables = 166 [default = true];
-  bool has_mip_automatically_scale_variables() const;
-  void clear_mip_automatically_scale_variables() ;
-  bool mip_automatically_scale_variables() const;
-  void set_mip_automatically_scale_variables(bool value);
-
-  private:
-  bool _internal_mip_automatically_scale_variables() const;
-  void _internal_set_mip_automatically_scale_variables(bool value);
+  double _internal_mip_var_scaling() const;
+  void _internal_set_mip_var_scaling(double value);
 
   public:
   // optional double mip_wanted_precision = 126 [default = 1e-06];
@@ -2963,17 +2814,6 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_mip_check_precision(double value);
 
   public:
-  // optional int32 mip_max_activity_exponent = 127 [default = 53];
-  bool has_mip_max_activity_exponent() const;
-  void clear_mip_max_activity_exponent() ;
-  ::int32_t mip_max_activity_exponent() const;
-  void set_mip_max_activity_exponent(::int32_t value);
-
-  private:
-  ::int32_t _internal_mip_max_activity_exponent() const;
-  void _internal_set_mip_max_activity_exponent(::int32_t value);
-
-  public:
   // optional int32 max_presolve_iterations = 138 [default = 3];
   bool has_max_presolve_iterations() const;
   void clear_max_presolve_iterations() ;
@@ -2985,59 +2825,48 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_max_presolve_iterations(::int32_t value);
 
   public:
-  // optional bool use_exact_lp_reason = 109 [default = true];
-  bool has_use_exact_lp_reason() const;
-  void clear_use_exact_lp_reason() ;
-  bool use_exact_lp_reason() const;
-  void set_use_exact_lp_reason(bool value);
+  // optional bool add_cg_cuts = 117 [default = true];
+  bool has_add_cg_cuts() const;
+  void clear_add_cg_cuts() ;
+  bool add_cg_cuts() const;
+  void set_add_cg_cuts(bool value);
 
   private:
-  bool _internal_use_exact_lp_reason() const;
-  void _internal_set_use_exact_lp_reason(bool value);
+  bool _internal_add_cg_cuts() const;
+  void _internal_set_add_cg_cuts(bool value);
 
   public:
-  // optional bool catch_sigint_signal = 135 [default = true];
-  bool has_catch_sigint_signal() const;
-  void clear_catch_sigint_signal() ;
-  bool catch_sigint_signal() const;
-  void set_catch_sigint_signal(bool value);
+  // optional bool add_mir_cuts = 120 [default = true];
+  bool has_add_mir_cuts() const;
+  void clear_add_mir_cuts() ;
+  bool add_mir_cuts() const;
+  void set_add_mir_cuts(bool value);
 
   private:
-  bool _internal_catch_sigint_signal() const;
-  void _internal_set_catch_sigint_signal(bool value);
+  bool _internal_add_mir_cuts() const;
+  void _internal_set_add_mir_cuts(bool value);
 
   public:
-  // optional bool use_implied_bounds = 144 [default = true];
-  bool has_use_implied_bounds() const;
-  void clear_use_implied_bounds() ;
-  bool use_implied_bounds() const;
-  void set_use_implied_bounds(bool value);
+  // optional bool add_zero_half_cuts = 169 [default = true];
+  bool has_add_zero_half_cuts() const;
+  void clear_add_zero_half_cuts() ;
+  bool add_zero_half_cuts() const;
+  void set_add_zero_half_cuts(bool value);
 
   private:
-  bool _internal_use_implied_bounds() const;
-  void _internal_set_use_implied_bounds(bool value);
+  bool _internal_add_zero_half_cuts() const;
+  void _internal_set_add_zero_half_cuts(bool value);
 
   public:
-  // optional bool convert_intervals = 177 [default = true];
-  bool has_convert_intervals() const;
-  void clear_convert_intervals() ;
-  bool convert_intervals() const;
-  void set_convert_intervals(bool value);
+  // optional bool add_clique_cuts = 172 [default = true];
+  bool has_add_clique_cuts() const;
+  void clear_add_clique_cuts() ;
+  bool add_clique_cuts() const;
+  void set_add_clique_cuts(bool value);
 
   private:
-  bool _internal_convert_intervals() const;
-  void _internal_set_convert_intervals(bool value);
-
-  public:
-  // optional int32 presolve_substitution_level = 147 [default = 1];
-  bool has_presolve_substitution_level() const;
-  void clear_presolve_substitution_level() ;
-  ::int32_t presolve_substitution_level() const;
-  void set_presolve_substitution_level(::int32_t value);
-
-  private:
-  ::int32_t _internal_presolve_substitution_level() const;
-  void _internal_set_presolve_substitution_level(::int32_t value);
+  bool _internal_add_clique_cuts() const;
+  void _internal_set_add_clique_cuts(bool value);
 
   public:
   // optional double merge_no_overlap_work_limit = 145 [default = 1000000000000];
@@ -3060,6 +2889,17 @@ class SatParameters final : public ::google::protobuf::Message
   private:
   double _internal_merge_at_most_one_work_limit() const;
   void _internal_set_merge_at_most_one_work_limit(double value);
+
+  public:
+  // optional int32 presolve_substitution_level = 147 [default = 1];
+  bool has_presolve_substitution_level() const;
+  void clear_presolve_substitution_level() ;
+  ::int32_t presolve_substitution_level() const;
+  void set_presolve_substitution_level(::int32_t value);
+
+  private:
+  ::int32_t _internal_presolve_substitution_level() const;
+  void _internal_set_presolve_substitution_level(::int32_t value);
 
   public:
   // optional int32 max_all_diff_cut_size = 148 [default = 64];
@@ -3117,6 +2957,50 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_share_binary_clauses(bool value);
 
   public:
+  // optional bool exploit_all_lp_solution = 116 [default = true];
+  bool has_exploit_all_lp_solution() const;
+  void clear_exploit_all_lp_solution() ;
+  bool exploit_all_lp_solution() const;
+  void set_exploit_all_lp_solution(bool value);
+
+  private:
+  bool _internal_exploit_all_lp_solution() const;
+  void _internal_set_exploit_all_lp_solution(bool value);
+
+  public:
+  // optional bool exploit_objective = 131 [default = true];
+  bool has_exploit_objective() const;
+  void clear_exploit_objective() ;
+  bool exploit_objective() const;
+  void set_exploit_objective(bool value);
+
+  private:
+  bool _internal_exploit_objective() const;
+  void _internal_set_exploit_objective(bool value);
+
+  public:
+  // optional bool mip_automatically_scale_variables = 166 [default = true];
+  bool has_mip_automatically_scale_variables() const;
+  void clear_mip_automatically_scale_variables() ;
+  bool mip_automatically_scale_variables() const;
+  void set_mip_automatically_scale_variables(bool value);
+
+  private:
+  bool _internal_mip_automatically_scale_variables() const;
+  void _internal_set_mip_automatically_scale_variables(bool value);
+
+  public:
+  // optional bool mip_compute_true_objective_bound = 198 [default = true];
+  bool has_mip_compute_true_objective_bound() const;
+  void clear_mip_compute_true_objective_bound() ;
+  bool mip_compute_true_objective_bound() const;
+  void set_mip_compute_true_objective_bound(bool value);
+
+  private:
+  bool _internal_mip_compute_true_objective_bound() const;
+  void _internal_set_mip_compute_true_objective_bound(bool value);
+
+  public:
   // optional int32 hint_conflict_limit = 153 [default = 10];
   bool has_hint_conflict_limit() const;
   void clear_hint_conflict_limit() ;
@@ -3172,48 +3056,48 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_cut_cleanup_target(::int32_t value);
 
   public:
-  // optional bool new_linear_propagation = 224 [default = true];
-  bool has_new_linear_propagation() const;
-  void clear_new_linear_propagation() ;
-  bool new_linear_propagation() const;
-  void set_new_linear_propagation(bool value);
+  // optional bool add_rlt_cuts = 279 [default = true];
+  bool has_add_rlt_cuts() const;
+  void clear_add_rlt_cuts() ;
+  bool add_rlt_cuts() const;
+  void set_add_rlt_cuts(bool value);
 
   private:
-  bool _internal_new_linear_propagation() const;
-  void _internal_set_new_linear_propagation(bool value);
+  bool _internal_add_rlt_cuts() const;
+  void _internal_set_add_rlt_cuts(bool value);
 
   public:
-  // optional bool add_cg_cuts = 117 [default = true];
-  bool has_add_cg_cuts() const;
-  void clear_add_cg_cuts() ;
-  bool add_cg_cuts() const;
-  void set_add_cg_cuts(bool value);
+  // optional bool add_lin_max_cuts = 152 [default = true];
+  bool has_add_lin_max_cuts() const;
+  void clear_add_lin_max_cuts() ;
+  bool add_lin_max_cuts() const;
+  void set_add_lin_max_cuts(bool value);
 
   private:
-  bool _internal_add_cg_cuts() const;
-  void _internal_set_add_cg_cuts(bool value);
+  bool _internal_add_lin_max_cuts() const;
+  void _internal_set_add_lin_max_cuts(bool value);
 
   public:
-  // optional bool add_mir_cuts = 120 [default = true];
-  bool has_add_mir_cuts() const;
-  void clear_add_mir_cuts() ;
-  bool add_mir_cuts() const;
-  void set_add_mir_cuts(bool value);
+  // optional bool add_lp_constraints_lazily = 112 [default = true];
+  bool has_add_lp_constraints_lazily() const;
+  void clear_add_lp_constraints_lazily() ;
+  bool add_lp_constraints_lazily() const;
+  void set_add_lp_constraints_lazily(bool value);
 
   private:
-  bool _internal_add_mir_cuts() const;
-  void _internal_set_add_mir_cuts(bool value);
+  bool _internal_add_lp_constraints_lazily() const;
+  void _internal_set_add_lp_constraints_lazily(bool value);
 
   public:
-  // optional bool add_zero_half_cuts = 169 [default = true];
-  bool has_add_zero_half_cuts() const;
-  void clear_add_zero_half_cuts() ;
-  bool add_zero_half_cuts() const;
-  void set_add_zero_half_cuts(bool value);
+  // optional bool exploit_integer_lp_solution = 94 [default = true];
+  bool has_exploit_integer_lp_solution() const;
+  void clear_exploit_integer_lp_solution() ;
+  bool exploit_integer_lp_solution() const;
+  void set_exploit_integer_lp_solution(bool value);
 
   private:
-  bool _internal_add_zero_half_cuts() const;
-  void _internal_set_add_zero_half_cuts(bool value);
+  bool _internal_exploit_integer_lp_solution() const;
+  void _internal_set_exploit_integer_lp_solution(bool value);
 
   public:
   // optional double absolute_gap_limit = 159 [default = 0.0001];
@@ -3238,15 +3122,59 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_fp_rounding(::operations_research::sat::SatParameters_FPRoundingMethod value);
 
   public:
-  // optional bool auto_detect_greater_than_at_least_one_of = 95 [default = true];
-  bool has_auto_detect_greater_than_at_least_one_of() const;
-  void clear_auto_detect_greater_than_at_least_one_of() ;
-  bool auto_detect_greater_than_at_least_one_of() const;
-  void set_auto_detect_greater_than_at_least_one_of(bool value);
+  // optional int32 polarity_rephase_increment = 168 [default = 1000];
+  bool has_polarity_rephase_increment() const;
+  void clear_polarity_rephase_increment() ;
+  ::int32_t polarity_rephase_increment() const;
+  void set_polarity_rephase_increment(::int32_t value);
 
   private:
-  bool _internal_auto_detect_greater_than_at_least_one_of() const;
-  void _internal_set_auto_detect_greater_than_at_least_one_of(bool value);
+  ::int32_t _internal_polarity_rephase_increment() const;
+  void _internal_set_polarity_rephase_increment(::int32_t value);
+
+  public:
+  // optional bool catch_sigint_signal = 135 [default = true];
+  bool has_catch_sigint_signal() const;
+  void clear_catch_sigint_signal() ;
+  bool catch_sigint_signal() const;
+  void set_catch_sigint_signal(bool value);
+
+  private:
+  bool _internal_catch_sigint_signal() const;
+  void _internal_set_catch_sigint_signal(bool value);
+
+  public:
+  // optional bool use_implied_bounds = 144 [default = true];
+  bool has_use_implied_bounds() const;
+  void clear_use_implied_bounds() ;
+  bool use_implied_bounds() const;
+  void set_use_implied_bounds(bool value);
+
+  private:
+  bool _internal_use_implied_bounds() const;
+  void _internal_set_use_implied_bounds(bool value);
+
+  public:
+  // optional bool convert_intervals = 177 [default = true];
+  bool has_convert_intervals() const;
+  void clear_convert_intervals() ;
+  bool convert_intervals() const;
+  void set_convert_intervals(bool value);
+
+  private:
+  bool _internal_convert_intervals() const;
+  void _internal_set_convert_intervals(bool value);
+
+  public:
+  // optional bool new_linear_propagation = 224 [default = true];
+  bool has_new_linear_propagation() const;
+  void clear_new_linear_propagation() ;
+  bool new_linear_propagation() const;
+  void set_new_linear_propagation(bool value);
+
+  private:
+  bool _internal_new_linear_propagation() const;
+  void _internal_set_new_linear_propagation(bool value);
 
   public:
   // optional bool use_lns = 283 [default = true];
@@ -3282,59 +3210,59 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_use_feasibility_pump(bool value);
 
   public:
-  // optional int32 polarity_rephase_increment = 168 [default = 1000];
-  bool has_polarity_rephase_increment() const;
-  void clear_polarity_rephase_increment() ;
-  ::int32_t polarity_rephase_increment() const;
-  void set_polarity_rephase_increment(::int32_t value);
+  // optional bool use_exact_lp_reason = 109 [default = true];
+  bool has_use_exact_lp_reason() const;
+  void clear_use_exact_lp_reason() ;
+  bool use_exact_lp_reason() const;
+  void set_use_exact_lp_reason(bool value);
 
   private:
-  ::int32_t _internal_polarity_rephase_increment() const;
-  void _internal_set_polarity_rephase_increment(::int32_t value);
+  bool _internal_use_exact_lp_reason() const;
+  void _internal_set_use_exact_lp_reason(bool value);
 
   public:
-  // optional bool add_clique_cuts = 172 [default = true];
-  bool has_add_clique_cuts() const;
-  void clear_add_clique_cuts() ;
-  bool add_clique_cuts() const;
-  void set_add_clique_cuts(bool value);
+  // optional bool use_feasibility_jump = 265 [default = true];
+  bool has_use_feasibility_jump() const;
+  void clear_use_feasibility_jump() ;
+  bool use_feasibility_jump() const;
+  void set_use_feasibility_jump(bool value);
 
   private:
-  bool _internal_add_clique_cuts() const;
-  void _internal_set_add_clique_cuts(bool value);
+  bool _internal_use_feasibility_jump() const;
+  void _internal_set_use_feasibility_jump(bool value);
 
   public:
-  // optional bool add_rlt_cuts = 279 [default = true];
-  bool has_add_rlt_cuts() const;
-  void clear_add_rlt_cuts() ;
-  bool add_rlt_cuts() const;
-  void set_add_rlt_cuts(bool value);
+  // optional bool feasibility_jump_enable_restarts = 250 [default = true];
+  bool has_feasibility_jump_enable_restarts() const;
+  void clear_feasibility_jump_enable_restarts() ;
+  bool feasibility_jump_enable_restarts() const;
+  void set_feasibility_jump_enable_restarts(bool value);
 
   private:
-  bool _internal_add_rlt_cuts() const;
-  void _internal_set_add_rlt_cuts(bool value);
+  bool _internal_feasibility_jump_enable_restarts() const;
+  void _internal_set_feasibility_jump_enable_restarts(bool value);
 
   public:
-  // optional bool add_lin_max_cuts = 152 [default = true];
-  bool has_add_lin_max_cuts() const;
-  void clear_add_lin_max_cuts() ;
-  bool add_lin_max_cuts() const;
-  void set_add_lin_max_cuts(bool value);
+  // optional bool instantiate_all_variables = 106 [default = true];
+  bool has_instantiate_all_variables() const;
+  void clear_instantiate_all_variables() ;
+  bool instantiate_all_variables() const;
+  void set_instantiate_all_variables(bool value);
 
   private:
-  bool _internal_add_lin_max_cuts() const;
-  void _internal_set_add_lin_max_cuts(bool value);
+  bool _internal_instantiate_all_variables() const;
+  void _internal_set_instantiate_all_variables(bool value);
 
   public:
-  // optional bool add_lp_constraints_lazily = 112 [default = true];
-  bool has_add_lp_constraints_lazily() const;
-  void clear_add_lp_constraints_lazily() ;
-  bool add_lp_constraints_lazily() const;
-  void set_add_lp_constraints_lazily(bool value);
+  // optional bool auto_detect_greater_than_at_least_one_of = 95 [default = true];
+  bool has_auto_detect_greater_than_at_least_one_of() const;
+  void clear_auto_detect_greater_than_at_least_one_of() ;
+  bool auto_detect_greater_than_at_least_one_of() const;
+  void set_auto_detect_greater_than_at_least_one_of(bool value);
 
   private:
-  bool _internal_add_lp_constraints_lazily() const;
-  void _internal_set_add_lp_constraints_lazily(bool value);
+  bool _internal_auto_detect_greater_than_at_least_one_of() const;
+  void _internal_set_auto_detect_greater_than_at_least_one_of(bool value);
 
   public:
   // optional int32 symmetry_level = 183 [default = 2];
@@ -3348,17 +3276,6 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_symmetry_level(::int32_t value);
 
   public:
-  // optional int32 max_domain_size_when_encoding_eq_neq_constraints = 191 [default = 16];
-  bool has_max_domain_size_when_encoding_eq_neq_constraints() const;
-  void clear_max_domain_size_when_encoding_eq_neq_constraints() ;
-  ::int32_t max_domain_size_when_encoding_eq_neq_constraints() const;
-  void set_max_domain_size_when_encoding_eq_neq_constraints(::int32_t value);
-
-  private:
-  ::int32_t _internal_max_domain_size_when_encoding_eq_neq_constraints() const;
-  void _internal_set_max_domain_size_when_encoding_eq_neq_constraints(::int32_t value);
-
-  public:
   // optional double clause_cleanup_ratio = 190 [default = 0.5];
   bool has_clause_cleanup_ratio() const;
   void clear_clause_cleanup_ratio() ;
@@ -3368,6 +3285,17 @@ class SatParameters final : public ::google::protobuf::Message
   private:
   double _internal_clause_cleanup_ratio() const;
   void _internal_set_clause_cleanup_ratio(double value);
+
+  public:
+  // optional int32 max_domain_size_when_encoding_eq_neq_constraints = 191 [default = 16];
+  bool has_max_domain_size_when_encoding_eq_neq_constraints() const;
+  void clear_max_domain_size_when_encoding_eq_neq_constraints() ;
+  ::int32_t max_domain_size_when_encoding_eq_neq_constraints() const;
+  void set_max_domain_size_when_encoding_eq_neq_constraints(::int32_t value);
+
+  private:
+  ::int32_t _internal_max_domain_size_when_encoding_eq_neq_constraints() const;
+  void _internal_set_max_domain_size_when_encoding_eq_neq_constraints(::int32_t value);
 
   public:
   // optional bool use_disjunctive_constraint_in_cumulative = 80 [default = true];
@@ -3436,17 +3364,6 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_cut_level(::int32_t value);
 
   public:
-  // optional bool mip_compute_true_objective_bound = 198 [default = true];
-  bool has_mip_compute_true_objective_bound() const;
-  void clear_mip_compute_true_objective_bound() ;
-  bool mip_compute_true_objective_bound() const;
-  void set_mip_compute_true_objective_bound(bool value);
-
-  private:
-  bool _internal_mip_compute_true_objective_bound() const;
-  void _internal_set_mip_compute_true_objective_bound(bool value);
-
-  public:
   // optional double mip_max_valid_magnitude = 199 [default = 1e+20];
   bool has_mip_max_valid_magnitude() const;
   void clear_mip_max_valid_magnitude() ;
@@ -3478,6 +3395,17 @@ class SatParameters final : public ::google::protobuf::Message
   private:
   double _internal_shaving_search_deterministic_time() const;
   void _internal_set_shaving_search_deterministic_time(double value);
+
+  public:
+  // optional int32 min_num_lns_workers = 211 [default = 2];
+  bool has_min_num_lns_workers() const;
+  void clear_min_num_lns_workers() ;
+  ::int32_t min_num_lns_workers() const;
+  void set_min_num_lns_workers(::int32_t value);
+
+  private:
+  ::int32_t _internal_min_num_lns_workers() const;
+  void _internal_set_min_num_lns_workers(::int32_t value);
 
   public:
   // optional bool expand_reservoir_constraints = 182 [default = true];
@@ -3524,17 +3452,6 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_find_big_linear_overlap(bool value);
 
   public:
-  // optional int32 table_compression_level = 217 [default = 2];
-  bool has_table_compression_level() const;
-  void clear_table_compression_level() ;
-  ::int32_t table_compression_level() const;
-  void set_table_compression_level(::int32_t value);
-
-  private:
-  ::int32_t _internal_table_compression_level() const;
-  void _internal_set_table_compression_level(::int32_t value);
-
-  public:
   // optional double propagation_loop_detection_factor = 221 [default = 10];
   bool has_propagation_loop_detection_factor() const;
   void clear_propagation_loop_detection_factor() ;
@@ -3546,15 +3463,15 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_propagation_loop_detection_factor(double value);
 
   public:
-  // optional double probing_deterministic_time_limit = 226 [default = 1];
-  bool has_probing_deterministic_time_limit() const;
-  void clear_probing_deterministic_time_limit() ;
-  double probing_deterministic_time_limit() const;
-  void set_probing_deterministic_time_limit(double value);
+  // optional int32 table_compression_level = 217 [default = 2];
+  bool has_table_compression_level() const;
+  void clear_table_compression_level() ;
+  ::int32_t table_compression_level() const;
+  void set_table_compression_level(::int32_t value);
 
   private:
-  double _internal_probing_deterministic_time_limit() const;
-  void _internal_set_probing_deterministic_time_limit(double value);
+  ::int32_t _internal_table_compression_level() const;
+  void _internal_set_table_compression_level(::int32_t value);
 
   public:
   // optional int32 root_lp_iterations = 227 [default = 2000];
@@ -3568,70 +3485,15 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_root_lp_iterations(::int32_t value);
 
   public:
-  // optional int32 max_size_to_create_precedence_literals_in_disjunctive = 229 [default = 60];
-  bool has_max_size_to_create_precedence_literals_in_disjunctive() const;
-  void clear_max_size_to_create_precedence_literals_in_disjunctive() ;
-  ::int32_t max_size_to_create_precedence_literals_in_disjunctive() const;
-  void set_max_size_to_create_precedence_literals_in_disjunctive(::int32_t value);
+  // optional double probing_deterministic_time_limit = 226 [default = 1];
+  bool has_probing_deterministic_time_limit() const;
+  void clear_probing_deterministic_time_limit() ;
+  double probing_deterministic_time_limit() const;
+  void set_probing_deterministic_time_limit(double value);
 
   private:
-  ::int32_t _internal_max_size_to_create_precedence_literals_in_disjunctive() const;
-  void _internal_set_max_size_to_create_precedence_literals_in_disjunctive(::int32_t value);
-
-  public:
-  // optional bool use_feasibility_jump = 265 [default = true];
-  bool has_use_feasibility_jump() const;
-  void clear_use_feasibility_jump() ;
-  bool use_feasibility_jump() const;
-  void set_use_feasibility_jump(bool value);
-
-  private:
-  bool _internal_use_feasibility_jump() const;
-  void _internal_set_use_feasibility_jump(bool value);
-
-  public:
-  // optional bool feasibility_jump_enable_restarts = 250 [default = true];
-  bool has_feasibility_jump_enable_restarts() const;
-  void clear_feasibility_jump_enable_restarts() ;
-  bool feasibility_jump_enable_restarts() const;
-  void set_feasibility_jump_enable_restarts(bool value);
-
-  private:
-  bool _internal_feasibility_jump_enable_restarts() const;
-  void _internal_set_feasibility_jump_enable_restarts(bool value);
-
-  public:
-  // optional bool shared_tree_worker_enable_trail_sharing = 295 [default = true];
-  bool has_shared_tree_worker_enable_trail_sharing() const;
-  void clear_shared_tree_worker_enable_trail_sharing() ;
-  bool shared_tree_worker_enable_trail_sharing() const;
-  void set_shared_tree_worker_enable_trail_sharing(bool value);
-
-  private:
-  bool _internal_shared_tree_worker_enable_trail_sharing() const;
-  void _internal_set_shared_tree_worker_enable_trail_sharing(bool value);
-
-  public:
-  // optional bool instantiate_all_variables = 106 [default = true];
-  bool has_instantiate_all_variables() const;
-  void clear_instantiate_all_variables() ;
-  bool instantiate_all_variables() const;
-  void set_instantiate_all_variables(bool value);
-
-  private:
-  bool _internal_instantiate_all_variables() const;
-  void _internal_set_instantiate_all_variables(bool value);
-
-  public:
-  // optional int32 shared_tree_max_nodes_per_worker = 238 [default = 100000];
-  bool has_shared_tree_max_nodes_per_worker() const;
-  void clear_shared_tree_max_nodes_per_worker() ;
-  ::int32_t shared_tree_max_nodes_per_worker() const;
-  void set_shared_tree_max_nodes_per_worker(::int32_t value);
-
-  private:
-  ::int32_t _internal_shared_tree_max_nodes_per_worker() const;
-  void _internal_set_shared_tree_max_nodes_per_worker(::int32_t value);
+  double _internal_probing_deterministic_time_limit() const;
+  void _internal_set_probing_deterministic_time_limit(double value);
 
   public:
   // optional double mip_drop_tolerance = 232 [default = 1e-16];
@@ -3643,6 +3505,28 @@ class SatParameters final : public ::google::protobuf::Message
   private:
   double _internal_mip_drop_tolerance() const;
   void _internal_set_mip_drop_tolerance(double value);
+
+  public:
+  // optional int32 max_size_to_create_precedence_literals_in_disjunctive = 229 [default = 60];
+  bool has_max_size_to_create_precedence_literals_in_disjunctive() const;
+  void clear_max_size_to_create_precedence_literals_in_disjunctive() ;
+  ::int32_t max_size_to_create_precedence_literals_in_disjunctive() const;
+  void set_max_size_to_create_precedence_literals_in_disjunctive(::int32_t value);
+
+  private:
+  ::int32_t _internal_max_size_to_create_precedence_literals_in_disjunctive() const;
+  void _internal_set_max_size_to_create_precedence_literals_in_disjunctive(::int32_t value);
+
+  public:
+  // optional int32 shared_tree_max_nodes_per_worker = 238 [default = 128];
+  bool has_shared_tree_max_nodes_per_worker() const;
+  void clear_shared_tree_max_nodes_per_worker() ;
+  ::int32_t shared_tree_max_nodes_per_worker() const;
+  void set_shared_tree_max_nodes_per_worker(::int32_t value);
+
+  private:
+  ::int32_t _internal_shared_tree_max_nodes_per_worker() const;
+  void _internal_set_shared_tree_max_nodes_per_worker(::int32_t value);
 
   public:
   // optional double shared_tree_worker_objective_split_probability = 237 [default = 0.5];
@@ -3665,17 +3549,6 @@ class SatParameters final : public ::google::protobuf::Message
   private:
   double _internal_feasibility_jump_decay() const;
   void _internal_set_feasibility_jump_decay(double value);
-
-  public:
-  // optional double feasibility_jump_var_randomization_probability = 247 [default = 0.05];
-  bool has_feasibility_jump_var_randomization_probability() const;
-  void clear_feasibility_jump_var_randomization_probability() ;
-  double feasibility_jump_var_randomization_probability() const;
-  void set_feasibility_jump_var_randomization_probability(double value);
-
-  private:
-  double _internal_feasibility_jump_var_randomization_probability() const;
-  void _internal_set_feasibility_jump_var_randomization_probability(double value);
 
   public:
   // optional double feasibility_jump_var_perburbation_range_ratio = 248 [default = 0.2];
@@ -3788,7 +3661,7 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_lp_dual_tolerance(double value);
 
   public:
-  // optional int32 feasibility_jump_max_expanded_constraint_size = 264 [default = 500];
+  // optional int32 feasibility_jump_max_expanded_constraint_size = 264 [default = 100];
   bool has_feasibility_jump_max_expanded_constraint_size() const;
   void clear_feasibility_jump_max_expanded_constraint_size() ;
   ::int32_t feasibility_jump_max_expanded_constraint_size() const;
@@ -3876,35 +3749,13 @@ class SatParameters final : public ::google::protobuf::Message
   void _internal_set_shared_tree_open_leaves_per_worker(double value);
 
   public:
-  // optional int64 shaving_search_threshold = 290 [default = 64];
-  bool has_shaving_search_threshold() const;
-  void clear_shaving_search_threshold() ;
-  ::int64_t shaving_search_threshold() const;
-  void set_shaving_search_threshold(::int64_t value);
-
-  private:
-  ::int64_t _internal_shaving_search_threshold() const;
-  void _internal_set_shaving_search_threshold(::int64_t value);
-
-  public:
-  // optional double feasibility_jump_batch_dtime = 292 [default = 0.1];
-  bool has_feasibility_jump_batch_dtime() const;
-  void clear_feasibility_jump_batch_dtime() ;
-  double feasibility_jump_batch_dtime() const;
-  void set_feasibility_jump_batch_dtime(double value);
-
-  private:
-  double _internal_feasibility_jump_batch_dtime() const;
-  void _internal_set_feasibility_jump_batch_dtime(double value);
-
-  public:
   // @@protoc_insertion_point(class_scope:operations_research.sat.SatParameters)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      5, 248, 13,
-      394, 39>
+      5, 237, 13,
+      361, 37>
       _table_;
   friend class ::google::protobuf::MessageLite;
   friend class ::google::protobuf::Arena;
@@ -3926,7 +3777,6 @@ class SatParameters final : public ::google::protobuf::Message
     ::google::protobuf::RepeatedPtrField<std::string> ignore_subsolvers_;
     ::google::protobuf::RepeatedPtrField< ::operations_research::sat::SatParameters > subsolver_params_;
     ::google::protobuf::RepeatedPtrField<std::string> extra_subsolvers_;
-    ::google::protobuf::RepeatedPtrField<std::string> filter_subsolvers_;
     static const ::google::protobuf::internal::LazyString _i_give_permission_to_break_this_code_default_default_restart_algorithms_;
     ::google::protobuf::internal::ArenaStringPtr default_restart_algorithms_;
     ::google::protobuf::internal::ArenaStringPtr name_;
@@ -3952,77 +3802,70 @@ class SatParameters final : public ::google::protobuf::Message
     bool use_pb_resolution_;
     bool minimize_reduction_during_pb_resolution_;
     bool detect_table_with_cost_;
+    bool use_optional_variables_;
+    bool use_combined_no_overlap_;
+    bool polish_lp_solution_;
+    bool only_add_cuts_at_level_zero_;
     ::int32_t interleave_batch_size_;
+    bool interleave_search_;
+    bool debug_postsolve_with_full_solver_;
+    bool debug_crash_on_bad_hint_;
+    bool max_sat_reverse_assumption_order_;
+    bool enumerate_all_solutions_;
+    bool keep_all_feasible_solutions_in_presolve_;
     bool fill_tightened_domains_in_response_;
     bool fill_additional_solutions_in_response_;
-    bool stop_after_first_solution_;
-    bool stop_after_presolve_;
     bool permute_presolve_constraint_order_;
     bool use_absl_random_;
     bool log_search_progress_;
     bool log_subsolver_statistics_;
-    bool polish_lp_solution_;
-    bool only_add_cuts_at_level_zero_;
-    bool add_objective_cut_;
-    bool exploit_best_solution_;
-    ::int32_t debug_max_num_presolve_operations_;
-    bool randomize_search_;
-    bool push_all_tasks_toward_start_;
-    bool use_optional_variables_;
-    bool use_combined_no_overlap_;
-    bool debug_postsolve_with_full_solver_;
-    bool debug_crash_on_bad_hint_;
-    bool max_sat_reverse_assumption_order_;
-    bool use_strong_propagation_in_disjunctive_;
-    bool optimize_with_core_;
-    bool optimize_with_lb_tree_search_;
-    bool save_lp_basis_in_lb_tree_search_;
-    bool optimize_with_max_hs_;
+    bool stop_after_first_solution_;
+    bool stop_after_presolve_;
+    bool stop_after_root_propagation_;
+    bool use_lns_only_;
     double relative_gap_limit_;
+    ::int32_t debug_max_num_presolve_operations_;
     bool use_timetable_edge_finding_in_cumulative_;
     bool use_hard_precedences_in_cumulative_;
     bool exploit_all_precedences_;
     bool use_timetabling_in_no_overlap_2d_;
-    bool use_ls_only_;
-    bool use_shared_tree_search_;
-    bool enumerate_all_solutions_;
-    bool keep_all_feasible_solutions_in_presolve_;
-    bool stop_after_root_propagation_;
-    bool use_lns_only_;
-    bool use_lb_relax_lns_;
-    bool diversify_lns_params_;
+    bool use_probing_search_;
+    bool use_objective_lb_search_;
+    bool use_objective_shaving_search_;
+    bool optimize_with_core_;
+    bool expand_alldiff_constraints_;
+    bool disable_constraint_expansion_;
     bool encode_complex_linear_constraint_with_integer_;
     bool presolve_extract_integer_enforcement_;
-    bool interleave_search_;
-    bool share_glue_clauses_;
+    bool optimize_with_lb_tree_search_;
+    bool optimize_with_max_hs_;
+    bool test_feasibility_jump_;
+    bool use_shared_tree_search_;
+    bool use_lb_relax_lns_;
+    bool diversify_lns_params_;
+    bool randomize_search_;
+    bool push_all_tasks_toward_start_;
+    bool add_objective_cut_;
+    bool exploit_best_solution_;
+    bool exploit_relaxation_solution_;
+    bool detect_linearized_product_;
     ::int32_t num_workers_;
+    bool use_strong_propagation_in_disjunctive_;
+    bool use_dynamic_precedence_in_disjunctive_;
+    bool use_dynamic_precedence_in_cumulative_;
+    bool use_overload_checker_in_cumulative_;
     bool use_energetic_reasoning_in_no_overlap_2d_;
     bool use_area_energetic_reasoning_in_no_overlap_2d_;
     bool repair_hint_;
     bool fix_variables_to_their_hinted_value_;
-    bool exploit_relaxation_solution_;
-    bool detect_linearized_product_;
+    ::int32_t shared_tree_num_workers_;
+    int shared_tree_split_strategy_;
     bool mip_scale_large_domain_;
     bool only_solve_ip_;
-    bool use_dynamic_precedence_in_disjunctive_;
-    bool use_dynamic_precedence_in_cumulative_;
-    bool use_overload_checker_in_cumulative_;
-    bool use_conservative_scale_overload_checker_;
-    bool expand_alldiff_constraints_;
-    bool expand_reservoir_using_circuit_;
-    bool encode_cumulative_as_reservoir_;
-    bool disable_constraint_expansion_;
-    ::int32_t shared_tree_num_workers_;
-    bool use_probing_search_;
-    bool use_objective_lb_search_;
-    bool use_objective_shaving_search_;
-    bool use_variables_shaving_search_;
-    int shared_tree_split_strategy_;
-    ::int32_t num_violation_ls_;
     bool mip_treat_high_magnitude_bounds_as_infinity_;
+    ::int32_t num_violation_ls_;
+    double feasibility_jump_var_randomization_probability_;
     ::int32_t max_lin_max_size_for_expansion_;
-    ::int32_t max_num_deterministic_batches_;
-    ::int32_t num_full_subsolvers_;
     ::int32_t shared_tree_worker_min_restarts_per_subtree_;
     int initial_polarity_;
     int minimization_algorithm_;
@@ -4077,79 +3920,78 @@ class SatParameters final : public ::google::protobuf::Message
     ::int32_t max_consecutive_inactive_count_;
     ::int64_t pseudo_cost_reliability_threshold_;
     double mip_max_bound_;
-    double mip_var_scaling_;
     ::int32_t new_constraints_batch_size_;
-    bool exploit_integer_lp_solution_;
-    bool exploit_all_lp_solution_;
-    bool exploit_objective_;
-    bool mip_automatically_scale_variables_;
+    ::int32_t mip_max_activity_exponent_;
+    double mip_var_scaling_;
     double mip_wanted_precision_;
     double mip_check_precision_;
-    ::int32_t mip_max_activity_exponent_;
     ::int32_t max_presolve_iterations_;
-    bool use_exact_lp_reason_;
-    bool catch_sigint_signal_;
-    bool use_implied_bounds_;
-    bool convert_intervals_;
-    ::int32_t presolve_substitution_level_;
+    bool add_cg_cuts_;
+    bool add_mir_cuts_;
+    bool add_zero_half_cuts_;
+    bool add_clique_cuts_;
     double merge_no_overlap_work_limit_;
     double merge_at_most_one_work_limit_;
+    ::int32_t presolve_substitution_level_;
     ::int32_t max_all_diff_cut_size_;
     bool use_sat_inprocessing_;
     bool share_objective_bounds_;
     bool share_level_zero_bounds_;
     bool share_binary_clauses_;
+    bool exploit_all_lp_solution_;
+    bool exploit_objective_;
+    bool mip_automatically_scale_variables_;
+    bool mip_compute_true_objective_bound_;
     ::int32_t hint_conflict_limit_;
     ::int32_t max_cut_rounds_at_level_zero_;
     double cut_max_active_count_value_;
     double cut_active_count_decay_;
     ::int32_t cut_cleanup_target_;
-    bool new_linear_propagation_;
-    bool add_cg_cuts_;
-    bool add_mir_cuts_;
-    bool add_zero_half_cuts_;
-    double absolute_gap_limit_;
-    int fp_rounding_;
-    bool auto_detect_greater_than_at_least_one_of_;
-    bool use_lns_;
-    bool use_rins_lns_;
-    bool use_feasibility_pump_;
-    ::int32_t polarity_rephase_increment_;
-    bool add_clique_cuts_;
     bool add_rlt_cuts_;
     bool add_lin_max_cuts_;
     bool add_lp_constraints_lazily_;
+    bool exploit_integer_lp_solution_;
+    double absolute_gap_limit_;
+    int fp_rounding_;
+    ::int32_t polarity_rephase_increment_;
+    bool catch_sigint_signal_;
+    bool use_implied_bounds_;
+    bool convert_intervals_;
+    bool new_linear_propagation_;
+    bool use_lns_;
+    bool use_rins_lns_;
+    bool use_feasibility_pump_;
+    bool use_exact_lp_reason_;
+    bool use_feasibility_jump_;
+    bool feasibility_jump_enable_restarts_;
+    bool instantiate_all_variables_;
+    bool auto_detect_greater_than_at_least_one_of_;
     ::int32_t symmetry_level_;
-    ::int32_t max_domain_size_when_encoding_eq_neq_constraints_;
     double clause_cleanup_ratio_;
+    ::int32_t max_domain_size_when_encoding_eq_neq_constraints_;
     bool use_disjunctive_constraint_in_cumulative_;
     bool use_dual_scheduling_heuristics_;
     bool use_extended_probing_;
     bool use_shaving_in_probing_search_;
     ::int32_t solution_pool_size_;
     ::int32_t cut_level_;
-    bool mip_compute_true_objective_bound_;
     double mip_max_valid_magnitude_;
     ::int64_t presolve_inclusion_work_limit_;
     double shaving_search_deterministic_time_;
+    ::int32_t min_num_lns_workers_;
     bool expand_reservoir_constraints_;
     bool ignore_names_;
     bool infer_all_diffs_;
     bool find_big_linear_overlap_;
-    ::int32_t table_compression_level_;
     double propagation_loop_detection_factor_;
-    double probing_deterministic_time_limit_;
+    ::int32_t table_compression_level_;
     ::int32_t root_lp_iterations_;
-    ::int32_t max_size_to_create_precedence_literals_in_disjunctive_;
-    bool use_feasibility_jump_;
-    bool feasibility_jump_enable_restarts_;
-    bool shared_tree_worker_enable_trail_sharing_;
-    bool instantiate_all_variables_;
-    ::int32_t shared_tree_max_nodes_per_worker_;
+    double probing_deterministic_time_limit_;
     double mip_drop_tolerance_;
+    ::int32_t max_size_to_create_precedence_literals_in_disjunctive_;
+    ::int32_t shared_tree_max_nodes_per_worker_;
     double shared_tree_worker_objective_split_probability_;
     double feasibility_jump_decay_;
-    double feasibility_jump_var_randomization_probability_;
     double feasibility_jump_var_perburbation_range_ratio_;
     ::int32_t violation_ls_perturbation_period_;
     ::int32_t linear_split_size_;
@@ -4168,8 +4010,6 @@ class SatParameters final : public ::google::protobuf::Message
     ::int32_t max_pairs_pairwise_reasoning_in_no_overlap_2d_;
     double inprocessing_minimization_dtime_;
     double shared_tree_open_leaves_per_worker_;
-    ::int64_t shaving_search_threshold_;
-    double feasibility_jump_batch_dtime_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -4294,13 +4134,13 @@ inline void SatParameters::_internal_set_preferred_variable_order(::operations_r
 
 // optional .operations_research.sat.SatParameters.Polarity initial_polarity = 2 [default = POLARITY_FALSE];
 inline bool SatParameters::has_initial_polarity() const {
-  bool value = (_impl_._has_bits_[3] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x02000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_initial_polarity() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.initial_polarity_ = 1;
-  _impl_._has_bits_[3] &= ~0x00000001u;
+  _impl_._has_bits_[2] &= ~0x02000000u;
 }
 inline ::operations_research::sat::SatParameters_Polarity SatParameters::initial_polarity() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.initial_polarity)
@@ -4308,7 +4148,7 @@ inline ::operations_research::sat::SatParameters_Polarity SatParameters::initial
 }
 inline void SatParameters::set_initial_polarity(::operations_research::sat::SatParameters_Polarity value) {
   _internal_set_initial_polarity(value);
-  _impl_._has_bits_[3] |= 0x00000001u;
+  _impl_._has_bits_[2] |= 0x02000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.initial_polarity)
 }
 inline ::operations_research::sat::SatParameters_Polarity SatParameters::_internal_initial_polarity() const {
@@ -4323,13 +4163,13 @@ inline void SatParameters::_internal_set_initial_polarity(::operations_research:
 
 // optional bool use_phase_saving = 44 [default = true];
 inline bool SatParameters::has_use_phase_saving() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x10000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_phase_saving() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_phase_saving_ = true;
-  _impl_._has_bits_[4] &= ~0x00000008u;
+  _impl_._has_bits_[3] &= ~0x10000000u;
 }
 inline bool SatParameters::use_phase_saving() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_phase_saving)
@@ -4337,7 +4177,7 @@ inline bool SatParameters::use_phase_saving() const {
 }
 inline void SatParameters::set_use_phase_saving(bool value) {
   _internal_set_use_phase_saving(value);
-  _impl_._has_bits_[4] |= 0x00000008u;
+  _impl_._has_bits_[3] |= 0x10000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_phase_saving)
 }
 inline bool SatParameters::_internal_use_phase_saving() const {
@@ -4351,13 +4191,13 @@ inline void SatParameters::_internal_set_use_phase_saving(bool value) {
 
 // optional int32 polarity_rephase_increment = 168 [default = 1000];
 inline bool SatParameters::has_polarity_rephase_increment() const {
-  bool value = (_impl_._has_bits_[5] & 0x04000000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00008000u) != 0;
   return value;
 }
 inline void SatParameters::clear_polarity_rephase_increment() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.polarity_rephase_increment_ = 1000;
-  _impl_._has_bits_[5] &= ~0x04000000u;
+  _impl_._has_bits_[5] &= ~0x00008000u;
 }
 inline ::int32_t SatParameters::polarity_rephase_increment() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.polarity_rephase_increment)
@@ -4365,7 +4205,7 @@ inline ::int32_t SatParameters::polarity_rephase_increment() const {
 }
 inline void SatParameters::set_polarity_rephase_increment(::int32_t value) {
   _internal_set_polarity_rephase_increment(value);
-  _impl_._has_bits_[5] |= 0x04000000u;
+  _impl_._has_bits_[5] |= 0x00008000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.polarity_rephase_increment)
 }
 inline ::int32_t SatParameters::_internal_polarity_rephase_increment() const {
@@ -4519,13 +4359,13 @@ inline void SatParameters::_internal_set_also_bump_variables_in_conflict_reasons
 
 // optional .operations_research.sat.SatParameters.ConflictMinimizationAlgorithm minimization_algorithm = 4 [default = RECURSIVE];
 inline bool SatParameters::has_minimization_algorithm() const {
-  bool value = (_impl_._has_bits_[3] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x04000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_minimization_algorithm() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.minimization_algorithm_ = 2;
-  _impl_._has_bits_[3] &= ~0x00000002u;
+  _impl_._has_bits_[2] &= ~0x04000000u;
 }
 inline ::operations_research::sat::SatParameters_ConflictMinimizationAlgorithm SatParameters::minimization_algorithm() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.minimization_algorithm)
@@ -4533,7 +4373,7 @@ inline ::operations_research::sat::SatParameters_ConflictMinimizationAlgorithm S
 }
 inline void SatParameters::set_minimization_algorithm(::operations_research::sat::SatParameters_ConflictMinimizationAlgorithm value) {
   _internal_set_minimization_algorithm(value);
-  _impl_._has_bits_[3] |= 0x00000002u;
+  _impl_._has_bits_[2] |= 0x04000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.minimization_algorithm)
 }
 inline ::operations_research::sat::SatParameters_ConflictMinimizationAlgorithm SatParameters::_internal_minimization_algorithm() const {
@@ -4548,13 +4388,13 @@ inline void SatParameters::_internal_set_minimization_algorithm(::operations_res
 
 // optional .operations_research.sat.SatParameters.BinaryMinizationAlgorithm binary_minimization_algorithm = 34 [default = BINARY_MINIMIZATION_FIRST];
 inline bool SatParameters::has_binary_minimization_algorithm() const {
-  bool value = (_impl_._has_bits_[3] & 0x00008000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00000100u) != 0;
   return value;
 }
 inline void SatParameters::clear_binary_minimization_algorithm() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.binary_minimization_algorithm_ = 1;
-  _impl_._has_bits_[3] &= ~0x00008000u;
+  _impl_._has_bits_[3] &= ~0x00000100u;
 }
 inline ::operations_research::sat::SatParameters_BinaryMinizationAlgorithm SatParameters::binary_minimization_algorithm() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.binary_minimization_algorithm)
@@ -4562,7 +4402,7 @@ inline ::operations_research::sat::SatParameters_BinaryMinizationAlgorithm SatPa
 }
 inline void SatParameters::set_binary_minimization_algorithm(::operations_research::sat::SatParameters_BinaryMinizationAlgorithm value) {
   _internal_set_binary_minimization_algorithm(value);
-  _impl_._has_bits_[3] |= 0x00008000u;
+  _impl_._has_bits_[3] |= 0x00000100u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.binary_minimization_algorithm)
 }
 inline ::operations_research::sat::SatParameters_BinaryMinizationAlgorithm SatParameters::_internal_binary_minimization_algorithm() const {
@@ -4577,13 +4417,13 @@ inline void SatParameters::_internal_set_binary_minimization_algorithm(::operati
 
 // optional bool subsumption_during_conflict_analysis = 56 [default = true];
 inline bool SatParameters::has_subsumption_during_conflict_analysis() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000010u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x20000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_subsumption_during_conflict_analysis() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.subsumption_during_conflict_analysis_ = true;
-  _impl_._has_bits_[4] &= ~0x00000010u;
+  _impl_._has_bits_[3] &= ~0x20000000u;
 }
 inline bool SatParameters::subsumption_during_conflict_analysis() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.subsumption_during_conflict_analysis)
@@ -4591,7 +4431,7 @@ inline bool SatParameters::subsumption_during_conflict_analysis() const {
 }
 inline void SatParameters::set_subsumption_during_conflict_analysis(bool value) {
   _internal_set_subsumption_during_conflict_analysis(value);
-  _impl_._has_bits_[4] |= 0x00000010u;
+  _impl_._has_bits_[3] |= 0x20000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.subsumption_during_conflict_analysis)
 }
 inline bool SatParameters::_internal_subsumption_during_conflict_analysis() const {
@@ -4605,13 +4445,13 @@ inline void SatParameters::_internal_set_subsumption_during_conflict_analysis(bo
 
 // optional int32 clause_cleanup_period = 11 [default = 10000];
 inline bool SatParameters::has_clause_cleanup_period() const {
-  bool value = (_impl_._has_bits_[3] & 0x00000020u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x40000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_clause_cleanup_period() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.clause_cleanup_period_ = 10000;
-  _impl_._has_bits_[3] &= ~0x00000020u;
+  _impl_._has_bits_[2] &= ~0x40000000u;
 }
 inline ::int32_t SatParameters::clause_cleanup_period() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.clause_cleanup_period)
@@ -4619,7 +4459,7 @@ inline ::int32_t SatParameters::clause_cleanup_period() const {
 }
 inline void SatParameters::set_clause_cleanup_period(::int32_t value) {
   _internal_set_clause_cleanup_period(value);
-  _impl_._has_bits_[3] |= 0x00000020u;
+  _impl_._has_bits_[2] |= 0x40000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.clause_cleanup_period)
 }
 inline ::int32_t SatParameters::_internal_clause_cleanup_period() const {
@@ -4661,13 +4501,13 @@ inline void SatParameters::_internal_set_clause_cleanup_target(::int32_t value) 
 
 // optional double clause_cleanup_ratio = 190 [default = 0.5];
 inline bool SatParameters::has_clause_cleanup_ratio() const {
-  bool value = (_impl_._has_bits_[6] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x20000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_clause_cleanup_ratio() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.clause_cleanup_ratio_ = 0.5;
-  _impl_._has_bits_[6] &= ~0x00000002u;
+  _impl_._has_bits_[5] &= ~0x20000000u;
 }
 inline double SatParameters::clause_cleanup_ratio() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.clause_cleanup_ratio)
@@ -4675,7 +4515,7 @@ inline double SatParameters::clause_cleanup_ratio() const {
 }
 inline void SatParameters::set_clause_cleanup_ratio(double value) {
   _internal_set_clause_cleanup_ratio(value);
-  _impl_._has_bits_[6] |= 0x00000002u;
+  _impl_._has_bits_[5] |= 0x20000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.clause_cleanup_ratio)
 }
 inline double SatParameters::_internal_clause_cleanup_ratio() const {
@@ -4718,13 +4558,13 @@ inline void SatParameters::_internal_set_clause_cleanup_protection(::operations_
 
 // optional int32 clause_cleanup_lbd_bound = 59 [default = 5];
 inline bool SatParameters::has_clause_cleanup_lbd_bound() const {
-  bool value = (_impl_._has_bits_[3] & 0x00800000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00010000u) != 0;
   return value;
 }
 inline void SatParameters::clear_clause_cleanup_lbd_bound() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.clause_cleanup_lbd_bound_ = 5;
-  _impl_._has_bits_[3] &= ~0x00800000u;
+  _impl_._has_bits_[3] &= ~0x00010000u;
 }
 inline ::int32_t SatParameters::clause_cleanup_lbd_bound() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.clause_cleanup_lbd_bound)
@@ -4732,7 +4572,7 @@ inline ::int32_t SatParameters::clause_cleanup_lbd_bound() const {
 }
 inline void SatParameters::set_clause_cleanup_lbd_bound(::int32_t value) {
   _internal_set_clause_cleanup_lbd_bound(value);
-  _impl_._has_bits_[3] |= 0x00800000u;
+  _impl_._has_bits_[3] |= 0x00010000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.clause_cleanup_lbd_bound)
 }
 inline ::int32_t SatParameters::_internal_clause_cleanup_lbd_bound() const {
@@ -4775,13 +4615,13 @@ inline void SatParameters::_internal_set_clause_cleanup_ordering(::operations_re
 
 // optional int32 pb_cleanup_increment = 46 [default = 200];
 inline bool SatParameters::has_pb_cleanup_increment() const {
-  bool value = (_impl_._has_bits_[3] & 0x00010000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00000200u) != 0;
   return value;
 }
 inline void SatParameters::clear_pb_cleanup_increment() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.pb_cleanup_increment_ = 200;
-  _impl_._has_bits_[3] &= ~0x00010000u;
+  _impl_._has_bits_[3] &= ~0x00000200u;
 }
 inline ::int32_t SatParameters::pb_cleanup_increment() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.pb_cleanup_increment)
@@ -4789,7 +4629,7 @@ inline ::int32_t SatParameters::pb_cleanup_increment() const {
 }
 inline void SatParameters::set_pb_cleanup_increment(::int32_t value) {
   _internal_set_pb_cleanup_increment(value);
-  _impl_._has_bits_[3] |= 0x00010000u;
+  _impl_._has_bits_[3] |= 0x00000200u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.pb_cleanup_increment)
 }
 inline ::int32_t SatParameters::_internal_pb_cleanup_increment() const {
@@ -4803,13 +4643,13 @@ inline void SatParameters::_internal_set_pb_cleanup_increment(::int32_t value) {
 
 // optional double pb_cleanup_ratio = 47 [default = 0.5];
 inline bool SatParameters::has_pb_cleanup_ratio() const {
-  bool value = (_impl_._has_bits_[3] & 0x00020000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00000400u) != 0;
   return value;
 }
 inline void SatParameters::clear_pb_cleanup_ratio() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.pb_cleanup_ratio_ = 0.5;
-  _impl_._has_bits_[3] &= ~0x00020000u;
+  _impl_._has_bits_[3] &= ~0x00000400u;
 }
 inline double SatParameters::pb_cleanup_ratio() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.pb_cleanup_ratio)
@@ -4817,7 +4657,7 @@ inline double SatParameters::pb_cleanup_ratio() const {
 }
 inline void SatParameters::set_pb_cleanup_ratio(double value) {
   _internal_set_pb_cleanup_ratio(value);
-  _impl_._has_bits_[3] |= 0x00020000u;
+  _impl_._has_bits_[3] |= 0x00000400u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.pb_cleanup_ratio)
 }
 inline double SatParameters::_internal_pb_cleanup_ratio() const {
@@ -4831,13 +4671,13 @@ inline void SatParameters::_internal_set_pb_cleanup_ratio(double value) {
 
 // optional double variable_activity_decay = 15 [default = 0.8];
 inline bool SatParameters::has_variable_activity_decay() const {
-  bool value = (_impl_._has_bits_[3] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x08000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_variable_activity_decay() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.variable_activity_decay_ = 0.8;
-  _impl_._has_bits_[3] &= ~0x00000004u;
+  _impl_._has_bits_[2] &= ~0x08000000u;
 }
 inline double SatParameters::variable_activity_decay() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.variable_activity_decay)
@@ -4845,7 +4685,7 @@ inline double SatParameters::variable_activity_decay() const {
 }
 inline void SatParameters::set_variable_activity_decay(double value) {
   _internal_set_variable_activity_decay(value);
-  _impl_._has_bits_[3] |= 0x00000004u;
+  _impl_._has_bits_[2] |= 0x08000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.variable_activity_decay)
 }
 inline double SatParameters::_internal_variable_activity_decay() const {
@@ -4859,13 +4699,13 @@ inline void SatParameters::_internal_set_variable_activity_decay(double value) {
 
 // optional double max_variable_activity_value = 16 [default = 1e+100];
 inline bool SatParameters::has_max_variable_activity_value() const {
-  bool value = (_impl_._has_bits_[3] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x10000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_variable_activity_value() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_variable_activity_value_ = 1e+100;
-  _impl_._has_bits_[3] &= ~0x00000008u;
+  _impl_._has_bits_[2] &= ~0x10000000u;
 }
 inline double SatParameters::max_variable_activity_value() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_variable_activity_value)
@@ -4873,7 +4713,7 @@ inline double SatParameters::max_variable_activity_value() const {
 }
 inline void SatParameters::set_max_variable_activity_value(double value) {
   _internal_set_max_variable_activity_value(value);
-  _impl_._has_bits_[3] |= 0x00000008u;
+  _impl_._has_bits_[2] |= 0x10000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_variable_activity_value)
 }
 inline double SatParameters::_internal_max_variable_activity_value() const {
@@ -4887,13 +4727,13 @@ inline void SatParameters::_internal_set_max_variable_activity_value(double valu
 
 // optional double glucose_max_decay = 22 [default = 0.95];
 inline bool SatParameters::has_glucose_max_decay() const {
-  bool value = (_impl_._has_bits_[3] & 0x00000100u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00000002u) != 0;
   return value;
 }
 inline void SatParameters::clear_glucose_max_decay() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.glucose_max_decay_ = 0.95;
-  _impl_._has_bits_[3] &= ~0x00000100u;
+  _impl_._has_bits_[3] &= ~0x00000002u;
 }
 inline double SatParameters::glucose_max_decay() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.glucose_max_decay)
@@ -4901,7 +4741,7 @@ inline double SatParameters::glucose_max_decay() const {
 }
 inline void SatParameters::set_glucose_max_decay(double value) {
   _internal_set_glucose_max_decay(value);
-  _impl_._has_bits_[3] |= 0x00000100u;
+  _impl_._has_bits_[3] |= 0x00000002u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.glucose_max_decay)
 }
 inline double SatParameters::_internal_glucose_max_decay() const {
@@ -4915,13 +4755,13 @@ inline void SatParameters::_internal_set_glucose_max_decay(double value) {
 
 // optional double glucose_decay_increment = 23 [default = 0.01];
 inline bool SatParameters::has_glucose_decay_increment() const {
-  bool value = (_impl_._has_bits_[3] & 0x00000200u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00000004u) != 0;
   return value;
 }
 inline void SatParameters::clear_glucose_decay_increment() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.glucose_decay_increment_ = 0.01;
-  _impl_._has_bits_[3] &= ~0x00000200u;
+  _impl_._has_bits_[3] &= ~0x00000004u;
 }
 inline double SatParameters::glucose_decay_increment() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.glucose_decay_increment)
@@ -4929,7 +4769,7 @@ inline double SatParameters::glucose_decay_increment() const {
 }
 inline void SatParameters::set_glucose_decay_increment(double value) {
   _internal_set_glucose_decay_increment(value);
-  _impl_._has_bits_[3] |= 0x00000200u;
+  _impl_._has_bits_[3] |= 0x00000004u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.glucose_decay_increment)
 }
 inline double SatParameters::_internal_glucose_decay_increment() const {
@@ -4943,13 +4783,13 @@ inline void SatParameters::_internal_set_glucose_decay_increment(double value) {
 
 // optional int32 glucose_decay_increment_period = 24 [default = 5000];
 inline bool SatParameters::has_glucose_decay_increment_period() const {
-  bool value = (_impl_._has_bits_[3] & 0x00000040u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x80000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_glucose_decay_increment_period() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.glucose_decay_increment_period_ = 5000;
-  _impl_._has_bits_[3] &= ~0x00000040u;
+  _impl_._has_bits_[2] &= ~0x80000000u;
 }
 inline ::int32_t SatParameters::glucose_decay_increment_period() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.glucose_decay_increment_period)
@@ -4957,7 +4797,7 @@ inline ::int32_t SatParameters::glucose_decay_increment_period() const {
 }
 inline void SatParameters::set_glucose_decay_increment_period(::int32_t value) {
   _internal_set_glucose_decay_increment_period(value);
-  _impl_._has_bits_[3] |= 0x00000040u;
+  _impl_._has_bits_[2] |= 0x80000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.glucose_decay_increment_period)
 }
 inline ::int32_t SatParameters::_internal_glucose_decay_increment_period() const {
@@ -4971,13 +4811,13 @@ inline void SatParameters::_internal_set_glucose_decay_increment_period(::int32_
 
 // optional double clause_activity_decay = 17 [default = 0.999];
 inline bool SatParameters::has_clause_activity_decay() const {
-  bool value = (_impl_._has_bits_[3] & 0x00000010u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x20000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_clause_activity_decay() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.clause_activity_decay_ = 0.999;
-  _impl_._has_bits_[3] &= ~0x00000010u;
+  _impl_._has_bits_[2] &= ~0x20000000u;
 }
 inline double SatParameters::clause_activity_decay() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.clause_activity_decay)
@@ -4985,7 +4825,7 @@ inline double SatParameters::clause_activity_decay() const {
 }
 inline void SatParameters::set_clause_activity_decay(double value) {
   _internal_set_clause_activity_decay(value);
-  _impl_._has_bits_[3] |= 0x00000010u;
+  _impl_._has_bits_[2] |= 0x20000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.clause_activity_decay)
 }
 inline double SatParameters::_internal_clause_activity_decay() const {
@@ -4999,13 +4839,13 @@ inline void SatParameters::_internal_set_clause_activity_decay(double value) {
 
 // optional double max_clause_activity_value = 18 [default = 1e+20];
 inline bool SatParameters::has_max_clause_activity_value() const {
-  bool value = (_impl_._has_bits_[3] & 0x00000080u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00000001u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_clause_activity_value() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_clause_activity_value_ = 1e+20;
-  _impl_._has_bits_[3] &= ~0x00000080u;
+  _impl_._has_bits_[3] &= ~0x00000001u;
 }
 inline double SatParameters::max_clause_activity_value() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_clause_activity_value)
@@ -5013,7 +4853,7 @@ inline double SatParameters::max_clause_activity_value() const {
 }
 inline void SatParameters::set_max_clause_activity_value(double value) {
   _internal_set_max_clause_activity_value(value);
-  _impl_._has_bits_[3] |= 0x00000080u;
+  _impl_._has_bits_[3] |= 0x00000001u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_clause_activity_value)
 }
 inline double SatParameters::_internal_max_clause_activity_value() const {
@@ -5139,13 +4979,13 @@ inline void SatParameters::set_allocated_default_restart_algorithms(std::string*
 
 // optional int32 restart_period = 30 [default = 50];
 inline bool SatParameters::has_restart_period() const {
-  bool value = (_impl_._has_bits_[3] & 0x00000400u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00000008u) != 0;
   return value;
 }
 inline void SatParameters::clear_restart_period() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.restart_period_ = 50;
-  _impl_._has_bits_[3] &= ~0x00000400u;
+  _impl_._has_bits_[3] &= ~0x00000008u;
 }
 inline ::int32_t SatParameters::restart_period() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.restart_period)
@@ -5153,7 +4993,7 @@ inline ::int32_t SatParameters::restart_period() const {
 }
 inline void SatParameters::set_restart_period(::int32_t value) {
   _internal_set_restart_period(value);
-  _impl_._has_bits_[3] |= 0x00000400u;
+  _impl_._has_bits_[3] |= 0x00000008u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.restart_period)
 }
 inline ::int32_t SatParameters::_internal_restart_period() const {
@@ -5167,13 +5007,13 @@ inline void SatParameters::_internal_set_restart_period(::int32_t value) {
 
 // optional int32 restart_running_window_size = 62 [default = 50];
 inline bool SatParameters::has_restart_running_window_size() const {
-  bool value = (_impl_._has_bits_[3] & 0x01000000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00020000u) != 0;
   return value;
 }
 inline void SatParameters::clear_restart_running_window_size() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.restart_running_window_size_ = 50;
-  _impl_._has_bits_[3] &= ~0x01000000u;
+  _impl_._has_bits_[3] &= ~0x00020000u;
 }
 inline ::int32_t SatParameters::restart_running_window_size() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.restart_running_window_size)
@@ -5181,7 +5021,7 @@ inline ::int32_t SatParameters::restart_running_window_size() const {
 }
 inline void SatParameters::set_restart_running_window_size(::int32_t value) {
   _internal_set_restart_running_window_size(value);
-  _impl_._has_bits_[3] |= 0x01000000u;
+  _impl_._has_bits_[3] |= 0x00020000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.restart_running_window_size)
 }
 inline ::int32_t SatParameters::_internal_restart_running_window_size() const {
@@ -5195,13 +5035,13 @@ inline void SatParameters::_internal_set_restart_running_window_size(::int32_t v
 
 // optional double restart_dl_average_ratio = 63 [default = 1];
 inline bool SatParameters::has_restart_dl_average_ratio() const {
-  bool value = (_impl_._has_bits_[3] & 0x02000000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00040000u) != 0;
   return value;
 }
 inline void SatParameters::clear_restart_dl_average_ratio() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.restart_dl_average_ratio_ = 1;
-  _impl_._has_bits_[3] &= ~0x02000000u;
+  _impl_._has_bits_[3] &= ~0x00040000u;
 }
 inline double SatParameters::restart_dl_average_ratio() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.restart_dl_average_ratio)
@@ -5209,7 +5049,7 @@ inline double SatParameters::restart_dl_average_ratio() const {
 }
 inline void SatParameters::set_restart_dl_average_ratio(double value) {
   _internal_set_restart_dl_average_ratio(value);
-  _impl_._has_bits_[3] |= 0x02000000u;
+  _impl_._has_bits_[3] |= 0x00040000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.restart_dl_average_ratio)
 }
 inline double SatParameters::_internal_restart_dl_average_ratio() const {
@@ -5223,13 +5063,13 @@ inline void SatParameters::_internal_set_restart_dl_average_ratio(double value) 
 
 // optional double restart_lbd_average_ratio = 71 [default = 1];
 inline bool SatParameters::has_restart_lbd_average_ratio() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x04000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_restart_lbd_average_ratio() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.restart_lbd_average_ratio_ = 1;
-  _impl_._has_bits_[4] &= ~0x00000002u;
+  _impl_._has_bits_[3] &= ~0x04000000u;
 }
 inline double SatParameters::restart_lbd_average_ratio() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.restart_lbd_average_ratio)
@@ -5237,7 +5077,7 @@ inline double SatParameters::restart_lbd_average_ratio() const {
 }
 inline void SatParameters::set_restart_lbd_average_ratio(double value) {
   _internal_set_restart_lbd_average_ratio(value);
-  _impl_._has_bits_[4] |= 0x00000002u;
+  _impl_._has_bits_[3] |= 0x04000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.restart_lbd_average_ratio)
 }
 inline double SatParameters::_internal_restart_lbd_average_ratio() const {
@@ -5279,13 +5119,13 @@ inline void SatParameters::_internal_set_use_blocking_restart(bool value) {
 
 // optional int32 blocking_restart_window_size = 65 [default = 5000];
 inline bool SatParameters::has_blocking_restart_window_size() const {
-  bool value = (_impl_._has_bits_[3] & 0x10000000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00200000u) != 0;
   return value;
 }
 inline void SatParameters::clear_blocking_restart_window_size() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.blocking_restart_window_size_ = 5000;
-  _impl_._has_bits_[3] &= ~0x10000000u;
+  _impl_._has_bits_[3] &= ~0x00200000u;
 }
 inline ::int32_t SatParameters::blocking_restart_window_size() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.blocking_restart_window_size)
@@ -5293,7 +5133,7 @@ inline ::int32_t SatParameters::blocking_restart_window_size() const {
 }
 inline void SatParameters::set_blocking_restart_window_size(::int32_t value) {
   _internal_set_blocking_restart_window_size(value);
-  _impl_._has_bits_[3] |= 0x10000000u;
+  _impl_._has_bits_[3] |= 0x00200000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.blocking_restart_window_size)
 }
 inline ::int32_t SatParameters::_internal_blocking_restart_window_size() const {
@@ -5307,13 +5147,13 @@ inline void SatParameters::_internal_set_blocking_restart_window_size(::int32_t 
 
 // optional double blocking_restart_multiplier = 66 [default = 1.4];
 inline bool SatParameters::has_blocking_restart_multiplier() const {
-  bool value = (_impl_._has_bits_[3] & 0x04000000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00080000u) != 0;
   return value;
 }
 inline void SatParameters::clear_blocking_restart_multiplier() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.blocking_restart_multiplier_ = 1.4;
-  _impl_._has_bits_[3] &= ~0x04000000u;
+  _impl_._has_bits_[3] &= ~0x00080000u;
 }
 inline double SatParameters::blocking_restart_multiplier() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.blocking_restart_multiplier)
@@ -5321,7 +5161,7 @@ inline double SatParameters::blocking_restart_multiplier() const {
 }
 inline void SatParameters::set_blocking_restart_multiplier(double value) {
   _internal_set_blocking_restart_multiplier(value);
-  _impl_._has_bits_[3] |= 0x04000000u;
+  _impl_._has_bits_[3] |= 0x00080000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.blocking_restart_multiplier)
 }
 inline double SatParameters::_internal_blocking_restart_multiplier() const {
@@ -5391,13 +5231,13 @@ inline void SatParameters::_internal_set_strategy_change_increase_ratio(double v
 
 // optional double max_time_in_seconds = 36 [default = inf];
 inline bool SatParameters::has_max_time_in_seconds() const {
-  bool value = (_impl_._has_bits_[3] & 0x00001000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00000020u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_time_in_seconds() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_time_in_seconds_ = std::numeric_limits<double>::infinity();
-  _impl_._has_bits_[3] &= ~0x00001000u;
+  _impl_._has_bits_[3] &= ~0x00000020u;
 }
 inline double SatParameters::max_time_in_seconds() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_time_in_seconds)
@@ -5405,7 +5245,7 @@ inline double SatParameters::max_time_in_seconds() const {
 }
 inline void SatParameters::set_max_time_in_seconds(double value) {
   _internal_set_max_time_in_seconds(value);
-  _impl_._has_bits_[3] |= 0x00001000u;
+  _impl_._has_bits_[3] |= 0x00000020u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_time_in_seconds)
 }
 inline double SatParameters::_internal_max_time_in_seconds() const {
@@ -5419,13 +5259,13 @@ inline void SatParameters::_internal_set_max_time_in_seconds(double value) {
 
 // optional double max_deterministic_time = 67 [default = inf];
 inline bool SatParameters::has_max_deterministic_time() const {
-  bool value = (_impl_._has_bits_[3] & 0x08000000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00100000u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_deterministic_time() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_deterministic_time_ = std::numeric_limits<double>::infinity();
-  _impl_._has_bits_[3] &= ~0x08000000u;
+  _impl_._has_bits_[3] &= ~0x00100000u;
 }
 inline double SatParameters::max_deterministic_time() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_deterministic_time)
@@ -5433,7 +5273,7 @@ inline double SatParameters::max_deterministic_time() const {
 }
 inline void SatParameters::set_max_deterministic_time(double value) {
   _internal_set_max_deterministic_time(value);
-  _impl_._has_bits_[3] |= 0x08000000u;
+  _impl_._has_bits_[3] |= 0x00100000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_deterministic_time)
 }
 inline double SatParameters::_internal_max_deterministic_time() const {
@@ -5445,43 +5285,15 @@ inline void SatParameters::_internal_set_max_deterministic_time(double value) {
   _impl_.max_deterministic_time_ = value;
 }
 
-// optional int32 max_num_deterministic_batches = 291 [default = 0];
-inline bool SatParameters::has_max_num_deterministic_batches() const {
-  bool value = (_impl_._has_bits_[2] & 0x20000000u) != 0;
-  return value;
-}
-inline void SatParameters::clear_max_num_deterministic_batches() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.max_num_deterministic_batches_ = 0;
-  _impl_._has_bits_[2] &= ~0x20000000u;
-}
-inline ::int32_t SatParameters::max_num_deterministic_batches() const {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_num_deterministic_batches)
-  return _internal_max_num_deterministic_batches();
-}
-inline void SatParameters::set_max_num_deterministic_batches(::int32_t value) {
-  _internal_set_max_num_deterministic_batches(value);
-  _impl_._has_bits_[2] |= 0x20000000u;
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_num_deterministic_batches)
-}
-inline ::int32_t SatParameters::_internal_max_num_deterministic_batches() const {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.max_num_deterministic_batches_;
-}
-inline void SatParameters::_internal_set_max_num_deterministic_batches(::int32_t value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.max_num_deterministic_batches_ = value;
-}
-
 // optional int64 max_number_of_conflicts = 37 [default = 9223372036854775807];
 inline bool SatParameters::has_max_number_of_conflicts() const {
-  bool value = (_impl_._has_bits_[3] & 0x00002000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00000040u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_number_of_conflicts() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_number_of_conflicts_ = ::int64_t{9223372036854775807};
-  _impl_._has_bits_[3] &= ~0x00002000u;
+  _impl_._has_bits_[3] &= ~0x00000040u;
 }
 inline ::int64_t SatParameters::max_number_of_conflicts() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_number_of_conflicts)
@@ -5489,7 +5301,7 @@ inline ::int64_t SatParameters::max_number_of_conflicts() const {
 }
 inline void SatParameters::set_max_number_of_conflicts(::int64_t value) {
   _internal_set_max_number_of_conflicts(value);
-  _impl_._has_bits_[3] |= 0x00002000u;
+  _impl_._has_bits_[3] |= 0x00000040u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_number_of_conflicts)
 }
 inline ::int64_t SatParameters::_internal_max_number_of_conflicts() const {
@@ -5503,13 +5315,13 @@ inline void SatParameters::_internal_set_max_number_of_conflicts(::int64_t value
 
 // optional int64 max_memory_in_mb = 40 [default = 10000];
 inline bool SatParameters::has_max_memory_in_mb() const {
-  bool value = (_impl_._has_bits_[3] & 0x00004000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00000080u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_memory_in_mb() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_memory_in_mb_ = ::int64_t{10000};
-  _impl_._has_bits_[3] &= ~0x00004000u;
+  _impl_._has_bits_[3] &= ~0x00000080u;
 }
 inline ::int64_t SatParameters::max_memory_in_mb() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_memory_in_mb)
@@ -5517,7 +5329,7 @@ inline ::int64_t SatParameters::max_memory_in_mb() const {
 }
 inline void SatParameters::set_max_memory_in_mb(::int64_t value) {
   _internal_set_max_memory_in_mb(value);
-  _impl_._has_bits_[3] |= 0x00004000u;
+  _impl_._has_bits_[3] |= 0x00000080u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_memory_in_mb)
 }
 inline ::int64_t SatParameters::_internal_max_memory_in_mb() const {
@@ -5531,13 +5343,13 @@ inline void SatParameters::_internal_set_max_memory_in_mb(::int64_t value) {
 
 // optional double absolute_gap_limit = 159 [default = 0.0001];
 inline bool SatParameters::has_absolute_gap_limit() const {
-  bool value = (_impl_._has_bits_[5] & 0x00100000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00002000u) != 0;
   return value;
 }
 inline void SatParameters::clear_absolute_gap_limit() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.absolute_gap_limit_ = 0.0001;
-  _impl_._has_bits_[5] &= ~0x00100000u;
+  _impl_._has_bits_[5] &= ~0x00002000u;
 }
 inline double SatParameters::absolute_gap_limit() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.absolute_gap_limit)
@@ -5545,7 +5357,7 @@ inline double SatParameters::absolute_gap_limit() const {
 }
 inline void SatParameters::set_absolute_gap_limit(double value) {
   _internal_set_absolute_gap_limit(value);
-  _impl_._has_bits_[5] |= 0x00100000u;
+  _impl_._has_bits_[5] |= 0x00002000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.absolute_gap_limit)
 }
 inline double SatParameters::_internal_absolute_gap_limit() const {
@@ -5559,13 +5371,13 @@ inline void SatParameters::_internal_set_absolute_gap_limit(double value) {
 
 // optional double relative_gap_limit = 160 [default = 0];
 inline bool SatParameters::has_relative_gap_limit() const {
-  bool value = (_impl_._has_bits_[1] & 0x00040000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00002000u) != 0;
   return value;
 }
 inline void SatParameters::clear_relative_gap_limit() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.relative_gap_limit_ = 0;
-  _impl_._has_bits_[1] &= ~0x00040000u;
+  _impl_._has_bits_[1] &= ~0x00002000u;
 }
 inline double SatParameters::relative_gap_limit() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.relative_gap_limit)
@@ -5573,7 +5385,7 @@ inline double SatParameters::relative_gap_limit() const {
 }
 inline void SatParameters::set_relative_gap_limit(double value) {
   _internal_set_relative_gap_limit(value);
-  _impl_._has_bits_[1] |= 0x00040000u;
+  _impl_._has_bits_[1] |= 0x00002000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.relative_gap_limit)
 }
 inline double SatParameters::_internal_relative_gap_limit() const {
@@ -5587,13 +5399,13 @@ inline void SatParameters::_internal_set_relative_gap_limit(double value) {
 
 // optional int32 random_seed = 31 [default = 1];
 inline bool SatParameters::has_random_seed() const {
-  bool value = (_impl_._has_bits_[3] & 0x00000800u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00000010u) != 0;
   return value;
 }
 inline void SatParameters::clear_random_seed() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.random_seed_ = 1;
-  _impl_._has_bits_[3] &= ~0x00000800u;
+  _impl_._has_bits_[3] &= ~0x00000010u;
 }
 inline ::int32_t SatParameters::random_seed() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.random_seed)
@@ -5601,7 +5413,7 @@ inline ::int32_t SatParameters::random_seed() const {
 }
 inline void SatParameters::set_random_seed(::int32_t value) {
   _internal_set_random_seed(value);
-  _impl_._has_bits_[3] |= 0x00000800u;
+  _impl_._has_bits_[3] |= 0x00000010u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.random_seed)
 }
 inline ::int32_t SatParameters::_internal_random_seed() const {
@@ -5643,13 +5455,13 @@ inline void SatParameters::_internal_set_permute_variable_randomly(bool value) {
 
 // optional bool permute_presolve_constraint_order = 179 [default = false];
 inline bool SatParameters::has_permute_presolve_constraint_order() const {
-  bool value = (_impl_._has_bits_[0] & 0x20000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000020u) != 0;
   return value;
 }
 inline void SatParameters::clear_permute_presolve_constraint_order() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.permute_presolve_constraint_order_ = false;
-  _impl_._has_bits_[0] &= ~0x20000000u;
+  _impl_._has_bits_[1] &= ~0x00000020u;
 }
 inline bool SatParameters::permute_presolve_constraint_order() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.permute_presolve_constraint_order)
@@ -5657,7 +5469,7 @@ inline bool SatParameters::permute_presolve_constraint_order() const {
 }
 inline void SatParameters::set_permute_presolve_constraint_order(bool value) {
   _internal_set_permute_presolve_constraint_order(value);
-  _impl_._has_bits_[0] |= 0x20000000u;
+  _impl_._has_bits_[1] |= 0x00000020u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.permute_presolve_constraint_order)
 }
 inline bool SatParameters::_internal_permute_presolve_constraint_order() const {
@@ -5671,13 +5483,13 @@ inline void SatParameters::_internal_set_permute_presolve_constraint_order(bool 
 
 // optional bool use_absl_random = 180 [default = false];
 inline bool SatParameters::has_use_absl_random() const {
-  bool value = (_impl_._has_bits_[0] & 0x40000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000040u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_absl_random() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_absl_random_ = false;
-  _impl_._has_bits_[0] &= ~0x40000000u;
+  _impl_._has_bits_[1] &= ~0x00000040u;
 }
 inline bool SatParameters::use_absl_random() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_absl_random)
@@ -5685,7 +5497,7 @@ inline bool SatParameters::use_absl_random() const {
 }
 inline void SatParameters::set_use_absl_random(bool value) {
   _internal_set_use_absl_random(value);
-  _impl_._has_bits_[0] |= 0x40000000u;
+  _impl_._has_bits_[1] |= 0x00000040u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_absl_random)
 }
 inline bool SatParameters::_internal_use_absl_random() const {
@@ -5699,13 +5511,13 @@ inline void SatParameters::_internal_set_use_absl_random(bool value) {
 
 // optional bool log_search_progress = 41 [default = false];
 inline bool SatParameters::has_log_search_progress() const {
-  bool value = (_impl_._has_bits_[0] & 0x80000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000080u) != 0;
   return value;
 }
 inline void SatParameters::clear_log_search_progress() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.log_search_progress_ = false;
-  _impl_._has_bits_[0] &= ~0x80000000u;
+  _impl_._has_bits_[1] &= ~0x00000080u;
 }
 inline bool SatParameters::log_search_progress() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.log_search_progress)
@@ -5713,7 +5525,7 @@ inline bool SatParameters::log_search_progress() const {
 }
 inline void SatParameters::set_log_search_progress(bool value) {
   _internal_set_log_search_progress(value);
-  _impl_._has_bits_[0] |= 0x80000000u;
+  _impl_._has_bits_[1] |= 0x00000080u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.log_search_progress)
 }
 inline bool SatParameters::_internal_log_search_progress() const {
@@ -5727,13 +5539,13 @@ inline void SatParameters::_internal_set_log_search_progress(bool value) {
 
 // optional bool log_subsolver_statistics = 189 [default = false];
 inline bool SatParameters::has_log_subsolver_statistics() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000100u) != 0;
   return value;
 }
 inline void SatParameters::clear_log_subsolver_statistics() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.log_subsolver_statistics_ = false;
-  _impl_._has_bits_[1] &= ~0x00000001u;
+  _impl_._has_bits_[1] &= ~0x00000100u;
 }
 inline bool SatParameters::log_subsolver_statistics() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.log_subsolver_statistics)
@@ -5741,7 +5553,7 @@ inline bool SatParameters::log_subsolver_statistics() const {
 }
 inline void SatParameters::set_log_subsolver_statistics(bool value) {
   _internal_set_log_subsolver_statistics(value);
-  _impl_._has_bits_[1] |= 0x00000001u;
+  _impl_._has_bits_[1] |= 0x00000100u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.log_subsolver_statistics)
 }
 inline bool SatParameters::_internal_log_subsolver_statistics() const {
@@ -5826,13 +5638,13 @@ inline void SatParameters::set_allocated_log_prefix(std::string* value) {
 
 // optional bool log_to_stdout = 186 [default = true];
 inline bool SatParameters::has_log_to_stdout() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000020u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x40000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_log_to_stdout() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.log_to_stdout_ = true;
-  _impl_._has_bits_[4] &= ~0x00000020u;
+  _impl_._has_bits_[3] &= ~0x40000000u;
 }
 inline bool SatParameters::log_to_stdout() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.log_to_stdout)
@@ -5840,7 +5652,7 @@ inline bool SatParameters::log_to_stdout() const {
 }
 inline void SatParameters::set_log_to_stdout(bool value) {
   _internal_set_log_to_stdout(value);
-  _impl_._has_bits_[4] |= 0x00000020u;
+  _impl_._has_bits_[3] |= 0x40000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.log_to_stdout)
 }
 inline bool SatParameters::_internal_log_to_stdout() const {
@@ -5938,13 +5750,13 @@ inline void SatParameters::_internal_set_minimize_reduction_during_pb_resolution
 
 // optional bool count_assumption_levels_in_lbd = 49 [default = true];
 inline bool SatParameters::has_count_assumption_levels_in_lbd() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000040u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x80000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_count_assumption_levels_in_lbd() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.count_assumption_levels_in_lbd_ = true;
-  _impl_._has_bits_[4] &= ~0x00000040u;
+  _impl_._has_bits_[3] &= ~0x80000000u;
 }
 inline bool SatParameters::count_assumption_levels_in_lbd() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.count_assumption_levels_in_lbd)
@@ -5952,7 +5764,7 @@ inline bool SatParameters::count_assumption_levels_in_lbd() const {
 }
 inline void SatParameters::set_count_assumption_levels_in_lbd(bool value) {
   _internal_set_count_assumption_levels_in_lbd(value);
-  _impl_._has_bits_[4] |= 0x00000040u;
+  _impl_._has_bits_[3] |= 0x80000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.count_assumption_levels_in_lbd)
 }
 inline bool SatParameters::_internal_count_assumption_levels_in_lbd() const {
@@ -5966,13 +5778,13 @@ inline void SatParameters::_internal_set_count_assumption_levels_in_lbd(bool val
 
 // optional int32 presolve_bve_threshold = 54 [default = 500];
 inline bool SatParameters::has_presolve_bve_threshold() const {
-  bool value = (_impl_._has_bits_[3] & 0x00100000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00002000u) != 0;
   return value;
 }
 inline void SatParameters::clear_presolve_bve_threshold() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.presolve_bve_threshold_ = 500;
-  _impl_._has_bits_[3] &= ~0x00100000u;
+  _impl_._has_bits_[3] &= ~0x00002000u;
 }
 inline ::int32_t SatParameters::presolve_bve_threshold() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.presolve_bve_threshold)
@@ -5980,7 +5792,7 @@ inline ::int32_t SatParameters::presolve_bve_threshold() const {
 }
 inline void SatParameters::set_presolve_bve_threshold(::int32_t value) {
   _internal_set_presolve_bve_threshold(value);
-  _impl_._has_bits_[3] |= 0x00100000u;
+  _impl_._has_bits_[3] |= 0x00002000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.presolve_bve_threshold)
 }
 inline ::int32_t SatParameters::_internal_presolve_bve_threshold() const {
@@ -5994,13 +5806,13 @@ inline void SatParameters::_internal_set_presolve_bve_threshold(::int32_t value)
 
 // optional int32 presolve_bve_clause_weight = 55 [default = 3];
 inline bool SatParameters::has_presolve_bve_clause_weight() const {
-  bool value = (_impl_._has_bits_[3] & 0x00200000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00004000u) != 0;
   return value;
 }
 inline void SatParameters::clear_presolve_bve_clause_weight() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.presolve_bve_clause_weight_ = 3;
-  _impl_._has_bits_[3] &= ~0x00200000u;
+  _impl_._has_bits_[3] &= ~0x00004000u;
 }
 inline ::int32_t SatParameters::presolve_bve_clause_weight() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.presolve_bve_clause_weight)
@@ -6008,7 +5820,7 @@ inline ::int32_t SatParameters::presolve_bve_clause_weight() const {
 }
 inline void SatParameters::set_presolve_bve_clause_weight(::int32_t value) {
   _internal_set_presolve_bve_clause_weight(value);
-  _impl_._has_bits_[3] |= 0x00200000u;
+  _impl_._has_bits_[3] |= 0x00004000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.presolve_bve_clause_weight)
 }
 inline ::int32_t SatParameters::_internal_presolve_bve_clause_weight() const {
@@ -6022,13 +5834,13 @@ inline void SatParameters::_internal_set_presolve_bve_clause_weight(::int32_t va
 
 // optional double probing_deterministic_time_limit = 226 [default = 1];
 inline bool SatParameters::has_probing_deterministic_time_limit() const {
-  bool value = (_impl_._has_bits_[6] & 0x00040000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00010000u) != 0;
   return value;
 }
 inline void SatParameters::clear_probing_deterministic_time_limit() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.probing_deterministic_time_limit_ = 1;
-  _impl_._has_bits_[6] &= ~0x00040000u;
+  _impl_._has_bits_[6] &= ~0x00010000u;
 }
 inline double SatParameters::probing_deterministic_time_limit() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.probing_deterministic_time_limit)
@@ -6036,7 +5848,7 @@ inline double SatParameters::probing_deterministic_time_limit() const {
 }
 inline void SatParameters::set_probing_deterministic_time_limit(double value) {
   _internal_set_probing_deterministic_time_limit(value);
-  _impl_._has_bits_[6] |= 0x00040000u;
+  _impl_._has_bits_[6] |= 0x00010000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.probing_deterministic_time_limit)
 }
 inline double SatParameters::_internal_probing_deterministic_time_limit() const {
@@ -6050,13 +5862,13 @@ inline void SatParameters::_internal_set_probing_deterministic_time_limit(double
 
 // optional double presolve_probing_deterministic_time_limit = 57 [default = 30];
 inline bool SatParameters::has_presolve_probing_deterministic_time_limit() const {
-  bool value = (_impl_._has_bits_[3] & 0x00400000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00008000u) != 0;
   return value;
 }
 inline void SatParameters::clear_presolve_probing_deterministic_time_limit() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.presolve_probing_deterministic_time_limit_ = 30;
-  _impl_._has_bits_[3] &= ~0x00400000u;
+  _impl_._has_bits_[3] &= ~0x00008000u;
 }
 inline double SatParameters::presolve_probing_deterministic_time_limit() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.presolve_probing_deterministic_time_limit)
@@ -6064,7 +5876,7 @@ inline double SatParameters::presolve_probing_deterministic_time_limit() const {
 }
 inline void SatParameters::set_presolve_probing_deterministic_time_limit(double value) {
   _internal_set_presolve_probing_deterministic_time_limit(value);
-  _impl_._has_bits_[3] |= 0x00400000u;
+  _impl_._has_bits_[3] |= 0x00008000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.presolve_probing_deterministic_time_limit)
 }
 inline double SatParameters::_internal_presolve_probing_deterministic_time_limit() const {
@@ -6078,13 +5890,13 @@ inline void SatParameters::_internal_set_presolve_probing_deterministic_time_lim
 
 // optional bool presolve_blocked_clause = 88 [default = true];
 inline bool SatParameters::has_presolve_blocked_clause() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000080u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00000001u) != 0;
   return value;
 }
 inline void SatParameters::clear_presolve_blocked_clause() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.presolve_blocked_clause_ = true;
-  _impl_._has_bits_[4] &= ~0x00000080u;
+  _impl_._has_bits_[4] &= ~0x00000001u;
 }
 inline bool SatParameters::presolve_blocked_clause() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.presolve_blocked_clause)
@@ -6092,7 +5904,7 @@ inline bool SatParameters::presolve_blocked_clause() const {
 }
 inline void SatParameters::set_presolve_blocked_clause(bool value) {
   _internal_set_presolve_blocked_clause(value);
-  _impl_._has_bits_[4] |= 0x00000080u;
+  _impl_._has_bits_[4] |= 0x00000001u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.presolve_blocked_clause)
 }
 inline bool SatParameters::_internal_presolve_blocked_clause() const {
@@ -6106,13 +5918,13 @@ inline void SatParameters::_internal_set_presolve_blocked_clause(bool value) {
 
 // optional bool presolve_use_bva = 72 [default = true];
 inline bool SatParameters::has_presolve_use_bva() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000100u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00000002u) != 0;
   return value;
 }
 inline void SatParameters::clear_presolve_use_bva() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.presolve_use_bva_ = true;
-  _impl_._has_bits_[4] &= ~0x00000100u;
+  _impl_._has_bits_[4] &= ~0x00000002u;
 }
 inline bool SatParameters::presolve_use_bva() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.presolve_use_bva)
@@ -6120,7 +5932,7 @@ inline bool SatParameters::presolve_use_bva() const {
 }
 inline void SatParameters::set_presolve_use_bva(bool value) {
   _internal_set_presolve_use_bva(value);
-  _impl_._has_bits_[4] |= 0x00000100u;
+  _impl_._has_bits_[4] |= 0x00000002u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.presolve_use_bva)
 }
 inline bool SatParameters::_internal_presolve_use_bva() const {
@@ -6134,13 +5946,13 @@ inline void SatParameters::_internal_set_presolve_use_bva(bool value) {
 
 // optional int32 presolve_bva_threshold = 73 [default = 1];
 inline bool SatParameters::has_presolve_bva_threshold() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x08000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_presolve_bva_threshold() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.presolve_bva_threshold_ = 1;
-  _impl_._has_bits_[4] &= ~0x00000004u;
+  _impl_._has_bits_[3] &= ~0x08000000u;
 }
 inline ::int32_t SatParameters::presolve_bva_threshold() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.presolve_bva_threshold)
@@ -6148,7 +5960,7 @@ inline ::int32_t SatParameters::presolve_bva_threshold() const {
 }
 inline void SatParameters::set_presolve_bva_threshold(::int32_t value) {
   _internal_set_presolve_bva_threshold(value);
-  _impl_._has_bits_[4] |= 0x00000004u;
+  _impl_._has_bits_[3] |= 0x08000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.presolve_bva_threshold)
 }
 inline ::int32_t SatParameters::_internal_presolve_bva_threshold() const {
@@ -6162,13 +5974,13 @@ inline void SatParameters::_internal_set_presolve_bva_threshold(::int32_t value)
 
 // optional int32 max_presolve_iterations = 138 [default = 3];
 inline bool SatParameters::has_max_presolve_iterations() const {
-  bool value = (_impl_._has_bits_[4] & 0x40000000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00080000u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_presolve_iterations() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_presolve_iterations_ = 3;
-  _impl_._has_bits_[4] &= ~0x40000000u;
+  _impl_._has_bits_[4] &= ~0x00080000u;
 }
 inline ::int32_t SatParameters::max_presolve_iterations() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_presolve_iterations)
@@ -6176,7 +5988,7 @@ inline ::int32_t SatParameters::max_presolve_iterations() const {
 }
 inline void SatParameters::set_max_presolve_iterations(::int32_t value) {
   _internal_set_max_presolve_iterations(value);
-  _impl_._has_bits_[4] |= 0x40000000u;
+  _impl_._has_bits_[4] |= 0x00080000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_presolve_iterations)
 }
 inline ::int32_t SatParameters::_internal_max_presolve_iterations() const {
@@ -6190,13 +6002,13 @@ inline void SatParameters::_internal_set_max_presolve_iterations(::int32_t value
 
 // optional bool cp_model_presolve = 86 [default = true];
 inline bool SatParameters::has_cp_model_presolve() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000200u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00000004u) != 0;
   return value;
 }
 inline void SatParameters::clear_cp_model_presolve() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.cp_model_presolve_ = true;
-  _impl_._has_bits_[4] &= ~0x00000200u;
+  _impl_._has_bits_[4] &= ~0x00000004u;
 }
 inline bool SatParameters::cp_model_presolve() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.cp_model_presolve)
@@ -6204,7 +6016,7 @@ inline bool SatParameters::cp_model_presolve() const {
 }
 inline void SatParameters::set_cp_model_presolve(bool value) {
   _internal_set_cp_model_presolve(value);
-  _impl_._has_bits_[4] |= 0x00000200u;
+  _impl_._has_bits_[4] |= 0x00000004u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.cp_model_presolve)
 }
 inline bool SatParameters::_internal_cp_model_presolve() const {
@@ -6218,13 +6030,13 @@ inline void SatParameters::_internal_set_cp_model_presolve(bool value) {
 
 // optional int32 cp_model_probing_level = 110 [default = 2];
 inline bool SatParameters::has_cp_model_probing_level() const {
-  bool value = (_impl_._has_bits_[4] & 0x00008000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00000100u) != 0;
   return value;
 }
 inline void SatParameters::clear_cp_model_probing_level() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.cp_model_probing_level_ = 2;
-  _impl_._has_bits_[4] &= ~0x00008000u;
+  _impl_._has_bits_[4] &= ~0x00000100u;
 }
 inline ::int32_t SatParameters::cp_model_probing_level() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.cp_model_probing_level)
@@ -6232,7 +6044,7 @@ inline ::int32_t SatParameters::cp_model_probing_level() const {
 }
 inline void SatParameters::set_cp_model_probing_level(::int32_t value) {
   _internal_set_cp_model_probing_level(value);
-  _impl_._has_bits_[4] |= 0x00008000u;
+  _impl_._has_bits_[4] |= 0x00000100u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.cp_model_probing_level)
 }
 inline ::int32_t SatParameters::_internal_cp_model_probing_level() const {
@@ -6246,13 +6058,13 @@ inline void SatParameters::_internal_set_cp_model_probing_level(::int32_t value)
 
 // optional bool cp_model_use_sat_presolve = 93 [default = true];
 inline bool SatParameters::has_cp_model_use_sat_presolve() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000400u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00000008u) != 0;
   return value;
 }
 inline void SatParameters::clear_cp_model_use_sat_presolve() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.cp_model_use_sat_presolve_ = true;
-  _impl_._has_bits_[4] &= ~0x00000400u;
+  _impl_._has_bits_[4] &= ~0x00000008u;
 }
 inline bool SatParameters::cp_model_use_sat_presolve() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.cp_model_use_sat_presolve)
@@ -6260,7 +6072,7 @@ inline bool SatParameters::cp_model_use_sat_presolve() const {
 }
 inline void SatParameters::set_cp_model_use_sat_presolve(bool value) {
   _internal_set_cp_model_use_sat_presolve(value);
-  _impl_._has_bits_[4] |= 0x00000400u;
+  _impl_._has_bits_[4] |= 0x00000008u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.cp_model_use_sat_presolve)
 }
 inline bool SatParameters::_internal_cp_model_use_sat_presolve() const {
@@ -6302,13 +6114,13 @@ inline void SatParameters::_internal_set_detect_table_with_cost(bool value) {
 
 // optional int32 table_compression_level = 217 [default = 2];
 inline bool SatParameters::has_table_compression_level() const {
-  bool value = (_impl_._has_bits_[6] & 0x00010000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00004000u) != 0;
   return value;
 }
 inline void SatParameters::clear_table_compression_level() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.table_compression_level_ = 2;
-  _impl_._has_bits_[6] &= ~0x00010000u;
+  _impl_._has_bits_[6] &= ~0x00004000u;
 }
 inline ::int32_t SatParameters::table_compression_level() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.table_compression_level)
@@ -6316,7 +6128,7 @@ inline ::int32_t SatParameters::table_compression_level() const {
 }
 inline void SatParameters::set_table_compression_level(::int32_t value) {
   _internal_set_table_compression_level(value);
-  _impl_._has_bits_[6] |= 0x00010000u;
+  _impl_._has_bits_[6] |= 0x00004000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.table_compression_level)
 }
 inline ::int32_t SatParameters::_internal_table_compression_level() const {
@@ -6330,13 +6142,13 @@ inline void SatParameters::_internal_set_table_compression_level(::int32_t value
 
 // optional bool expand_alldiff_constraints = 170 [default = false];
 inline bool SatParameters::has_expand_alldiff_constraints() const {
-  bool value = (_impl_._has_bits_[2] & 0x00010000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00800000u) != 0;
   return value;
 }
 inline void SatParameters::clear_expand_alldiff_constraints() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.expand_alldiff_constraints_ = false;
-  _impl_._has_bits_[2] &= ~0x00010000u;
+  _impl_._has_bits_[1] &= ~0x00800000u;
 }
 inline bool SatParameters::expand_alldiff_constraints() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.expand_alldiff_constraints)
@@ -6344,7 +6156,7 @@ inline bool SatParameters::expand_alldiff_constraints() const {
 }
 inline void SatParameters::set_expand_alldiff_constraints(bool value) {
   _internal_set_expand_alldiff_constraints(value);
-  _impl_._has_bits_[2] |= 0x00010000u;
+  _impl_._has_bits_[1] |= 0x00800000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.expand_alldiff_constraints)
 }
 inline bool SatParameters::_internal_expand_alldiff_constraints() const {
@@ -6358,13 +6170,13 @@ inline void SatParameters::_internal_set_expand_alldiff_constraints(bool value) 
 
 // optional bool expand_reservoir_constraints = 182 [default = true];
 inline bool SatParameters::has_expand_reservoir_constraints() const {
-  bool value = (_impl_._has_bits_[6] & 0x00001000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00000200u) != 0;
   return value;
 }
 inline void SatParameters::clear_expand_reservoir_constraints() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.expand_reservoir_constraints_ = true;
-  _impl_._has_bits_[6] &= ~0x00001000u;
+  _impl_._has_bits_[6] &= ~0x00000200u;
 }
 inline bool SatParameters::expand_reservoir_constraints() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.expand_reservoir_constraints)
@@ -6372,7 +6184,7 @@ inline bool SatParameters::expand_reservoir_constraints() const {
 }
 inline void SatParameters::set_expand_reservoir_constraints(bool value) {
   _internal_set_expand_reservoir_constraints(value);
-  _impl_._has_bits_[6] |= 0x00001000u;
+  _impl_._has_bits_[6] |= 0x00000200u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.expand_reservoir_constraints)
 }
 inline bool SatParameters::_internal_expand_reservoir_constraints() const {
@@ -6384,71 +6196,15 @@ inline void SatParameters::_internal_set_expand_reservoir_constraints(bool value
   _impl_.expand_reservoir_constraints_ = value;
 }
 
-// optional bool expand_reservoir_using_circuit = 288 [default = false];
-inline bool SatParameters::has_expand_reservoir_using_circuit() const {
-  bool value = (_impl_._has_bits_[2] & 0x00020000u) != 0;
-  return value;
-}
-inline void SatParameters::clear_expand_reservoir_using_circuit() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.expand_reservoir_using_circuit_ = false;
-  _impl_._has_bits_[2] &= ~0x00020000u;
-}
-inline bool SatParameters::expand_reservoir_using_circuit() const {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.expand_reservoir_using_circuit)
-  return _internal_expand_reservoir_using_circuit();
-}
-inline void SatParameters::set_expand_reservoir_using_circuit(bool value) {
-  _internal_set_expand_reservoir_using_circuit(value);
-  _impl_._has_bits_[2] |= 0x00020000u;
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.expand_reservoir_using_circuit)
-}
-inline bool SatParameters::_internal_expand_reservoir_using_circuit() const {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.expand_reservoir_using_circuit_;
-}
-inline void SatParameters::_internal_set_expand_reservoir_using_circuit(bool value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.expand_reservoir_using_circuit_ = value;
-}
-
-// optional bool encode_cumulative_as_reservoir = 287 [default = false];
-inline bool SatParameters::has_encode_cumulative_as_reservoir() const {
-  bool value = (_impl_._has_bits_[2] & 0x00040000u) != 0;
-  return value;
-}
-inline void SatParameters::clear_encode_cumulative_as_reservoir() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.encode_cumulative_as_reservoir_ = false;
-  _impl_._has_bits_[2] &= ~0x00040000u;
-}
-inline bool SatParameters::encode_cumulative_as_reservoir() const {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.encode_cumulative_as_reservoir)
-  return _internal_encode_cumulative_as_reservoir();
-}
-inline void SatParameters::set_encode_cumulative_as_reservoir(bool value) {
-  _internal_set_encode_cumulative_as_reservoir(value);
-  _impl_._has_bits_[2] |= 0x00040000u;
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.encode_cumulative_as_reservoir)
-}
-inline bool SatParameters::_internal_encode_cumulative_as_reservoir() const {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.encode_cumulative_as_reservoir_;
-}
-inline void SatParameters::_internal_set_encode_cumulative_as_reservoir(bool value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.encode_cumulative_as_reservoir_ = value;
-}
-
 // optional int32 max_lin_max_size_for_expansion = 280 [default = 0];
 inline bool SatParameters::has_max_lin_max_size_for_expansion() const {
-  bool value = (_impl_._has_bits_[2] & 0x10000000u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00800000u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_lin_max_size_for_expansion() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_lin_max_size_for_expansion_ = 0;
-  _impl_._has_bits_[2] &= ~0x10000000u;
+  _impl_._has_bits_[2] &= ~0x00800000u;
 }
 inline ::int32_t SatParameters::max_lin_max_size_for_expansion() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_lin_max_size_for_expansion)
@@ -6456,7 +6212,7 @@ inline ::int32_t SatParameters::max_lin_max_size_for_expansion() const {
 }
 inline void SatParameters::set_max_lin_max_size_for_expansion(::int32_t value) {
   _internal_set_max_lin_max_size_for_expansion(value);
-  _impl_._has_bits_[2] |= 0x10000000u;
+  _impl_._has_bits_[2] |= 0x00800000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_lin_max_size_for_expansion)
 }
 inline ::int32_t SatParameters::_internal_max_lin_max_size_for_expansion() const {
@@ -6470,13 +6226,13 @@ inline void SatParameters::_internal_set_max_lin_max_size_for_expansion(::int32_
 
 // optional bool disable_constraint_expansion = 181 [default = false];
 inline bool SatParameters::has_disable_constraint_expansion() const {
-  bool value = (_impl_._has_bits_[2] & 0x00080000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x01000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_disable_constraint_expansion() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.disable_constraint_expansion_ = false;
-  _impl_._has_bits_[2] &= ~0x00080000u;
+  _impl_._has_bits_[1] &= ~0x01000000u;
 }
 inline bool SatParameters::disable_constraint_expansion() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.disable_constraint_expansion)
@@ -6484,7 +6240,7 @@ inline bool SatParameters::disable_constraint_expansion() const {
 }
 inline void SatParameters::set_disable_constraint_expansion(bool value) {
   _internal_set_disable_constraint_expansion(value);
-  _impl_._has_bits_[2] |= 0x00080000u;
+  _impl_._has_bits_[1] |= 0x01000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.disable_constraint_expansion)
 }
 inline bool SatParameters::_internal_disable_constraint_expansion() const {
@@ -6498,13 +6254,13 @@ inline void SatParameters::_internal_set_disable_constraint_expansion(bool value
 
 // optional bool encode_complex_linear_constraint_with_integer = 223 [default = false];
 inline bool SatParameters::has_encode_complex_linear_constraint_with_integer() const {
-  bool value = (_impl_._has_bits_[1] & 0x80000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x02000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_encode_complex_linear_constraint_with_integer() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.encode_complex_linear_constraint_with_integer_ = false;
-  _impl_._has_bits_[1] &= ~0x80000000u;
+  _impl_._has_bits_[1] &= ~0x02000000u;
 }
 inline bool SatParameters::encode_complex_linear_constraint_with_integer() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.encode_complex_linear_constraint_with_integer)
@@ -6512,7 +6268,7 @@ inline bool SatParameters::encode_complex_linear_constraint_with_integer() const
 }
 inline void SatParameters::set_encode_complex_linear_constraint_with_integer(bool value) {
   _internal_set_encode_complex_linear_constraint_with_integer(value);
-  _impl_._has_bits_[1] |= 0x80000000u;
+  _impl_._has_bits_[1] |= 0x02000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.encode_complex_linear_constraint_with_integer)
 }
 inline bool SatParameters::_internal_encode_complex_linear_constraint_with_integer() const {
@@ -6526,13 +6282,13 @@ inline void SatParameters::_internal_set_encode_complex_linear_constraint_with_i
 
 // optional double merge_no_overlap_work_limit = 145 [default = 1000000000000];
 inline bool SatParameters::has_merge_no_overlap_work_limit() const {
-  bool value = (_impl_._has_bits_[5] & 0x00000010u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x01000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_merge_no_overlap_work_limit() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.merge_no_overlap_work_limit_ = 1000000000000;
-  _impl_._has_bits_[5] &= ~0x00000010u;
+  _impl_._has_bits_[4] &= ~0x01000000u;
 }
 inline double SatParameters::merge_no_overlap_work_limit() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.merge_no_overlap_work_limit)
@@ -6540,7 +6296,7 @@ inline double SatParameters::merge_no_overlap_work_limit() const {
 }
 inline void SatParameters::set_merge_no_overlap_work_limit(double value) {
   _internal_set_merge_no_overlap_work_limit(value);
-  _impl_._has_bits_[5] |= 0x00000010u;
+  _impl_._has_bits_[4] |= 0x01000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.merge_no_overlap_work_limit)
 }
 inline double SatParameters::_internal_merge_no_overlap_work_limit() const {
@@ -6554,13 +6310,13 @@ inline void SatParameters::_internal_set_merge_no_overlap_work_limit(double valu
 
 // optional double merge_at_most_one_work_limit = 146 [default = 100000000];
 inline bool SatParameters::has_merge_at_most_one_work_limit() const {
-  bool value = (_impl_._has_bits_[5] & 0x00000020u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x02000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_merge_at_most_one_work_limit() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.merge_at_most_one_work_limit_ = 100000000;
-  _impl_._has_bits_[5] &= ~0x00000020u;
+  _impl_._has_bits_[4] &= ~0x02000000u;
 }
 inline double SatParameters::merge_at_most_one_work_limit() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.merge_at_most_one_work_limit)
@@ -6568,7 +6324,7 @@ inline double SatParameters::merge_at_most_one_work_limit() const {
 }
 inline void SatParameters::set_merge_at_most_one_work_limit(double value) {
   _internal_set_merge_at_most_one_work_limit(value);
-  _impl_._has_bits_[5] |= 0x00000020u;
+  _impl_._has_bits_[4] |= 0x02000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.merge_at_most_one_work_limit)
 }
 inline double SatParameters::_internal_merge_at_most_one_work_limit() const {
@@ -6582,13 +6338,13 @@ inline void SatParameters::_internal_set_merge_at_most_one_work_limit(double val
 
 // optional int32 presolve_substitution_level = 147 [default = 1];
 inline bool SatParameters::has_presolve_substitution_level() const {
-  bool value = (_impl_._has_bits_[5] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x04000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_presolve_substitution_level() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.presolve_substitution_level_ = 1;
-  _impl_._has_bits_[5] &= ~0x00000008u;
+  _impl_._has_bits_[4] &= ~0x04000000u;
 }
 inline ::int32_t SatParameters::presolve_substitution_level() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.presolve_substitution_level)
@@ -6596,7 +6352,7 @@ inline ::int32_t SatParameters::presolve_substitution_level() const {
 }
 inline void SatParameters::set_presolve_substitution_level(::int32_t value) {
   _internal_set_presolve_substitution_level(value);
-  _impl_._has_bits_[5] |= 0x00000008u;
+  _impl_._has_bits_[4] |= 0x04000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.presolve_substitution_level)
 }
 inline ::int32_t SatParameters::_internal_presolve_substitution_level() const {
@@ -6610,13 +6366,13 @@ inline void SatParameters::_internal_set_presolve_substitution_level(::int32_t v
 
 // optional bool presolve_extract_integer_enforcement = 174 [default = false];
 inline bool SatParameters::has_presolve_extract_integer_enforcement() const {
-  bool value = (_impl_._has_bits_[2] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x04000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_presolve_extract_integer_enforcement() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.presolve_extract_integer_enforcement_ = false;
-  _impl_._has_bits_[2] &= ~0x00000001u;
+  _impl_._has_bits_[1] &= ~0x04000000u;
 }
 inline bool SatParameters::presolve_extract_integer_enforcement() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.presolve_extract_integer_enforcement)
@@ -6624,7 +6380,7 @@ inline bool SatParameters::presolve_extract_integer_enforcement() const {
 }
 inline void SatParameters::set_presolve_extract_integer_enforcement(bool value) {
   _internal_set_presolve_extract_integer_enforcement(value);
-  _impl_._has_bits_[2] |= 0x00000001u;
+  _impl_._has_bits_[1] |= 0x04000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.presolve_extract_integer_enforcement)
 }
 inline bool SatParameters::_internal_presolve_extract_integer_enforcement() const {
@@ -6638,13 +6394,13 @@ inline void SatParameters::_internal_set_presolve_extract_integer_enforcement(bo
 
 // optional int64 presolve_inclusion_work_limit = 201 [default = 100000000];
 inline bool SatParameters::has_presolve_inclusion_work_limit() const {
-  bool value = (_impl_._has_bits_[6] & 0x00000400u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00000040u) != 0;
   return value;
 }
 inline void SatParameters::clear_presolve_inclusion_work_limit() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.presolve_inclusion_work_limit_ = ::int64_t{100000000};
-  _impl_._has_bits_[6] &= ~0x00000400u;
+  _impl_._has_bits_[6] &= ~0x00000040u;
 }
 inline ::int64_t SatParameters::presolve_inclusion_work_limit() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.presolve_inclusion_work_limit)
@@ -6652,7 +6408,7 @@ inline ::int64_t SatParameters::presolve_inclusion_work_limit() const {
 }
 inline void SatParameters::set_presolve_inclusion_work_limit(::int64_t value) {
   _internal_set_presolve_inclusion_work_limit(value);
-  _impl_._has_bits_[6] |= 0x00000400u;
+  _impl_._has_bits_[6] |= 0x00000040u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.presolve_inclusion_work_limit)
 }
 inline ::int64_t SatParameters::_internal_presolve_inclusion_work_limit() const {
@@ -6666,13 +6422,13 @@ inline void SatParameters::_internal_set_presolve_inclusion_work_limit(::int64_t
 
 // optional bool ignore_names = 202 [default = true];
 inline bool SatParameters::has_ignore_names() const {
-  bool value = (_impl_._has_bits_[6] & 0x00002000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00000400u) != 0;
   return value;
 }
 inline void SatParameters::clear_ignore_names() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.ignore_names_ = true;
-  _impl_._has_bits_[6] &= ~0x00002000u;
+  _impl_._has_bits_[6] &= ~0x00000400u;
 }
 inline bool SatParameters::ignore_names() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.ignore_names)
@@ -6680,7 +6436,7 @@ inline bool SatParameters::ignore_names() const {
 }
 inline void SatParameters::set_ignore_names(bool value) {
   _internal_set_ignore_names(value);
-  _impl_._has_bits_[6] |= 0x00002000u;
+  _impl_._has_bits_[6] |= 0x00000400u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.ignore_names)
 }
 inline bool SatParameters::_internal_ignore_names() const {
@@ -6694,13 +6450,13 @@ inline void SatParameters::_internal_set_ignore_names(bool value) {
 
 // optional bool infer_all_diffs = 233 [default = true];
 inline bool SatParameters::has_infer_all_diffs() const {
-  bool value = (_impl_._has_bits_[6] & 0x00004000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00000800u) != 0;
   return value;
 }
 inline void SatParameters::clear_infer_all_diffs() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.infer_all_diffs_ = true;
-  _impl_._has_bits_[6] &= ~0x00004000u;
+  _impl_._has_bits_[6] &= ~0x00000800u;
 }
 inline bool SatParameters::infer_all_diffs() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.infer_all_diffs)
@@ -6708,7 +6464,7 @@ inline bool SatParameters::infer_all_diffs() const {
 }
 inline void SatParameters::set_infer_all_diffs(bool value) {
   _internal_set_infer_all_diffs(value);
-  _impl_._has_bits_[6] |= 0x00004000u;
+  _impl_._has_bits_[6] |= 0x00000800u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.infer_all_diffs)
 }
 inline bool SatParameters::_internal_infer_all_diffs() const {
@@ -6722,13 +6478,13 @@ inline void SatParameters::_internal_set_infer_all_diffs(bool value) {
 
 // optional bool find_big_linear_overlap = 234 [default = true];
 inline bool SatParameters::has_find_big_linear_overlap() const {
-  bool value = (_impl_._has_bits_[6] & 0x00008000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00001000u) != 0;
   return value;
 }
 inline void SatParameters::clear_find_big_linear_overlap() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.find_big_linear_overlap_ = true;
-  _impl_._has_bits_[6] &= ~0x00008000u;
+  _impl_._has_bits_[6] &= ~0x00001000u;
 }
 inline bool SatParameters::find_big_linear_overlap() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.find_big_linear_overlap)
@@ -6736,7 +6492,7 @@ inline bool SatParameters::find_big_linear_overlap() const {
 }
 inline void SatParameters::set_find_big_linear_overlap(bool value) {
   _internal_set_find_big_linear_overlap(value);
-  _impl_._has_bits_[6] |= 0x00008000u;
+  _impl_._has_bits_[6] |= 0x00001000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.find_big_linear_overlap)
 }
 inline bool SatParameters::_internal_find_big_linear_overlap() const {
@@ -6750,13 +6506,13 @@ inline void SatParameters::_internal_set_find_big_linear_overlap(bool value) {
 
 // optional bool use_sat_inprocessing = 163 [default = true];
 inline bool SatParameters::has_use_sat_inprocessing() const {
-  bool value = (_impl_._has_bits_[5] & 0x00000080u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x10000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_sat_inprocessing() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_sat_inprocessing_ = true;
-  _impl_._has_bits_[5] &= ~0x00000080u;
+  _impl_._has_bits_[4] &= ~0x10000000u;
 }
 inline bool SatParameters::use_sat_inprocessing() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_sat_inprocessing)
@@ -6764,7 +6520,7 @@ inline bool SatParameters::use_sat_inprocessing() const {
 }
 inline void SatParameters::set_use_sat_inprocessing(bool value) {
   _internal_set_use_sat_inprocessing(value);
-  _impl_._has_bits_[5] |= 0x00000080u;
+  _impl_._has_bits_[4] |= 0x10000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_sat_inprocessing)
 }
 inline bool SatParameters::_internal_use_sat_inprocessing() const {
@@ -6778,13 +6534,13 @@ inline void SatParameters::_internal_set_use_sat_inprocessing(bool value) {
 
 // optional double inprocessing_dtime_ratio = 273 [default = 0.2];
 inline bool SatParameters::has_inprocessing_dtime_ratio() const {
-  bool value = (_impl_._has_bits_[7] & 0x00000400u) != 0;
+  bool value = (_impl_._has_bits_[7] & 0x00000004u) != 0;
   return value;
 }
 inline void SatParameters::clear_inprocessing_dtime_ratio() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.inprocessing_dtime_ratio_ = 0.2;
-  _impl_._has_bits_[7] &= ~0x00000400u;
+  _impl_._has_bits_[7] &= ~0x00000004u;
 }
 inline double SatParameters::inprocessing_dtime_ratio() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.inprocessing_dtime_ratio)
@@ -6792,7 +6548,7 @@ inline double SatParameters::inprocessing_dtime_ratio() const {
 }
 inline void SatParameters::set_inprocessing_dtime_ratio(double value) {
   _internal_set_inprocessing_dtime_ratio(value);
-  _impl_._has_bits_[7] |= 0x00000400u;
+  _impl_._has_bits_[7] |= 0x00000004u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.inprocessing_dtime_ratio)
 }
 inline double SatParameters::_internal_inprocessing_dtime_ratio() const {
@@ -6806,13 +6562,13 @@ inline void SatParameters::_internal_set_inprocessing_dtime_ratio(double value) 
 
 // optional double inprocessing_probing_dtime = 274 [default = 1];
 inline bool SatParameters::has_inprocessing_probing_dtime() const {
-  bool value = (_impl_._has_bits_[7] & 0x00000800u) != 0;
+  bool value = (_impl_._has_bits_[7] & 0x00000008u) != 0;
   return value;
 }
 inline void SatParameters::clear_inprocessing_probing_dtime() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.inprocessing_probing_dtime_ = 1;
-  _impl_._has_bits_[7] &= ~0x00000800u;
+  _impl_._has_bits_[7] &= ~0x00000008u;
 }
 inline double SatParameters::inprocessing_probing_dtime() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.inprocessing_probing_dtime)
@@ -6820,7 +6576,7 @@ inline double SatParameters::inprocessing_probing_dtime() const {
 }
 inline void SatParameters::set_inprocessing_probing_dtime(double value) {
   _internal_set_inprocessing_probing_dtime(value);
-  _impl_._has_bits_[7] |= 0x00000800u;
+  _impl_._has_bits_[7] |= 0x00000008u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.inprocessing_probing_dtime)
 }
 inline double SatParameters::_internal_inprocessing_probing_dtime() const {
@@ -6834,13 +6590,13 @@ inline void SatParameters::_internal_set_inprocessing_probing_dtime(double value
 
 // optional double inprocessing_minimization_dtime = 275 [default = 1];
 inline bool SatParameters::has_inprocessing_minimization_dtime() const {
-  bool value = (_impl_._has_bits_[7] & 0x00004000u) != 0;
+  bool value = (_impl_._has_bits_[7] & 0x00000040u) != 0;
   return value;
 }
 inline void SatParameters::clear_inprocessing_minimization_dtime() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.inprocessing_minimization_dtime_ = 1;
-  _impl_._has_bits_[7] &= ~0x00004000u;
+  _impl_._has_bits_[7] &= ~0x00000040u;
 }
 inline double SatParameters::inprocessing_minimization_dtime() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.inprocessing_minimization_dtime)
@@ -6848,7 +6604,7 @@ inline double SatParameters::inprocessing_minimization_dtime() const {
 }
 inline void SatParameters::set_inprocessing_minimization_dtime(double value) {
   _internal_set_inprocessing_minimization_dtime(value);
-  _impl_._has_bits_[7] |= 0x00004000u;
+  _impl_._has_bits_[7] |= 0x00000040u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.inprocessing_minimization_dtime)
 }
 inline double SatParameters::_internal_inprocessing_minimization_dtime() const {
@@ -6862,13 +6618,13 @@ inline void SatParameters::_internal_set_inprocessing_minimization_dtime(double 
 
 // optional int32 num_workers = 206 [default = 0];
 inline bool SatParameters::has_num_workers() const {
-  bool value = (_impl_._has_bits_[2] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00000080u) != 0;
   return value;
 }
 inline void SatParameters::clear_num_workers() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.num_workers_ = 0;
-  _impl_._has_bits_[2] &= ~0x00000008u;
+  _impl_._has_bits_[2] &= ~0x00000080u;
 }
 inline ::int32_t SatParameters::num_workers() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.num_workers)
@@ -6876,7 +6632,7 @@ inline ::int32_t SatParameters::num_workers() const {
 }
 inline void SatParameters::set_num_workers(::int32_t value) {
   _internal_set_num_workers(value);
-  _impl_._has_bits_[2] |= 0x00000008u;
+  _impl_._has_bits_[2] |= 0x00000080u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.num_workers)
 }
 inline ::int32_t SatParameters::_internal_num_workers() const {
@@ -6916,32 +6672,32 @@ inline void SatParameters::_internal_set_num_search_workers(::int32_t value) {
   _impl_.num_search_workers_ = value;
 }
 
-// optional int32 num_full_subsolvers = 294 [default = 0];
-inline bool SatParameters::has_num_full_subsolvers() const {
-  bool value = (_impl_._has_bits_[2] & 0x40000000u) != 0;
+// optional int32 min_num_lns_workers = 211 [default = 2];
+inline bool SatParameters::has_min_num_lns_workers() const {
+  bool value = (_impl_._has_bits_[6] & 0x00000100u) != 0;
   return value;
 }
-inline void SatParameters::clear_num_full_subsolvers() {
+inline void SatParameters::clear_min_num_lns_workers() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.num_full_subsolvers_ = 0;
-  _impl_._has_bits_[2] &= ~0x40000000u;
+  _impl_.min_num_lns_workers_ = 2;
+  _impl_._has_bits_[6] &= ~0x00000100u;
 }
-inline ::int32_t SatParameters::num_full_subsolvers() const {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.num_full_subsolvers)
-  return _internal_num_full_subsolvers();
+inline ::int32_t SatParameters::min_num_lns_workers() const {
+  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.min_num_lns_workers)
+  return _internal_min_num_lns_workers();
 }
-inline void SatParameters::set_num_full_subsolvers(::int32_t value) {
-  _internal_set_num_full_subsolvers(value);
-  _impl_._has_bits_[2] |= 0x40000000u;
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.num_full_subsolvers)
+inline void SatParameters::set_min_num_lns_workers(::int32_t value) {
+  _internal_set_min_num_lns_workers(value);
+  _impl_._has_bits_[6] |= 0x00000100u;
+  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.min_num_lns_workers)
 }
-inline ::int32_t SatParameters::_internal_num_full_subsolvers() const {
+inline ::int32_t SatParameters::_internal_min_num_lns_workers() const {
   PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.num_full_subsolvers_;
+  return _impl_.min_num_lns_workers_;
 }
-inline void SatParameters::_internal_set_num_full_subsolvers(::int32_t value) {
+inline void SatParameters::_internal_set_min_num_lns_workers(::int32_t value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.num_full_subsolvers_ = value;
+  _impl_.min_num_lns_workers_ = value;
 }
 
 // repeated string subsolvers = 207;
@@ -7250,108 +7006,6 @@ SatParameters::_internal_mutable_ignore_subsolvers() {
   return &_impl_.ignore_subsolvers_;
 }
 
-// repeated string filter_subsolvers = 293;
-inline int SatParameters::_internal_filter_subsolvers_size() const {
-  return _internal_filter_subsolvers().size();
-}
-inline int SatParameters::filter_subsolvers_size() const {
-  return _internal_filter_subsolvers_size();
-}
-inline void SatParameters::clear_filter_subsolvers() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.filter_subsolvers_.Clear();
-}
-inline std::string* SatParameters::add_filter_subsolvers()
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  std::string* _s = _internal_mutable_filter_subsolvers()->Add();
-  // @@protoc_insertion_point(field_add_mutable:operations_research.sat.SatParameters.filter_subsolvers)
-  return _s;
-}
-inline const std::string& SatParameters::filter_subsolvers(int index) const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.filter_subsolvers)
-  return _internal_filter_subsolvers().Get(index);
-}
-inline std::string* SatParameters::mutable_filter_subsolvers(int index)
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_mutable:operations_research.sat.SatParameters.filter_subsolvers)
-  return _internal_mutable_filter_subsolvers()->Mutable(index);
-}
-inline void SatParameters::set_filter_subsolvers(int index, const std::string& value) {
-  _internal_mutable_filter_subsolvers()->Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.filter_subsolvers)
-}
-inline void SatParameters::set_filter_subsolvers(int index, std::string&& value) {
-  _internal_mutable_filter_subsolvers()->Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.filter_subsolvers)
-}
-inline void SatParameters::set_filter_subsolvers(int index, const char* value) {
-  ABSL_DCHECK(value != nullptr);
-  _internal_mutable_filter_subsolvers()->Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:operations_research.sat.SatParameters.filter_subsolvers)
-}
-inline void SatParameters::set_filter_subsolvers(int index, const char* value,
-                              std::size_t size) {
-  _internal_mutable_filter_subsolvers()->Mutable(index)->assign(
-      reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:operations_research.sat.SatParameters.filter_subsolvers)
-}
-inline void SatParameters::set_filter_subsolvers(int index, absl::string_view value) {
-  _internal_mutable_filter_subsolvers()->Mutable(index)->assign(
-      value.data(), value.size());
-  // @@protoc_insertion_point(field_set_string_piece:operations_research.sat.SatParameters.filter_subsolvers)
-}
-inline void SatParameters::add_filter_subsolvers(const std::string& value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _internal_mutable_filter_subsolvers()->Add()->assign(value);
-  // @@protoc_insertion_point(field_add:operations_research.sat.SatParameters.filter_subsolvers)
-}
-inline void SatParameters::add_filter_subsolvers(std::string&& value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _internal_mutable_filter_subsolvers()->Add(std::move(value));
-  // @@protoc_insertion_point(field_add:operations_research.sat.SatParameters.filter_subsolvers)
-}
-inline void SatParameters::add_filter_subsolvers(const char* value) {
-  ABSL_DCHECK(value != nullptr);
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _internal_mutable_filter_subsolvers()->Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:operations_research.sat.SatParameters.filter_subsolvers)
-}
-inline void SatParameters::add_filter_subsolvers(const char* value, std::size_t size) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _internal_mutable_filter_subsolvers()->Add()->assign(
-      reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:operations_research.sat.SatParameters.filter_subsolvers)
-}
-inline void SatParameters::add_filter_subsolvers(absl::string_view value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _internal_mutable_filter_subsolvers()->Add()->assign(value.data(),
-                                                     value.size());
-  // @@protoc_insertion_point(field_add_string_piece:operations_research.sat.SatParameters.filter_subsolvers)
-}
-inline const ::google::protobuf::RepeatedPtrField<std::string>&
-SatParameters::filter_subsolvers() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_list:operations_research.sat.SatParameters.filter_subsolvers)
-  return _internal_filter_subsolvers();
-}
-inline ::google::protobuf::RepeatedPtrField<std::string>*
-SatParameters::mutable_filter_subsolvers() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_mutable_list:operations_research.sat.SatParameters.filter_subsolvers)
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  return _internal_mutable_filter_subsolvers();
-}
-inline const ::google::protobuf::RepeatedPtrField<std::string>&
-SatParameters::_internal_filter_subsolvers() const {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.filter_subsolvers_;
-}
-inline ::google::protobuf::RepeatedPtrField<std::string>*
-SatParameters::_internal_mutable_filter_subsolvers() {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return &_impl_.filter_subsolvers_;
-}
-
 // repeated .operations_research.sat.SatParameters subsolver_params = 210;
 inline int SatParameters::_internal_subsolver_params_size() const {
   return _internal_subsolver_params().size();
@@ -7403,13 +7057,13 @@ SatParameters::_internal_mutable_subsolver_params() {
 
 // optional bool interleave_search = 136 [default = false];
 inline bool SatParameters::has_interleave_search() const {
-  bool value = (_impl_._has_bits_[2] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x20000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_interleave_search() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.interleave_search_ = false;
-  _impl_._has_bits_[2] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x20000000u;
 }
 inline bool SatParameters::interleave_search() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.interleave_search)
@@ -7417,7 +7071,7 @@ inline bool SatParameters::interleave_search() const {
 }
 inline void SatParameters::set_interleave_search(bool value) {
   _internal_set_interleave_search(value);
-  _impl_._has_bits_[2] |= 0x00000002u;
+  _impl_._has_bits_[0] |= 0x20000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.interleave_search)
 }
 inline bool SatParameters::_internal_interleave_search() const {
@@ -7431,13 +7085,13 @@ inline void SatParameters::_internal_set_interleave_search(bool value) {
 
 // optional int32 interleave_batch_size = 134 [default = 0];
 inline bool SatParameters::has_interleave_batch_size() const {
-  bool value = (_impl_._has_bits_[0] & 0x01000000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x10000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_interleave_batch_size() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.interleave_batch_size_ = 0;
-  _impl_._has_bits_[0] &= ~0x01000000u;
+  _impl_._has_bits_[0] &= ~0x10000000u;
 }
 inline ::int32_t SatParameters::interleave_batch_size() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.interleave_batch_size)
@@ -7445,7 +7099,7 @@ inline ::int32_t SatParameters::interleave_batch_size() const {
 }
 inline void SatParameters::set_interleave_batch_size(::int32_t value) {
   _internal_set_interleave_batch_size(value);
-  _impl_._has_bits_[0] |= 0x01000000u;
+  _impl_._has_bits_[0] |= 0x10000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.interleave_batch_size)
 }
 inline ::int32_t SatParameters::_internal_interleave_batch_size() const {
@@ -7459,13 +7113,13 @@ inline void SatParameters::_internal_set_interleave_batch_size(::int32_t value) 
 
 // optional bool share_objective_bounds = 113 [default = true];
 inline bool SatParameters::has_share_objective_bounds() const {
-  bool value = (_impl_._has_bits_[5] & 0x00000100u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x20000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_share_objective_bounds() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.share_objective_bounds_ = true;
-  _impl_._has_bits_[5] &= ~0x00000100u;
+  _impl_._has_bits_[4] &= ~0x20000000u;
 }
 inline bool SatParameters::share_objective_bounds() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.share_objective_bounds)
@@ -7473,7 +7127,7 @@ inline bool SatParameters::share_objective_bounds() const {
 }
 inline void SatParameters::set_share_objective_bounds(bool value) {
   _internal_set_share_objective_bounds(value);
-  _impl_._has_bits_[5] |= 0x00000100u;
+  _impl_._has_bits_[4] |= 0x20000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.share_objective_bounds)
 }
 inline bool SatParameters::_internal_share_objective_bounds() const {
@@ -7487,13 +7141,13 @@ inline void SatParameters::_internal_set_share_objective_bounds(bool value) {
 
 // optional bool share_level_zero_bounds = 114 [default = true];
 inline bool SatParameters::has_share_level_zero_bounds() const {
-  bool value = (_impl_._has_bits_[5] & 0x00000200u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x40000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_share_level_zero_bounds() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.share_level_zero_bounds_ = true;
-  _impl_._has_bits_[5] &= ~0x00000200u;
+  _impl_._has_bits_[4] &= ~0x40000000u;
 }
 inline bool SatParameters::share_level_zero_bounds() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.share_level_zero_bounds)
@@ -7501,7 +7155,7 @@ inline bool SatParameters::share_level_zero_bounds() const {
 }
 inline void SatParameters::set_share_level_zero_bounds(bool value) {
   _internal_set_share_level_zero_bounds(value);
-  _impl_._has_bits_[5] |= 0x00000200u;
+  _impl_._has_bits_[4] |= 0x40000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.share_level_zero_bounds)
 }
 inline bool SatParameters::_internal_share_level_zero_bounds() const {
@@ -7515,13 +7169,13 @@ inline void SatParameters::_internal_set_share_level_zero_bounds(bool value) {
 
 // optional bool share_binary_clauses = 203 [default = true];
 inline bool SatParameters::has_share_binary_clauses() const {
-  bool value = (_impl_._has_bits_[5] & 0x00000400u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x80000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_share_binary_clauses() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.share_binary_clauses_ = true;
-  _impl_._has_bits_[5] &= ~0x00000400u;
+  _impl_._has_bits_[4] &= ~0x80000000u;
 }
 inline bool SatParameters::share_binary_clauses() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.share_binary_clauses)
@@ -7529,7 +7183,7 @@ inline bool SatParameters::share_binary_clauses() const {
 }
 inline void SatParameters::set_share_binary_clauses(bool value) {
   _internal_set_share_binary_clauses(value);
-  _impl_._has_bits_[5] |= 0x00000400u;
+  _impl_._has_bits_[4] |= 0x80000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.share_binary_clauses)
 }
 inline bool SatParameters::_internal_share_binary_clauses() const {
@@ -7541,43 +7195,15 @@ inline void SatParameters::_internal_set_share_binary_clauses(bool value) {
   _impl_.share_binary_clauses_ = value;
 }
 
-// optional bool share_glue_clauses = 285 [default = false];
-inline bool SatParameters::has_share_glue_clauses() const {
-  bool value = (_impl_._has_bits_[2] & 0x00000004u) != 0;
-  return value;
-}
-inline void SatParameters::clear_share_glue_clauses() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.share_glue_clauses_ = false;
-  _impl_._has_bits_[2] &= ~0x00000004u;
-}
-inline bool SatParameters::share_glue_clauses() const {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.share_glue_clauses)
-  return _internal_share_glue_clauses();
-}
-inline void SatParameters::set_share_glue_clauses(bool value) {
-  _internal_set_share_glue_clauses(value);
-  _impl_._has_bits_[2] |= 0x00000004u;
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.share_glue_clauses)
-}
-inline bool SatParameters::_internal_share_glue_clauses() const {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.share_glue_clauses_;
-}
-inline void SatParameters::_internal_set_share_glue_clauses(bool value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.share_glue_clauses_ = value;
-}
-
 // optional bool debug_postsolve_with_full_solver = 162 [default = false];
 inline bool SatParameters::has_debug_postsolve_with_full_solver() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000400u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x40000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_debug_postsolve_with_full_solver() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.debug_postsolve_with_full_solver_ = false;
-  _impl_._has_bits_[1] &= ~0x00000400u;
+  _impl_._has_bits_[0] &= ~0x40000000u;
 }
 inline bool SatParameters::debug_postsolve_with_full_solver() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.debug_postsolve_with_full_solver)
@@ -7585,7 +7211,7 @@ inline bool SatParameters::debug_postsolve_with_full_solver() const {
 }
 inline void SatParameters::set_debug_postsolve_with_full_solver(bool value) {
   _internal_set_debug_postsolve_with_full_solver(value);
-  _impl_._has_bits_[1] |= 0x00000400u;
+  _impl_._has_bits_[0] |= 0x40000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.debug_postsolve_with_full_solver)
 }
 inline bool SatParameters::_internal_debug_postsolve_with_full_solver() const {
@@ -7599,13 +7225,13 @@ inline void SatParameters::_internal_set_debug_postsolve_with_full_solver(bool v
 
 // optional int32 debug_max_num_presolve_operations = 151 [default = 0];
 inline bool SatParameters::has_debug_max_num_presolve_operations() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000020u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00004000u) != 0;
   return value;
 }
 inline void SatParameters::clear_debug_max_num_presolve_operations() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.debug_max_num_presolve_operations_ = 0;
-  _impl_._has_bits_[1] &= ~0x00000020u;
+  _impl_._has_bits_[1] &= ~0x00004000u;
 }
 inline ::int32_t SatParameters::debug_max_num_presolve_operations() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.debug_max_num_presolve_operations)
@@ -7613,7 +7239,7 @@ inline ::int32_t SatParameters::debug_max_num_presolve_operations() const {
 }
 inline void SatParameters::set_debug_max_num_presolve_operations(::int32_t value) {
   _internal_set_debug_max_num_presolve_operations(value);
-  _impl_._has_bits_[1] |= 0x00000020u;
+  _impl_._has_bits_[1] |= 0x00004000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.debug_max_num_presolve_operations)
 }
 inline ::int32_t SatParameters::_internal_debug_max_num_presolve_operations() const {
@@ -7627,13 +7253,13 @@ inline void SatParameters::_internal_set_debug_max_num_presolve_operations(::int
 
 // optional bool debug_crash_on_bad_hint = 195 [default = false];
 inline bool SatParameters::has_debug_crash_on_bad_hint() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000800u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x80000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_debug_crash_on_bad_hint() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.debug_crash_on_bad_hint_ = false;
-  _impl_._has_bits_[1] &= ~0x00000800u;
+  _impl_._has_bits_[0] &= ~0x80000000u;
 }
 inline bool SatParameters::debug_crash_on_bad_hint() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.debug_crash_on_bad_hint)
@@ -7641,7 +7267,7 @@ inline bool SatParameters::debug_crash_on_bad_hint() const {
 }
 inline void SatParameters::set_debug_crash_on_bad_hint(bool value) {
   _internal_set_debug_crash_on_bad_hint(value);
-  _impl_._has_bits_[1] |= 0x00000800u;
+  _impl_._has_bits_[0] |= 0x80000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.debug_crash_on_bad_hint)
 }
 inline bool SatParameters::_internal_debug_crash_on_bad_hint() const {
@@ -7655,13 +7281,13 @@ inline void SatParameters::_internal_set_debug_crash_on_bad_hint(bool value) {
 
 // optional bool use_optimization_hints = 35 [default = true];
 inline bool SatParameters::has_use_optimization_hints() const {
-  bool value = (_impl_._has_bits_[3] & 0x20000000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00400000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_optimization_hints() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_optimization_hints_ = true;
-  _impl_._has_bits_[3] &= ~0x20000000u;
+  _impl_._has_bits_[3] &= ~0x00400000u;
 }
 inline bool SatParameters::use_optimization_hints() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_optimization_hints)
@@ -7669,7 +7295,7 @@ inline bool SatParameters::use_optimization_hints() const {
 }
 inline void SatParameters::set_use_optimization_hints(bool value) {
   _internal_set_use_optimization_hints(value);
-  _impl_._has_bits_[3] |= 0x20000000u;
+  _impl_._has_bits_[3] |= 0x00400000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_optimization_hints)
 }
 inline bool SatParameters::_internal_use_optimization_hints() const {
@@ -7683,13 +7309,13 @@ inline void SatParameters::_internal_set_use_optimization_hints(bool value) {
 
 // optional int32 core_minimization_level = 50 [default = 2];
 inline bool SatParameters::has_core_minimization_level() const {
-  bool value = (_impl_._has_bits_[3] & 0x00040000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00000800u) != 0;
   return value;
 }
 inline void SatParameters::clear_core_minimization_level() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.core_minimization_level_ = 2;
-  _impl_._has_bits_[3] &= ~0x00040000u;
+  _impl_._has_bits_[3] &= ~0x00000800u;
 }
 inline ::int32_t SatParameters::core_minimization_level() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.core_minimization_level)
@@ -7697,7 +7323,7 @@ inline ::int32_t SatParameters::core_minimization_level() const {
 }
 inline void SatParameters::set_core_minimization_level(::int32_t value) {
   _internal_set_core_minimization_level(value);
-  _impl_._has_bits_[3] |= 0x00040000u;
+  _impl_._has_bits_[3] |= 0x00000800u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.core_minimization_level)
 }
 inline ::int32_t SatParameters::_internal_core_minimization_level() const {
@@ -7711,13 +7337,13 @@ inline void SatParameters::_internal_set_core_minimization_level(::int32_t value
 
 // optional bool find_multiple_cores = 84 [default = true];
 inline bool SatParameters::has_find_multiple_cores() const {
-  bool value = (_impl_._has_bits_[3] & 0x40000000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00800000u) != 0;
   return value;
 }
 inline void SatParameters::clear_find_multiple_cores() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.find_multiple_cores_ = true;
-  _impl_._has_bits_[3] &= ~0x40000000u;
+  _impl_._has_bits_[3] &= ~0x00800000u;
 }
 inline bool SatParameters::find_multiple_cores() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.find_multiple_cores)
@@ -7725,7 +7351,7 @@ inline bool SatParameters::find_multiple_cores() const {
 }
 inline void SatParameters::set_find_multiple_cores(bool value) {
   _internal_set_find_multiple_cores(value);
-  _impl_._has_bits_[3] |= 0x40000000u;
+  _impl_._has_bits_[3] |= 0x00800000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.find_multiple_cores)
 }
 inline bool SatParameters::_internal_find_multiple_cores() const {
@@ -7739,13 +7365,13 @@ inline void SatParameters::_internal_set_find_multiple_cores(bool value) {
 
 // optional bool cover_optimization = 89 [default = true];
 inline bool SatParameters::has_cover_optimization() const {
-  bool value = (_impl_._has_bits_[3] & 0x80000000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x01000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_cover_optimization() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.cover_optimization_ = true;
-  _impl_._has_bits_[3] &= ~0x80000000u;
+  _impl_._has_bits_[3] &= ~0x01000000u;
 }
 inline bool SatParameters::cover_optimization() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.cover_optimization)
@@ -7753,7 +7379,7 @@ inline bool SatParameters::cover_optimization() const {
 }
 inline void SatParameters::set_cover_optimization(bool value) {
   _internal_set_cover_optimization(value);
-  _impl_._has_bits_[3] |= 0x80000000u;
+  _impl_._has_bits_[3] |= 0x01000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.cover_optimization)
 }
 inline bool SatParameters::_internal_cover_optimization() const {
@@ -7796,13 +7422,13 @@ inline void SatParameters::_internal_set_max_sat_assumption_order(::operations_r
 
 // optional bool max_sat_reverse_assumption_order = 52 [default = false];
 inline bool SatParameters::has_max_sat_reverse_assumption_order() const {
-  bool value = (_impl_._has_bits_[1] & 0x00001000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000001u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_sat_reverse_assumption_order() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_sat_reverse_assumption_order_ = false;
-  _impl_._has_bits_[1] &= ~0x00001000u;
+  _impl_._has_bits_[1] &= ~0x00000001u;
 }
 inline bool SatParameters::max_sat_reverse_assumption_order() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_sat_reverse_assumption_order)
@@ -7810,7 +7436,7 @@ inline bool SatParameters::max_sat_reverse_assumption_order() const {
 }
 inline void SatParameters::set_max_sat_reverse_assumption_order(bool value) {
   _internal_set_max_sat_reverse_assumption_order(value);
-  _impl_._has_bits_[1] |= 0x00001000u;
+  _impl_._has_bits_[1] |= 0x00000001u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_sat_reverse_assumption_order)
 }
 inline bool SatParameters::_internal_max_sat_reverse_assumption_order() const {
@@ -7824,13 +7450,13 @@ inline void SatParameters::_internal_set_max_sat_reverse_assumption_order(bool v
 
 // optional .operations_research.sat.SatParameters.MaxSatStratificationAlgorithm max_sat_stratification = 53 [default = STRATIFICATION_DESCENT];
 inline bool SatParameters::has_max_sat_stratification() const {
-  bool value = (_impl_._has_bits_[3] & 0x00080000u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x00001000u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_sat_stratification() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_sat_stratification_ = 1;
-  _impl_._has_bits_[3] &= ~0x00080000u;
+  _impl_._has_bits_[3] &= ~0x00001000u;
 }
 inline ::operations_research::sat::SatParameters_MaxSatStratificationAlgorithm SatParameters::max_sat_stratification() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_sat_stratification)
@@ -7838,7 +7464,7 @@ inline ::operations_research::sat::SatParameters_MaxSatStratificationAlgorithm S
 }
 inline void SatParameters::set_max_sat_stratification(::operations_research::sat::SatParameters_MaxSatStratificationAlgorithm value) {
   _internal_set_max_sat_stratification(value);
-  _impl_._has_bits_[3] |= 0x00080000u;
+  _impl_._has_bits_[3] |= 0x00001000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_sat_stratification)
 }
 inline ::operations_research::sat::SatParameters_MaxSatStratificationAlgorithm SatParameters::_internal_max_sat_stratification() const {
@@ -7853,13 +7479,13 @@ inline void SatParameters::_internal_set_max_sat_stratification(::operations_res
 
 // optional double propagation_loop_detection_factor = 221 [default = 10];
 inline bool SatParameters::has_propagation_loop_detection_factor() const {
-  bool value = (_impl_._has_bits_[6] & 0x00020000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00002000u) != 0;
   return value;
 }
 inline void SatParameters::clear_propagation_loop_detection_factor() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.propagation_loop_detection_factor_ = 10;
-  _impl_._has_bits_[6] &= ~0x00020000u;
+  _impl_._has_bits_[6] &= ~0x00002000u;
 }
 inline double SatParameters::propagation_loop_detection_factor() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.propagation_loop_detection_factor)
@@ -7867,7 +7493,7 @@ inline double SatParameters::propagation_loop_detection_factor() const {
 }
 inline void SatParameters::set_propagation_loop_detection_factor(double value) {
   _internal_set_propagation_loop_detection_factor(value);
-  _impl_._has_bits_[6] |= 0x00020000u;
+  _impl_._has_bits_[6] |= 0x00002000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.propagation_loop_detection_factor)
 }
 inline double SatParameters::_internal_propagation_loop_detection_factor() const {
@@ -7881,13 +7507,13 @@ inline void SatParameters::_internal_set_propagation_loop_detection_factor(doubl
 
 // optional bool use_precedences_in_disjunctive_constraint = 74 [default = true];
 inline bool SatParameters::has_use_precedences_in_disjunctive_constraint() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[3] & 0x02000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_precedences_in_disjunctive_constraint() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_precedences_in_disjunctive_constraint_ = true;
-  _impl_._has_bits_[4] &= ~0x00000001u;
+  _impl_._has_bits_[3] &= ~0x02000000u;
 }
 inline bool SatParameters::use_precedences_in_disjunctive_constraint() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_precedences_in_disjunctive_constraint)
@@ -7895,7 +7521,7 @@ inline bool SatParameters::use_precedences_in_disjunctive_constraint() const {
 }
 inline void SatParameters::set_use_precedences_in_disjunctive_constraint(bool value) {
   _internal_set_use_precedences_in_disjunctive_constraint(value);
-  _impl_._has_bits_[4] |= 0x00000001u;
+  _impl_._has_bits_[3] |= 0x02000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_precedences_in_disjunctive_constraint)
 }
 inline bool SatParameters::_internal_use_precedences_in_disjunctive_constraint() const {
@@ -7909,13 +7535,13 @@ inline void SatParameters::_internal_set_use_precedences_in_disjunctive_constrai
 
 // optional int32 max_size_to_create_precedence_literals_in_disjunctive = 229 [default = 60];
 inline bool SatParameters::has_max_size_to_create_precedence_literals_in_disjunctive() const {
-  bool value = (_impl_._has_bits_[6] & 0x00100000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00040000u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_size_to_create_precedence_literals_in_disjunctive() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_size_to_create_precedence_literals_in_disjunctive_ = 60;
-  _impl_._has_bits_[6] &= ~0x00100000u;
+  _impl_._has_bits_[6] &= ~0x00040000u;
 }
 inline ::int32_t SatParameters::max_size_to_create_precedence_literals_in_disjunctive() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_size_to_create_precedence_literals_in_disjunctive)
@@ -7923,7 +7549,7 @@ inline ::int32_t SatParameters::max_size_to_create_precedence_literals_in_disjun
 }
 inline void SatParameters::set_max_size_to_create_precedence_literals_in_disjunctive(::int32_t value) {
   _internal_set_max_size_to_create_precedence_literals_in_disjunctive(value);
-  _impl_._has_bits_[6] |= 0x00100000u;
+  _impl_._has_bits_[6] |= 0x00040000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_size_to_create_precedence_literals_in_disjunctive)
 }
 inline ::int32_t SatParameters::_internal_max_size_to_create_precedence_literals_in_disjunctive() const {
@@ -7937,13 +7563,13 @@ inline void SatParameters::_internal_set_max_size_to_create_precedence_literals_
 
 // optional bool use_strong_propagation_in_disjunctive = 230 [default = false];
 inline bool SatParameters::has_use_strong_propagation_in_disjunctive() const {
-  bool value = (_impl_._has_bits_[1] & 0x00002000u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00000100u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_strong_propagation_in_disjunctive() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_strong_propagation_in_disjunctive_ = false;
-  _impl_._has_bits_[1] &= ~0x00002000u;
+  _impl_._has_bits_[2] &= ~0x00000100u;
 }
 inline bool SatParameters::use_strong_propagation_in_disjunctive() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_strong_propagation_in_disjunctive)
@@ -7951,7 +7577,7 @@ inline bool SatParameters::use_strong_propagation_in_disjunctive() const {
 }
 inline void SatParameters::set_use_strong_propagation_in_disjunctive(bool value) {
   _internal_set_use_strong_propagation_in_disjunctive(value);
-  _impl_._has_bits_[1] |= 0x00002000u;
+  _impl_._has_bits_[2] |= 0x00000100u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_strong_propagation_in_disjunctive)
 }
 inline bool SatParameters::_internal_use_strong_propagation_in_disjunctive() const {
@@ -7965,13 +7591,13 @@ inline void SatParameters::_internal_set_use_strong_propagation_in_disjunctive(b
 
 // optional bool use_dynamic_precedence_in_disjunctive = 263 [default = false];
 inline bool SatParameters::has_use_dynamic_precedence_in_disjunctive() const {
-  bool value = (_impl_._has_bits_[2] & 0x00001000u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00000200u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_dynamic_precedence_in_disjunctive() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_dynamic_precedence_in_disjunctive_ = false;
-  _impl_._has_bits_[2] &= ~0x00001000u;
+  _impl_._has_bits_[2] &= ~0x00000200u;
 }
 inline bool SatParameters::use_dynamic_precedence_in_disjunctive() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_dynamic_precedence_in_disjunctive)
@@ -7979,7 +7605,7 @@ inline bool SatParameters::use_dynamic_precedence_in_disjunctive() const {
 }
 inline void SatParameters::set_use_dynamic_precedence_in_disjunctive(bool value) {
   _internal_set_use_dynamic_precedence_in_disjunctive(value);
-  _impl_._has_bits_[2] |= 0x00001000u;
+  _impl_._has_bits_[2] |= 0x00000200u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_dynamic_precedence_in_disjunctive)
 }
 inline bool SatParameters::_internal_use_dynamic_precedence_in_disjunctive() const {
@@ -7993,13 +7619,13 @@ inline void SatParameters::_internal_set_use_dynamic_precedence_in_disjunctive(b
 
 // optional bool use_dynamic_precedence_in_cumulative = 268 [default = false];
 inline bool SatParameters::has_use_dynamic_precedence_in_cumulative() const {
-  bool value = (_impl_._has_bits_[2] & 0x00002000u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00000400u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_dynamic_precedence_in_cumulative() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_dynamic_precedence_in_cumulative_ = false;
-  _impl_._has_bits_[2] &= ~0x00002000u;
+  _impl_._has_bits_[2] &= ~0x00000400u;
 }
 inline bool SatParameters::use_dynamic_precedence_in_cumulative() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_dynamic_precedence_in_cumulative)
@@ -8007,7 +7633,7 @@ inline bool SatParameters::use_dynamic_precedence_in_cumulative() const {
 }
 inline void SatParameters::set_use_dynamic_precedence_in_cumulative(bool value) {
   _internal_set_use_dynamic_precedence_in_cumulative(value);
-  _impl_._has_bits_[2] |= 0x00002000u;
+  _impl_._has_bits_[2] |= 0x00000400u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_dynamic_precedence_in_cumulative)
 }
 inline bool SatParameters::_internal_use_dynamic_precedence_in_cumulative() const {
@@ -8021,13 +7647,13 @@ inline void SatParameters::_internal_set_use_dynamic_precedence_in_cumulative(bo
 
 // optional bool use_overload_checker_in_cumulative = 78 [default = false];
 inline bool SatParameters::has_use_overload_checker_in_cumulative() const {
-  bool value = (_impl_._has_bits_[2] & 0x00004000u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00000800u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_overload_checker_in_cumulative() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_overload_checker_in_cumulative_ = false;
-  _impl_._has_bits_[2] &= ~0x00004000u;
+  _impl_._has_bits_[2] &= ~0x00000800u;
 }
 inline bool SatParameters::use_overload_checker_in_cumulative() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_overload_checker_in_cumulative)
@@ -8035,7 +7661,7 @@ inline bool SatParameters::use_overload_checker_in_cumulative() const {
 }
 inline void SatParameters::set_use_overload_checker_in_cumulative(bool value) {
   _internal_set_use_overload_checker_in_cumulative(value);
-  _impl_._has_bits_[2] |= 0x00004000u;
+  _impl_._has_bits_[2] |= 0x00000800u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_overload_checker_in_cumulative)
 }
 inline bool SatParameters::_internal_use_overload_checker_in_cumulative() const {
@@ -8047,43 +7673,15 @@ inline void SatParameters::_internal_set_use_overload_checker_in_cumulative(bool
   _impl_.use_overload_checker_in_cumulative_ = value;
 }
 
-// optional bool use_conservative_scale_overload_checker = 286 [default = false];
-inline bool SatParameters::has_use_conservative_scale_overload_checker() const {
-  bool value = (_impl_._has_bits_[2] & 0x00008000u) != 0;
-  return value;
-}
-inline void SatParameters::clear_use_conservative_scale_overload_checker() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.use_conservative_scale_overload_checker_ = false;
-  _impl_._has_bits_[2] &= ~0x00008000u;
-}
-inline bool SatParameters::use_conservative_scale_overload_checker() const {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_conservative_scale_overload_checker)
-  return _internal_use_conservative_scale_overload_checker();
-}
-inline void SatParameters::set_use_conservative_scale_overload_checker(bool value) {
-  _internal_set_use_conservative_scale_overload_checker(value);
-  _impl_._has_bits_[2] |= 0x00008000u;
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_conservative_scale_overload_checker)
-}
-inline bool SatParameters::_internal_use_conservative_scale_overload_checker() const {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.use_conservative_scale_overload_checker_;
-}
-inline void SatParameters::_internal_set_use_conservative_scale_overload_checker(bool value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.use_conservative_scale_overload_checker_ = value;
-}
-
 // optional bool use_timetable_edge_finding_in_cumulative = 79 [default = false];
 inline bool SatParameters::has_use_timetable_edge_finding_in_cumulative() const {
-  bool value = (_impl_._has_bits_[1] & 0x00080000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00008000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_timetable_edge_finding_in_cumulative() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_timetable_edge_finding_in_cumulative_ = false;
-  _impl_._has_bits_[1] &= ~0x00080000u;
+  _impl_._has_bits_[1] &= ~0x00008000u;
 }
 inline bool SatParameters::use_timetable_edge_finding_in_cumulative() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_timetable_edge_finding_in_cumulative)
@@ -8091,7 +7689,7 @@ inline bool SatParameters::use_timetable_edge_finding_in_cumulative() const {
 }
 inline void SatParameters::set_use_timetable_edge_finding_in_cumulative(bool value) {
   _internal_set_use_timetable_edge_finding_in_cumulative(value);
-  _impl_._has_bits_[1] |= 0x00080000u;
+  _impl_._has_bits_[1] |= 0x00008000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_timetable_edge_finding_in_cumulative)
 }
 inline bool SatParameters::_internal_use_timetable_edge_finding_in_cumulative() const {
@@ -8105,13 +7703,13 @@ inline void SatParameters::_internal_set_use_timetable_edge_finding_in_cumulativ
 
 // optional int32 max_num_intervals_for_timetable_edge_finding = 260 [default = 100];
 inline bool SatParameters::has_max_num_intervals_for_timetable_edge_finding() const {
-  bool value = (_impl_._has_bits_[7] & 0x00000010u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x10000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_num_intervals_for_timetable_edge_finding() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_num_intervals_for_timetable_edge_finding_ = 100;
-  _impl_._has_bits_[7] &= ~0x00000010u;
+  _impl_._has_bits_[6] &= ~0x10000000u;
 }
 inline ::int32_t SatParameters::max_num_intervals_for_timetable_edge_finding() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_num_intervals_for_timetable_edge_finding)
@@ -8119,7 +7717,7 @@ inline ::int32_t SatParameters::max_num_intervals_for_timetable_edge_finding() c
 }
 inline void SatParameters::set_max_num_intervals_for_timetable_edge_finding(::int32_t value) {
   _internal_set_max_num_intervals_for_timetable_edge_finding(value);
-  _impl_._has_bits_[7] |= 0x00000010u;
+  _impl_._has_bits_[6] |= 0x10000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_num_intervals_for_timetable_edge_finding)
 }
 inline ::int32_t SatParameters::_internal_max_num_intervals_for_timetable_edge_finding() const {
@@ -8133,13 +7731,13 @@ inline void SatParameters::_internal_set_max_num_intervals_for_timetable_edge_fi
 
 // optional bool use_hard_precedences_in_cumulative = 215 [default = false];
 inline bool SatParameters::has_use_hard_precedences_in_cumulative() const {
-  bool value = (_impl_._has_bits_[1] & 0x00100000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00010000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_hard_precedences_in_cumulative() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_hard_precedences_in_cumulative_ = false;
-  _impl_._has_bits_[1] &= ~0x00100000u;
+  _impl_._has_bits_[1] &= ~0x00010000u;
 }
 inline bool SatParameters::use_hard_precedences_in_cumulative() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_hard_precedences_in_cumulative)
@@ -8147,7 +7745,7 @@ inline bool SatParameters::use_hard_precedences_in_cumulative() const {
 }
 inline void SatParameters::set_use_hard_precedences_in_cumulative(bool value) {
   _internal_set_use_hard_precedences_in_cumulative(value);
-  _impl_._has_bits_[1] |= 0x00100000u;
+  _impl_._has_bits_[1] |= 0x00010000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_hard_precedences_in_cumulative)
 }
 inline bool SatParameters::_internal_use_hard_precedences_in_cumulative() const {
@@ -8161,13 +7759,13 @@ inline void SatParameters::_internal_set_use_hard_precedences_in_cumulative(bool
 
 // optional bool exploit_all_precedences = 220 [default = false];
 inline bool SatParameters::has_exploit_all_precedences() const {
-  bool value = (_impl_._has_bits_[1] & 0x00200000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00020000u) != 0;
   return value;
 }
 inline void SatParameters::clear_exploit_all_precedences() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.exploit_all_precedences_ = false;
-  _impl_._has_bits_[1] &= ~0x00200000u;
+  _impl_._has_bits_[1] &= ~0x00020000u;
 }
 inline bool SatParameters::exploit_all_precedences() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.exploit_all_precedences)
@@ -8175,7 +7773,7 @@ inline bool SatParameters::exploit_all_precedences() const {
 }
 inline void SatParameters::set_exploit_all_precedences(bool value) {
   _internal_set_exploit_all_precedences(value);
-  _impl_._has_bits_[1] |= 0x00200000u;
+  _impl_._has_bits_[1] |= 0x00020000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.exploit_all_precedences)
 }
 inline bool SatParameters::_internal_exploit_all_precedences() const {
@@ -8189,13 +7787,13 @@ inline void SatParameters::_internal_set_exploit_all_precedences(bool value) {
 
 // optional bool use_disjunctive_constraint_in_cumulative = 80 [default = true];
 inline bool SatParameters::has_use_disjunctive_constraint_in_cumulative() const {
-  bool value = (_impl_._has_bits_[6] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x80000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_disjunctive_constraint_in_cumulative() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_disjunctive_constraint_in_cumulative_ = true;
-  _impl_._has_bits_[6] &= ~0x00000004u;
+  _impl_._has_bits_[5] &= ~0x80000000u;
 }
 inline bool SatParameters::use_disjunctive_constraint_in_cumulative() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_disjunctive_constraint_in_cumulative)
@@ -8203,7 +7801,7 @@ inline bool SatParameters::use_disjunctive_constraint_in_cumulative() const {
 }
 inline void SatParameters::set_use_disjunctive_constraint_in_cumulative(bool value) {
   _internal_set_use_disjunctive_constraint_in_cumulative(value);
-  _impl_._has_bits_[6] |= 0x00000004u;
+  _impl_._has_bits_[5] |= 0x80000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_disjunctive_constraint_in_cumulative)
 }
 inline bool SatParameters::_internal_use_disjunctive_constraint_in_cumulative() const {
@@ -8217,13 +7815,13 @@ inline void SatParameters::_internal_set_use_disjunctive_constraint_in_cumulativ
 
 // optional bool use_timetabling_in_no_overlap_2d = 200 [default = false];
 inline bool SatParameters::has_use_timetabling_in_no_overlap_2d() const {
-  bool value = (_impl_._has_bits_[1] & 0x00400000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00040000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_timetabling_in_no_overlap_2d() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_timetabling_in_no_overlap_2d_ = false;
-  _impl_._has_bits_[1] &= ~0x00400000u;
+  _impl_._has_bits_[1] &= ~0x00040000u;
 }
 inline bool SatParameters::use_timetabling_in_no_overlap_2d() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_timetabling_in_no_overlap_2d)
@@ -8231,7 +7829,7 @@ inline bool SatParameters::use_timetabling_in_no_overlap_2d() const {
 }
 inline void SatParameters::set_use_timetabling_in_no_overlap_2d(bool value) {
   _internal_set_use_timetabling_in_no_overlap_2d(value);
-  _impl_._has_bits_[1] |= 0x00400000u;
+  _impl_._has_bits_[1] |= 0x00040000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_timetabling_in_no_overlap_2d)
 }
 inline bool SatParameters::_internal_use_timetabling_in_no_overlap_2d() const {
@@ -8245,13 +7843,13 @@ inline void SatParameters::_internal_set_use_timetabling_in_no_overlap_2d(bool v
 
 // optional bool use_energetic_reasoning_in_no_overlap_2d = 213 [default = false];
 inline bool SatParameters::has_use_energetic_reasoning_in_no_overlap_2d() const {
-  bool value = (_impl_._has_bits_[2] & 0x00000010u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00001000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_energetic_reasoning_in_no_overlap_2d() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_energetic_reasoning_in_no_overlap_2d_ = false;
-  _impl_._has_bits_[2] &= ~0x00000010u;
+  _impl_._has_bits_[2] &= ~0x00001000u;
 }
 inline bool SatParameters::use_energetic_reasoning_in_no_overlap_2d() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_energetic_reasoning_in_no_overlap_2d)
@@ -8259,7 +7857,7 @@ inline bool SatParameters::use_energetic_reasoning_in_no_overlap_2d() const {
 }
 inline void SatParameters::set_use_energetic_reasoning_in_no_overlap_2d(bool value) {
   _internal_set_use_energetic_reasoning_in_no_overlap_2d(value);
-  _impl_._has_bits_[2] |= 0x00000010u;
+  _impl_._has_bits_[2] |= 0x00001000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_energetic_reasoning_in_no_overlap_2d)
 }
 inline bool SatParameters::_internal_use_energetic_reasoning_in_no_overlap_2d() const {
@@ -8273,13 +7871,13 @@ inline void SatParameters::_internal_set_use_energetic_reasoning_in_no_overlap_2
 
 // optional bool use_area_energetic_reasoning_in_no_overlap_2d = 271 [default = false];
 inline bool SatParameters::has_use_area_energetic_reasoning_in_no_overlap_2d() const {
-  bool value = (_impl_._has_bits_[2] & 0x00000020u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00002000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_area_energetic_reasoning_in_no_overlap_2d() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_area_energetic_reasoning_in_no_overlap_2d_ = false;
-  _impl_._has_bits_[2] &= ~0x00000020u;
+  _impl_._has_bits_[2] &= ~0x00002000u;
 }
 inline bool SatParameters::use_area_energetic_reasoning_in_no_overlap_2d() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_area_energetic_reasoning_in_no_overlap_2d)
@@ -8287,7 +7885,7 @@ inline bool SatParameters::use_area_energetic_reasoning_in_no_overlap_2d() const
 }
 inline void SatParameters::set_use_area_energetic_reasoning_in_no_overlap_2d(bool value) {
   _internal_set_use_area_energetic_reasoning_in_no_overlap_2d(value);
-  _impl_._has_bits_[2] |= 0x00000020u;
+  _impl_._has_bits_[2] |= 0x00002000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_area_energetic_reasoning_in_no_overlap_2d)
 }
 inline bool SatParameters::_internal_use_area_energetic_reasoning_in_no_overlap_2d() const {
@@ -8301,13 +7899,13 @@ inline void SatParameters::_internal_set_use_area_energetic_reasoning_in_no_over
 
 // optional int32 max_pairs_pairwise_reasoning_in_no_overlap_2d = 276 [default = 1250];
 inline bool SatParameters::has_max_pairs_pairwise_reasoning_in_no_overlap_2d() const {
-  bool value = (_impl_._has_bits_[7] & 0x00002000u) != 0;
+  bool value = (_impl_._has_bits_[7] & 0x00000020u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_pairs_pairwise_reasoning_in_no_overlap_2d() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_pairs_pairwise_reasoning_in_no_overlap_2d_ = 1250;
-  _impl_._has_bits_[7] &= ~0x00002000u;
+  _impl_._has_bits_[7] &= ~0x00000020u;
 }
 inline ::int32_t SatParameters::max_pairs_pairwise_reasoning_in_no_overlap_2d() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_pairs_pairwise_reasoning_in_no_overlap_2d)
@@ -8315,7 +7913,7 @@ inline ::int32_t SatParameters::max_pairs_pairwise_reasoning_in_no_overlap_2d() 
 }
 inline void SatParameters::set_max_pairs_pairwise_reasoning_in_no_overlap_2d(::int32_t value) {
   _internal_set_max_pairs_pairwise_reasoning_in_no_overlap_2d(value);
-  _impl_._has_bits_[7] |= 0x00002000u;
+  _impl_._has_bits_[7] |= 0x00000020u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_pairs_pairwise_reasoning_in_no_overlap_2d)
 }
 inline ::int32_t SatParameters::_internal_max_pairs_pairwise_reasoning_in_no_overlap_2d() const {
@@ -8329,13 +7927,13 @@ inline void SatParameters::_internal_set_max_pairs_pairwise_reasoning_in_no_over
 
 // optional bool use_dual_scheduling_heuristics = 214 [default = true];
 inline bool SatParameters::has_use_dual_scheduling_heuristics() const {
-  bool value = (_impl_._has_bits_[6] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00000001u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_dual_scheduling_heuristics() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_dual_scheduling_heuristics_ = true;
-  _impl_._has_bits_[6] &= ~0x00000008u;
+  _impl_._has_bits_[6] &= ~0x00000001u;
 }
 inline bool SatParameters::use_dual_scheduling_heuristics() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_dual_scheduling_heuristics)
@@ -8343,7 +7941,7 @@ inline bool SatParameters::use_dual_scheduling_heuristics() const {
 }
 inline void SatParameters::set_use_dual_scheduling_heuristics(bool value) {
   _internal_set_use_dual_scheduling_heuristics(value);
-  _impl_._has_bits_[6] |= 0x00000008u;
+  _impl_._has_bits_[6] |= 0x00000001u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_dual_scheduling_heuristics)
 }
 inline bool SatParameters::_internal_use_dual_scheduling_heuristics() const {
@@ -8386,13 +7984,13 @@ inline void SatParameters::_internal_set_search_branching(::operations_research:
 
 // optional int32 hint_conflict_limit = 153 [default = 10];
 inline bool SatParameters::has_hint_conflict_limit() const {
-  bool value = (_impl_._has_bits_[5] & 0x00000800u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00000010u) != 0;
   return value;
 }
 inline void SatParameters::clear_hint_conflict_limit() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.hint_conflict_limit_ = 10;
-  _impl_._has_bits_[5] &= ~0x00000800u;
+  _impl_._has_bits_[5] &= ~0x00000010u;
 }
 inline ::int32_t SatParameters::hint_conflict_limit() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.hint_conflict_limit)
@@ -8400,7 +7998,7 @@ inline ::int32_t SatParameters::hint_conflict_limit() const {
 }
 inline void SatParameters::set_hint_conflict_limit(::int32_t value) {
   _internal_set_hint_conflict_limit(value);
-  _impl_._has_bits_[5] |= 0x00000800u;
+  _impl_._has_bits_[5] |= 0x00000010u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.hint_conflict_limit)
 }
 inline ::int32_t SatParameters::_internal_hint_conflict_limit() const {
@@ -8414,13 +8012,13 @@ inline void SatParameters::_internal_set_hint_conflict_limit(::int32_t value) {
 
 // optional bool repair_hint = 167 [default = false];
 inline bool SatParameters::has_repair_hint() const {
-  bool value = (_impl_._has_bits_[2] & 0x00000040u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00004000u) != 0;
   return value;
 }
 inline void SatParameters::clear_repair_hint() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.repair_hint_ = false;
-  _impl_._has_bits_[2] &= ~0x00000040u;
+  _impl_._has_bits_[2] &= ~0x00004000u;
 }
 inline bool SatParameters::repair_hint() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.repair_hint)
@@ -8428,7 +8026,7 @@ inline bool SatParameters::repair_hint() const {
 }
 inline void SatParameters::set_repair_hint(bool value) {
   _internal_set_repair_hint(value);
-  _impl_._has_bits_[2] |= 0x00000040u;
+  _impl_._has_bits_[2] |= 0x00004000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.repair_hint)
 }
 inline bool SatParameters::_internal_repair_hint() const {
@@ -8442,13 +8040,13 @@ inline void SatParameters::_internal_set_repair_hint(bool value) {
 
 // optional bool fix_variables_to_their_hinted_value = 192 [default = false];
 inline bool SatParameters::has_fix_variables_to_their_hinted_value() const {
-  bool value = (_impl_._has_bits_[2] & 0x00000080u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00008000u) != 0;
   return value;
 }
 inline void SatParameters::clear_fix_variables_to_their_hinted_value() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.fix_variables_to_their_hinted_value_ = false;
-  _impl_._has_bits_[2] &= ~0x00000080u;
+  _impl_._has_bits_[2] &= ~0x00008000u;
 }
 inline bool SatParameters::fix_variables_to_their_hinted_value() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.fix_variables_to_their_hinted_value)
@@ -8456,7 +8054,7 @@ inline bool SatParameters::fix_variables_to_their_hinted_value() const {
 }
 inline void SatParameters::set_fix_variables_to_their_hinted_value(bool value) {
   _internal_set_fix_variables_to_their_hinted_value(value);
-  _impl_._has_bits_[2] |= 0x00000080u;
+  _impl_._has_bits_[2] |= 0x00008000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.fix_variables_to_their_hinted_value)
 }
 inline bool SatParameters::_internal_fix_variables_to_their_hinted_value() const {
@@ -8470,13 +8068,13 @@ inline void SatParameters::_internal_set_fix_variables_to_their_hinted_value(boo
 
 // optional bool use_probing_search = 176 [default = false];
 inline bool SatParameters::has_use_probing_search() const {
-  bool value = (_impl_._has_bits_[2] & 0x00200000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00080000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_probing_search() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_probing_search_ = false;
-  _impl_._has_bits_[2] &= ~0x00200000u;
+  _impl_._has_bits_[1] &= ~0x00080000u;
 }
 inline bool SatParameters::use_probing_search() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_probing_search)
@@ -8484,7 +8082,7 @@ inline bool SatParameters::use_probing_search() const {
 }
 inline void SatParameters::set_use_probing_search(bool value) {
   _internal_set_use_probing_search(value);
-  _impl_._has_bits_[2] |= 0x00200000u;
+  _impl_._has_bits_[1] |= 0x00080000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_probing_search)
 }
 inline bool SatParameters::_internal_use_probing_search() const {
@@ -8498,13 +8096,13 @@ inline void SatParameters::_internal_set_use_probing_search(bool value) {
 
 // optional bool use_extended_probing = 269 [default = true];
 inline bool SatParameters::has_use_extended_probing() const {
-  bool value = (_impl_._has_bits_[6] & 0x00000010u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00000002u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_extended_probing() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_extended_probing_ = true;
-  _impl_._has_bits_[6] &= ~0x00000010u;
+  _impl_._has_bits_[6] &= ~0x00000002u;
 }
 inline bool SatParameters::use_extended_probing() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_extended_probing)
@@ -8512,7 +8110,7 @@ inline bool SatParameters::use_extended_probing() const {
 }
 inline void SatParameters::set_use_extended_probing(bool value) {
   _internal_set_use_extended_probing(value);
-  _impl_._has_bits_[6] |= 0x00000010u;
+  _impl_._has_bits_[6] |= 0x00000002u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_extended_probing)
 }
 inline bool SatParameters::_internal_use_extended_probing() const {
@@ -8526,13 +8124,13 @@ inline void SatParameters::_internal_set_use_extended_probing(bool value) {
 
 // optional int32 probing_num_combinations_limit = 272 [default = 20000];
 inline bool SatParameters::has_probing_num_combinations_limit() const {
-  bool value = (_impl_._has_bits_[7] & 0x00001000u) != 0;
+  bool value = (_impl_._has_bits_[7] & 0x00000010u) != 0;
   return value;
 }
 inline void SatParameters::clear_probing_num_combinations_limit() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.probing_num_combinations_limit_ = 20000;
-  _impl_._has_bits_[7] &= ~0x00001000u;
+  _impl_._has_bits_[7] &= ~0x00000010u;
 }
 inline ::int32_t SatParameters::probing_num_combinations_limit() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.probing_num_combinations_limit)
@@ -8540,7 +8138,7 @@ inline ::int32_t SatParameters::probing_num_combinations_limit() const {
 }
 inline void SatParameters::set_probing_num_combinations_limit(::int32_t value) {
   _internal_set_probing_num_combinations_limit(value);
-  _impl_._has_bits_[7] |= 0x00001000u;
+  _impl_._has_bits_[7] |= 0x00000010u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.probing_num_combinations_limit)
 }
 inline ::int32_t SatParameters::_internal_probing_num_combinations_limit() const {
@@ -8554,13 +8152,13 @@ inline void SatParameters::_internal_set_probing_num_combinations_limit(::int32_
 
 // optional bool use_shaving_in_probing_search = 204 [default = true];
 inline bool SatParameters::has_use_shaving_in_probing_search() const {
-  bool value = (_impl_._has_bits_[6] & 0x00000020u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00000004u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_shaving_in_probing_search() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_shaving_in_probing_search_ = true;
-  _impl_._has_bits_[6] &= ~0x00000020u;
+  _impl_._has_bits_[6] &= ~0x00000004u;
 }
 inline bool SatParameters::use_shaving_in_probing_search() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_shaving_in_probing_search)
@@ -8568,7 +8166,7 @@ inline bool SatParameters::use_shaving_in_probing_search() const {
 }
 inline void SatParameters::set_use_shaving_in_probing_search(bool value) {
   _internal_set_use_shaving_in_probing_search(value);
-  _impl_._has_bits_[6] |= 0x00000020u;
+  _impl_._has_bits_[6] |= 0x00000004u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_shaving_in_probing_search)
 }
 inline bool SatParameters::_internal_use_shaving_in_probing_search() const {
@@ -8582,13 +8180,13 @@ inline void SatParameters::_internal_set_use_shaving_in_probing_search(bool valu
 
 // optional double shaving_search_deterministic_time = 205 [default = 0.001];
 inline bool SatParameters::has_shaving_search_deterministic_time() const {
-  bool value = (_impl_._has_bits_[6] & 0x00000800u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00000080u) != 0;
   return value;
 }
 inline void SatParameters::clear_shaving_search_deterministic_time() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.shaving_search_deterministic_time_ = 0.001;
-  _impl_._has_bits_[6] &= ~0x00000800u;
+  _impl_._has_bits_[6] &= ~0x00000080u;
 }
 inline double SatParameters::shaving_search_deterministic_time() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.shaving_search_deterministic_time)
@@ -8596,7 +8194,7 @@ inline double SatParameters::shaving_search_deterministic_time() const {
 }
 inline void SatParameters::set_shaving_search_deterministic_time(double value) {
   _internal_set_shaving_search_deterministic_time(value);
-  _impl_._has_bits_[6] |= 0x00000800u;
+  _impl_._has_bits_[6] |= 0x00000080u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.shaving_search_deterministic_time)
 }
 inline double SatParameters::_internal_shaving_search_deterministic_time() const {
@@ -8608,43 +8206,15 @@ inline void SatParameters::_internal_set_shaving_search_deterministic_time(doubl
   _impl_.shaving_search_deterministic_time_ = value;
 }
 
-// optional int64 shaving_search_threshold = 290 [default = 64];
-inline bool SatParameters::has_shaving_search_threshold() const {
-  bool value = (_impl_._has_bits_[7] & 0x00010000u) != 0;
-  return value;
-}
-inline void SatParameters::clear_shaving_search_threshold() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.shaving_search_threshold_ = ::int64_t{64};
-  _impl_._has_bits_[7] &= ~0x00010000u;
-}
-inline ::int64_t SatParameters::shaving_search_threshold() const {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.shaving_search_threshold)
-  return _internal_shaving_search_threshold();
-}
-inline void SatParameters::set_shaving_search_threshold(::int64_t value) {
-  _internal_set_shaving_search_threshold(value);
-  _impl_._has_bits_[7] |= 0x00010000u;
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.shaving_search_threshold)
-}
-inline ::int64_t SatParameters::_internal_shaving_search_threshold() const {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.shaving_search_threshold_;
-}
-inline void SatParameters::_internal_set_shaving_search_threshold(::int64_t value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.shaving_search_threshold_ = value;
-}
-
 // optional bool use_objective_lb_search = 228 [default = false];
 inline bool SatParameters::has_use_objective_lb_search() const {
-  bool value = (_impl_._has_bits_[2] & 0x00400000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00100000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_objective_lb_search() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_objective_lb_search_ = false;
-  _impl_._has_bits_[2] &= ~0x00400000u;
+  _impl_._has_bits_[1] &= ~0x00100000u;
 }
 inline bool SatParameters::use_objective_lb_search() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_objective_lb_search)
@@ -8652,7 +8222,7 @@ inline bool SatParameters::use_objective_lb_search() const {
 }
 inline void SatParameters::set_use_objective_lb_search(bool value) {
   _internal_set_use_objective_lb_search(value);
-  _impl_._has_bits_[2] |= 0x00400000u;
+  _impl_._has_bits_[1] |= 0x00100000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_objective_lb_search)
 }
 inline bool SatParameters::_internal_use_objective_lb_search() const {
@@ -8666,13 +8236,13 @@ inline void SatParameters::_internal_set_use_objective_lb_search(bool value) {
 
 // optional bool use_objective_shaving_search = 253 [default = false];
 inline bool SatParameters::has_use_objective_shaving_search() const {
-  bool value = (_impl_._has_bits_[2] & 0x00800000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00200000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_objective_shaving_search() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_objective_shaving_search_ = false;
-  _impl_._has_bits_[2] &= ~0x00800000u;
+  _impl_._has_bits_[1] &= ~0x00200000u;
 }
 inline bool SatParameters::use_objective_shaving_search() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_objective_shaving_search)
@@ -8680,7 +8250,7 @@ inline bool SatParameters::use_objective_shaving_search() const {
 }
 inline void SatParameters::set_use_objective_shaving_search(bool value) {
   _internal_set_use_objective_shaving_search(value);
-  _impl_._has_bits_[2] |= 0x00800000u;
+  _impl_._has_bits_[1] |= 0x00200000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_objective_shaving_search)
 }
 inline bool SatParameters::_internal_use_objective_shaving_search() const {
@@ -8692,43 +8262,15 @@ inline void SatParameters::_internal_set_use_objective_shaving_search(bool value
   _impl_.use_objective_shaving_search_ = value;
 }
 
-// optional bool use_variables_shaving_search = 289 [default = false];
-inline bool SatParameters::has_use_variables_shaving_search() const {
-  bool value = (_impl_._has_bits_[2] & 0x01000000u) != 0;
-  return value;
-}
-inline void SatParameters::clear_use_variables_shaving_search() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.use_variables_shaving_search_ = false;
-  _impl_._has_bits_[2] &= ~0x01000000u;
-}
-inline bool SatParameters::use_variables_shaving_search() const {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_variables_shaving_search)
-  return _internal_use_variables_shaving_search();
-}
-inline void SatParameters::set_use_variables_shaving_search(bool value) {
-  _internal_set_use_variables_shaving_search(value);
-  _impl_._has_bits_[2] |= 0x01000000u;
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_variables_shaving_search)
-}
-inline bool SatParameters::_internal_use_variables_shaving_search() const {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.use_variables_shaving_search_;
-}
-inline void SatParameters::_internal_set_use_variables_shaving_search(bool value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.use_variables_shaving_search_ = value;
-}
-
 // optional int64 pseudo_cost_reliability_threshold = 123 [default = 100];
 inline bool SatParameters::has_pseudo_cost_reliability_threshold() const {
-  bool value = (_impl_._has_bits_[4] & 0x00080000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00001000u) != 0;
   return value;
 }
 inline void SatParameters::clear_pseudo_cost_reliability_threshold() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.pseudo_cost_reliability_threshold_ = ::int64_t{100};
-  _impl_._has_bits_[4] &= ~0x00080000u;
+  _impl_._has_bits_[4] &= ~0x00001000u;
 }
 inline ::int64_t SatParameters::pseudo_cost_reliability_threshold() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.pseudo_cost_reliability_threshold)
@@ -8736,7 +8278,7 @@ inline ::int64_t SatParameters::pseudo_cost_reliability_threshold() const {
 }
 inline void SatParameters::set_pseudo_cost_reliability_threshold(::int64_t value) {
   _internal_set_pseudo_cost_reliability_threshold(value);
-  _impl_._has_bits_[4] |= 0x00080000u;
+  _impl_._has_bits_[4] |= 0x00001000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.pseudo_cost_reliability_threshold)
 }
 inline ::int64_t SatParameters::_internal_pseudo_cost_reliability_threshold() const {
@@ -8750,13 +8292,13 @@ inline void SatParameters::_internal_set_pseudo_cost_reliability_threshold(::int
 
 // optional bool optimize_with_core = 83 [default = false];
 inline bool SatParameters::has_optimize_with_core() const {
-  bool value = (_impl_._has_bits_[1] & 0x00004000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00400000u) != 0;
   return value;
 }
 inline void SatParameters::clear_optimize_with_core() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.optimize_with_core_ = false;
-  _impl_._has_bits_[1] &= ~0x00004000u;
+  _impl_._has_bits_[1] &= ~0x00400000u;
 }
 inline bool SatParameters::optimize_with_core() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.optimize_with_core)
@@ -8764,7 +8306,7 @@ inline bool SatParameters::optimize_with_core() const {
 }
 inline void SatParameters::set_optimize_with_core(bool value) {
   _internal_set_optimize_with_core(value);
-  _impl_._has_bits_[1] |= 0x00004000u;
+  _impl_._has_bits_[1] |= 0x00400000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.optimize_with_core)
 }
 inline bool SatParameters::_internal_optimize_with_core() const {
@@ -8778,13 +8320,13 @@ inline void SatParameters::_internal_set_optimize_with_core(bool value) {
 
 // optional bool optimize_with_lb_tree_search = 188 [default = false];
 inline bool SatParameters::has_optimize_with_lb_tree_search() const {
-  bool value = (_impl_._has_bits_[1] & 0x00008000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x08000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_optimize_with_lb_tree_search() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.optimize_with_lb_tree_search_ = false;
-  _impl_._has_bits_[1] &= ~0x00008000u;
+  _impl_._has_bits_[1] &= ~0x08000000u;
 }
 inline bool SatParameters::optimize_with_lb_tree_search() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.optimize_with_lb_tree_search)
@@ -8792,7 +8334,7 @@ inline bool SatParameters::optimize_with_lb_tree_search() const {
 }
 inline void SatParameters::set_optimize_with_lb_tree_search(bool value) {
   _internal_set_optimize_with_lb_tree_search(value);
-  _impl_._has_bits_[1] |= 0x00008000u;
+  _impl_._has_bits_[1] |= 0x08000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.optimize_with_lb_tree_search)
 }
 inline bool SatParameters::_internal_optimize_with_lb_tree_search() const {
@@ -8804,43 +8346,15 @@ inline void SatParameters::_internal_set_optimize_with_lb_tree_search(bool value
   _impl_.optimize_with_lb_tree_search_ = value;
 }
 
-// optional bool save_lp_basis_in_lb_tree_search = 284 [default = false];
-inline bool SatParameters::has_save_lp_basis_in_lb_tree_search() const {
-  bool value = (_impl_._has_bits_[1] & 0x00010000u) != 0;
-  return value;
-}
-inline void SatParameters::clear_save_lp_basis_in_lb_tree_search() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.save_lp_basis_in_lb_tree_search_ = false;
-  _impl_._has_bits_[1] &= ~0x00010000u;
-}
-inline bool SatParameters::save_lp_basis_in_lb_tree_search() const {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.save_lp_basis_in_lb_tree_search)
-  return _internal_save_lp_basis_in_lb_tree_search();
-}
-inline void SatParameters::set_save_lp_basis_in_lb_tree_search(bool value) {
-  _internal_set_save_lp_basis_in_lb_tree_search(value);
-  _impl_._has_bits_[1] |= 0x00010000u;
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.save_lp_basis_in_lb_tree_search)
-}
-inline bool SatParameters::_internal_save_lp_basis_in_lb_tree_search() const {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.save_lp_basis_in_lb_tree_search_;
-}
-inline void SatParameters::_internal_set_save_lp_basis_in_lb_tree_search(bool value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.save_lp_basis_in_lb_tree_search_ = value;
-}
-
 // optional int32 binary_search_num_conflicts = 99 [default = -1];
 inline bool SatParameters::has_binary_search_num_conflicts() const {
-  bool value = (_impl_._has_bits_[4] & 0x00002000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00000040u) != 0;
   return value;
 }
 inline void SatParameters::clear_binary_search_num_conflicts() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.binary_search_num_conflicts_ = -1;
-  _impl_._has_bits_[4] &= ~0x00002000u;
+  _impl_._has_bits_[4] &= ~0x00000040u;
 }
 inline ::int32_t SatParameters::binary_search_num_conflicts() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.binary_search_num_conflicts)
@@ -8848,7 +8362,7 @@ inline ::int32_t SatParameters::binary_search_num_conflicts() const {
 }
 inline void SatParameters::set_binary_search_num_conflicts(::int32_t value) {
   _internal_set_binary_search_num_conflicts(value);
-  _impl_._has_bits_[4] |= 0x00002000u;
+  _impl_._has_bits_[4] |= 0x00000040u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.binary_search_num_conflicts)
 }
 inline ::int32_t SatParameters::_internal_binary_search_num_conflicts() const {
@@ -8862,13 +8376,13 @@ inline void SatParameters::_internal_set_binary_search_num_conflicts(::int32_t v
 
 // optional bool optimize_with_max_hs = 85 [default = false];
 inline bool SatParameters::has_optimize_with_max_hs() const {
-  bool value = (_impl_._has_bits_[1] & 0x00020000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x10000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_optimize_with_max_hs() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.optimize_with_max_hs_ = false;
-  _impl_._has_bits_[1] &= ~0x00020000u;
+  _impl_._has_bits_[1] &= ~0x10000000u;
 }
 inline bool SatParameters::optimize_with_max_hs() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.optimize_with_max_hs)
@@ -8876,7 +8390,7 @@ inline bool SatParameters::optimize_with_max_hs() const {
 }
 inline void SatParameters::set_optimize_with_max_hs(bool value) {
   _internal_set_optimize_with_max_hs(value);
-  _impl_._has_bits_[1] |= 0x00020000u;
+  _impl_._has_bits_[1] |= 0x10000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.optimize_with_max_hs)
 }
 inline bool SatParameters::_internal_optimize_with_max_hs() const {
@@ -8890,13 +8404,13 @@ inline void SatParameters::_internal_set_optimize_with_max_hs(bool value) {
 
 // optional bool use_feasibility_jump = 265 [default = true];
 inline bool SatParameters::has_use_feasibility_jump() const {
-  bool value = (_impl_._has_bits_[6] & 0x00200000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x01000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_feasibility_jump() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_feasibility_jump_ = true;
-  _impl_._has_bits_[6] &= ~0x00200000u;
+  _impl_._has_bits_[5] &= ~0x01000000u;
 }
 inline bool SatParameters::use_feasibility_jump() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_feasibility_jump)
@@ -8904,7 +8418,7 @@ inline bool SatParameters::use_feasibility_jump() const {
 }
 inline void SatParameters::set_use_feasibility_jump(bool value) {
   _internal_set_use_feasibility_jump(value);
-  _impl_._has_bits_[6] |= 0x00200000u;
+  _impl_._has_bits_[5] |= 0x01000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_feasibility_jump)
 }
 inline bool SatParameters::_internal_use_feasibility_jump() const {
@@ -8916,43 +8430,43 @@ inline void SatParameters::_internal_set_use_feasibility_jump(bool value) {
   _impl_.use_feasibility_jump_ = value;
 }
 
-// optional bool use_ls_only = 240 [default = false];
-inline bool SatParameters::has_use_ls_only() const {
-  bool value = (_impl_._has_bits_[1] & 0x00800000u) != 0;
+// optional bool test_feasibility_jump = 240 [default = false];
+inline bool SatParameters::has_test_feasibility_jump() const {
+  bool value = (_impl_._has_bits_[1] & 0x20000000u) != 0;
   return value;
 }
-inline void SatParameters::clear_use_ls_only() {
+inline void SatParameters::clear_test_feasibility_jump() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.use_ls_only_ = false;
-  _impl_._has_bits_[1] &= ~0x00800000u;
+  _impl_.test_feasibility_jump_ = false;
+  _impl_._has_bits_[1] &= ~0x20000000u;
 }
-inline bool SatParameters::use_ls_only() const {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_ls_only)
-  return _internal_use_ls_only();
+inline bool SatParameters::test_feasibility_jump() const {
+  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.test_feasibility_jump)
+  return _internal_test_feasibility_jump();
 }
-inline void SatParameters::set_use_ls_only(bool value) {
-  _internal_set_use_ls_only(value);
-  _impl_._has_bits_[1] |= 0x00800000u;
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_ls_only)
+inline void SatParameters::set_test_feasibility_jump(bool value) {
+  _internal_set_test_feasibility_jump(value);
+  _impl_._has_bits_[1] |= 0x20000000u;
+  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.test_feasibility_jump)
 }
-inline bool SatParameters::_internal_use_ls_only() const {
+inline bool SatParameters::_internal_test_feasibility_jump() const {
   PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.use_ls_only_;
+  return _impl_.test_feasibility_jump_;
 }
-inline void SatParameters::_internal_set_use_ls_only(bool value) {
+inline void SatParameters::_internal_set_test_feasibility_jump(bool value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.use_ls_only_ = value;
+  _impl_.test_feasibility_jump_ = value;
 }
 
 // optional double feasibility_jump_decay = 242 [default = 0.95];
 inline bool SatParameters::has_feasibility_jump_decay() const {
-  bool value = (_impl_._has_bits_[6] & 0x10000000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00200000u) != 0;
   return value;
 }
 inline void SatParameters::clear_feasibility_jump_decay() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.feasibility_jump_decay_ = 0.95;
-  _impl_._has_bits_[6] &= ~0x10000000u;
+  _impl_._has_bits_[6] &= ~0x00200000u;
 }
 inline double SatParameters::feasibility_jump_decay() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.feasibility_jump_decay)
@@ -8960,7 +8474,7 @@ inline double SatParameters::feasibility_jump_decay() const {
 }
 inline void SatParameters::set_feasibility_jump_decay(double value) {
   _internal_set_feasibility_jump_decay(value);
-  _impl_._has_bits_[6] |= 0x10000000u;
+  _impl_._has_bits_[6] |= 0x00200000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.feasibility_jump_decay)
 }
 inline double SatParameters::_internal_feasibility_jump_decay() const {
@@ -8974,13 +8488,13 @@ inline void SatParameters::_internal_set_feasibility_jump_decay(double value) {
 
 // optional int32 feasibility_jump_linearization_level = 257 [default = 2];
 inline bool SatParameters::has_feasibility_jump_linearization_level() const {
-  bool value = (_impl_._has_bits_[7] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x02000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_feasibility_jump_linearization_level() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.feasibility_jump_linearization_level_ = 2;
-  _impl_._has_bits_[7] &= ~0x00000002u;
+  _impl_._has_bits_[6] &= ~0x02000000u;
 }
 inline ::int32_t SatParameters::feasibility_jump_linearization_level() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.feasibility_jump_linearization_level)
@@ -8988,7 +8502,7 @@ inline ::int32_t SatParameters::feasibility_jump_linearization_level() const {
 }
 inline void SatParameters::set_feasibility_jump_linearization_level(::int32_t value) {
   _internal_set_feasibility_jump_linearization_level(value);
-  _impl_._has_bits_[7] |= 0x00000002u;
+  _impl_._has_bits_[6] |= 0x02000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.feasibility_jump_linearization_level)
 }
 inline ::int32_t SatParameters::_internal_feasibility_jump_linearization_level() const {
@@ -9002,13 +8516,13 @@ inline void SatParameters::_internal_set_feasibility_jump_linearization_level(::
 
 // optional int32 feasibility_jump_restart_factor = 258 [default = 1];
 inline bool SatParameters::has_feasibility_jump_restart_factor() const {
-  bool value = (_impl_._has_bits_[7] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x04000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_feasibility_jump_restart_factor() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.feasibility_jump_restart_factor_ = 1;
-  _impl_._has_bits_[7] &= ~0x00000004u;
+  _impl_._has_bits_[6] &= ~0x04000000u;
 }
 inline ::int32_t SatParameters::feasibility_jump_restart_factor() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.feasibility_jump_restart_factor)
@@ -9016,7 +8530,7 @@ inline ::int32_t SatParameters::feasibility_jump_restart_factor() const {
 }
 inline void SatParameters::set_feasibility_jump_restart_factor(::int32_t value) {
   _internal_set_feasibility_jump_restart_factor(value);
-  _impl_._has_bits_[7] |= 0x00000004u;
+  _impl_._has_bits_[6] |= 0x04000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.feasibility_jump_restart_factor)
 }
 inline ::int32_t SatParameters::_internal_feasibility_jump_restart_factor() const {
@@ -9028,43 +8542,15 @@ inline void SatParameters::_internal_set_feasibility_jump_restart_factor(::int32
   _impl_.feasibility_jump_restart_factor_ = value;
 }
 
-// optional double feasibility_jump_batch_dtime = 292 [default = 0.1];
-inline bool SatParameters::has_feasibility_jump_batch_dtime() const {
-  bool value = (_impl_._has_bits_[7] & 0x00020000u) != 0;
-  return value;
-}
-inline void SatParameters::clear_feasibility_jump_batch_dtime() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.feasibility_jump_batch_dtime_ = 0.1;
-  _impl_._has_bits_[7] &= ~0x00020000u;
-}
-inline double SatParameters::feasibility_jump_batch_dtime() const {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.feasibility_jump_batch_dtime)
-  return _internal_feasibility_jump_batch_dtime();
-}
-inline void SatParameters::set_feasibility_jump_batch_dtime(double value) {
-  _internal_set_feasibility_jump_batch_dtime(value);
-  _impl_._has_bits_[7] |= 0x00020000u;
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.feasibility_jump_batch_dtime)
-}
-inline double SatParameters::_internal_feasibility_jump_batch_dtime() const {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.feasibility_jump_batch_dtime_;
-}
-inline void SatParameters::_internal_set_feasibility_jump_batch_dtime(double value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.feasibility_jump_batch_dtime_ = value;
-}
-
-// optional double feasibility_jump_var_randomization_probability = 247 [default = 0.05];
+// optional double feasibility_jump_var_randomization_probability = 247 [default = 0];
 inline bool SatParameters::has_feasibility_jump_var_randomization_probability() const {
-  bool value = (_impl_._has_bits_[6] & 0x20000000u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00400000u) != 0;
   return value;
 }
 inline void SatParameters::clear_feasibility_jump_var_randomization_probability() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.feasibility_jump_var_randomization_probability_ = 0.05;
-  _impl_._has_bits_[6] &= ~0x20000000u;
+  _impl_.feasibility_jump_var_randomization_probability_ = 0;
+  _impl_._has_bits_[2] &= ~0x00400000u;
 }
 inline double SatParameters::feasibility_jump_var_randomization_probability() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.feasibility_jump_var_randomization_probability)
@@ -9072,7 +8558,7 @@ inline double SatParameters::feasibility_jump_var_randomization_probability() co
 }
 inline void SatParameters::set_feasibility_jump_var_randomization_probability(double value) {
   _internal_set_feasibility_jump_var_randomization_probability(value);
-  _impl_._has_bits_[6] |= 0x20000000u;
+  _impl_._has_bits_[2] |= 0x00400000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.feasibility_jump_var_randomization_probability)
 }
 inline double SatParameters::_internal_feasibility_jump_var_randomization_probability() const {
@@ -9086,13 +8572,13 @@ inline void SatParameters::_internal_set_feasibility_jump_var_randomization_prob
 
 // optional double feasibility_jump_var_perburbation_range_ratio = 248 [default = 0.2];
 inline bool SatParameters::has_feasibility_jump_var_perburbation_range_ratio() const {
-  bool value = (_impl_._has_bits_[6] & 0x40000000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00400000u) != 0;
   return value;
 }
 inline void SatParameters::clear_feasibility_jump_var_perburbation_range_ratio() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.feasibility_jump_var_perburbation_range_ratio_ = 0.2;
-  _impl_._has_bits_[6] &= ~0x40000000u;
+  _impl_._has_bits_[6] &= ~0x00400000u;
 }
 inline double SatParameters::feasibility_jump_var_perburbation_range_ratio() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.feasibility_jump_var_perburbation_range_ratio)
@@ -9100,7 +8586,7 @@ inline double SatParameters::feasibility_jump_var_perburbation_range_ratio() con
 }
 inline void SatParameters::set_feasibility_jump_var_perburbation_range_ratio(double value) {
   _internal_set_feasibility_jump_var_perburbation_range_ratio(value);
-  _impl_._has_bits_[6] |= 0x40000000u;
+  _impl_._has_bits_[6] |= 0x00400000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.feasibility_jump_var_perburbation_range_ratio)
 }
 inline double SatParameters::_internal_feasibility_jump_var_perburbation_range_ratio() const {
@@ -9114,13 +8600,13 @@ inline void SatParameters::_internal_set_feasibility_jump_var_perburbation_range
 
 // optional bool feasibility_jump_enable_restarts = 250 [default = true];
 inline bool SatParameters::has_feasibility_jump_enable_restarts() const {
-  bool value = (_impl_._has_bits_[6] & 0x00400000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x02000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_feasibility_jump_enable_restarts() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.feasibility_jump_enable_restarts_ = true;
-  _impl_._has_bits_[6] &= ~0x00400000u;
+  _impl_._has_bits_[5] &= ~0x02000000u;
 }
 inline bool SatParameters::feasibility_jump_enable_restarts() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.feasibility_jump_enable_restarts)
@@ -9128,7 +8614,7 @@ inline bool SatParameters::feasibility_jump_enable_restarts() const {
 }
 inline void SatParameters::set_feasibility_jump_enable_restarts(bool value) {
   _internal_set_feasibility_jump_enable_restarts(value);
-  _impl_._has_bits_[6] |= 0x00400000u;
+  _impl_._has_bits_[5] |= 0x02000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.feasibility_jump_enable_restarts)
 }
 inline bool SatParameters::_internal_feasibility_jump_enable_restarts() const {
@@ -9140,15 +8626,15 @@ inline void SatParameters::_internal_set_feasibility_jump_enable_restarts(bool v
   _impl_.feasibility_jump_enable_restarts_ = value;
 }
 
-// optional int32 feasibility_jump_max_expanded_constraint_size = 264 [default = 500];
+// optional int32 feasibility_jump_max_expanded_constraint_size = 264 [default = 100];
 inline bool SatParameters::has_feasibility_jump_max_expanded_constraint_size() const {
-  bool value = (_impl_._has_bits_[7] & 0x00000100u) != 0;
+  bool value = (_impl_._has_bits_[7] & 0x00000001u) != 0;
   return value;
 }
 inline void SatParameters::clear_feasibility_jump_max_expanded_constraint_size() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.feasibility_jump_max_expanded_constraint_size_ = 500;
-  _impl_._has_bits_[7] &= ~0x00000100u;
+  _impl_.feasibility_jump_max_expanded_constraint_size_ = 100;
+  _impl_._has_bits_[7] &= ~0x00000001u;
 }
 inline ::int32_t SatParameters::feasibility_jump_max_expanded_constraint_size() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.feasibility_jump_max_expanded_constraint_size)
@@ -9156,7 +8642,7 @@ inline ::int32_t SatParameters::feasibility_jump_max_expanded_constraint_size() 
 }
 inline void SatParameters::set_feasibility_jump_max_expanded_constraint_size(::int32_t value) {
   _internal_set_feasibility_jump_max_expanded_constraint_size(value);
-  _impl_._has_bits_[7] |= 0x00000100u;
+  _impl_._has_bits_[7] |= 0x00000001u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.feasibility_jump_max_expanded_constraint_size)
 }
 inline ::int32_t SatParameters::_internal_feasibility_jump_max_expanded_constraint_size() const {
@@ -9170,13 +8656,13 @@ inline void SatParameters::_internal_set_feasibility_jump_max_expanded_constrain
 
 // optional int32 num_violation_ls = 244 [default = 0];
 inline bool SatParameters::has_num_violation_ls() const {
-  bool value = (_impl_._has_bits_[2] & 0x04000000u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00200000u) != 0;
   return value;
 }
 inline void SatParameters::clear_num_violation_ls() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.num_violation_ls_ = 0;
-  _impl_._has_bits_[2] &= ~0x04000000u;
+  _impl_._has_bits_[2] &= ~0x00200000u;
 }
 inline ::int32_t SatParameters::num_violation_ls() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.num_violation_ls)
@@ -9184,7 +8670,7 @@ inline ::int32_t SatParameters::num_violation_ls() const {
 }
 inline void SatParameters::set_num_violation_ls(::int32_t value) {
   _internal_set_num_violation_ls(value);
-  _impl_._has_bits_[2] |= 0x04000000u;
+  _impl_._has_bits_[2] |= 0x00200000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.num_violation_ls)
 }
 inline ::int32_t SatParameters::_internal_num_violation_ls() const {
@@ -9198,13 +8684,13 @@ inline void SatParameters::_internal_set_num_violation_ls(::int32_t value) {
 
 // optional int32 violation_ls_perturbation_period = 249 [default = 100];
 inline bool SatParameters::has_violation_ls_perturbation_period() const {
-  bool value = (_impl_._has_bits_[6] & 0x80000000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00800000u) != 0;
   return value;
 }
 inline void SatParameters::clear_violation_ls_perturbation_period() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.violation_ls_perturbation_period_ = 100;
-  _impl_._has_bits_[6] &= ~0x80000000u;
+  _impl_._has_bits_[6] &= ~0x00800000u;
 }
 inline ::int32_t SatParameters::violation_ls_perturbation_period() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.violation_ls_perturbation_period)
@@ -9212,7 +8698,7 @@ inline ::int32_t SatParameters::violation_ls_perturbation_period() const {
 }
 inline void SatParameters::set_violation_ls_perturbation_period(::int32_t value) {
   _internal_set_violation_ls_perturbation_period(value);
-  _impl_._has_bits_[6] |= 0x80000000u;
+  _impl_._has_bits_[6] |= 0x00800000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.violation_ls_perturbation_period)
 }
 inline ::int32_t SatParameters::_internal_violation_ls_perturbation_period() const {
@@ -9226,13 +8712,13 @@ inline void SatParameters::_internal_set_violation_ls_perturbation_period(::int3
 
 // optional double violation_ls_compound_move_probability = 259 [default = 0.5];
 inline bool SatParameters::has_violation_ls_compound_move_probability() const {
-  bool value = (_impl_._has_bits_[7] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x08000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_violation_ls_compound_move_probability() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.violation_ls_compound_move_probability_ = 0.5;
-  _impl_._has_bits_[7] &= ~0x00000008u;
+  _impl_._has_bits_[6] &= ~0x08000000u;
 }
 inline double SatParameters::violation_ls_compound_move_probability() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.violation_ls_compound_move_probability)
@@ -9240,7 +8726,7 @@ inline double SatParameters::violation_ls_compound_move_probability() const {
 }
 inline void SatParameters::set_violation_ls_compound_move_probability(double value) {
   _internal_set_violation_ls_compound_move_probability(value);
-  _impl_._has_bits_[7] |= 0x00000008u;
+  _impl_._has_bits_[6] |= 0x08000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.violation_ls_compound_move_probability)
 }
 inline double SatParameters::_internal_violation_ls_compound_move_probability() const {
@@ -9254,13 +8740,13 @@ inline void SatParameters::_internal_set_violation_ls_compound_move_probability(
 
 // optional int32 shared_tree_num_workers = 235 [default = 0];
 inline bool SatParameters::has_shared_tree_num_workers() const {
-  bool value = (_impl_._has_bits_[2] & 0x00100000u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00010000u) != 0;
   return value;
 }
 inline void SatParameters::clear_shared_tree_num_workers() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.shared_tree_num_workers_ = 0;
-  _impl_._has_bits_[2] &= ~0x00100000u;
+  _impl_._has_bits_[2] &= ~0x00010000u;
 }
 inline ::int32_t SatParameters::shared_tree_num_workers() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.shared_tree_num_workers)
@@ -9268,7 +8754,7 @@ inline ::int32_t SatParameters::shared_tree_num_workers() const {
 }
 inline void SatParameters::set_shared_tree_num_workers(::int32_t value) {
   _internal_set_shared_tree_num_workers(value);
-  _impl_._has_bits_[2] |= 0x00100000u;
+  _impl_._has_bits_[2] |= 0x00010000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.shared_tree_num_workers)
 }
 inline ::int32_t SatParameters::_internal_shared_tree_num_workers() const {
@@ -9282,13 +8768,13 @@ inline void SatParameters::_internal_set_shared_tree_num_workers(::int32_t value
 
 // optional bool use_shared_tree_search = 236 [default = false];
 inline bool SatParameters::has_use_shared_tree_search() const {
-  bool value = (_impl_._has_bits_[1] & 0x01000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x40000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_shared_tree_search() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_shared_tree_search_ = false;
-  _impl_._has_bits_[1] &= ~0x01000000u;
+  _impl_._has_bits_[1] &= ~0x40000000u;
 }
 inline bool SatParameters::use_shared_tree_search() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_shared_tree_search)
@@ -9296,7 +8782,7 @@ inline bool SatParameters::use_shared_tree_search() const {
 }
 inline void SatParameters::set_use_shared_tree_search(bool value) {
   _internal_set_use_shared_tree_search(value);
-  _impl_._has_bits_[1] |= 0x01000000u;
+  _impl_._has_bits_[1] |= 0x40000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_shared_tree_search)
 }
 inline bool SatParameters::_internal_use_shared_tree_search() const {
@@ -9310,13 +8796,13 @@ inline void SatParameters::_internal_set_use_shared_tree_search(bool value) {
 
 // optional double shared_tree_worker_objective_split_probability = 237 [default = 0.5];
 inline bool SatParameters::has_shared_tree_worker_objective_split_probability() const {
-  bool value = (_impl_._has_bits_[6] & 0x08000000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00100000u) != 0;
   return value;
 }
 inline void SatParameters::clear_shared_tree_worker_objective_split_probability() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.shared_tree_worker_objective_split_probability_ = 0.5;
-  _impl_._has_bits_[6] &= ~0x08000000u;
+  _impl_._has_bits_[6] &= ~0x00100000u;
 }
 inline double SatParameters::shared_tree_worker_objective_split_probability() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.shared_tree_worker_objective_split_probability)
@@ -9324,7 +8810,7 @@ inline double SatParameters::shared_tree_worker_objective_split_probability() co
 }
 inline void SatParameters::set_shared_tree_worker_objective_split_probability(double value) {
   _internal_set_shared_tree_worker_objective_split_probability(value);
-  _impl_._has_bits_[6] |= 0x08000000u;
+  _impl_._has_bits_[6] |= 0x00100000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.shared_tree_worker_objective_split_probability)
 }
 inline double SatParameters::_internal_shared_tree_worker_objective_split_probability() const {
@@ -9336,15 +8822,15 @@ inline void SatParameters::_internal_set_shared_tree_worker_objective_split_prob
   _impl_.shared_tree_worker_objective_split_probability_ = value;
 }
 
-// optional int32 shared_tree_worker_min_restarts_per_subtree = 282 [default = 1];
+// optional int32 shared_tree_worker_min_restarts_per_subtree = 282 [default = 32];
 inline bool SatParameters::has_shared_tree_worker_min_restarts_per_subtree() const {
-  bool value = (_impl_._has_bits_[2] & 0x80000000u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x01000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_shared_tree_worker_min_restarts_per_subtree() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.shared_tree_worker_min_restarts_per_subtree_ = 1;
-  _impl_._has_bits_[2] &= ~0x80000000u;
+  _impl_.shared_tree_worker_min_restarts_per_subtree_ = 32;
+  _impl_._has_bits_[2] &= ~0x01000000u;
 }
 inline ::int32_t SatParameters::shared_tree_worker_min_restarts_per_subtree() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.shared_tree_worker_min_restarts_per_subtree)
@@ -9352,7 +8838,7 @@ inline ::int32_t SatParameters::shared_tree_worker_min_restarts_per_subtree() co
 }
 inline void SatParameters::set_shared_tree_worker_min_restarts_per_subtree(::int32_t value) {
   _internal_set_shared_tree_worker_min_restarts_per_subtree(value);
-  _impl_._has_bits_[2] |= 0x80000000u;
+  _impl_._has_bits_[2] |= 0x01000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.shared_tree_worker_min_restarts_per_subtree)
 }
 inline ::int32_t SatParameters::_internal_shared_tree_worker_min_restarts_per_subtree() const {
@@ -9364,43 +8850,15 @@ inline void SatParameters::_internal_set_shared_tree_worker_min_restarts_per_sub
   _impl_.shared_tree_worker_min_restarts_per_subtree_ = value;
 }
 
-// optional bool shared_tree_worker_enable_trail_sharing = 295 [default = true];
-inline bool SatParameters::has_shared_tree_worker_enable_trail_sharing() const {
-  bool value = (_impl_._has_bits_[6] & 0x00800000u) != 0;
-  return value;
-}
-inline void SatParameters::clear_shared_tree_worker_enable_trail_sharing() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.shared_tree_worker_enable_trail_sharing_ = true;
-  _impl_._has_bits_[6] &= ~0x00800000u;
-}
-inline bool SatParameters::shared_tree_worker_enable_trail_sharing() const {
-  // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.shared_tree_worker_enable_trail_sharing)
-  return _internal_shared_tree_worker_enable_trail_sharing();
-}
-inline void SatParameters::set_shared_tree_worker_enable_trail_sharing(bool value) {
-  _internal_set_shared_tree_worker_enable_trail_sharing(value);
-  _impl_._has_bits_[6] |= 0x00800000u;
-  // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.shared_tree_worker_enable_trail_sharing)
-}
-inline bool SatParameters::_internal_shared_tree_worker_enable_trail_sharing() const {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.shared_tree_worker_enable_trail_sharing_;
-}
-inline void SatParameters::_internal_set_shared_tree_worker_enable_trail_sharing(bool value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.shared_tree_worker_enable_trail_sharing_ = value;
-}
-
 // optional double shared_tree_open_leaves_per_worker = 281 [default = 2];
 inline bool SatParameters::has_shared_tree_open_leaves_per_worker() const {
-  bool value = (_impl_._has_bits_[7] & 0x00008000u) != 0;
+  bool value = (_impl_._has_bits_[7] & 0x00000080u) != 0;
   return value;
 }
 inline void SatParameters::clear_shared_tree_open_leaves_per_worker() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.shared_tree_open_leaves_per_worker_ = 2;
-  _impl_._has_bits_[7] &= ~0x00008000u;
+  _impl_._has_bits_[7] &= ~0x00000080u;
 }
 inline double SatParameters::shared_tree_open_leaves_per_worker() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.shared_tree_open_leaves_per_worker)
@@ -9408,7 +8866,7 @@ inline double SatParameters::shared_tree_open_leaves_per_worker() const {
 }
 inline void SatParameters::set_shared_tree_open_leaves_per_worker(double value) {
   _internal_set_shared_tree_open_leaves_per_worker(value);
-  _impl_._has_bits_[7] |= 0x00008000u;
+  _impl_._has_bits_[7] |= 0x00000080u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.shared_tree_open_leaves_per_worker)
 }
 inline double SatParameters::_internal_shared_tree_open_leaves_per_worker() const {
@@ -9420,15 +8878,15 @@ inline void SatParameters::_internal_set_shared_tree_open_leaves_per_worker(doub
   _impl_.shared_tree_open_leaves_per_worker_ = value;
 }
 
-// optional int32 shared_tree_max_nodes_per_worker = 238 [default = 100000];
+// optional int32 shared_tree_max_nodes_per_worker = 238 [default = 128];
 inline bool SatParameters::has_shared_tree_max_nodes_per_worker() const {
-  bool value = (_impl_._has_bits_[6] & 0x02000000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00080000u) != 0;
   return value;
 }
 inline void SatParameters::clear_shared_tree_max_nodes_per_worker() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.shared_tree_max_nodes_per_worker_ = 100000;
-  _impl_._has_bits_[6] &= ~0x02000000u;
+  _impl_.shared_tree_max_nodes_per_worker_ = 128;
+  _impl_._has_bits_[6] &= ~0x00080000u;
 }
 inline ::int32_t SatParameters::shared_tree_max_nodes_per_worker() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.shared_tree_max_nodes_per_worker)
@@ -9436,7 +8894,7 @@ inline ::int32_t SatParameters::shared_tree_max_nodes_per_worker() const {
 }
 inline void SatParameters::set_shared_tree_max_nodes_per_worker(::int32_t value) {
   _internal_set_shared_tree_max_nodes_per_worker(value);
-  _impl_._has_bits_[6] |= 0x02000000u;
+  _impl_._has_bits_[6] |= 0x00080000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.shared_tree_max_nodes_per_worker)
 }
 inline ::int32_t SatParameters::_internal_shared_tree_max_nodes_per_worker() const {
@@ -9450,13 +8908,13 @@ inline void SatParameters::_internal_set_shared_tree_max_nodes_per_worker(::int3
 
 // optional .operations_research.sat.SatParameters.SharedTreeSplitStrategy shared_tree_split_strategy = 239 [default = SPLIT_STRATEGY_AUTO];
 inline bool SatParameters::has_shared_tree_split_strategy() const {
-  bool value = (_impl_._has_bits_[2] & 0x02000000u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00020000u) != 0;
   return value;
 }
 inline void SatParameters::clear_shared_tree_split_strategy() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.shared_tree_split_strategy_ = 0;
-  _impl_._has_bits_[2] &= ~0x02000000u;
+  _impl_._has_bits_[2] &= ~0x00020000u;
 }
 inline ::operations_research::sat::SatParameters_SharedTreeSplitStrategy SatParameters::shared_tree_split_strategy() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.shared_tree_split_strategy)
@@ -9464,7 +8922,7 @@ inline ::operations_research::sat::SatParameters_SharedTreeSplitStrategy SatPara
 }
 inline void SatParameters::set_shared_tree_split_strategy(::operations_research::sat::SatParameters_SharedTreeSplitStrategy value) {
   _internal_set_shared_tree_split_strategy(value);
-  _impl_._has_bits_[2] |= 0x02000000u;
+  _impl_._has_bits_[2] |= 0x00020000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.shared_tree_split_strategy)
 }
 inline ::operations_research::sat::SatParameters_SharedTreeSplitStrategy SatParameters::_internal_shared_tree_split_strategy() const {
@@ -9479,13 +8937,13 @@ inline void SatParameters::_internal_set_shared_tree_split_strategy(::operations
 
 // optional bool enumerate_all_solutions = 87 [default = false];
 inline bool SatParameters::has_enumerate_all_solutions() const {
-  bool value = (_impl_._has_bits_[1] & 0x02000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000002u) != 0;
   return value;
 }
 inline void SatParameters::clear_enumerate_all_solutions() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.enumerate_all_solutions_ = false;
-  _impl_._has_bits_[1] &= ~0x02000000u;
+  _impl_._has_bits_[1] &= ~0x00000002u;
 }
 inline bool SatParameters::enumerate_all_solutions() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.enumerate_all_solutions)
@@ -9493,7 +8951,7 @@ inline bool SatParameters::enumerate_all_solutions() const {
 }
 inline void SatParameters::set_enumerate_all_solutions(bool value) {
   _internal_set_enumerate_all_solutions(value);
-  _impl_._has_bits_[1] |= 0x02000000u;
+  _impl_._has_bits_[1] |= 0x00000002u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.enumerate_all_solutions)
 }
 inline bool SatParameters::_internal_enumerate_all_solutions() const {
@@ -9507,13 +8965,13 @@ inline void SatParameters::_internal_set_enumerate_all_solutions(bool value) {
 
 // optional bool keep_all_feasible_solutions_in_presolve = 173 [default = false];
 inline bool SatParameters::has_keep_all_feasible_solutions_in_presolve() const {
-  bool value = (_impl_._has_bits_[1] & 0x04000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000004u) != 0;
   return value;
 }
 inline void SatParameters::clear_keep_all_feasible_solutions_in_presolve() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.keep_all_feasible_solutions_in_presolve_ = false;
-  _impl_._has_bits_[1] &= ~0x04000000u;
+  _impl_._has_bits_[1] &= ~0x00000004u;
 }
 inline bool SatParameters::keep_all_feasible_solutions_in_presolve() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.keep_all_feasible_solutions_in_presolve)
@@ -9521,7 +8979,7 @@ inline bool SatParameters::keep_all_feasible_solutions_in_presolve() const {
 }
 inline void SatParameters::set_keep_all_feasible_solutions_in_presolve(bool value) {
   _internal_set_keep_all_feasible_solutions_in_presolve(value);
-  _impl_._has_bits_[1] |= 0x04000000u;
+  _impl_._has_bits_[1] |= 0x00000004u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.keep_all_feasible_solutions_in_presolve)
 }
 inline bool SatParameters::_internal_keep_all_feasible_solutions_in_presolve() const {
@@ -9535,13 +8993,13 @@ inline void SatParameters::_internal_set_keep_all_feasible_solutions_in_presolve
 
 // optional bool fill_tightened_domains_in_response = 132 [default = false];
 inline bool SatParameters::has_fill_tightened_domains_in_response() const {
-  bool value = (_impl_._has_bits_[0] & 0x02000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000008u) != 0;
   return value;
 }
 inline void SatParameters::clear_fill_tightened_domains_in_response() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.fill_tightened_domains_in_response_ = false;
-  _impl_._has_bits_[0] &= ~0x02000000u;
+  _impl_._has_bits_[1] &= ~0x00000008u;
 }
 inline bool SatParameters::fill_tightened_domains_in_response() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.fill_tightened_domains_in_response)
@@ -9549,7 +9007,7 @@ inline bool SatParameters::fill_tightened_domains_in_response() const {
 }
 inline void SatParameters::set_fill_tightened_domains_in_response(bool value) {
   _internal_set_fill_tightened_domains_in_response(value);
-  _impl_._has_bits_[0] |= 0x02000000u;
+  _impl_._has_bits_[1] |= 0x00000008u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.fill_tightened_domains_in_response)
 }
 inline bool SatParameters::_internal_fill_tightened_domains_in_response() const {
@@ -9563,13 +9021,13 @@ inline void SatParameters::_internal_set_fill_tightened_domains_in_response(bool
 
 // optional bool fill_additional_solutions_in_response = 194 [default = false];
 inline bool SatParameters::has_fill_additional_solutions_in_response() const {
-  bool value = (_impl_._has_bits_[0] & 0x04000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000010u) != 0;
   return value;
 }
 inline void SatParameters::clear_fill_additional_solutions_in_response() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.fill_additional_solutions_in_response_ = false;
-  _impl_._has_bits_[0] &= ~0x04000000u;
+  _impl_._has_bits_[1] &= ~0x00000010u;
 }
 inline bool SatParameters::fill_additional_solutions_in_response() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.fill_additional_solutions_in_response)
@@ -9577,7 +9035,7 @@ inline bool SatParameters::fill_additional_solutions_in_response() const {
 }
 inline void SatParameters::set_fill_additional_solutions_in_response(bool value) {
   _internal_set_fill_additional_solutions_in_response(value);
-  _impl_._has_bits_[0] |= 0x04000000u;
+  _impl_._has_bits_[1] |= 0x00000010u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.fill_additional_solutions_in_response)
 }
 inline bool SatParameters::_internal_fill_additional_solutions_in_response() const {
@@ -9591,13 +9049,13 @@ inline void SatParameters::_internal_set_fill_additional_solutions_in_response(b
 
 // optional bool instantiate_all_variables = 106 [default = true];
 inline bool SatParameters::has_instantiate_all_variables() const {
-  bool value = (_impl_._has_bits_[6] & 0x01000000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x04000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_instantiate_all_variables() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.instantiate_all_variables_ = true;
-  _impl_._has_bits_[6] &= ~0x01000000u;
+  _impl_._has_bits_[5] &= ~0x04000000u;
 }
 inline bool SatParameters::instantiate_all_variables() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.instantiate_all_variables)
@@ -9605,7 +9063,7 @@ inline bool SatParameters::instantiate_all_variables() const {
 }
 inline void SatParameters::set_instantiate_all_variables(bool value) {
   _internal_set_instantiate_all_variables(value);
-  _impl_._has_bits_[6] |= 0x01000000u;
+  _impl_._has_bits_[5] |= 0x04000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.instantiate_all_variables)
 }
 inline bool SatParameters::_internal_instantiate_all_variables() const {
@@ -9619,13 +9077,13 @@ inline void SatParameters::_internal_set_instantiate_all_variables(bool value) {
 
 // optional bool auto_detect_greater_than_at_least_one_of = 95 [default = true];
 inline bool SatParameters::has_auto_detect_greater_than_at_least_one_of() const {
-  bool value = (_impl_._has_bits_[5] & 0x00400000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x08000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_auto_detect_greater_than_at_least_one_of() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.auto_detect_greater_than_at_least_one_of_ = true;
-  _impl_._has_bits_[5] &= ~0x00400000u;
+  _impl_._has_bits_[5] &= ~0x08000000u;
 }
 inline bool SatParameters::auto_detect_greater_than_at_least_one_of() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.auto_detect_greater_than_at_least_one_of)
@@ -9633,7 +9091,7 @@ inline bool SatParameters::auto_detect_greater_than_at_least_one_of() const {
 }
 inline void SatParameters::set_auto_detect_greater_than_at_least_one_of(bool value) {
   _internal_set_auto_detect_greater_than_at_least_one_of(value);
-  _impl_._has_bits_[5] |= 0x00400000u;
+  _impl_._has_bits_[5] |= 0x08000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.auto_detect_greater_than_at_least_one_of)
 }
 inline bool SatParameters::_internal_auto_detect_greater_than_at_least_one_of() const {
@@ -9647,13 +9105,13 @@ inline void SatParameters::_internal_set_auto_detect_greater_than_at_least_one_o
 
 // optional bool stop_after_first_solution = 98 [default = false];
 inline bool SatParameters::has_stop_after_first_solution() const {
-  bool value = (_impl_._has_bits_[0] & 0x08000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000200u) != 0;
   return value;
 }
 inline void SatParameters::clear_stop_after_first_solution() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.stop_after_first_solution_ = false;
-  _impl_._has_bits_[0] &= ~0x08000000u;
+  _impl_._has_bits_[1] &= ~0x00000200u;
 }
 inline bool SatParameters::stop_after_first_solution() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.stop_after_first_solution)
@@ -9661,7 +9119,7 @@ inline bool SatParameters::stop_after_first_solution() const {
 }
 inline void SatParameters::set_stop_after_first_solution(bool value) {
   _internal_set_stop_after_first_solution(value);
-  _impl_._has_bits_[0] |= 0x08000000u;
+  _impl_._has_bits_[1] |= 0x00000200u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.stop_after_first_solution)
 }
 inline bool SatParameters::_internal_stop_after_first_solution() const {
@@ -9675,13 +9133,13 @@ inline void SatParameters::_internal_set_stop_after_first_solution(bool value) {
 
 // optional bool stop_after_presolve = 149 [default = false];
 inline bool SatParameters::has_stop_after_presolve() const {
-  bool value = (_impl_._has_bits_[0] & 0x10000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000400u) != 0;
   return value;
 }
 inline void SatParameters::clear_stop_after_presolve() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.stop_after_presolve_ = false;
-  _impl_._has_bits_[0] &= ~0x10000000u;
+  _impl_._has_bits_[1] &= ~0x00000400u;
 }
 inline bool SatParameters::stop_after_presolve() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.stop_after_presolve)
@@ -9689,7 +9147,7 @@ inline bool SatParameters::stop_after_presolve() const {
 }
 inline void SatParameters::set_stop_after_presolve(bool value) {
   _internal_set_stop_after_presolve(value);
-  _impl_._has_bits_[0] |= 0x10000000u;
+  _impl_._has_bits_[1] |= 0x00000400u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.stop_after_presolve)
 }
 inline bool SatParameters::_internal_stop_after_presolve() const {
@@ -9703,13 +9161,13 @@ inline void SatParameters::_internal_set_stop_after_presolve(bool value) {
 
 // optional bool stop_after_root_propagation = 252 [default = false];
 inline bool SatParameters::has_stop_after_root_propagation() const {
-  bool value = (_impl_._has_bits_[1] & 0x08000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000800u) != 0;
   return value;
 }
 inline void SatParameters::clear_stop_after_root_propagation() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.stop_after_root_propagation_ = false;
-  _impl_._has_bits_[1] &= ~0x08000000u;
+  _impl_._has_bits_[1] &= ~0x00000800u;
 }
 inline bool SatParameters::stop_after_root_propagation() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.stop_after_root_propagation)
@@ -9717,7 +9175,7 @@ inline bool SatParameters::stop_after_root_propagation() const {
 }
 inline void SatParameters::set_stop_after_root_propagation(bool value) {
   _internal_set_stop_after_root_propagation(value);
-  _impl_._has_bits_[1] |= 0x08000000u;
+  _impl_._has_bits_[1] |= 0x00000800u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.stop_after_root_propagation)
 }
 inline bool SatParameters::_internal_stop_after_root_propagation() const {
@@ -9731,13 +9189,13 @@ inline void SatParameters::_internal_set_stop_after_root_propagation(bool value)
 
 // optional bool use_lns = 283 [default = true];
 inline bool SatParameters::has_use_lns() const {
-  bool value = (_impl_._has_bits_[5] & 0x00800000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00100000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_lns() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_lns_ = true;
-  _impl_._has_bits_[5] &= ~0x00800000u;
+  _impl_._has_bits_[5] &= ~0x00100000u;
 }
 inline bool SatParameters::use_lns() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_lns)
@@ -9745,7 +9203,7 @@ inline bool SatParameters::use_lns() const {
 }
 inline void SatParameters::set_use_lns(bool value) {
   _internal_set_use_lns(value);
-  _impl_._has_bits_[5] |= 0x00800000u;
+  _impl_._has_bits_[5] |= 0x00100000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_lns)
 }
 inline bool SatParameters::_internal_use_lns() const {
@@ -9759,13 +9217,13 @@ inline void SatParameters::_internal_set_use_lns(bool value) {
 
 // optional bool use_lns_only = 101 [default = false];
 inline bool SatParameters::has_use_lns_only() const {
-  bool value = (_impl_._has_bits_[1] & 0x10000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00001000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_lns_only() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_lns_only_ = false;
-  _impl_._has_bits_[1] &= ~0x10000000u;
+  _impl_._has_bits_[1] &= ~0x00001000u;
 }
 inline bool SatParameters::use_lns_only() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_lns_only)
@@ -9773,7 +9231,7 @@ inline bool SatParameters::use_lns_only() const {
 }
 inline void SatParameters::set_use_lns_only(bool value) {
   _internal_set_use_lns_only(value);
-  _impl_._has_bits_[1] |= 0x10000000u;
+  _impl_._has_bits_[1] |= 0x00001000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_lns_only)
 }
 inline bool SatParameters::_internal_use_lns_only() const {
@@ -9787,13 +9245,13 @@ inline void SatParameters::_internal_set_use_lns_only(bool value) {
 
 // optional int32 solution_pool_size = 193 [default = 3];
 inline bool SatParameters::has_solution_pool_size() const {
-  bool value = (_impl_._has_bits_[6] & 0x00000040u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00000008u) != 0;
   return value;
 }
 inline void SatParameters::clear_solution_pool_size() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.solution_pool_size_ = 3;
-  _impl_._has_bits_[6] &= ~0x00000040u;
+  _impl_._has_bits_[6] &= ~0x00000008u;
 }
 inline ::int32_t SatParameters::solution_pool_size() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.solution_pool_size)
@@ -9801,7 +9259,7 @@ inline ::int32_t SatParameters::solution_pool_size() const {
 }
 inline void SatParameters::set_solution_pool_size(::int32_t value) {
   _internal_set_solution_pool_size(value);
-  _impl_._has_bits_[6] |= 0x00000040u;
+  _impl_._has_bits_[6] |= 0x00000008u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.solution_pool_size)
 }
 inline ::int32_t SatParameters::_internal_solution_pool_size() const {
@@ -9815,13 +9273,13 @@ inline void SatParameters::_internal_set_solution_pool_size(::int32_t value) {
 
 // optional bool use_rins_lns = 129 [default = true];
 inline bool SatParameters::has_use_rins_lns() const {
-  bool value = (_impl_._has_bits_[5] & 0x01000000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00200000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_rins_lns() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_rins_lns_ = true;
-  _impl_._has_bits_[5] &= ~0x01000000u;
+  _impl_._has_bits_[5] &= ~0x00200000u;
 }
 inline bool SatParameters::use_rins_lns() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_rins_lns)
@@ -9829,7 +9287,7 @@ inline bool SatParameters::use_rins_lns() const {
 }
 inline void SatParameters::set_use_rins_lns(bool value) {
   _internal_set_use_rins_lns(value);
-  _impl_._has_bits_[5] |= 0x01000000u;
+  _impl_._has_bits_[5] |= 0x00200000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_rins_lns)
 }
 inline bool SatParameters::_internal_use_rins_lns() const {
@@ -9843,13 +9301,13 @@ inline void SatParameters::_internal_set_use_rins_lns(bool value) {
 
 // optional bool use_feasibility_pump = 164 [default = true];
 inline bool SatParameters::has_use_feasibility_pump() const {
-  bool value = (_impl_._has_bits_[5] & 0x02000000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00400000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_feasibility_pump() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_feasibility_pump_ = true;
-  _impl_._has_bits_[5] &= ~0x02000000u;
+  _impl_._has_bits_[5] &= ~0x00400000u;
 }
 inline bool SatParameters::use_feasibility_pump() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_feasibility_pump)
@@ -9857,7 +9315,7 @@ inline bool SatParameters::use_feasibility_pump() const {
 }
 inline void SatParameters::set_use_feasibility_pump(bool value) {
   _internal_set_use_feasibility_pump(value);
-  _impl_._has_bits_[5] |= 0x02000000u;
+  _impl_._has_bits_[5] |= 0x00400000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_feasibility_pump)
 }
 inline bool SatParameters::_internal_use_feasibility_pump() const {
@@ -9871,13 +9329,13 @@ inline void SatParameters::_internal_set_use_feasibility_pump(bool value) {
 
 // optional bool use_lb_relax_lns = 255 [default = false];
 inline bool SatParameters::has_use_lb_relax_lns() const {
-  bool value = (_impl_._has_bits_[1] & 0x20000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x80000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_lb_relax_lns() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_lb_relax_lns_ = false;
-  _impl_._has_bits_[1] &= ~0x20000000u;
+  _impl_._has_bits_[1] &= ~0x80000000u;
 }
 inline bool SatParameters::use_lb_relax_lns() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_lb_relax_lns)
@@ -9885,7 +9343,7 @@ inline bool SatParameters::use_lb_relax_lns() const {
 }
 inline void SatParameters::set_use_lb_relax_lns(bool value) {
   _internal_set_use_lb_relax_lns(value);
-  _impl_._has_bits_[1] |= 0x20000000u;
+  _impl_._has_bits_[1] |= 0x80000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_lb_relax_lns)
 }
 inline bool SatParameters::_internal_use_lb_relax_lns() const {
@@ -9899,13 +9357,13 @@ inline void SatParameters::_internal_set_use_lb_relax_lns(bool value) {
 
 // optional .operations_research.sat.SatParameters.FPRoundingMethod fp_rounding = 165 [default = PROPAGATION_ASSISTED];
 inline bool SatParameters::has_fp_rounding() const {
-  bool value = (_impl_._has_bits_[5] & 0x00200000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00004000u) != 0;
   return value;
 }
 inline void SatParameters::clear_fp_rounding() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.fp_rounding_ = 2;
-  _impl_._has_bits_[5] &= ~0x00200000u;
+  _impl_._has_bits_[5] &= ~0x00004000u;
 }
 inline ::operations_research::sat::SatParameters_FPRoundingMethod SatParameters::fp_rounding() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.fp_rounding)
@@ -9913,7 +9371,7 @@ inline ::operations_research::sat::SatParameters_FPRoundingMethod SatParameters:
 }
 inline void SatParameters::set_fp_rounding(::operations_research::sat::SatParameters_FPRoundingMethod value) {
   _internal_set_fp_rounding(value);
-  _impl_._has_bits_[5] |= 0x00200000u;
+  _impl_._has_bits_[5] |= 0x00004000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.fp_rounding)
 }
 inline ::operations_research::sat::SatParameters_FPRoundingMethod SatParameters::_internal_fp_rounding() const {
@@ -9928,13 +9386,13 @@ inline void SatParameters::_internal_set_fp_rounding(::operations_research::sat:
 
 // optional bool diversify_lns_params = 137 [default = false];
 inline bool SatParameters::has_diversify_lns_params() const {
-  bool value = (_impl_._has_bits_[1] & 0x40000000u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00000001u) != 0;
   return value;
 }
 inline void SatParameters::clear_diversify_lns_params() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.diversify_lns_params_ = false;
-  _impl_._has_bits_[1] &= ~0x40000000u;
+  _impl_._has_bits_[2] &= ~0x00000001u;
 }
 inline bool SatParameters::diversify_lns_params() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.diversify_lns_params)
@@ -9942,7 +9400,7 @@ inline bool SatParameters::diversify_lns_params() const {
 }
 inline void SatParameters::set_diversify_lns_params(bool value) {
   _internal_set_diversify_lns_params(value);
-  _impl_._has_bits_[1] |= 0x40000000u;
+  _impl_._has_bits_[2] |= 0x00000001u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.diversify_lns_params)
 }
 inline bool SatParameters::_internal_diversify_lns_params() const {
@@ -9956,13 +9414,13 @@ inline void SatParameters::_internal_set_diversify_lns_params(bool value) {
 
 // optional bool randomize_search = 103 [default = false];
 inline bool SatParameters::has_randomize_search() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000040u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00000002u) != 0;
   return value;
 }
 inline void SatParameters::clear_randomize_search() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.randomize_search_ = false;
-  _impl_._has_bits_[1] &= ~0x00000040u;
+  _impl_._has_bits_[2] &= ~0x00000002u;
 }
 inline bool SatParameters::randomize_search() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.randomize_search)
@@ -9970,7 +9428,7 @@ inline bool SatParameters::randomize_search() const {
 }
 inline void SatParameters::set_randomize_search(bool value) {
   _internal_set_randomize_search(value);
-  _impl_._has_bits_[1] |= 0x00000040u;
+  _impl_._has_bits_[2] |= 0x00000002u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.randomize_search)
 }
 inline bool SatParameters::_internal_randomize_search() const {
@@ -10012,13 +9470,13 @@ inline void SatParameters::_internal_set_search_random_variable_pool_size(::int6
 
 // optional bool push_all_tasks_toward_start = 262 [default = false];
 inline bool SatParameters::has_push_all_tasks_toward_start() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000080u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00000004u) != 0;
   return value;
 }
 inline void SatParameters::clear_push_all_tasks_toward_start() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.push_all_tasks_toward_start_ = false;
-  _impl_._has_bits_[1] &= ~0x00000080u;
+  _impl_._has_bits_[2] &= ~0x00000004u;
 }
 inline bool SatParameters::push_all_tasks_toward_start() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.push_all_tasks_toward_start)
@@ -10026,7 +9484,7 @@ inline bool SatParameters::push_all_tasks_toward_start() const {
 }
 inline void SatParameters::set_push_all_tasks_toward_start(bool value) {
   _internal_set_push_all_tasks_toward_start(value);
-  _impl_._has_bits_[1] |= 0x00000080u;
+  _impl_._has_bits_[2] |= 0x00000004u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.push_all_tasks_toward_start)
 }
 inline bool SatParameters::_internal_push_all_tasks_toward_start() const {
@@ -10040,13 +9498,13 @@ inline void SatParameters::_internal_set_push_all_tasks_toward_start(bool value)
 
 // optional bool use_optional_variables = 108 [default = false];
 inline bool SatParameters::has_use_optional_variables() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000100u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x01000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_optional_variables() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_optional_variables_ = false;
-  _impl_._has_bits_[1] &= ~0x00000100u;
+  _impl_._has_bits_[0] &= ~0x01000000u;
 }
 inline bool SatParameters::use_optional_variables() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_optional_variables)
@@ -10054,7 +9512,7 @@ inline bool SatParameters::use_optional_variables() const {
 }
 inline void SatParameters::set_use_optional_variables(bool value) {
   _internal_set_use_optional_variables(value);
-  _impl_._has_bits_[1] |= 0x00000100u;
+  _impl_._has_bits_[0] |= 0x01000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_optional_variables)
 }
 inline bool SatParameters::_internal_use_optional_variables() const {
@@ -10068,13 +9526,13 @@ inline void SatParameters::_internal_set_use_optional_variables(bool value) {
 
 // optional bool use_exact_lp_reason = 109 [default = true];
 inline bool SatParameters::has_use_exact_lp_reason() const {
-  bool value = (_impl_._has_bits_[4] & 0x80000000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00800000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_exact_lp_reason() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_exact_lp_reason_ = true;
-  _impl_._has_bits_[4] &= ~0x80000000u;
+  _impl_._has_bits_[5] &= ~0x00800000u;
 }
 inline bool SatParameters::use_exact_lp_reason() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_exact_lp_reason)
@@ -10082,7 +9540,7 @@ inline bool SatParameters::use_exact_lp_reason() const {
 }
 inline void SatParameters::set_use_exact_lp_reason(bool value) {
   _internal_set_use_exact_lp_reason(value);
-  _impl_._has_bits_[4] |= 0x80000000u;
+  _impl_._has_bits_[5] |= 0x00800000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_exact_lp_reason)
 }
 inline bool SatParameters::_internal_use_exact_lp_reason() const {
@@ -10096,13 +9554,13 @@ inline void SatParameters::_internal_set_use_exact_lp_reason(bool value) {
 
 // optional bool use_combined_no_overlap = 133 [default = false];
 inline bool SatParameters::has_use_combined_no_overlap() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000200u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x02000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_combined_no_overlap() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_combined_no_overlap_ = false;
-  _impl_._has_bits_[1] &= ~0x00000200u;
+  _impl_._has_bits_[0] &= ~0x02000000u;
 }
 inline bool SatParameters::use_combined_no_overlap() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_combined_no_overlap)
@@ -10110,7 +9568,7 @@ inline bool SatParameters::use_combined_no_overlap() const {
 }
 inline void SatParameters::set_use_combined_no_overlap(bool value) {
   _internal_set_use_combined_no_overlap(value);
-  _impl_._has_bits_[1] |= 0x00000200u;
+  _impl_._has_bits_[0] |= 0x02000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_combined_no_overlap)
 }
 inline bool SatParameters::_internal_use_combined_no_overlap() const {
@@ -10124,13 +9582,13 @@ inline void SatParameters::_internal_set_use_combined_no_overlap(bool value) {
 
 // optional int32 at_most_one_max_expansion_size = 270 [default = 3];
 inline bool SatParameters::has_at_most_one_max_expansion_size() const {
-  bool value = (_impl_._has_bits_[7] & 0x00000200u) != 0;
+  bool value = (_impl_._has_bits_[7] & 0x00000002u) != 0;
   return value;
 }
 inline void SatParameters::clear_at_most_one_max_expansion_size() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.at_most_one_max_expansion_size_ = 3;
-  _impl_._has_bits_[7] &= ~0x00000200u;
+  _impl_._has_bits_[7] &= ~0x00000002u;
 }
 inline ::int32_t SatParameters::at_most_one_max_expansion_size() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.at_most_one_max_expansion_size)
@@ -10138,7 +9596,7 @@ inline ::int32_t SatParameters::at_most_one_max_expansion_size() const {
 }
 inline void SatParameters::set_at_most_one_max_expansion_size(::int32_t value) {
   _internal_set_at_most_one_max_expansion_size(value);
-  _impl_._has_bits_[7] |= 0x00000200u;
+  _impl_._has_bits_[7] |= 0x00000002u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.at_most_one_max_expansion_size)
 }
 inline ::int32_t SatParameters::_internal_at_most_one_max_expansion_size() const {
@@ -10152,13 +9610,13 @@ inline void SatParameters::_internal_set_at_most_one_max_expansion_size(::int32_
 
 // optional bool catch_sigint_signal = 135 [default = true];
 inline bool SatParameters::has_catch_sigint_signal() const {
-  bool value = (_impl_._has_bits_[5] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00010000u) != 0;
   return value;
 }
 inline void SatParameters::clear_catch_sigint_signal() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.catch_sigint_signal_ = true;
-  _impl_._has_bits_[5] &= ~0x00000001u;
+  _impl_._has_bits_[5] &= ~0x00010000u;
 }
 inline bool SatParameters::catch_sigint_signal() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.catch_sigint_signal)
@@ -10166,7 +9624,7 @@ inline bool SatParameters::catch_sigint_signal() const {
 }
 inline void SatParameters::set_catch_sigint_signal(bool value) {
   _internal_set_catch_sigint_signal(value);
-  _impl_._has_bits_[5] |= 0x00000001u;
+  _impl_._has_bits_[5] |= 0x00010000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.catch_sigint_signal)
 }
 inline bool SatParameters::_internal_catch_sigint_signal() const {
@@ -10180,13 +9638,13 @@ inline void SatParameters::_internal_set_catch_sigint_signal(bool value) {
 
 // optional bool use_implied_bounds = 144 [default = true];
 inline bool SatParameters::has_use_implied_bounds() const {
-  bool value = (_impl_._has_bits_[5] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00020000u) != 0;
   return value;
 }
 inline void SatParameters::clear_use_implied_bounds() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.use_implied_bounds_ = true;
-  _impl_._has_bits_[5] &= ~0x00000002u;
+  _impl_._has_bits_[5] &= ~0x00020000u;
 }
 inline bool SatParameters::use_implied_bounds() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.use_implied_bounds)
@@ -10194,7 +9652,7 @@ inline bool SatParameters::use_implied_bounds() const {
 }
 inline void SatParameters::set_use_implied_bounds(bool value) {
   _internal_set_use_implied_bounds(value);
-  _impl_._has_bits_[5] |= 0x00000002u;
+  _impl_._has_bits_[5] |= 0x00020000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.use_implied_bounds)
 }
 inline bool SatParameters::_internal_use_implied_bounds() const {
@@ -10208,13 +9666,13 @@ inline void SatParameters::_internal_set_use_implied_bounds(bool value) {
 
 // optional bool polish_lp_solution = 175 [default = false];
 inline bool SatParameters::has_polish_lp_solution() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x04000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_polish_lp_solution() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.polish_lp_solution_ = false;
-  _impl_._has_bits_[1] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x04000000u;
 }
 inline bool SatParameters::polish_lp_solution() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.polish_lp_solution)
@@ -10222,7 +9680,7 @@ inline bool SatParameters::polish_lp_solution() const {
 }
 inline void SatParameters::set_polish_lp_solution(bool value) {
   _internal_set_polish_lp_solution(value);
-  _impl_._has_bits_[1] |= 0x00000002u;
+  _impl_._has_bits_[0] |= 0x04000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.polish_lp_solution)
 }
 inline bool SatParameters::_internal_polish_lp_solution() const {
@@ -10236,13 +9694,13 @@ inline void SatParameters::_internal_set_polish_lp_solution(bool value) {
 
 // optional double lp_primal_tolerance = 266 [default = 1e-07];
 inline bool SatParameters::has_lp_primal_tolerance() const {
-  bool value = (_impl_._has_bits_[7] & 0x00000040u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x40000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_lp_primal_tolerance() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.lp_primal_tolerance_ = 1e-07;
-  _impl_._has_bits_[7] &= ~0x00000040u;
+  _impl_._has_bits_[6] &= ~0x40000000u;
 }
 inline double SatParameters::lp_primal_tolerance() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.lp_primal_tolerance)
@@ -10250,7 +9708,7 @@ inline double SatParameters::lp_primal_tolerance() const {
 }
 inline void SatParameters::set_lp_primal_tolerance(double value) {
   _internal_set_lp_primal_tolerance(value);
-  _impl_._has_bits_[7] |= 0x00000040u;
+  _impl_._has_bits_[6] |= 0x40000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.lp_primal_tolerance)
 }
 inline double SatParameters::_internal_lp_primal_tolerance() const {
@@ -10264,13 +9722,13 @@ inline void SatParameters::_internal_set_lp_primal_tolerance(double value) {
 
 // optional double lp_dual_tolerance = 267 [default = 1e-07];
 inline bool SatParameters::has_lp_dual_tolerance() const {
-  bool value = (_impl_._has_bits_[7] & 0x00000080u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x80000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_lp_dual_tolerance() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.lp_dual_tolerance_ = 1e-07;
-  _impl_._has_bits_[7] &= ~0x00000080u;
+  _impl_._has_bits_[6] &= ~0x80000000u;
 }
 inline double SatParameters::lp_dual_tolerance() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.lp_dual_tolerance)
@@ -10278,7 +9736,7 @@ inline double SatParameters::lp_dual_tolerance() const {
 }
 inline void SatParameters::set_lp_dual_tolerance(double value) {
   _internal_set_lp_dual_tolerance(value);
-  _impl_._has_bits_[7] |= 0x00000080u;
+  _impl_._has_bits_[6] |= 0x80000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.lp_dual_tolerance)
 }
 inline double SatParameters::_internal_lp_dual_tolerance() const {
@@ -10292,13 +9750,13 @@ inline void SatParameters::_internal_set_lp_dual_tolerance(double value) {
 
 // optional bool convert_intervals = 177 [default = true];
 inline bool SatParameters::has_convert_intervals() const {
-  bool value = (_impl_._has_bits_[5] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00040000u) != 0;
   return value;
 }
 inline void SatParameters::clear_convert_intervals() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.convert_intervals_ = true;
-  _impl_._has_bits_[5] &= ~0x00000004u;
+  _impl_._has_bits_[5] &= ~0x00040000u;
 }
 inline bool SatParameters::convert_intervals() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.convert_intervals)
@@ -10306,7 +9764,7 @@ inline bool SatParameters::convert_intervals() const {
 }
 inline void SatParameters::set_convert_intervals(bool value) {
   _internal_set_convert_intervals(value);
-  _impl_._has_bits_[5] |= 0x00000004u;
+  _impl_._has_bits_[5] |= 0x00040000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.convert_intervals)
 }
 inline bool SatParameters::_internal_convert_intervals() const {
@@ -10320,13 +9778,13 @@ inline void SatParameters::_internal_set_convert_intervals(bool value) {
 
 // optional int32 symmetry_level = 183 [default = 2];
 inline bool SatParameters::has_symmetry_level() const {
-  bool value = (_impl_._has_bits_[5] & 0x80000000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x10000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_symmetry_level() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.symmetry_level_ = 2;
-  _impl_._has_bits_[5] &= ~0x80000000u;
+  _impl_._has_bits_[5] &= ~0x10000000u;
 }
 inline ::int32_t SatParameters::symmetry_level() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.symmetry_level)
@@ -10334,7 +9792,7 @@ inline ::int32_t SatParameters::symmetry_level() const {
 }
 inline void SatParameters::set_symmetry_level(::int32_t value) {
   _internal_set_symmetry_level(value);
-  _impl_._has_bits_[5] |= 0x80000000u;
+  _impl_._has_bits_[5] |= 0x10000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.symmetry_level)
 }
 inline ::int32_t SatParameters::_internal_symmetry_level() const {
@@ -10348,13 +9806,13 @@ inline void SatParameters::_internal_set_symmetry_level(::int32_t value) {
 
 // optional bool new_linear_propagation = 224 [default = true];
 inline bool SatParameters::has_new_linear_propagation() const {
-  bool value = (_impl_._has_bits_[5] & 0x00010000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00080000u) != 0;
   return value;
 }
 inline void SatParameters::clear_new_linear_propagation() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.new_linear_propagation_ = true;
-  _impl_._has_bits_[5] &= ~0x00010000u;
+  _impl_._has_bits_[5] &= ~0x00080000u;
 }
 inline bool SatParameters::new_linear_propagation() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.new_linear_propagation)
@@ -10362,7 +9820,7 @@ inline bool SatParameters::new_linear_propagation() const {
 }
 inline void SatParameters::set_new_linear_propagation(bool value) {
   _internal_set_new_linear_propagation(value);
-  _impl_._has_bits_[5] |= 0x00010000u;
+  _impl_._has_bits_[5] |= 0x00080000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.new_linear_propagation)
 }
 inline bool SatParameters::_internal_new_linear_propagation() const {
@@ -10376,13 +9834,13 @@ inline void SatParameters::_internal_set_new_linear_propagation(bool value) {
 
 // optional int32 linear_split_size = 256 [default = 100];
 inline bool SatParameters::has_linear_split_size() const {
-  bool value = (_impl_._has_bits_[7] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x01000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_linear_split_size() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.linear_split_size_ = 100;
-  _impl_._has_bits_[7] &= ~0x00000001u;
+  _impl_._has_bits_[6] &= ~0x01000000u;
 }
 inline ::int32_t SatParameters::linear_split_size() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.linear_split_size)
@@ -10390,7 +9848,7 @@ inline ::int32_t SatParameters::linear_split_size() const {
 }
 inline void SatParameters::set_linear_split_size(::int32_t value) {
   _internal_set_linear_split_size(value);
-  _impl_._has_bits_[7] |= 0x00000001u;
+  _impl_._has_bits_[6] |= 0x01000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.linear_split_size)
 }
 inline ::int32_t SatParameters::_internal_linear_split_size() const {
@@ -10404,13 +9862,13 @@ inline void SatParameters::_internal_set_linear_split_size(::int32_t value) {
 
 // optional int32 linearization_level = 90 [default = 1];
 inline bool SatParameters::has_linearization_level() const {
-  bool value = (_impl_._has_bits_[4] & 0x00000800u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00000010u) != 0;
   return value;
 }
 inline void SatParameters::clear_linearization_level() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.linearization_level_ = 1;
-  _impl_._has_bits_[4] &= ~0x00000800u;
+  _impl_._has_bits_[4] &= ~0x00000010u;
 }
 inline ::int32_t SatParameters::linearization_level() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.linearization_level)
@@ -10418,7 +9876,7 @@ inline ::int32_t SatParameters::linearization_level() const {
 }
 inline void SatParameters::set_linearization_level(::int32_t value) {
   _internal_set_linearization_level(value);
-  _impl_._has_bits_[4] |= 0x00000800u;
+  _impl_._has_bits_[4] |= 0x00000010u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.linearization_level)
 }
 inline ::int32_t SatParameters::_internal_linearization_level() const {
@@ -10432,13 +9890,13 @@ inline void SatParameters::_internal_set_linearization_level(::int32_t value) {
 
 // optional int32 boolean_encoding_level = 107 [default = 1];
 inline bool SatParameters::has_boolean_encoding_level() const {
-  bool value = (_impl_._has_bits_[4] & 0x00004000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00000080u) != 0;
   return value;
 }
 inline void SatParameters::clear_boolean_encoding_level() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.boolean_encoding_level_ = 1;
-  _impl_._has_bits_[4] &= ~0x00004000u;
+  _impl_._has_bits_[4] &= ~0x00000080u;
 }
 inline ::int32_t SatParameters::boolean_encoding_level() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.boolean_encoding_level)
@@ -10446,7 +9904,7 @@ inline ::int32_t SatParameters::boolean_encoding_level() const {
 }
 inline void SatParameters::set_boolean_encoding_level(::int32_t value) {
   _internal_set_boolean_encoding_level(value);
-  _impl_._has_bits_[4] |= 0x00004000u;
+  _impl_._has_bits_[4] |= 0x00000080u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.boolean_encoding_level)
 }
 inline ::int32_t SatParameters::_internal_boolean_encoding_level() const {
@@ -10460,13 +9918,13 @@ inline void SatParameters::_internal_set_boolean_encoding_level(::int32_t value)
 
 // optional int32 max_domain_size_when_encoding_eq_neq_constraints = 191 [default = 16];
 inline bool SatParameters::has_max_domain_size_when_encoding_eq_neq_constraints() const {
-  bool value = (_impl_._has_bits_[6] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x40000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_domain_size_when_encoding_eq_neq_constraints() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_domain_size_when_encoding_eq_neq_constraints_ = 16;
-  _impl_._has_bits_[6] &= ~0x00000001u;
+  _impl_._has_bits_[5] &= ~0x40000000u;
 }
 inline ::int32_t SatParameters::max_domain_size_when_encoding_eq_neq_constraints() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_domain_size_when_encoding_eq_neq_constraints)
@@ -10474,7 +9932,7 @@ inline ::int32_t SatParameters::max_domain_size_when_encoding_eq_neq_constraints
 }
 inline void SatParameters::set_max_domain_size_when_encoding_eq_neq_constraints(::int32_t value) {
   _internal_set_max_domain_size_when_encoding_eq_neq_constraints(value);
-  _impl_._has_bits_[6] |= 0x00000001u;
+  _impl_._has_bits_[5] |= 0x40000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_domain_size_when_encoding_eq_neq_constraints)
 }
 inline ::int32_t SatParameters::_internal_max_domain_size_when_encoding_eq_neq_constraints() const {
@@ -10488,13 +9946,13 @@ inline void SatParameters::_internal_set_max_domain_size_when_encoding_eq_neq_co
 
 // optional int32 max_num_cuts = 91 [default = 10000];
 inline bool SatParameters::has_max_num_cuts() const {
-  bool value = (_impl_._has_bits_[4] & 0x00001000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00000020u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_num_cuts() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_num_cuts_ = 10000;
-  _impl_._has_bits_[4] &= ~0x00001000u;
+  _impl_._has_bits_[4] &= ~0x00000020u;
 }
 inline ::int32_t SatParameters::max_num_cuts() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_num_cuts)
@@ -10502,7 +9960,7 @@ inline ::int32_t SatParameters::max_num_cuts() const {
 }
 inline void SatParameters::set_max_num_cuts(::int32_t value) {
   _internal_set_max_num_cuts(value);
-  _impl_._has_bits_[4] |= 0x00001000u;
+  _impl_._has_bits_[4] |= 0x00000020u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_num_cuts)
 }
 inline ::int32_t SatParameters::_internal_max_num_cuts() const {
@@ -10516,13 +9974,13 @@ inline void SatParameters::_internal_set_max_num_cuts(::int32_t value) {
 
 // optional int32 cut_level = 196 [default = 1];
 inline bool SatParameters::has_cut_level() const {
-  bool value = (_impl_._has_bits_[6] & 0x00000080u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00000010u) != 0;
   return value;
 }
 inline void SatParameters::clear_cut_level() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.cut_level_ = 1;
-  _impl_._has_bits_[6] &= ~0x00000080u;
+  _impl_._has_bits_[6] &= ~0x00000010u;
 }
 inline ::int32_t SatParameters::cut_level() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.cut_level)
@@ -10530,7 +9988,7 @@ inline ::int32_t SatParameters::cut_level() const {
 }
 inline void SatParameters::set_cut_level(::int32_t value) {
   _internal_set_cut_level(value);
-  _impl_._has_bits_[6] |= 0x00000080u;
+  _impl_._has_bits_[6] |= 0x00000010u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.cut_level)
 }
 inline ::int32_t SatParameters::_internal_cut_level() const {
@@ -10544,13 +10002,13 @@ inline void SatParameters::_internal_set_cut_level(::int32_t value) {
 
 // optional bool only_add_cuts_at_level_zero = 92 [default = false];
 inline bool SatParameters::has_only_add_cuts_at_level_zero() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x08000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_only_add_cuts_at_level_zero() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.only_add_cuts_at_level_zero_ = false;
-  _impl_._has_bits_[1] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x08000000u;
 }
 inline bool SatParameters::only_add_cuts_at_level_zero() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.only_add_cuts_at_level_zero)
@@ -10558,7 +10016,7 @@ inline bool SatParameters::only_add_cuts_at_level_zero() const {
 }
 inline void SatParameters::set_only_add_cuts_at_level_zero(bool value) {
   _internal_set_only_add_cuts_at_level_zero(value);
-  _impl_._has_bits_[1] |= 0x00000004u;
+  _impl_._has_bits_[0] |= 0x08000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.only_add_cuts_at_level_zero)
 }
 inline bool SatParameters::_internal_only_add_cuts_at_level_zero() const {
@@ -10572,13 +10030,13 @@ inline void SatParameters::_internal_set_only_add_cuts_at_level_zero(bool value)
 
 // optional bool add_objective_cut = 197 [default = false];
 inline bool SatParameters::has_add_objective_cut() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00000008u) != 0;
   return value;
 }
 inline void SatParameters::clear_add_objective_cut() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.add_objective_cut_ = false;
-  _impl_._has_bits_[1] &= ~0x00000008u;
+  _impl_._has_bits_[2] &= ~0x00000008u;
 }
 inline bool SatParameters::add_objective_cut() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.add_objective_cut)
@@ -10586,7 +10044,7 @@ inline bool SatParameters::add_objective_cut() const {
 }
 inline void SatParameters::set_add_objective_cut(bool value) {
   _internal_set_add_objective_cut(value);
-  _impl_._has_bits_[1] |= 0x00000008u;
+  _impl_._has_bits_[2] |= 0x00000008u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.add_objective_cut)
 }
 inline bool SatParameters::_internal_add_objective_cut() const {
@@ -10600,13 +10058,13 @@ inline void SatParameters::_internal_set_add_objective_cut(bool value) {
 
 // optional bool add_cg_cuts = 117 [default = true];
 inline bool SatParameters::has_add_cg_cuts() const {
-  bool value = (_impl_._has_bits_[5] & 0x00020000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00100000u) != 0;
   return value;
 }
 inline void SatParameters::clear_add_cg_cuts() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.add_cg_cuts_ = true;
-  _impl_._has_bits_[5] &= ~0x00020000u;
+  _impl_._has_bits_[4] &= ~0x00100000u;
 }
 inline bool SatParameters::add_cg_cuts() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.add_cg_cuts)
@@ -10614,7 +10072,7 @@ inline bool SatParameters::add_cg_cuts() const {
 }
 inline void SatParameters::set_add_cg_cuts(bool value) {
   _internal_set_add_cg_cuts(value);
-  _impl_._has_bits_[5] |= 0x00020000u;
+  _impl_._has_bits_[4] |= 0x00100000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.add_cg_cuts)
 }
 inline bool SatParameters::_internal_add_cg_cuts() const {
@@ -10628,13 +10086,13 @@ inline void SatParameters::_internal_set_add_cg_cuts(bool value) {
 
 // optional bool add_mir_cuts = 120 [default = true];
 inline bool SatParameters::has_add_mir_cuts() const {
-  bool value = (_impl_._has_bits_[5] & 0x00040000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00200000u) != 0;
   return value;
 }
 inline void SatParameters::clear_add_mir_cuts() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.add_mir_cuts_ = true;
-  _impl_._has_bits_[5] &= ~0x00040000u;
+  _impl_._has_bits_[4] &= ~0x00200000u;
 }
 inline bool SatParameters::add_mir_cuts() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.add_mir_cuts)
@@ -10642,7 +10100,7 @@ inline bool SatParameters::add_mir_cuts() const {
 }
 inline void SatParameters::set_add_mir_cuts(bool value) {
   _internal_set_add_mir_cuts(value);
-  _impl_._has_bits_[5] |= 0x00040000u;
+  _impl_._has_bits_[4] |= 0x00200000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.add_mir_cuts)
 }
 inline bool SatParameters::_internal_add_mir_cuts() const {
@@ -10656,13 +10114,13 @@ inline void SatParameters::_internal_set_add_mir_cuts(bool value) {
 
 // optional bool add_zero_half_cuts = 169 [default = true];
 inline bool SatParameters::has_add_zero_half_cuts() const {
-  bool value = (_impl_._has_bits_[5] & 0x00080000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00400000u) != 0;
   return value;
 }
 inline void SatParameters::clear_add_zero_half_cuts() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.add_zero_half_cuts_ = true;
-  _impl_._has_bits_[5] &= ~0x00080000u;
+  _impl_._has_bits_[4] &= ~0x00400000u;
 }
 inline bool SatParameters::add_zero_half_cuts() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.add_zero_half_cuts)
@@ -10670,7 +10128,7 @@ inline bool SatParameters::add_zero_half_cuts() const {
 }
 inline void SatParameters::set_add_zero_half_cuts(bool value) {
   _internal_set_add_zero_half_cuts(value);
-  _impl_._has_bits_[5] |= 0x00080000u;
+  _impl_._has_bits_[4] |= 0x00400000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.add_zero_half_cuts)
 }
 inline bool SatParameters::_internal_add_zero_half_cuts() const {
@@ -10684,13 +10142,13 @@ inline void SatParameters::_internal_set_add_zero_half_cuts(bool value) {
 
 // optional bool add_clique_cuts = 172 [default = true];
 inline bool SatParameters::has_add_clique_cuts() const {
-  bool value = (_impl_._has_bits_[5] & 0x08000000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00800000u) != 0;
   return value;
 }
 inline void SatParameters::clear_add_clique_cuts() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.add_clique_cuts_ = true;
-  _impl_._has_bits_[5] &= ~0x08000000u;
+  _impl_._has_bits_[4] &= ~0x00800000u;
 }
 inline bool SatParameters::add_clique_cuts() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.add_clique_cuts)
@@ -10698,7 +10156,7 @@ inline bool SatParameters::add_clique_cuts() const {
 }
 inline void SatParameters::set_add_clique_cuts(bool value) {
   _internal_set_add_clique_cuts(value);
-  _impl_._has_bits_[5] |= 0x08000000u;
+  _impl_._has_bits_[4] |= 0x00800000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.add_clique_cuts)
 }
 inline bool SatParameters::_internal_add_clique_cuts() const {
@@ -10712,13 +10170,13 @@ inline void SatParameters::_internal_set_add_clique_cuts(bool value) {
 
 // optional bool add_rlt_cuts = 279 [default = true];
 inline bool SatParameters::has_add_rlt_cuts() const {
-  bool value = (_impl_._has_bits_[5] & 0x10000000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00000200u) != 0;
   return value;
 }
 inline void SatParameters::clear_add_rlt_cuts() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.add_rlt_cuts_ = true;
-  _impl_._has_bits_[5] &= ~0x10000000u;
+  _impl_._has_bits_[5] &= ~0x00000200u;
 }
 inline bool SatParameters::add_rlt_cuts() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.add_rlt_cuts)
@@ -10726,7 +10184,7 @@ inline bool SatParameters::add_rlt_cuts() const {
 }
 inline void SatParameters::set_add_rlt_cuts(bool value) {
   _internal_set_add_rlt_cuts(value);
-  _impl_._has_bits_[5] |= 0x10000000u;
+  _impl_._has_bits_[5] |= 0x00000200u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.add_rlt_cuts)
 }
 inline bool SatParameters::_internal_add_rlt_cuts() const {
@@ -10740,13 +10198,13 @@ inline void SatParameters::_internal_set_add_rlt_cuts(bool value) {
 
 // optional int32 max_all_diff_cut_size = 148 [default = 64];
 inline bool SatParameters::has_max_all_diff_cut_size() const {
-  bool value = (_impl_._has_bits_[5] & 0x00000040u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x08000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_all_diff_cut_size() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_all_diff_cut_size_ = 64;
-  _impl_._has_bits_[5] &= ~0x00000040u;
+  _impl_._has_bits_[4] &= ~0x08000000u;
 }
 inline ::int32_t SatParameters::max_all_diff_cut_size() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_all_diff_cut_size)
@@ -10754,7 +10212,7 @@ inline ::int32_t SatParameters::max_all_diff_cut_size() const {
 }
 inline void SatParameters::set_max_all_diff_cut_size(::int32_t value) {
   _internal_set_max_all_diff_cut_size(value);
-  _impl_._has_bits_[5] |= 0x00000040u;
+  _impl_._has_bits_[4] |= 0x08000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_all_diff_cut_size)
 }
 inline ::int32_t SatParameters::_internal_max_all_diff_cut_size() const {
@@ -10768,13 +10226,13 @@ inline void SatParameters::_internal_set_max_all_diff_cut_size(::int32_t value) 
 
 // optional bool add_lin_max_cuts = 152 [default = true];
 inline bool SatParameters::has_add_lin_max_cuts() const {
-  bool value = (_impl_._has_bits_[5] & 0x20000000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00000400u) != 0;
   return value;
 }
 inline void SatParameters::clear_add_lin_max_cuts() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.add_lin_max_cuts_ = true;
-  _impl_._has_bits_[5] &= ~0x20000000u;
+  _impl_._has_bits_[5] &= ~0x00000400u;
 }
 inline bool SatParameters::add_lin_max_cuts() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.add_lin_max_cuts)
@@ -10782,7 +10240,7 @@ inline bool SatParameters::add_lin_max_cuts() const {
 }
 inline void SatParameters::set_add_lin_max_cuts(bool value) {
   _internal_set_add_lin_max_cuts(value);
-  _impl_._has_bits_[5] |= 0x20000000u;
+  _impl_._has_bits_[5] |= 0x00000400u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.add_lin_max_cuts)
 }
 inline bool SatParameters::_internal_add_lin_max_cuts() const {
@@ -10796,13 +10254,13 @@ inline void SatParameters::_internal_set_add_lin_max_cuts(bool value) {
 
 // optional int32 max_integer_rounding_scaling = 119 [default = 600];
 inline bool SatParameters::has_max_integer_rounding_scaling() const {
-  bool value = (_impl_._has_bits_[4] & 0x00020000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00000400u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_integer_rounding_scaling() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_integer_rounding_scaling_ = 600;
-  _impl_._has_bits_[4] &= ~0x00020000u;
+  _impl_._has_bits_[4] &= ~0x00000400u;
 }
 inline ::int32_t SatParameters::max_integer_rounding_scaling() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_integer_rounding_scaling)
@@ -10810,7 +10268,7 @@ inline ::int32_t SatParameters::max_integer_rounding_scaling() const {
 }
 inline void SatParameters::set_max_integer_rounding_scaling(::int32_t value) {
   _internal_set_max_integer_rounding_scaling(value);
-  _impl_._has_bits_[4] |= 0x00020000u;
+  _impl_._has_bits_[4] |= 0x00000400u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_integer_rounding_scaling)
 }
 inline ::int32_t SatParameters::_internal_max_integer_rounding_scaling() const {
@@ -10824,13 +10282,13 @@ inline void SatParameters::_internal_set_max_integer_rounding_scaling(::int32_t 
 
 // optional bool add_lp_constraints_lazily = 112 [default = true];
 inline bool SatParameters::has_add_lp_constraints_lazily() const {
-  bool value = (_impl_._has_bits_[5] & 0x40000000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00000800u) != 0;
   return value;
 }
 inline void SatParameters::clear_add_lp_constraints_lazily() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.add_lp_constraints_lazily_ = true;
-  _impl_._has_bits_[5] &= ~0x40000000u;
+  _impl_._has_bits_[5] &= ~0x00000800u;
 }
 inline bool SatParameters::add_lp_constraints_lazily() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.add_lp_constraints_lazily)
@@ -10838,7 +10296,7 @@ inline bool SatParameters::add_lp_constraints_lazily() const {
 }
 inline void SatParameters::set_add_lp_constraints_lazily(bool value) {
   _internal_set_add_lp_constraints_lazily(value);
-  _impl_._has_bits_[5] |= 0x40000000u;
+  _impl_._has_bits_[5] |= 0x00000800u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.add_lp_constraints_lazily)
 }
 inline bool SatParameters::_internal_add_lp_constraints_lazily() const {
@@ -10852,13 +10310,13 @@ inline void SatParameters::_internal_set_add_lp_constraints_lazily(bool value) {
 
 // optional int32 root_lp_iterations = 227 [default = 2000];
 inline bool SatParameters::has_root_lp_iterations() const {
-  bool value = (_impl_._has_bits_[6] & 0x00080000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00008000u) != 0;
   return value;
 }
 inline void SatParameters::clear_root_lp_iterations() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.root_lp_iterations_ = 2000;
-  _impl_._has_bits_[6] &= ~0x00080000u;
+  _impl_._has_bits_[6] &= ~0x00008000u;
 }
 inline ::int32_t SatParameters::root_lp_iterations() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.root_lp_iterations)
@@ -10866,7 +10324,7 @@ inline ::int32_t SatParameters::root_lp_iterations() const {
 }
 inline void SatParameters::set_root_lp_iterations(::int32_t value) {
   _internal_set_root_lp_iterations(value);
-  _impl_._has_bits_[6] |= 0x00080000u;
+  _impl_._has_bits_[6] |= 0x00008000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.root_lp_iterations)
 }
 inline ::int32_t SatParameters::_internal_root_lp_iterations() const {
@@ -10880,13 +10338,13 @@ inline void SatParameters::_internal_set_root_lp_iterations(::int32_t value) {
 
 // optional double min_orthogonality_for_lp_constraints = 115 [default = 0.05];
 inline bool SatParameters::has_min_orthogonality_for_lp_constraints() const {
-  bool value = (_impl_._has_bits_[4] & 0x00010000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00000200u) != 0;
   return value;
 }
 inline void SatParameters::clear_min_orthogonality_for_lp_constraints() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.min_orthogonality_for_lp_constraints_ = 0.05;
-  _impl_._has_bits_[4] &= ~0x00010000u;
+  _impl_._has_bits_[4] &= ~0x00000200u;
 }
 inline double SatParameters::min_orthogonality_for_lp_constraints() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.min_orthogonality_for_lp_constraints)
@@ -10894,7 +10352,7 @@ inline double SatParameters::min_orthogonality_for_lp_constraints() const {
 }
 inline void SatParameters::set_min_orthogonality_for_lp_constraints(double value) {
   _internal_set_min_orthogonality_for_lp_constraints(value);
-  _impl_._has_bits_[4] |= 0x00010000u;
+  _impl_._has_bits_[4] |= 0x00000200u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.min_orthogonality_for_lp_constraints)
 }
 inline double SatParameters::_internal_min_orthogonality_for_lp_constraints() const {
@@ -10908,13 +10366,13 @@ inline void SatParameters::_internal_set_min_orthogonality_for_lp_constraints(do
 
 // optional int32 max_cut_rounds_at_level_zero = 154 [default = 1];
 inline bool SatParameters::has_max_cut_rounds_at_level_zero() const {
-  bool value = (_impl_._has_bits_[5] & 0x00001000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00000020u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_cut_rounds_at_level_zero() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_cut_rounds_at_level_zero_ = 1;
-  _impl_._has_bits_[5] &= ~0x00001000u;
+  _impl_._has_bits_[5] &= ~0x00000020u;
 }
 inline ::int32_t SatParameters::max_cut_rounds_at_level_zero() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_cut_rounds_at_level_zero)
@@ -10922,7 +10380,7 @@ inline ::int32_t SatParameters::max_cut_rounds_at_level_zero() const {
 }
 inline void SatParameters::set_max_cut_rounds_at_level_zero(::int32_t value) {
   _internal_set_max_cut_rounds_at_level_zero(value);
-  _impl_._has_bits_[5] |= 0x00001000u;
+  _impl_._has_bits_[5] |= 0x00000020u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_cut_rounds_at_level_zero)
 }
 inline ::int32_t SatParameters::_internal_max_cut_rounds_at_level_zero() const {
@@ -10936,13 +10394,13 @@ inline void SatParameters::_internal_set_max_cut_rounds_at_level_zero(::int32_t 
 
 // optional int32 max_consecutive_inactive_count = 121 [default = 100];
 inline bool SatParameters::has_max_consecutive_inactive_count() const {
-  bool value = (_impl_._has_bits_[4] & 0x00040000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00000800u) != 0;
   return value;
 }
 inline void SatParameters::clear_max_consecutive_inactive_count() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.max_consecutive_inactive_count_ = 100;
-  _impl_._has_bits_[4] &= ~0x00040000u;
+  _impl_._has_bits_[4] &= ~0x00000800u;
 }
 inline ::int32_t SatParameters::max_consecutive_inactive_count() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.max_consecutive_inactive_count)
@@ -10950,7 +10408,7 @@ inline ::int32_t SatParameters::max_consecutive_inactive_count() const {
 }
 inline void SatParameters::set_max_consecutive_inactive_count(::int32_t value) {
   _internal_set_max_consecutive_inactive_count(value);
-  _impl_._has_bits_[4] |= 0x00040000u;
+  _impl_._has_bits_[4] |= 0x00000800u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.max_consecutive_inactive_count)
 }
 inline ::int32_t SatParameters::_internal_max_consecutive_inactive_count() const {
@@ -10964,13 +10422,13 @@ inline void SatParameters::_internal_set_max_consecutive_inactive_count(::int32_
 
 // optional double cut_max_active_count_value = 155 [default = 10000000000];
 inline bool SatParameters::has_cut_max_active_count_value() const {
-  bool value = (_impl_._has_bits_[5] & 0x00002000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00000040u) != 0;
   return value;
 }
 inline void SatParameters::clear_cut_max_active_count_value() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.cut_max_active_count_value_ = 10000000000;
-  _impl_._has_bits_[5] &= ~0x00002000u;
+  _impl_._has_bits_[5] &= ~0x00000040u;
 }
 inline double SatParameters::cut_max_active_count_value() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.cut_max_active_count_value)
@@ -10978,7 +10436,7 @@ inline double SatParameters::cut_max_active_count_value() const {
 }
 inline void SatParameters::set_cut_max_active_count_value(double value) {
   _internal_set_cut_max_active_count_value(value);
-  _impl_._has_bits_[5] |= 0x00002000u;
+  _impl_._has_bits_[5] |= 0x00000040u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.cut_max_active_count_value)
 }
 inline double SatParameters::_internal_cut_max_active_count_value() const {
@@ -10992,13 +10450,13 @@ inline void SatParameters::_internal_set_cut_max_active_count_value(double value
 
 // optional double cut_active_count_decay = 156 [default = 0.8];
 inline bool SatParameters::has_cut_active_count_decay() const {
-  bool value = (_impl_._has_bits_[5] & 0x00004000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00000080u) != 0;
   return value;
 }
 inline void SatParameters::clear_cut_active_count_decay() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.cut_active_count_decay_ = 0.8;
-  _impl_._has_bits_[5] &= ~0x00004000u;
+  _impl_._has_bits_[5] &= ~0x00000080u;
 }
 inline double SatParameters::cut_active_count_decay() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.cut_active_count_decay)
@@ -11006,7 +10464,7 @@ inline double SatParameters::cut_active_count_decay() const {
 }
 inline void SatParameters::set_cut_active_count_decay(double value) {
   _internal_set_cut_active_count_decay(value);
-  _impl_._has_bits_[5] |= 0x00004000u;
+  _impl_._has_bits_[5] |= 0x00000080u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.cut_active_count_decay)
 }
 inline double SatParameters::_internal_cut_active_count_decay() const {
@@ -11020,13 +10478,13 @@ inline void SatParameters::_internal_set_cut_active_count_decay(double value) {
 
 // optional int32 cut_cleanup_target = 157 [default = 1000];
 inline bool SatParameters::has_cut_cleanup_target() const {
-  bool value = (_impl_._has_bits_[5] & 0x00008000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00000100u) != 0;
   return value;
 }
 inline void SatParameters::clear_cut_cleanup_target() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.cut_cleanup_target_ = 1000;
-  _impl_._has_bits_[5] &= ~0x00008000u;
+  _impl_._has_bits_[5] &= ~0x00000100u;
 }
 inline ::int32_t SatParameters::cut_cleanup_target() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.cut_cleanup_target)
@@ -11034,7 +10492,7 @@ inline ::int32_t SatParameters::cut_cleanup_target() const {
 }
 inline void SatParameters::set_cut_cleanup_target(::int32_t value) {
   _internal_set_cut_cleanup_target(value);
-  _impl_._has_bits_[5] |= 0x00008000u;
+  _impl_._has_bits_[5] |= 0x00000100u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.cut_cleanup_target)
 }
 inline ::int32_t SatParameters::_internal_cut_cleanup_target() const {
@@ -11048,13 +10506,13 @@ inline void SatParameters::_internal_set_cut_cleanup_target(::int32_t value) {
 
 // optional int32 new_constraints_batch_size = 122 [default = 50];
 inline bool SatParameters::has_new_constraints_batch_size() const {
-  bool value = (_impl_._has_bits_[4] & 0x00400000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00004000u) != 0;
   return value;
 }
 inline void SatParameters::clear_new_constraints_batch_size() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.new_constraints_batch_size_ = 50;
-  _impl_._has_bits_[4] &= ~0x00400000u;
+  _impl_._has_bits_[4] &= ~0x00004000u;
 }
 inline ::int32_t SatParameters::new_constraints_batch_size() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.new_constraints_batch_size)
@@ -11062,7 +10520,7 @@ inline ::int32_t SatParameters::new_constraints_batch_size() const {
 }
 inline void SatParameters::set_new_constraints_batch_size(::int32_t value) {
   _internal_set_new_constraints_batch_size(value);
-  _impl_._has_bits_[4] |= 0x00400000u;
+  _impl_._has_bits_[4] |= 0x00004000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.new_constraints_batch_size)
 }
 inline ::int32_t SatParameters::_internal_new_constraints_batch_size() const {
@@ -11076,13 +10534,13 @@ inline void SatParameters::_internal_set_new_constraints_batch_size(::int32_t va
 
 // optional bool exploit_integer_lp_solution = 94 [default = true];
 inline bool SatParameters::has_exploit_integer_lp_solution() const {
-  bool value = (_impl_._has_bits_[4] & 0x00800000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00001000u) != 0;
   return value;
 }
 inline void SatParameters::clear_exploit_integer_lp_solution() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.exploit_integer_lp_solution_ = true;
-  _impl_._has_bits_[4] &= ~0x00800000u;
+  _impl_._has_bits_[5] &= ~0x00001000u;
 }
 inline bool SatParameters::exploit_integer_lp_solution() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.exploit_integer_lp_solution)
@@ -11090,7 +10548,7 @@ inline bool SatParameters::exploit_integer_lp_solution() const {
 }
 inline void SatParameters::set_exploit_integer_lp_solution(bool value) {
   _internal_set_exploit_integer_lp_solution(value);
-  _impl_._has_bits_[4] |= 0x00800000u;
+  _impl_._has_bits_[5] |= 0x00001000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.exploit_integer_lp_solution)
 }
 inline bool SatParameters::_internal_exploit_integer_lp_solution() const {
@@ -11104,13 +10562,13 @@ inline void SatParameters::_internal_set_exploit_integer_lp_solution(bool value)
 
 // optional bool exploit_all_lp_solution = 116 [default = true];
 inline bool SatParameters::has_exploit_all_lp_solution() const {
-  bool value = (_impl_._has_bits_[4] & 0x01000000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00000001u) != 0;
   return value;
 }
 inline void SatParameters::clear_exploit_all_lp_solution() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.exploit_all_lp_solution_ = true;
-  _impl_._has_bits_[4] &= ~0x01000000u;
+  _impl_._has_bits_[5] &= ~0x00000001u;
 }
 inline bool SatParameters::exploit_all_lp_solution() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.exploit_all_lp_solution)
@@ -11118,7 +10576,7 @@ inline bool SatParameters::exploit_all_lp_solution() const {
 }
 inline void SatParameters::set_exploit_all_lp_solution(bool value) {
   _internal_set_exploit_all_lp_solution(value);
-  _impl_._has_bits_[4] |= 0x01000000u;
+  _impl_._has_bits_[5] |= 0x00000001u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.exploit_all_lp_solution)
 }
 inline bool SatParameters::_internal_exploit_all_lp_solution() const {
@@ -11132,13 +10590,13 @@ inline void SatParameters::_internal_set_exploit_all_lp_solution(bool value) {
 
 // optional bool exploit_best_solution = 130 [default = false];
 inline bool SatParameters::has_exploit_best_solution() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000010u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00000010u) != 0;
   return value;
 }
 inline void SatParameters::clear_exploit_best_solution() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.exploit_best_solution_ = false;
-  _impl_._has_bits_[1] &= ~0x00000010u;
+  _impl_._has_bits_[2] &= ~0x00000010u;
 }
 inline bool SatParameters::exploit_best_solution() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.exploit_best_solution)
@@ -11146,7 +10604,7 @@ inline bool SatParameters::exploit_best_solution() const {
 }
 inline void SatParameters::set_exploit_best_solution(bool value) {
   _internal_set_exploit_best_solution(value);
-  _impl_._has_bits_[1] |= 0x00000010u;
+  _impl_._has_bits_[2] |= 0x00000010u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.exploit_best_solution)
 }
 inline bool SatParameters::_internal_exploit_best_solution() const {
@@ -11160,13 +10618,13 @@ inline void SatParameters::_internal_set_exploit_best_solution(bool value) {
 
 // optional bool exploit_relaxation_solution = 161 [default = false];
 inline bool SatParameters::has_exploit_relaxation_solution() const {
-  bool value = (_impl_._has_bits_[2] & 0x00000100u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00000020u) != 0;
   return value;
 }
 inline void SatParameters::clear_exploit_relaxation_solution() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.exploit_relaxation_solution_ = false;
-  _impl_._has_bits_[2] &= ~0x00000100u;
+  _impl_._has_bits_[2] &= ~0x00000020u;
 }
 inline bool SatParameters::exploit_relaxation_solution() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.exploit_relaxation_solution)
@@ -11174,7 +10632,7 @@ inline bool SatParameters::exploit_relaxation_solution() const {
 }
 inline void SatParameters::set_exploit_relaxation_solution(bool value) {
   _internal_set_exploit_relaxation_solution(value);
-  _impl_._has_bits_[2] |= 0x00000100u;
+  _impl_._has_bits_[2] |= 0x00000020u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.exploit_relaxation_solution)
 }
 inline bool SatParameters::_internal_exploit_relaxation_solution() const {
@@ -11188,13 +10646,13 @@ inline void SatParameters::_internal_set_exploit_relaxation_solution(bool value)
 
 // optional bool exploit_objective = 131 [default = true];
 inline bool SatParameters::has_exploit_objective() const {
-  bool value = (_impl_._has_bits_[4] & 0x02000000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00000002u) != 0;
   return value;
 }
 inline void SatParameters::clear_exploit_objective() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.exploit_objective_ = true;
-  _impl_._has_bits_[4] &= ~0x02000000u;
+  _impl_._has_bits_[5] &= ~0x00000002u;
 }
 inline bool SatParameters::exploit_objective() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.exploit_objective)
@@ -11202,7 +10660,7 @@ inline bool SatParameters::exploit_objective() const {
 }
 inline void SatParameters::set_exploit_objective(bool value) {
   _internal_set_exploit_objective(value);
-  _impl_._has_bits_[4] |= 0x02000000u;
+  _impl_._has_bits_[5] |= 0x00000002u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.exploit_objective)
 }
 inline bool SatParameters::_internal_exploit_objective() const {
@@ -11216,13 +10674,13 @@ inline void SatParameters::_internal_set_exploit_objective(bool value) {
 
 // optional bool detect_linearized_product = 277 [default = false];
 inline bool SatParameters::has_detect_linearized_product() const {
-  bool value = (_impl_._has_bits_[2] & 0x00000200u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00000040u) != 0;
   return value;
 }
 inline void SatParameters::clear_detect_linearized_product() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.detect_linearized_product_ = false;
-  _impl_._has_bits_[2] &= ~0x00000200u;
+  _impl_._has_bits_[2] &= ~0x00000040u;
 }
 inline bool SatParameters::detect_linearized_product() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.detect_linearized_product)
@@ -11230,7 +10688,7 @@ inline bool SatParameters::detect_linearized_product() const {
 }
 inline void SatParameters::set_detect_linearized_product(bool value) {
   _internal_set_detect_linearized_product(value);
-  _impl_._has_bits_[2] |= 0x00000200u;
+  _impl_._has_bits_[2] |= 0x00000040u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.detect_linearized_product)
 }
 inline bool SatParameters::_internal_detect_linearized_product() const {
@@ -11244,13 +10702,13 @@ inline void SatParameters::_internal_set_detect_linearized_product(bool value) {
 
 // optional double mip_max_bound = 124 [default = 10000000];
 inline bool SatParameters::has_mip_max_bound() const {
-  bool value = (_impl_._has_bits_[4] & 0x00100000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00002000u) != 0;
   return value;
 }
 inline void SatParameters::clear_mip_max_bound() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.mip_max_bound_ = 10000000;
-  _impl_._has_bits_[4] &= ~0x00100000u;
+  _impl_._has_bits_[4] &= ~0x00002000u;
 }
 inline double SatParameters::mip_max_bound() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.mip_max_bound)
@@ -11258,7 +10716,7 @@ inline double SatParameters::mip_max_bound() const {
 }
 inline void SatParameters::set_mip_max_bound(double value) {
   _internal_set_mip_max_bound(value);
-  _impl_._has_bits_[4] |= 0x00100000u;
+  _impl_._has_bits_[4] |= 0x00002000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.mip_max_bound)
 }
 inline double SatParameters::_internal_mip_max_bound() const {
@@ -11272,13 +10730,13 @@ inline void SatParameters::_internal_set_mip_max_bound(double value) {
 
 // optional double mip_var_scaling = 125 [default = 1];
 inline bool SatParameters::has_mip_var_scaling() const {
-  bool value = (_impl_._has_bits_[4] & 0x00200000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00010000u) != 0;
   return value;
 }
 inline void SatParameters::clear_mip_var_scaling() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.mip_var_scaling_ = 1;
-  _impl_._has_bits_[4] &= ~0x00200000u;
+  _impl_._has_bits_[4] &= ~0x00010000u;
 }
 inline double SatParameters::mip_var_scaling() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.mip_var_scaling)
@@ -11286,7 +10744,7 @@ inline double SatParameters::mip_var_scaling() const {
 }
 inline void SatParameters::set_mip_var_scaling(double value) {
   _internal_set_mip_var_scaling(value);
-  _impl_._has_bits_[4] |= 0x00200000u;
+  _impl_._has_bits_[4] |= 0x00010000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.mip_var_scaling)
 }
 inline double SatParameters::_internal_mip_var_scaling() const {
@@ -11300,13 +10758,13 @@ inline void SatParameters::_internal_set_mip_var_scaling(double value) {
 
 // optional bool mip_scale_large_domain = 225 [default = false];
 inline bool SatParameters::has_mip_scale_large_domain() const {
-  bool value = (_impl_._has_bits_[2] & 0x00000400u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00040000u) != 0;
   return value;
 }
 inline void SatParameters::clear_mip_scale_large_domain() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.mip_scale_large_domain_ = false;
-  _impl_._has_bits_[2] &= ~0x00000400u;
+  _impl_._has_bits_[2] &= ~0x00040000u;
 }
 inline bool SatParameters::mip_scale_large_domain() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.mip_scale_large_domain)
@@ -11314,7 +10772,7 @@ inline bool SatParameters::mip_scale_large_domain() const {
 }
 inline void SatParameters::set_mip_scale_large_domain(bool value) {
   _internal_set_mip_scale_large_domain(value);
-  _impl_._has_bits_[2] |= 0x00000400u;
+  _impl_._has_bits_[2] |= 0x00040000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.mip_scale_large_domain)
 }
 inline bool SatParameters::_internal_mip_scale_large_domain() const {
@@ -11328,13 +10786,13 @@ inline void SatParameters::_internal_set_mip_scale_large_domain(bool value) {
 
 // optional bool mip_automatically_scale_variables = 166 [default = true];
 inline bool SatParameters::has_mip_automatically_scale_variables() const {
-  bool value = (_impl_._has_bits_[4] & 0x04000000u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00000004u) != 0;
   return value;
 }
 inline void SatParameters::clear_mip_automatically_scale_variables() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.mip_automatically_scale_variables_ = true;
-  _impl_._has_bits_[4] &= ~0x04000000u;
+  _impl_._has_bits_[5] &= ~0x00000004u;
 }
 inline bool SatParameters::mip_automatically_scale_variables() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.mip_automatically_scale_variables)
@@ -11342,7 +10800,7 @@ inline bool SatParameters::mip_automatically_scale_variables() const {
 }
 inline void SatParameters::set_mip_automatically_scale_variables(bool value) {
   _internal_set_mip_automatically_scale_variables(value);
-  _impl_._has_bits_[4] |= 0x04000000u;
+  _impl_._has_bits_[5] |= 0x00000004u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.mip_automatically_scale_variables)
 }
 inline bool SatParameters::_internal_mip_automatically_scale_variables() const {
@@ -11356,13 +10814,13 @@ inline void SatParameters::_internal_set_mip_automatically_scale_variables(bool 
 
 // optional bool only_solve_ip = 222 [default = false];
 inline bool SatParameters::has_only_solve_ip() const {
-  bool value = (_impl_._has_bits_[2] & 0x00000800u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00080000u) != 0;
   return value;
 }
 inline void SatParameters::clear_only_solve_ip() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.only_solve_ip_ = false;
-  _impl_._has_bits_[2] &= ~0x00000800u;
+  _impl_._has_bits_[2] &= ~0x00080000u;
 }
 inline bool SatParameters::only_solve_ip() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.only_solve_ip)
@@ -11370,7 +10828,7 @@ inline bool SatParameters::only_solve_ip() const {
 }
 inline void SatParameters::set_only_solve_ip(bool value) {
   _internal_set_only_solve_ip(value);
-  _impl_._has_bits_[2] |= 0x00000800u;
+  _impl_._has_bits_[2] |= 0x00080000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.only_solve_ip)
 }
 inline bool SatParameters::_internal_only_solve_ip() const {
@@ -11384,13 +10842,13 @@ inline void SatParameters::_internal_set_only_solve_ip(bool value) {
 
 // optional double mip_wanted_precision = 126 [default = 1e-06];
 inline bool SatParameters::has_mip_wanted_precision() const {
-  bool value = (_impl_._has_bits_[4] & 0x08000000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00020000u) != 0;
   return value;
 }
 inline void SatParameters::clear_mip_wanted_precision() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.mip_wanted_precision_ = 1e-06;
-  _impl_._has_bits_[4] &= ~0x08000000u;
+  _impl_._has_bits_[4] &= ~0x00020000u;
 }
 inline double SatParameters::mip_wanted_precision() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.mip_wanted_precision)
@@ -11398,7 +10856,7 @@ inline double SatParameters::mip_wanted_precision() const {
 }
 inline void SatParameters::set_mip_wanted_precision(double value) {
   _internal_set_mip_wanted_precision(value);
-  _impl_._has_bits_[4] |= 0x08000000u;
+  _impl_._has_bits_[4] |= 0x00020000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.mip_wanted_precision)
 }
 inline double SatParameters::_internal_mip_wanted_precision() const {
@@ -11412,13 +10870,13 @@ inline void SatParameters::_internal_set_mip_wanted_precision(double value) {
 
 // optional int32 mip_max_activity_exponent = 127 [default = 53];
 inline bool SatParameters::has_mip_max_activity_exponent() const {
-  bool value = (_impl_._has_bits_[4] & 0x20000000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00008000u) != 0;
   return value;
 }
 inline void SatParameters::clear_mip_max_activity_exponent() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.mip_max_activity_exponent_ = 53;
-  _impl_._has_bits_[4] &= ~0x20000000u;
+  _impl_._has_bits_[4] &= ~0x00008000u;
 }
 inline ::int32_t SatParameters::mip_max_activity_exponent() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.mip_max_activity_exponent)
@@ -11426,7 +10884,7 @@ inline ::int32_t SatParameters::mip_max_activity_exponent() const {
 }
 inline void SatParameters::set_mip_max_activity_exponent(::int32_t value) {
   _internal_set_mip_max_activity_exponent(value);
-  _impl_._has_bits_[4] |= 0x20000000u;
+  _impl_._has_bits_[4] |= 0x00008000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.mip_max_activity_exponent)
 }
 inline ::int32_t SatParameters::_internal_mip_max_activity_exponent() const {
@@ -11440,13 +10898,13 @@ inline void SatParameters::_internal_set_mip_max_activity_exponent(::int32_t val
 
 // optional double mip_check_precision = 128 [default = 0.0001];
 inline bool SatParameters::has_mip_check_precision() const {
-  bool value = (_impl_._has_bits_[4] & 0x10000000u) != 0;
+  bool value = (_impl_._has_bits_[4] & 0x00040000u) != 0;
   return value;
 }
 inline void SatParameters::clear_mip_check_precision() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.mip_check_precision_ = 0.0001;
-  _impl_._has_bits_[4] &= ~0x10000000u;
+  _impl_._has_bits_[4] &= ~0x00040000u;
 }
 inline double SatParameters::mip_check_precision() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.mip_check_precision)
@@ -11454,7 +10912,7 @@ inline double SatParameters::mip_check_precision() const {
 }
 inline void SatParameters::set_mip_check_precision(double value) {
   _internal_set_mip_check_precision(value);
-  _impl_._has_bits_[4] |= 0x10000000u;
+  _impl_._has_bits_[4] |= 0x00040000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.mip_check_precision)
 }
 inline double SatParameters::_internal_mip_check_precision() const {
@@ -11468,13 +10926,13 @@ inline void SatParameters::_internal_set_mip_check_precision(double value) {
 
 // optional bool mip_compute_true_objective_bound = 198 [default = true];
 inline bool SatParameters::has_mip_compute_true_objective_bound() const {
-  bool value = (_impl_._has_bits_[6] & 0x00000100u) != 0;
+  bool value = (_impl_._has_bits_[5] & 0x00000008u) != 0;
   return value;
 }
 inline void SatParameters::clear_mip_compute_true_objective_bound() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.mip_compute_true_objective_bound_ = true;
-  _impl_._has_bits_[6] &= ~0x00000100u;
+  _impl_._has_bits_[5] &= ~0x00000008u;
 }
 inline bool SatParameters::mip_compute_true_objective_bound() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.mip_compute_true_objective_bound)
@@ -11482,7 +10940,7 @@ inline bool SatParameters::mip_compute_true_objective_bound() const {
 }
 inline void SatParameters::set_mip_compute_true_objective_bound(bool value) {
   _internal_set_mip_compute_true_objective_bound(value);
-  _impl_._has_bits_[6] |= 0x00000100u;
+  _impl_._has_bits_[5] |= 0x00000008u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.mip_compute_true_objective_bound)
 }
 inline bool SatParameters::_internal_mip_compute_true_objective_bound() const {
@@ -11496,13 +10954,13 @@ inline void SatParameters::_internal_set_mip_compute_true_objective_bound(bool v
 
 // optional double mip_max_valid_magnitude = 199 [default = 1e+20];
 inline bool SatParameters::has_mip_max_valid_magnitude() const {
-  bool value = (_impl_._has_bits_[6] & 0x00000200u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00000020u) != 0;
   return value;
 }
 inline void SatParameters::clear_mip_max_valid_magnitude() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.mip_max_valid_magnitude_ = 1e+20;
-  _impl_._has_bits_[6] &= ~0x00000200u;
+  _impl_._has_bits_[6] &= ~0x00000020u;
 }
 inline double SatParameters::mip_max_valid_magnitude() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.mip_max_valid_magnitude)
@@ -11510,7 +10968,7 @@ inline double SatParameters::mip_max_valid_magnitude() const {
 }
 inline void SatParameters::set_mip_max_valid_magnitude(double value) {
   _internal_set_mip_max_valid_magnitude(value);
-  _impl_._has_bits_[6] |= 0x00000200u;
+  _impl_._has_bits_[6] |= 0x00000020u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.mip_max_valid_magnitude)
 }
 inline double SatParameters::_internal_mip_max_valid_magnitude() const {
@@ -11524,13 +10982,13 @@ inline void SatParameters::_internal_set_mip_max_valid_magnitude(double value) {
 
 // optional bool mip_treat_high_magnitude_bounds_as_infinity = 278 [default = false];
 inline bool SatParameters::has_mip_treat_high_magnitude_bounds_as_infinity() const {
-  bool value = (_impl_._has_bits_[2] & 0x08000000u) != 0;
+  bool value = (_impl_._has_bits_[2] & 0x00100000u) != 0;
   return value;
 }
 inline void SatParameters::clear_mip_treat_high_magnitude_bounds_as_infinity() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.mip_treat_high_magnitude_bounds_as_infinity_ = false;
-  _impl_._has_bits_[2] &= ~0x08000000u;
+  _impl_._has_bits_[2] &= ~0x00100000u;
 }
 inline bool SatParameters::mip_treat_high_magnitude_bounds_as_infinity() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.mip_treat_high_magnitude_bounds_as_infinity)
@@ -11538,7 +10996,7 @@ inline bool SatParameters::mip_treat_high_magnitude_bounds_as_infinity() const {
 }
 inline void SatParameters::set_mip_treat_high_magnitude_bounds_as_infinity(bool value) {
   _internal_set_mip_treat_high_magnitude_bounds_as_infinity(value);
-  _impl_._has_bits_[2] |= 0x08000000u;
+  _impl_._has_bits_[2] |= 0x00100000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.mip_treat_high_magnitude_bounds_as_infinity)
 }
 inline bool SatParameters::_internal_mip_treat_high_magnitude_bounds_as_infinity() const {
@@ -11552,13 +11010,13 @@ inline void SatParameters::_internal_set_mip_treat_high_magnitude_bounds_as_infi
 
 // optional double mip_drop_tolerance = 232 [default = 1e-16];
 inline bool SatParameters::has_mip_drop_tolerance() const {
-  bool value = (_impl_._has_bits_[6] & 0x04000000u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x00020000u) != 0;
   return value;
 }
 inline void SatParameters::clear_mip_drop_tolerance() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.mip_drop_tolerance_ = 1e-16;
-  _impl_._has_bits_[6] &= ~0x04000000u;
+  _impl_._has_bits_[6] &= ~0x00020000u;
 }
 inline double SatParameters::mip_drop_tolerance() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.mip_drop_tolerance)
@@ -11566,7 +11024,7 @@ inline double SatParameters::mip_drop_tolerance() const {
 }
 inline void SatParameters::set_mip_drop_tolerance(double value) {
   _internal_set_mip_drop_tolerance(value);
-  _impl_._has_bits_[6] |= 0x04000000u;
+  _impl_._has_bits_[6] |= 0x00020000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.mip_drop_tolerance)
 }
 inline double SatParameters::_internal_mip_drop_tolerance() const {
@@ -11580,13 +11038,13 @@ inline void SatParameters::_internal_set_mip_drop_tolerance(double value) {
 
 // optional int32 mip_presolve_level = 261 [default = 2];
 inline bool SatParameters::has_mip_presolve_level() const {
-  bool value = (_impl_._has_bits_[7] & 0x00000020u) != 0;
+  bool value = (_impl_._has_bits_[6] & 0x20000000u) != 0;
   return value;
 }
 inline void SatParameters::clear_mip_presolve_level() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.mip_presolve_level_ = 2;
-  _impl_._has_bits_[7] &= ~0x00000020u;
+  _impl_._has_bits_[6] &= ~0x20000000u;
 }
 inline ::int32_t SatParameters::mip_presolve_level() const {
   // @@protoc_insertion_point(field_get:operations_research.sat.SatParameters.mip_presolve_level)
@@ -11594,7 +11052,7 @@ inline ::int32_t SatParameters::mip_presolve_level() const {
 }
 inline void SatParameters::set_mip_presolve_level(::int32_t value) {
   _internal_set_mip_presolve_level(value);
-  _impl_._has_bits_[7] |= 0x00000020u;
+  _impl_._has_bits_[6] |= 0x20000000u;
   // @@protoc_insertion_point(field_set:operations_research.sat.SatParameters.mip_presolve_level)
 }
 inline ::int32_t SatParameters::_internal_mip_presolve_level() const {

@@ -28,7 +28,6 @@
 #include "absl/container/flat_hash_map.h"
 #include "absl/container/flat_hash_set.h"
 #include "absl/container/inlined_vector.h"
-#include "absl/functional/any_invocable.h"
 #include "absl/log/check.h"
 #include "absl/random/bit_gen_ref.h"
 #include "absl/types/span.h"
@@ -171,8 +170,8 @@ class ClauseManager : public SatPropagator {
 
   // SatPropagator API.
   bool Propagate(Trail* trail) final;
-  absl::Span<const Literal> Reason(const Trail& trail, int trail_index,
-                                   int64_t conflict_id) const final;
+  absl::Span<const Literal> Reason(const Trail& trail,
+                                   int trail_index) const final;
 
   // Returns the reason of the variable at given trail_index. This only works
   // for variable propagated by this class and is almost the same as Reason()
@@ -180,13 +179,13 @@ class ClauseManager : public SatPropagator {
   SatClause* ReasonClause(int trail_index) const;
 
   // Adds a new clause and perform initial propagation for this clause only.
-  bool AddClause(absl::Span<const Literal> literals, Trail* trail, int lbd);
+  bool AddClause(absl::Span<const Literal> literals, Trail* trail);
   bool AddClause(absl::Span<const Literal> literals);
 
   // Same as AddClause() for a removable clause. This is only called on learned
   // conflict, so this should never have all its literal at false (CHECKED).
-  SatClause* AddRemovableClause(absl::Span<const Literal> literals,
-                                Trail* trail, int lbd);
+  SatClause* AddRemovableClause(const std::vector<Literal>& literals,
+                                Trail* trail);
 
   // Lazily detach the given clause. The deletion will actually occur when
   // CleanUpWatchers() is called. The later needs to be called before any other
@@ -326,12 +325,6 @@ class ClauseManager : public SatPropagator {
     return watchers_on_false_[false_literal];
   }
 
-  void SetAddClauseCallback(
-      absl::AnyInvocable<void(int lbd, absl::Span<const Literal>)>
-          add_clause_callback) {
-    add_clause_callback_ = std::move(add_clause_callback);
-  }
-
  private:
   // Attaches the given clause. This eventually propagates a literal which is
   // enqueued on the trail. Returns false if a contradiction was encountered.
@@ -350,8 +343,7 @@ class ClauseManager : public SatPropagator {
   // Common code between LazyDetach() and Detach().
   void InternalDetach(SatClause* clause);
 
-  util_intops::StrongVector<LiteralIndex, std::vector<Watcher>>
-      watchers_on_false_;
+  absl::StrongVector<LiteralIndex, std::vector<Watcher>> watchers_on_false_;
 
   // SatClause reasons by trail_index.
   std::vector<SatClause*> reasons_;
@@ -386,9 +378,6 @@ class ClauseManager : public SatPropagator {
   absl::flat_hash_map<SatClause*, ClauseInfo> clauses_info_;
 
   DratProofHandler* drat_proof_handler_ = nullptr;
-
-  absl::AnyInvocable<void(int lbd, absl::Span<const Literal>)>
-      add_clause_callback_ = nullptr;
 };
 
 // A binary clause. This is used by BinaryClauseManager.
@@ -504,8 +493,8 @@ class BinaryImplicationGraph : public SatPropagator {
 
   // SatPropagator interface.
   bool Propagate(Trail* trail) final;
-  absl::Span<const Literal> Reason(const Trail& trail, int trail_index,
-                                   int64_t conflict_id) const final;
+  absl::Span<const Literal> Reason(const Trail& trail,
+                                   int trail_index) const final;
 
   // Resizes the data structure.
   void Resize(int num_variables);
@@ -540,8 +529,9 @@ class BinaryImplicationGraph : public SatPropagator {
   // were we keep new implication and add them in batches.
   void EnableSharing(bool enable) { enable_sharing_ = enable; }
   void SetAdditionCallback(std::function<void(Literal, Literal)> f) {
-    add_binary_callback_ = f;
+    add_callback_ = f;
   }
+
   // An at most one constraint of size n is a compact way to encode n * (n - 1)
   // implications. This must only be called at level zero.
   //
@@ -689,8 +679,8 @@ class BinaryImplicationGraph : public SatPropagator {
     return num_redundant_implications_;
   }
 
-  // Returns the number of current implications. Note that a => b and not(b)
-  // => not(a) are counted separately since they appear separately in our
+  // Returns the number of current implications. Note that a => b and not(b) =>
+  // not(a) are counted separately since they appear separately in our
   // propagation lists. The number of size 2 clauses that represent the same
   // thing is half this number.
   int64_t num_implications() const { return num_implications_; }
@@ -784,9 +774,8 @@ class BinaryImplicationGraph : public SatPropagator {
   template <bool use_weight = true>
   std::vector<Literal> ExpandAtMostOneWithWeight(
       absl::Span<const Literal> at_most_one,
-      const util_intops::StrongVector<LiteralIndex, bool>& can_be_included,
-      const util_intops::StrongVector<LiteralIndex, double>&
-          expanded_lp_values);
+      const absl::StrongVector<LiteralIndex, bool>& can_be_included,
+      const absl::StrongVector<LiteralIndex, double>& expanded_lp_values);
 
   // Restarts the at_most_one iterator.
   void ResetAtMostOneIterator() { at_most_one_iterator_ = 0; }
@@ -861,12 +850,12 @@ class BinaryImplicationGraph : public SatPropagator {
   //
   // TODO(user): We could be even more efficient since a size of int32_t is
   // enough for us and we could store in common the inlined/not-inlined size.
-  util_intops::StrongVector<LiteralIndex, absl::InlinedVector<Literal, 6>>
+  absl::StrongVector<LiteralIndex, absl::InlinedVector<Literal, 6>>
       implications_;
   int64_t num_implications_ = 0;
 
   // Used by RemoveDuplicates() and NotifyPossibleDuplicate().
-  util_intops::StrongVector<LiteralIndex, bool> might_have_dups_;
+  absl::StrongVector<LiteralIndex, bool> might_have_dups_;
   std::vector<Literal> to_clean_;
 
   // Internal representation of at_most_one constraints. Each entry point to the
@@ -880,7 +869,7 @@ class BinaryImplicationGraph : public SatPropagator {
   //
   // TODO(user): We could be more cache efficient by combining this with
   // implications_ in some way. Do some propagation speed benchmark.
-  util_intops::StrongVector<LiteralIndex, absl::InlinedVector<int32_t, 6>>
+  absl::StrongVector<LiteralIndex, absl::InlinedVector<int32_t, 6>>
       at_most_ones_;
   std::vector<Literal> at_most_one_buffer_;
   const int at_most_one_max_expansion_size_;
@@ -929,33 +918,33 @@ class BinaryImplicationGraph : public SatPropagator {
   bool is_dag_ = false;
   std::vector<LiteralIndex> reverse_topological_order_;
   Bitset64<LiteralIndex> is_redundant_;
-  util_intops::StrongVector<LiteralIndex, LiteralIndex> representative_of_;
+  absl::StrongVector<LiteralIndex, LiteralIndex> representative_of_;
 
   // For in-processing and removing variables.
   std::vector<Literal> direct_implications_;
   std::vector<Literal> direct_implications_of_negated_literal_;
-  util_intops::StrongVector<LiteralIndex, bool> in_direct_implications_;
-  util_intops::StrongVector<LiteralIndex, bool> is_removed_;
-  util_intops::StrongVector<LiteralIndex, int> estimated_sizes_;
+  absl::StrongVector<LiteralIndex, bool> in_direct_implications_;
+  absl::StrongVector<LiteralIndex, bool> is_removed_;
+  absl::StrongVector<LiteralIndex, int> estimated_sizes_;
 
   // For RemoveFixedVariables().
   int num_processed_fixed_variables_ = 0;
 
   bool enable_sharing_ = true;
-  std::function<void(Literal, Literal)> add_binary_callback_ = nullptr;
+  std::function<void(Literal, Literal)> add_callback_ = nullptr;
 };
 
 extern template std::vector<Literal>
 BinaryImplicationGraph::ExpandAtMostOneWithWeight<true>(
     const absl::Span<const Literal> at_most_one,
-    const util_intops::StrongVector<LiteralIndex, bool>& can_be_included,
-    const util_intops::StrongVector<LiteralIndex, double>& expanded_lp_values);
+    const absl::StrongVector<LiteralIndex, bool>& can_be_included,
+    const absl::StrongVector<LiteralIndex, double>& expanded_lp_values);
 
 extern template std::vector<Literal>
 BinaryImplicationGraph::ExpandAtMostOneWithWeight<false>(
     const absl::Span<const Literal> at_most_one,
-    const util_intops::StrongVector<LiteralIndex, bool>& can_be_included,
-    const util_intops::StrongVector<LiteralIndex, double>& expanded_lp_values);
+    const absl::StrongVector<LiteralIndex, bool>& can_be_included,
+    const absl::StrongVector<LiteralIndex, double>& expanded_lp_values);
 
 }  // namespace sat
 }  // namespace operations_research

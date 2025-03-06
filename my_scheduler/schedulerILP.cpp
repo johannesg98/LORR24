@@ -176,7 +176,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
                     }
                 }
                 if (!solutionFound){
-                    std::cout << "Keine Loesung gefunden du Spacko XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+                    std::cout << "Keine Loesung gefunden XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
                 }
             }
         }
@@ -193,7 +193,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     // Print elapsed time
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - startElapsed;
-    std::cout << "Time Total: " << elapsed.count() << " seconds" << std::endl;
+    std::cout << "Time Total ILP Scheduler: " << elapsed.count() << " seconds" << std::endl;
 
 
     #ifndef NDEBUG

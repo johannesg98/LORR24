@@ -1,5 +1,16 @@
 #include "envWrapper.h"
 #include <iostream>
+#include <algorithm>
+#include <random>
+
+
+// Function to read the first line in a file
+int read_first_line_as_int(const std::string& filename) {
+    std::ifstream file(filename);
+    int first_line_value;
+    file >> first_line_value;
+    return first_line_value;
+}
 
 // constructor
 LRRenv::LRRenv(
@@ -13,12 +24,14 @@ LRRenv::LRRenv(
                 int preprocessTimeLimit,
                 std::string logFile,
                 int logDetailLevel,
-                RewardType rewardType,
-                std::unordered_set<std::string> observationTypes
+                std::string rewardType,
+                std::unordered_set<std::string> observationTypes,
+                std::string random_agents_and_tasks
                 ) 
                 : done(false), step_count(0), inputFile(inputFile), outputFile(outputFile), outputScreen(outputScreen), evaluationMode(evaluationMode),
                 simulationTime(simulationTime), fileStoragePath(fileStoragePath), planTimeLimit(planTimeLimit), preprocessTimeLimit(preprocessTimeLimit),
-                logFile(logFile), logDetailLevel(logDetailLevel), rewardType(rewardType), observationTypes(std::move(observationTypes))
+                logFile(logFile), logDetailLevel(logDetailLevel), rewardType(rewardType), observationTypes(std::move(observationTypes)),
+                random_agents_and_tasks(random_agents_and_tasks)
 {
     std::cout << "Environment constructed" << std::endl;
 }
@@ -27,8 +40,8 @@ LRRenv::LRRenv(
 std::tuple<pybind11::dict, double, bool> LRRenv::reset(
                                                         std::string inputFile_, std::string outputFile_, int outputScreen_,
                                                         bool evaluationMode_, int simulationTime_, std::string fileStoragePath_,
-                                                        int planTimeLimit_, int preprocessTimeLimit_, std::string logFile_, int logDetailLevel_, RewardType rewardType_,
-                                                        std::unordered_set<std::string> observationTypes_)
+                                                        int planTimeLimit_, int preprocessTimeLimit_, std::string logFile_, int logDetailLevel_, std::string rewardType_,
+                                                        std::unordered_set<std::string> observationTypes_, std::string random_agents_and_tasks_)
 {   
     std::cout << "reset started cpp" << std::endl;
 
@@ -46,8 +59,9 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     if (preprocessTimeLimit_ != -1) preprocessTimeLimit = preprocessTimeLimit_;
     if (!logFile_.empty()) logFile = logFile_;
     if (logDetailLevel_ != -1) logDetailLevel = logDetailLevel_;
-    if (rewardType_ != RewardType::INVALID) rewardType = rewardType_;
+    if (rewardType_ != "invalid") rewardType = rewardType_;
     if (!observationTypes_.count("-1")) observationTypes = observationTypes_;
+    if (random_agents_and_tasks_ != "no_input") random_agents_and_tasks = random_agents_and_tasks_;
 
     // create base folder as in driver.cpp
     boost::filesystem::path p(inputFile);
@@ -111,9 +125,29 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     // create simulation system as in driver.cpp
     model = new ActionModelWithRotate(*grid);
     model->set_logger(logger);
+
     int team_size = read_param_json<int>(data, "teamSize");
-    agents = read_int_vec(base_folder + read_param_json<std::string>(data, "agentFile"), team_size);
+    // agents = read_int_vec(base_folder + read_param_json<std::string>(data, "agentFile"), team_size);
+    
+    std::string agent_file = base_folder + read_param_json<std::string>(data, "agentFile");
+    int total_agents = read_first_line_as_int(agent_file);
+    std::vector<int> all_agents = read_int_vec(agent_file, total_agents);
+
     tasks = read_int_vec(base_folder + read_param_json<std::string>(data, "taskFile"));
+
+    
+
+    // Shuffle agents and tasks
+    if (random_agents_and_tasks == "true"){
+        std::cout << "Shuffling agents and tasks" << std::endl;
+        std::random_device rd;
+        std::mt19937 g(rd());
+        std::shuffle(all_agents.begin(), all_agents.end(), g);
+        std::shuffle(tasks.begin(), tasks.end(), g);
+    }
+
+    agents.assign(all_agents.begin(), all_agents.begin() + team_size);
+
     if (agents.size() > tasks.size())
         logger->log_warning("Not enough tasks for robots (number of tasks < team size)");
     system_ptr = std::make_unique<BaseSystem>(*grid, planner, agents, tasks, model);
@@ -141,21 +175,22 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
 }
 
 
-std::tuple<pybind11::dict, double, bool> LRRenv::step(const std::unordered_map<std::string, pybind11::object>& action_dict) {
+std::tuple<pybind11::dict, pybind11::dict, bool, pybind11::dict> LRRenv::step(const std::unordered_map<std::string, pybind11::object>& action_dict) {
     done = system_ptr->step(action_dict);
 
 
-    double reward = system_ptr->get_reward(RewardType::TASKFINISHED);
+    pybind11::dict reward = system_ptr->get_reward();
+    pybind11::dict info = system_ptr->get_info();
     pybind11::dict obs = system_ptr->get_observation(observationTypes);
 
     if (done){
         system_ptr->saveResults(outputFile,outputScreen);
         delete model;
         delete logger;
-        std::cout << "Environment closed" << std::endl;
+        std::cout << "Environment closed and results saved in: " << outputFile << std::endl;
     }
 
-    return {obs, reward, done};
+    return {obs, reward, done, info};
 }
 
 
@@ -168,13 +203,9 @@ void LRRenv::make_env_params_available(){
 
 // Bindings to Python
 PYBIND11_MODULE(envWrapper, m) {
-    pybind11::enum_<RewardType>(m, "RewardType")
-        .value("TASKFINISHED", RewardType::TASKFINISHED)
-        .value("INVALID", RewardType::INVALID)
-        .export_values();
     pybind11::class_<LRRenv>(m, "LRRenv")
         .def(pybind11::init<
-            std::string, std::string, int, bool, int, std::string, int, int, std::string, int, RewardType, std::unordered_set<std::string>>(),
+            std::string, std::string, int, bool, int, std::string, int, int, std::string, int, std::string, std::unordered_set<std::string>, std::string>(),
             pybind11::arg("inputFile"),
             pybind11::arg("outputFile") = "./outputs/pyTest.json",
             pybind11::arg("outputScreen") = 1,
@@ -185,8 +216,9 @@ PYBIND11_MODULE(envWrapper, m) {
             pybind11::arg("preprocessTimeLimit") = 30000,
             pybind11::arg("logFile") = "",
             pybind11::arg("logDetailLevel") = 1,
-            pybind11::arg("rewardType") = RewardType::TASKFINISHED,
-            pybind11::arg("observationTypes") = std::unordered_set<std::string>()
+            pybind11::arg("rewardType") = "task-finished",
+            pybind11::arg("observationTypes") = std::unordered_set<std::string>(),
+            pybind11::arg("random_agents_and_tasks") = "true"
         )
         .def("reset", &LRRenv::reset,
             pybind11::arg("inputFile_") = "",
@@ -199,8 +231,10 @@ PYBIND11_MODULE(envWrapper, m) {
             pybind11::arg("preprocessTimeLimit_") = -1,
             pybind11::arg("logFile_") = "",
             pybind11::arg("logDetailLevel_") = -1,
-            pybind11::arg("rewardType_") = RewardType::INVALID,
-            pybind11::arg("observationTypes_") = std::unordered_set<std::string>{"-1"}
+            pybind11::arg("rewardType_") = "invalid",
+            pybind11::arg("observationTypes_") = std::unordered_set<std::string>{"-1"},
+            pybind11::arg("random_agents_and_tasks_") = "no_input"
+
         )
         .def("step", &LRRenv::step, 
             pybind11::arg("reb_action") = pybind11::dict())   

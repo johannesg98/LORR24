@@ -19,8 +19,19 @@
 #include <intrin.h>
 #endif
 
-#if defined(__SSE__) || defined(__AVX__)
-// Pulls in both SSE and AVX intrinsics.
+#ifdef __SSE__
+#include <xmmintrin.h>
+#endif
+
+#ifdef __SSE2__
+#include <emmintrin.h>
+#endif
+
+#ifdef __SSE3__
+#include <pmmintrin.h>
+#endif
+
+#ifdef __AVX__
 #include <immintrin.h>
 #endif
 
@@ -33,7 +44,6 @@
 #include <cstdint>
 #include <cstring>
 
-#include "absl/base/attributes.h"
 #include "absl/base/config.h"
 #include "absl/base/optimization.h"
 
@@ -47,9 +57,7 @@ namespace crc_internal {
 // memcpy can save 1 DRAM load of the destination cacheline.
 constexpr size_t kCacheLineSize = ABSL_CACHELINE_SIZE;
 
-// If the objects overlap, the behavior is undefined. Uses regular memcpy
-// instead of non-temporal memcpy if the required CPU intrinsics are unavailable
-// at compile time.
+// If the objects overlap, the behavior is undefined.
 inline void *non_temporal_store_memcpy(void *__restrict dst,
                                        const void *__restrict src, size_t len) {
 #if defined(__SSE3__) || defined(__aarch64__) || \
@@ -111,20 +119,10 @@ inline void *non_temporal_store_memcpy(void *__restrict dst,
 #endif  // __SSE3__ || __aarch64__ || (_MSC_VER && __AVX__)
 }
 
-// If the objects overlap, the behavior is undefined. Uses regular memcpy
-// instead of non-temporal memcpy if the required CPU intrinsics are unavailable
-// at compile time.
-#if ABSL_HAVE_CPP_ATTRIBUTE(gnu::target) && \
-    (defined(__x86_64__) || defined(__i386__))
-[[gnu::target("avx")]]
-#endif
 inline void *non_temporal_store_memcpy_avx(void *__restrict dst,
                                            const void *__restrict src,
                                            size_t len) {
-  // This function requires AVX. For clang and gcc we compile it with AVX even
-  // if the translation unit isn't built with AVX support. This works because we
-  // only select this implementation at runtime if the CPU supports AVX.
-#if defined(__SSE3__) || (defined(_MSC_VER) && defined(__AVX__))
+#ifdef __AVX__
   uint8_t *d = reinterpret_cast<uint8_t *>(dst);
   const uint8_t *s = reinterpret_cast<const uint8_t *>(src);
 
@@ -170,8 +168,9 @@ inline void *non_temporal_store_memcpy_avx(void *__restrict dst,
   }
   return dst;
 #else
+  // Fallback to regular memcpy when AVX is not available.
   return memcpy(dst, src, len);
-#endif  // __SSE3__ || (_MSC_VER && __AVX__)
+#endif  // __AVX__
 }
 
 }  // namespace crc_internal

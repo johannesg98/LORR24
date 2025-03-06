@@ -244,20 +244,20 @@ class StampingSimplifier {
   int64_t num_fixed_ = 0;
 
   // Encode a spanning tree of the implication graph.
-  util_intops::StrongVector<LiteralIndex, LiteralIndex> parents_;
+  absl::StrongVector<LiteralIndex, LiteralIndex> parents_;
 
   // Adjacency list representation of the parents_ tree.
-  util_intops::StrongVector<LiteralIndex, int> sizes_;
-  util_intops::StrongVector<LiteralIndex, int> starts_;
+  absl::StrongVector<LiteralIndex, int> sizes_;
+  absl::StrongVector<LiteralIndex, int> starts_;
   std::vector<LiteralIndex> children_;
 
   // Temporary data for the DFS.
-  util_intops::StrongVector<LiteralIndex, bool> marked_;
+  absl::StrongVector<LiteralIndex, bool> marked_;
   std::vector<LiteralIndex> dfs_stack_;
 
   // First/Last visited index in a DFS of the tree above.
-  util_intops::StrongVector<LiteralIndex, int> first_stamps_;
-  util_intops::StrongVector<LiteralIndex, int> last_stamps_;
+  absl::StrongVector<LiteralIndex, int> first_stamps_;
+  absl::StrongVector<LiteralIndex, int> last_stamps_;
 };
 
 // A clause c is "blocked" by a literal l if all clauses containing the
@@ -299,18 +299,18 @@ class BlockedClauseSimplifier {
   int64_t num_inspected_literals_ = 0;
 
   // Temporary vector to mark literal of a clause.
-  util_intops::StrongVector<LiteralIndex, bool> marked_;
+  absl::StrongVector<LiteralIndex, bool> marked_;
 
   // List of literal to process.
   // TODO(user): use priority queue?
-  util_intops::StrongVector<LiteralIndex, bool> in_queue_;
+  absl::StrongVector<LiteralIndex, bool> in_queue_;
   std::deque<Literal> queue_;
 
   // We compute the occurrence graph just once at the beginning of each round
   // and we do not shrink it as we remove blocked clauses.
   DEFINE_STRONG_INDEX_TYPE(rat_literal_clause_index);
-  util_intops::StrongVector<ClauseIndex, SatClause*> clauses_;
-  util_intops::StrongVector<LiteralIndex, std::vector<ClauseIndex>>
+  absl::StrongVector<ClauseIndex, SatClause*> clauses_;
+  absl::StrongVector<LiteralIndex, std::vector<ClauseIndex>>
       literal_to_clauses_;
 };
 
@@ -367,7 +367,7 @@ class BoundedVariableElimination {
   int64_t score_threshold_;
 
   // Temporary vector to mark literal of a clause and compute its resolvant.
-  util_intops::StrongVector<LiteralIndex, bool> marked_;
+  absl::StrongVector<LiteralIndex, bool> marked_;
   std::vector<Literal> resolvant_;
 
   // Priority queue of variable to process.
@@ -385,17 +385,17 @@ class BoundedVariableElimination {
   IntegerPriorityQueue<VariableWithPriority> queue_;
 
   // We update the queue_ in batch.
-  util_intops::StrongVector<BooleanVariable, bool> in_need_to_be_updated_;
+  absl::StrongVector<BooleanVariable, bool> in_need_to_be_updated_;
   std::vector<BooleanVariable> need_to_be_updated_;
 
   // We compute the occurrence graph just once at the beginning of each round.
   // We maintains the sizes at all time and lazily shrink the graph with deleted
   // clauses.
   DEFINE_STRONG_INDEX_TYPE(ClauseIndex);
-  util_intops::StrongVector<ClauseIndex, SatClause*> clauses_;
-  util_intops::StrongVector<LiteralIndex, std::vector<ClauseIndex>>
+  absl::StrongVector<ClauseIndex, SatClause*> clauses_;
+  absl::StrongVector<LiteralIndex, std::vector<ClauseIndex>>
       literal_to_clauses_;
-  util_intops::StrongVector<LiteralIndex, int> literal_to_num_clauses_;
+  absl::StrongVector<LiteralIndex, int> literal_to_num_clauses_;
 };
 
 }  // namespace sat

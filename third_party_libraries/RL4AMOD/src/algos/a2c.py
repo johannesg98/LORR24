@@ -151,12 +151,21 @@ class A2C(nn.Module):
                 # stop episode if terminating conditions are met
                 if done:
                     break
+
+                obs = new_obs
             
             # perform on-policy backprop
-            p_loss, v_loss = self.training_step()
+            v_loss, p_loss = self.training_step()
 
             # Send current statistics to screen
             epochs.set_description(f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | ServedDemand: {episode_served_demand:.2f} | Reb. Cost: {episode_rebalancing_cost:.2f}")
+
+            if self.tensorboard is not None:
+                self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
+                self.tensorboard.add_scalar("Served Demand", episode_served_demand, i_episode)
+                self.tensorboard.add_scalar("Rebalancing Cost", episode_rebalancing_cost, i_episode)
+                self.tensorboard.add_scalar("Policy Loss", np.array(p_loss).mean(), i_episode)
+                self.tensorboard.add_scalar("Value Loss", np.array(v_loss).mean(), i_episode)
             
             self.save_checkpoint(
                 path=f"ckpt/{cfg.model.checkpoint_path}.pth"

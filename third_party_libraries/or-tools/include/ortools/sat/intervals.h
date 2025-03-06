@@ -201,12 +201,12 @@ class IntervalsRepository {
 
   // Literal indicating if the tasks is executed. Tasks that are always executed
   // will have a kNoLiteralIndex entry in this vector.
-  util_intops::StrongVector<IntervalVariable, LiteralIndex> is_present_;
+  absl::StrongVector<IntervalVariable, LiteralIndex> is_present_;
 
   // The integer variables for each tasks.
-  util_intops::StrongVector<IntervalVariable, AffineExpression> starts_;
-  util_intops::StrongVector<IntervalVariable, AffineExpression> ends_;
-  util_intops::StrongVector<IntervalVariable, AffineExpression> sizes_;
+  absl::StrongVector<IntervalVariable, AffineExpression> starts_;
+  absl::StrongVector<IntervalVariable, AffineExpression> ends_;
+  absl::StrongVector<IntervalVariable, AffineExpression> sizes_;
 
   // We can share the helper for all the propagators that work on the same set
   // of intervals.
@@ -243,25 +243,13 @@ struct TaskTime {
   bool operator>(TaskTime other) const { return time > other.time; }
 };
 
-// We have some free space in TaskTime.
-// We stick the presence_lit to save an indirection in some algo.
-//
-// TODO(user): Experiment caching more value. In particular
-// TaskByIncreasingShiftedStartMin() could tie break task for better heuristics?
-struct CachedTaskBounds {
-  int task_index;
-  LiteralIndex presence_lit;
-  IntegerValue time;
-  bool operator<(CachedTaskBounds other) const { return time < other.time; }
-  bool operator>(CachedTaskBounds other) const { return time > other.time; }
-};
-
 // Helper class shared by the propagators that manage a given list of tasks.
 //
 // One of the main advantage of this class is that it allows to share the
 // vectors of tasks sorted by various criteria between propagator for a faster
 // code.
-class SchedulingConstraintHelper : public PropagatorInterface {
+class SchedulingConstraintHelper : public PropagatorInterface,
+                                   ReversibleInterface {
  public:
   // All the functions below refer to a task by its index t in the tasks
   // vector given at construction.
@@ -283,6 +271,7 @@ class SchedulingConstraintHelper : public PropagatorInterface {
   bool Propagate() final;
   bool IncrementalPropagate(const std::vector<int>& watch_indices) final;
   void RegisterWith(GenericLiteralWatcher* watcher);
+  void SetLevel(int level) final;
 
   // Resets the class to the same state as if it was constructed with
   // the given subset of tasks from other.
@@ -297,7 +286,6 @@ class SchedulingConstraintHelper : public PropagatorInterface {
   // MUST be called at the beginning of all Propagate() call that uses this
   // helper.
   void SetTimeDirection(bool is_forward);
-  bool CurrentTimeIsForward() const { return current_time_direction_; }
   ABSL_MUST_USE_RESULT bool SynchronizeAndSetTimeDirection(bool is_forward);
 
   // Helpers for the current bounds on the current task time window.
@@ -328,9 +316,6 @@ class SchedulingConstraintHelper : public PropagatorInterface {
   }
   IntegerValue LevelZeroStartMax(int t) const {
     return integer_trail_->LevelZeroUpperBound(starts_[t]);
-  }
-  IntegerValue LevelZeroEndMax(int t) const {
-    return integer_trail_->LevelZeroUpperBound(ends_[t]);
   }
 
   // In the presence of tasks with a variable size, we do not necessarily
@@ -368,11 +353,6 @@ class SchedulingConstraintHelper : public PropagatorInterface {
   bool IsPresent(int t) const;
   bool IsAbsent(int t) const;
 
-  // Same if one already have the presence LiteralIndex of a task.
-  bool IsOptional(LiteralIndex lit) const;
-  bool IsPresent(LiteralIndex lit) const;
-  bool IsAbsent(LiteralIndex lit) const;
-
   // Return a value so that End(a) + dist <= Start(b).
   // Returns kMinInterValue if we don't have any such relation.
   IntegerValue GetCurrentMinDistanceBetweenTasks(
@@ -399,12 +379,10 @@ class SchedulingConstraintHelper : public PropagatorInterface {
   // TODO(user): we could merge the first loop of IncrementalSort() with the
   // loop that fill TaskTime.time at each call.
   absl::Span<const TaskTime> TaskByIncreasingStartMin();
-  absl::Span<const TaskTime> TaskByDecreasingEndMax();
-
-  absl::Span<const TaskTime> TaskByIncreasingNegatedStartMax();
   absl::Span<const TaskTime> TaskByIncreasingEndMin();
-
-  absl::Span<const CachedTaskBounds> TaskByIncreasingShiftedStartMin();
+  absl::Span<const TaskTime> TaskByDecreasingStartMax();
+  absl::Span<const TaskTime> TaskByDecreasingEndMax();
+  absl::Span<const TaskTime> TaskByIncreasingShiftedStartMin();
 
   // Returns a sorted vector where each task appear twice, the first occurrence
   // is at size (end_min - size_min) and the second one at (end_min).
@@ -436,7 +414,6 @@ class SchedulingConstraintHelper : public PropagatorInterface {
   void AddStartMaxReason(int t, IntegerValue upper_bound);
   void AddEndMinReason(int t, IntegerValue lower_bound);
   void AddEndMaxReason(int t, IntegerValue upper_bound);
-  void AddShiftedEndMaxReason(int t, IntegerValue upper_bound);
 
   void AddEnergyAfterReason(int t, IntegerValue energy_min, IntegerValue time);
   void AddEnergyMinInIntervalReason(int t, IntegerValue min, IntegerValue max);
@@ -487,7 +464,9 @@ class SchedulingConstraintHelper : public PropagatorInterface {
 
   // Registers the given propagator id to be called if any of the tasks
   // in this class change. Note that we do not watch size max though.
-  void WatchAllTasks(int id, bool watch_max_side = true);
+  void WatchAllTasks(int id, GenericLiteralWatcher* watcher,
+                     bool watch_start_max = true,
+                     bool watch_end_max = true) const;
 
   // Manages the other helper (used by the diffn constraint).
   //
@@ -543,9 +522,7 @@ class SchedulingConstraintHelper : public PropagatorInterface {
 
   Model* model_;
   Trail* trail_;
-  SatSolver* sat_solver_;
   IntegerTrail* integer_trail_;
-  GenericLiteralWatcher* watcher_;
   PrecedenceRelations* precedence_relations_;
 
   // The current direction of time, true for forward, false for backward.
@@ -564,8 +541,8 @@ class SchedulingConstraintHelper : public PropagatorInterface {
   std::vector<AffineExpression> minus_starts_;
   std::vector<AffineExpression> minus_ends_;
 
-  // This is used to detect when we need to invalidate the cache.
-  int64_t saved_num_backtracks_ = 0;
+  // This is used by SetLevel() to detect untrail.
+  int previous_level_ = 0;
 
   // The caches of all relevant interval values.
   // These are initially of size capacity and never resized.
@@ -584,12 +561,9 @@ class SchedulingConstraintHelper : public PropagatorInterface {
 
   // Sorted vectors returned by the TasksBy*() functions.
   std::vector<TaskTime> task_by_increasing_start_min_;
-  std::vector<TaskTime> task_by_decreasing_end_max_;
-
-  bool recompute_by_start_max_ = true;
-  bool recompute_by_end_min_ = true;
-  std::vector<TaskTime> task_by_increasing_negated_start_max_;
   std::vector<TaskTime> task_by_increasing_end_min_;
+  std::vector<TaskTime> task_by_decreasing_start_max_;
+  std::vector<TaskTime> task_by_decreasing_end_max_;
 
   // Sorted vector returned by GetEnergyProfile().
   bool recompute_energy_profile_ = true;
@@ -597,15 +571,15 @@ class SchedulingConstraintHelper : public PropagatorInterface {
 
   // This one is the most commonly used, so we optimized a bit more its
   // computation by detecting when there is nothing to do.
-  std::vector<CachedTaskBounds> task_by_increasing_shifted_start_min_;
-  std::vector<CachedTaskBounds> task_by_negated_shifted_end_max_;
+  std::vector<TaskTime> task_by_increasing_shifted_start_min_;
+  std::vector<TaskTime> task_by_negated_shifted_end_max_;
   bool recompute_shifted_start_min_ = true;
   bool recompute_negated_shifted_end_max_ = true;
 
   // If recompute_cache_[t] is true, then we need to update all the cached
   // value for the task t in SynchronizeAndSetTimeDirection().
   bool recompute_all_cache_ = true;
-  Bitset64<int> recompute_cache_;
+  std::vector<bool> recompute_cache_;
 
   // Reason vectors.
   std::vector<Literal> literal_reason_;
@@ -616,9 +590,6 @@ class SchedulingConstraintHelper : public PropagatorInterface {
   absl::Span<const int> map_to_other_helper_;
   IntegerValue event_for_other_helper_;
   std::vector<bool> already_added_to_other_reasons_;
-
-  // List of watcher to "wake-up" each time one of the task bounds changes.
-  std::vector<int> propagator_ids_;
 };
 
 // Helper class for cumulative constraint to wrap demands and expose concept
@@ -641,12 +612,8 @@ class SchedulingDemandHelper {
   // this.
   IntegerValue DemandMin(int t) const;
   IntegerValue DemandMax(int t) const;
-  IntegerValue LevelZeroDemandMin(int t) const {
-    return integer_trail_->LevelZeroLowerBound(demands_[t]);
-  }
   bool DemandIsFixed(int t) const;
   void AddDemandMinReason(int t);
-  void AddDemandMinReason(int t, IntegerValue min_demand);
   const std::vector<AffineExpression>& Demands() const { return demands_; }
 
   // Adds the linearized demand (either the affine demand expression, or the
@@ -780,20 +747,6 @@ inline bool SchedulingConstraintHelper::IsAbsent(int t) const {
   return trail_->Assignment().LiteralIsFalse(Literal(reason_for_presence_[t]));
 }
 
-inline bool SchedulingConstraintHelper::IsOptional(LiteralIndex lit) const {
-  return lit != kNoLiteralIndex;
-}
-
-inline bool SchedulingConstraintHelper::IsPresent(LiteralIndex lit) const {
-  if (lit == kNoLiteralIndex) return true;
-  return trail_->Assignment().LiteralIsTrue(Literal(lit));
-}
-
-inline bool SchedulingConstraintHelper::IsAbsent(LiteralIndex lit) const {
-  if (lit == kNoLiteralIndex) return false;
-  return trail_->Assignment().LiteralIsFalse(Literal(lit));
-}
-
 inline void SchedulingConstraintHelper::ClearReason() {
   integer_reason_.clear();
   literal_reason_.clear();
@@ -893,11 +846,6 @@ inline void SchedulingConstraintHelper::AddEndMaxReason(
   AddOtherReason(t);
   DCHECK(!IsAbsent(t));
   AddGenericReason(ends_[t], upper_bound, starts_[t], sizes_[t]);
-}
-
-inline void SchedulingConstraintHelper::AddShiftedEndMaxReason(
-    int t, IntegerValue upper_bound) {
-  AddStartMaxReason(t, upper_bound - SizeMin(t));
 }
 
 inline void SchedulingConstraintHelper::AddEnergyAfterReason(

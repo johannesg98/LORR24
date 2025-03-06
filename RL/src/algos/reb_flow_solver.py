@@ -46,8 +46,13 @@ def solveRebFlow_pulp(env, obs, desired_agent_dist):
     if LpStatus[status] == "Optimal":
         # Collect the rebalancing flows
         flow = defaultdict(int)
+        outgoing_per_node = [0] * env.nNodes
         for (i, j) in edges:
             flow[(i, j)] = int(rebFlow[(i, j)].varValue)
+            outgoing_per_node[i] += flow[(i, j)]
+        #add all agents that stay at a node
+        for i in range(env.nNodes):
+            flow[(i, i)] = obs["free_agents_per_node"][i] - outgoing_per_node[i]
         #print(len(rebFlow.keys()))
        
         #flow_result = {(i, j): value(rebFlow[(i, j)]) for (i, j) in edges}

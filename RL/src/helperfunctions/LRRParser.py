@@ -6,8 +6,8 @@ class LRRParser:
     def __init__(self, env, cfg):
         self.input_size = cfg.input_size
         self.nNodes = env.nNodes
-        self.agent_scale_fac = math.ceil(env.nAgents/env.nNodes*2)
-        self.task_scale_fac = math.ceil(env.nTasks/env.nNodes*2)
+        self.agent_scale_fac = 1/math.ceil(env.nAgents/env.nNodes*4)
+        self.task_scale_fac = 1/math.ceil(env.nTasks/env.nNodes*4)
         self.edge_index = self.get_edge_index(env)
         
         

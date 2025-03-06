@@ -39,7 +39,7 @@ void MAPFPlanner::plan(int time_limit,vector<Action> & actions)
 
     auto now = std::chrono::high_resolution_clock::now();
     
-    DefaultPlanner::plan(limit, actions, env);
+    DefaultPlanner::plan(time_limit/2, actions, env);
 
     std::chrono::duration<double> passed = std::chrono::high_resolution_clock::now() - now;
     std::cout << "Time planning used: " << passed.count() << " seconds" << std::endl;

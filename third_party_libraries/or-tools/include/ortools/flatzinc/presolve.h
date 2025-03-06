@@ -95,7 +95,6 @@ class Presolver {
 
   // Presolve rules.
   void PresolveBool2Int(Constraint* ct);
-  void PresolveInt2Float(Constraint* ct);
   void PresolveStoreAffineMapping(Constraint* ct);
   void PresolveStoreFlatteningMapping(Constraint* ct);
   void PresolveSimplifyElement(Constraint* ct);

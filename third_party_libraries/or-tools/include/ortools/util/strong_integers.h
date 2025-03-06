@@ -57,8 +57,6 @@
 #include <limits>
 #include <ostream>  // NOLINT
 
-#include "absl/base/attributes.h"
-#include "absl/base/port.h"
 #include "absl/strings/str_format.h"
 #include "absl/strings/string_view.h"
 

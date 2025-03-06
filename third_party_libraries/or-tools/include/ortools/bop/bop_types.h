@@ -85,8 +85,7 @@ struct BopConstraintTerm {
     return search_id < other.search_id;
   }
 };
-typedef util_intops::StrongVector<SparseIndex, BopConstraintTerm>
-    BopConstraintTerms;
+typedef absl::StrongVector<SparseIndex, BopConstraintTerm> BopConstraintTerms;
 
 }  // namespace bop
 }  // namespace operations_research

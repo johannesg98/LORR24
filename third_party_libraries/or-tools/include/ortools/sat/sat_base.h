@@ -28,9 +28,11 @@
 #include "absl/base/attributes.h"
 #include "absl/log/check.h"
 #include "absl/strings/str_format.h"
+#include "absl/strings/string_view.h"
 #include "absl/types/span.h"
 #include "ortools/base/logging.h"
 #include "ortools/base/strong_vector.h"
+#include "ortools/sat/model.h"
 #include "ortools/util/bitset.h"
 #include "ortools/util/strong_integers.h"
 
@@ -65,7 +67,9 @@ const LiteralIndex kFalseLiteralIndex(-3);
 // same number XOR 1 encode its negation.
 class Literal {
  public:
-  explicit Literal(int signed_value)
+  // Not explicit for tests so we can write:
+  // vector<literal> literal = {+1, -3, +4, -9};
+  Literal(int signed_value)  // NOLINT
       : index_(signed_value > 0 ? ((signed_value - 1) << 1)
                                 : ((-signed_value - 1) << 1) ^ 1) {
     CHECK_NE(signed_value, 0);
@@ -105,11 +109,6 @@ class Literal {
   bool operator!=(Literal other) const { return index_ != other.index_; }
   bool operator<(const Literal& other) const { return index_ < other.index_; }
 
-  template <typename H>
-  friend H AbslHashValue(H h, Literal literal) {
-    return H::combine(std::move(h), literal.index_);
-  }
-
  private:
   int index_;
 };
@@ -138,17 +137,6 @@ inline std::ostream& operator<<(std::ostream& os,
   }
   os << "]";
   return os;
-}
-
-// Only used for testing to use the classical SAT notation for a literal. This
-// allows to write Literals({+1, -4, +3}) for the clause with BooleanVariable 0
-// and 2 appearing positively and 3 negatively.
-inline std::vector<Literal> Literals(absl::Span<const int> input) {
-  std::vector<Literal> result(input.size());
-  for (int i = 0; i < result.size(); ++i) {
-    result[i] = Literal(input[i]);
-  }
-  return result;
 }
 
 // Holds the current variable assignment of the solver.
@@ -365,17 +353,7 @@ class Trail {
   // Note that this shouldn't be called on a variable at level zero, because we
   // don't cleanup the reason data for these variables but the underlying
   // clauses may have been deleted.
-  //
-  // If conflict_id >= 0, this indicate that this was called as part of the
-  // first-UIP procedure. It has a few implication:
-  //  - The reason do not need to be cached and can be adapted to the current
-  //    conflict.
-  //  - Some data can be reused between two calls about the same conflict.
-  //  - Note however that if the reason is a simple clause, we shouldn't adapt
-  //    it because we rely on extra fact in the first UIP code where we detect
-  //    subsumed clauses for instance.
-  absl::Span<const Literal> Reason(BooleanVariable var,
-                                   int64_t conflict_id = -1) const;
+  absl::Span<const Literal> Reason(BooleanVariable var) const;
 
   // Returns the "type" of an assignment (see AssignmentType). Note that this
   // function never returns kSameReasonAs or kCachedReason, it instead returns
@@ -487,11 +465,11 @@ class Trail {
   VariablesAssignment assignment_;
   std::vector<Literal> trail_;
   std::vector<Literal> conflict_;
-  util_intops::StrongVector<BooleanVariable, AssignmentInfo> info_;
+  absl::StrongVector<BooleanVariable, AssignmentInfo> info_;
   SatClause* failing_sat_clause_;
 
   // Data used by EnqueueWithSameReasonAs().
-  util_intops::StrongVector<BooleanVariable, BooleanVariable>
+  absl::StrongVector<BooleanVariable, BooleanVariable>
       reference_var_with_same_reason_as_;
 
   // Reason cache. Mutable since we want the API to be the same whether the
@@ -518,9 +496,9 @@ class Trail {
   // variables, the memory address of the vectors (kept in reasons_) are still
   // valid.
   mutable std::deque<std::vector<Literal>> reasons_repository_;
-  mutable util_intops::StrongVector<BooleanVariable, absl::Span<const Literal>>
+  mutable absl::StrongVector<BooleanVariable, absl::Span<const Literal>>
       reasons_;
-  mutable util_intops::StrongVector<BooleanVariable, int> old_type_;
+  mutable absl::StrongVector<BooleanVariable, int> old_type_;
 
   // This is used by RegisterPropagator() and Reason().
   std::vector<SatPropagator*> propagators_;
@@ -564,7 +542,7 @@ class SatPropagator {
   // TODO(user): It is not yet 100% the case, but this can be guaranteed to be
   // called with a trail index that will always be the start of a new decision
   // level.
-  virtual void Untrail(const Trail& /*trail*/, int trail_index) {
+  virtual void Untrail(const Trail& trail, int trail_index) {
     propagation_trail_index_ = std::min(propagation_trail_index_, trail_index);
   }
 
@@ -578,13 +556,8 @@ class SatPropagator {
   // The returned Span has to be valid until the literal is untrailed. A client
   // can use trail_.GetEmptyVectorToStoreReason() if it doesn't have a memory
   // location that already contains the reason.
-  //
-  // If conlict id is positive, then this is called during first UIP resolution
-  // and we will backtrack over this literal right away, so we don't need to
-  // have a span that survive more than once.
-  virtual absl::Span<const Literal> Reason(const Trail& /*trail*/,
-                                           int /*trail_index*/,
-                                           int64_t /*conflict_id*/) const {
+  virtual absl::Span<const Literal> Reason(const Trail& trail,
+                                           int /*trail_index*/) const {
     LOG(FATAL) << "Not implemented.";
     return {};
   }
@@ -677,8 +650,7 @@ inline int Trail::AssignmentType(BooleanVariable var) const {
   return type != AssignmentType::kCachedReason ? type : old_type_[var];
 }
 
-inline absl::Span<const Literal> Trail::Reason(BooleanVariable var,
-                                               int64_t conflict_id) const {
+inline absl::Span<const Literal> Trail::Reason(BooleanVariable var) const {
   // Special case for AssignmentType::kSameReasonAs to avoid a recursive call.
   var = ReferenceVarWithSameReason(var);
 
@@ -700,8 +672,7 @@ inline absl::Span<const Literal> Trail::Reason(BooleanVariable var,
   } else {
     DCHECK_LT(info.type, propagators_.size());
     DCHECK(propagators_[info.type] != nullptr) << info.type;
-    reasons_[var] =
-        propagators_[info.type]->Reason(*this, info.trail_index, conflict_id);
+    reasons_[var] = propagators_[info.type]->Reason(*this, info.trail_index);
   }
   old_type_[var] = info.type;
   info_[var].type = AssignmentType::kCachedReason;

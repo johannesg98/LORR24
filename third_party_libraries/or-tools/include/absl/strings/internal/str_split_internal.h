@@ -30,7 +30,6 @@
 #define ABSL_STRINGS_INTERNAL_STR_SPLIT_INTERNAL_H_
 
 #include <array>
-#include <cstddef>
 #include <initializer_list>
 #include <iterator>
 #include <tuple>
@@ -403,10 +402,7 @@ class Splitter {
           ar[index].size = it->size();
           ++it;
         } while (++index != ar.size() && !it.at_end());
-        // We static_cast index to a signed type to work around overzealous
-        // compiler warnings about signedness.
-        v.insert(v.end(), ar.begin(),
-                 ar.begin() + static_cast<ptrdiff_t>(index));
+        v.insert(v.end(), ar.begin(), ar.begin() + index);
       }
       return v;
     }
