@@ -58,6 +58,7 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     double idle_agents = 0;
     int tasks_assigned = 0;
     std::vector<int> task_search_durations;
+    std::vector<int> task_distances;
     int max_dist = env->rows + env->cols;
     for (int agent = 0; agent < proposed_schedule_old.size(); agent++){
         if (proposed_schedule_old[agent] == -1 && task_search_start_times[agent] == -1){
@@ -65,10 +66,11 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
         }
         if (proposed_schedule_old[agent] == -1 && proposed_schedule[agent] != -1){
             int dist = DefaultPlanner::get_h(env, env->curr_states[agent].location, env->task_pool[proposed_schedule[agent]].locations[0]);
+            task_distances.push_back(dist);
             double rew = max_dist - dist;
             rew = static_cast<float>(rew) / max_dist;
-            rew = rew*rew;    // rew^4, otherwise often high rewards
-            Astar_reward += rew;
+            rew = rew*rew*rew*rew;    // rew^4, otherwise often high rewards
+            Astar_reward += rew;//(rew-0.5)*20; // onyl rew
             tasks_assigned++;
             task_search_durations.push_back(env->curr_timestep - task_search_start_times[agent]);
             task_search_start_times[agent] = -1;
@@ -77,9 +79,10 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
             idle_agents++;
         }
     }
-    env->Astar_reward = Astar_reward;
-    env->idle_agents_reward = -idle_agents; // /10
+    env->Astar_reward = Astar_reward * 20; //*20
+    env->idle_agents_reward = -idle_agents*20; // *20
     env->tasks_assigned_reward = tasks_assigned;
     env->task_search_durations = task_search_durations;
+    env->task_distances = task_distances;
     
 }

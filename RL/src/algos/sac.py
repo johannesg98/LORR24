@@ -15,6 +15,26 @@ import time
 
 from src.helperfunctions.skip_actor import skip_actor
 
+class timer:
+    def __init__(self):
+        self.now = time.time()
+        self.outerLoop = 0
+        self.selectAction = 0
+        self.solveReb = 0
+        self.step = 0
+        self.rest = 0
+        self.learning = 0
+
+    def addTime(self):
+        ret = time.time() - self.now
+        self.now = time.time()
+        return ret
+    
+    def printAvgTimes(self, iEpisode):
+        print(f"\n Times: Episode {iEpisode} | Avg outer-loop: {self.outerLoop/iEpisode:.2f} | Avg select-action: {self.selectAction/iEpisode:.2f} | Avg solve-reb: {self.solveReb/iEpisode:.2f} | Avg step: {self.step/iEpisode:.2f} | Avg rest: {self.rest/iEpisode:.2f} | Avg learning: {self.learning/iEpisode:.2f}")
+        
+    
+
 class PairData(Data):
     """
     Store 2 graphs in one Data object (s_t and s_t+1)
@@ -458,6 +478,8 @@ class SAC(nn.Module):
         epochs = trange(train_episodes)  # epoch iterator
         best_reward = -np.inf  # set best reward
         self.train()  # set model in train mode
+        myTimer = timer()
+
 
         for i_episode in epochs:
             self.i_episode = i_episode
@@ -468,9 +490,12 @@ class SAC(nn.Module):
             episode_reward += rew
             episode_num_tasks_finished = 0
             task_search_durations = []
+            task_distances = []
             
             done = False
-            
+
+            myTimer.outerLoop += myTimer.addTime()
+
             while not done:
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
@@ -480,6 +505,7 @@ class SAC(nn.Module):
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
                 desired_agent_dist = self.assign_discrete_actions(total_agents, action_rl)
+                myTimer.selectAction += myTimer.addTime()
 
                 # solve rebalancing
                 reb_action = solveRebFlow(
@@ -489,17 +515,20 @@ class SAC(nn.Module):
                     self.cplexpath,
                 )
                 action_dict = {"reb_action": reb_action}
+                myTimer.solveReb += myTimer.addTime()
 
                 # step
                 new_obs, reward_dict, done, info = self.env.step(action_dict)
+                myTimer.step += myTimer.addTime()
 
                 # reward
-                rew = reward_dict["tasks-assigned"] + reward_dict["idle-agents"]
+                rew = reward_dict["A*-distance"] + reward_dict["idle-agents"]
                 
                 # store in replay buffer
                 new_obs_parsed = self.parser.parse_obs(new_obs).to(self.device)
                 if not cfg.model.mask_impactless_actions or total_agents > 0:
                     self.replay_buffer.store(obs_parsed, action_rl, rew, new_obs_parsed)
+                myTimer.rest += myTimer.addTime()
 
                 # learn
                 if i_episode > 10:
@@ -508,6 +537,7 @@ class SAC(nn.Module):
                         self.update(data=batch, only_q=True)
                     else:
                         self.update(data=batch)
+                    myTimer.learning += myTimer.addTime()
 
                 # obs = new_obs
                 obs = new_obs
@@ -517,18 +547,22 @@ class SAC(nn.Module):
                 episode_reward += rew
                 episode_num_tasks_finished += reward_dict["task-finished"]
                 task_search_durations.extend(info["task-search-durations"])
+                task_distances.extend(info["task-distances"])
                 if info["task-search-durations"]:
                     print("Task assigned after steps", info["task-search-durations"])
+                myTimer.rest += myTimer.addTime()
 
             epochs.set_description(
-                f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | NumTasksFinishe: {episode_num_tasks_finished:.1f}"
+                f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | NumTasksFinishe: {episode_num_tasks_finished:.1f} | Checkpoint: {cfg.model.checkpoint_path}"
             )
+            myTimer.printAvgTimes(i_episode+1)
             if self.wandb is not None:
                 self.wandb.log({"Reward": episode_reward, "Step": i_episode})
             if self.tensorboard is not None:
                 self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
                 self.tensorboard.add_scalar("Num Tasks finished", episode_num_tasks_finished, i_episode)
                 self.tensorboard.add_scalar("Task search duration", np.mean(task_search_durations), i_episode)
+                self.tensorboard.add_scalar("Task distance", np.mean(task_distances), i_episode)
                 
                     
             self.save_checkpoint(

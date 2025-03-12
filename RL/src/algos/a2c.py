@@ -83,7 +83,7 @@ class A2C(nn.Module):
     
 
 
-    def training_step(self):
+    def training_step(self, cfg):
         R = 0
         saved_actions = self.saved_actions
         policy_losses = [] # list to save actor (policy) loss
@@ -97,10 +97,10 @@ class A2C(nn.Module):
             returns.insert(0, R)
 
         returns = torch.tensor(returns)
-        # returns = (returns - returns.mean()) / (returns.std() + self.eps)
+        returns = (returns - returns.mean()) / (returns.std() + self.eps)
 
         for (log_prob, value), R, mask in zip(saved_actions, returns, self.train_mask):
-            if mask:
+            if not cfg.model.mask_impactless_actions or mask:
                 advantage = R - value.item()
 
                 # calculate actor (policy) loss 
@@ -144,18 +144,22 @@ class A2C(nn.Module):
     
             self.episode_num_tasks_finished = 0
             episode_reward = 0
+            task_search_durations = []
+            task_distances = []
             
             obs, rew, _ = self.env.reset()
            
             #self.rewards.append(rew)
             for step in range(T):
-                
+                # actor step
                 action_rl = self.select_action(obs)
                 # action_rl = skip_actor(self.env, obs)
 
+                # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
                 desired_agent_dist = self.assign_discrete_actions(total_agents, action_rl)
 
+                # solve rebalancing
                 reb_action = solveRebFlow(
                     self.env,
                     obs,
@@ -164,19 +168,24 @@ class A2C(nn.Module):
                 ) 
                 action_dict = {"reb_action": reb_action}
 
-                new_obs, reward_dict, done = self.env.step(action_dict)
+                # step
+                new_obs, reward_dict, done, info = self.env.step(action_dict)
 
-                rew = reward_dict["A*-distance"] + reward_dict["idle-agents"]
+                # reward
+                rew = reward_dict["tasks-assigned"] + reward_dict["idle-agents"]
                 self.rewards.append(rew)
-                episode_reward += rew
 
-                self.episode_num_tasks_finished += reward_dict["task-finished"]
-
-                # train mask
-                if total_agents > 0:
+                # mask useless actions
+                if total_agents > 0:    
                     self.train_mask.append(True)
                 else:
                     self.train_mask.append(False)
+
+                # save infos
+                task_search_durations.extend(info["task-search-durations"])
+                self.episode_num_tasks_finished += reward_dict["task-finished"]
+                task_distances.extend(info["task-distances"])
+                episode_reward += rew
 
                 print(f"Episode {i_episode+1} | Step {step+1} | Free agents (before step): {sum(obs['free_agents_per_node'])} | A*-reward: {reward_dict['A*-distance']} | Idle agents reward: {reward_dict['idle-agents']} | Total reward: {rew} | Tasks finished (after step): {reward_dict["task-finished"]}")
                 # print(f"\nxxxxxxxxxxxxxxxxxxx STEP {step} started xxxxxxxxxxxxxxxxxxx")
@@ -199,7 +208,7 @@ class A2C(nn.Module):
                 
             
             # perform on-policy backprop
-            v_loss, p_loss = self.training_step()
+            v_loss, p_loss = self.training_step(cfg)
 
             # Send current statistics to screen
             epochs.set_description(f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | Tasks Finished: {self.episode_num_tasks_finished}")
@@ -214,6 +223,7 @@ class A2C(nn.Module):
                 self.tensorboard.add_scalar("Tasks Finished", self.episode_num_tasks_finished, i_episode)
                 self.tensorboard.add_scalar("Policy Loss", np.array(p_loss).mean(), i_episode)
                 self.tensorboard.add_scalar("Value Loss", np.array(v_loss).mean(), i_episode)
+                self.tensorboard.add_scalar("Task search duration", np.mean(task_search_durations), i_episode)
             
             self.save_checkpoint(
                 path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}.pth")

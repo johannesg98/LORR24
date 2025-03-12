@@ -3,6 +3,7 @@ from omegaconf import DictConfig
 import os 
 import torch
 import sys
+from profilehooks import profile
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 build_path = os.path.join(script_dir, "../envWrapper/build")
@@ -40,11 +41,12 @@ def load_actor_weights(model, path):
     model.actor.load_state_dict(actor_encoder_state)
     return model
 
+
 @hydra.main(version_base=None, config_path=os.path.join(script_dir, "src/config/"), config_name="config")
 def main(cfg: DictConfig):
     
     env = envWrapper.LRRenv(
-        inputFile=os.path.join(script_dir, "../example_problems/custom_warehouse.domain/warehouse_1x1_100.json"),
+        inputFile=os.path.join(script_dir, "../example_problems/custom_warehouse.domain/warehouse_4x3_100.json"),
         outputFile=os.path.join(script_dir, "../outputs/trainRL.json"),
         simulationTime=cfg.model.max_steps,
         planTimeLimit=70,

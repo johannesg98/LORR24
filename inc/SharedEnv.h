@@ -46,6 +46,7 @@ public:
     double idle_agents_reward = 0;
     double tasks_assigned_reward = 0;
     std::vector<int> task_search_durations;
+    std::vector<int> task_distances;
 
     SharedEnvironment(){}
 };

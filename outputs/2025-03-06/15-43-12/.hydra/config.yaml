@@ -1,0 +1,20 @@
+model:
+  name: a2c
+  agent_name: ${now:%Y%m%d}_sac_gnn
+  cplexpath: None
+  directory: saved_files
+  max_episodes: 5000
+  max_steps: 150
+  no_cuda: false
+  batch_size: 100
+  p_lr: 0.001
+  q_lr: 0.001
+  hidden_size: 256
+  clip: 500
+  checkpoint_path: A2C
+  load_from_ckeckpoint: false
+  input_size: 3
+  test_episodes: 10
+  wandb: false
+  tensorboard: true
+  mask_impactless_actions: false

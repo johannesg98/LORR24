@@ -450,6 +450,8 @@ pybind11::dict BaseSystem::get_info(){
     pybind11::dict info_dict;
 
     info_dict["task-search-durations"] = env->task_search_durations;
+
+    info_dict["task-distances"] = env->task_distances;
     
     return info_dict;
 }
