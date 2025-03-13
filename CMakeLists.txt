@@ -98,7 +98,13 @@ ELSE()
     # via third party libraries
     # target_link_libraries(lifelong PRIVATE ortools absl_base absl_strings)
     # via conda
-    target_link_libraries(lifelong PRIVATE ortools::ortools stdc++ pthread dl)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(Cbc REQUIRED IMPORTED_TARGET cbc)
+    pkg_check_modules(OsiCbc REQUIRED IMPORTED_TARGET osi-cbc)
+    pkg_check_modules(Clp REQUIRED IMPORTED_TARGET clp)
+    pkg_check_modules(OsiClp REQUIRED IMPORTED_TARGET osi-clp)
+    target_link_libraries(lifelong PRIVATE ortools::ortools PkgConfig::Cbc PkgConfig::OsiCbc PkgConfig::Clp PkgConfig::OsiClp stdc++ pthread dl)
+    
     target_compile_definitions(lifelong PRIVATE PYTHON=${PYTHON_FLAG})
 
     #copied to IF(PYTHON) to here because always needed after for envWrapper
