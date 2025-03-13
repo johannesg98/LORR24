@@ -24,6 +24,9 @@ def setup_model(cfg, env, parser, device):
     elif model_name == "sac":
         from src.algos.sac import SAC
         return SAC(env=env, input_size=cfg.input_size, cfg=cfg, parser=parser, train_dir=script_dir, device=device).to(device)
+    elif model_name == "td3":
+        from src.algos.td3 import TD3
+        return TD3(env=env, input_size=cfg.input_size, cfg=cfg, parser=parser, train_dir=script_dir, device=device).to(device)
     else:
         raise ValueError(f"Unknown model or baseline: {model_name}")
 

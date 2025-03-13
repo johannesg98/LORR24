@@ -548,8 +548,8 @@ class SAC(nn.Module):
                 episode_num_tasks_finished += reward_dict["task-finished"]
                 task_search_durations.extend(info["task-search-durations"])
                 task_distances.extend(info["task-distances"])
-                if info["task-search-durations"]:
-                    print("Task assigned after steps", info["task-search-durations"])
+                # if info["task-search-durations"]:
+                #     print("Task assigned after steps", info["task-search-durations"])
                 myTimer.rest += myTimer.addTime()
 
             epochs.set_description(

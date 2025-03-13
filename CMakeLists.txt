@@ -33,13 +33,13 @@ file(GLOB SOURCES "src/*.cpp" "default_planner/*.cpp" "my_scheduler/*.cpp")
 #my stuff
 include_directories("my_scheduler")
 
-# via third party libraries
-include_directories("third_party_libraries/cluster/or-tools/include")
-link_directories("third_party_libraries/cluster/or-tools/lib")
+# ortools manual
+# include_directories("third_party_libraries/cluster/or-tools/include")
+# link_directories("third_party_libraries/cluster/or-tools/lib")
 
-# via conda
-# set(CMAKE_PREFIX_PATH $ENV{CONDA_PREFIX})
-# find_package(ortools CONFIG REQUIRED)
+# Link against ortools from conda
+find_package(ortools REQUIRED)
+
 
 
 
@@ -95,16 +95,13 @@ ELSE()
 
     add_executable(lifelong ${SOURCES} )
     target_link_libraries(lifelong PRIVATE ${Boost_LIBRARIES})
-    # via third party libraries
-    target_link_libraries(lifelong PRIVATE ortools absl_base absl_strings)
-    # via conda
-    # find_package(PkgConfig REQUIRED)
-    # pkg_check_modules(Cbc REQUIRED IMPORTED_TARGET cbc)
-    # pkg_check_modules(OsiCbc REQUIRED IMPORTED_TARGET osi-cbc)
-    # pkg_check_modules(Clp REQUIRED IMPORTED_TARGET clp)
-    # pkg_check_modules(OsiClp REQUIRED IMPORTED_TARGET osi-clp)
-    # target_link_libraries(lifelong PRIVATE ortools::ortools PkgConfig::Cbc PkgConfig::OsiCbc PkgConfig::Clp PkgConfig::OsiClp stdc++ pthread dl)
+    
+    # ortools manual
+    # target_link_libraries(lifelong PRIVATE ortools absl_base absl_strings)
 
+    # Link against ortools from conda
+    target_link_libraries(lifelong PRIVATE ortools::ortools)
+   
     target_compile_definitions(lifelong PRIVATE PYTHON=${PYTHON_FLAG})
 
     #copied to IF(PYTHON) to here because always needed after for envWrapper
