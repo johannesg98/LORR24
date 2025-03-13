@@ -38,6 +38,7 @@ include_directories("my_scheduler")
 # link_directories("third_party_libraries/cluster/or-tools/lib")
 
 # Link against ortools from conda
+set(CMAKE_PREFIX_PATH "${CONDA_PREFIX}/lib/cmake/ortools")
 find_package(ortools REQUIRED)
 
 
