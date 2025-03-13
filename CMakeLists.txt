@@ -34,12 +34,12 @@ file(GLOB SOURCES "src/*.cpp" "default_planner/*.cpp" "my_scheduler/*.cpp")
 include_directories("my_scheduler")
 
 # ortools manual
-# include_directories("third_party_libraries/cluster/or-tools/include")
-# link_directories("third_party_libraries/cluster/or-tools/lib")
+include_directories("third_party_libraries/cluster/or-tools/include")
+link_directories("third_party_libraries/cluster/or-tools/lib")
 
 # Link against ortools from conda
-set(CMAKE_PREFIX_PATH "${CONDA_PREFIX}/lib/cmake/ortools")
-find_package(ortools REQUIRED)
+# set(CMAKE_PREFIX_PATH "${CONDA_PREFIX}/lib/cmake/ortools")
+# find_package(ortools REQUIRED)
 
 
 
@@ -98,10 +98,10 @@ ELSE()
     target_link_libraries(lifelong PRIVATE ${Boost_LIBRARIES})
     
     # ortools manual
-    # target_link_libraries(lifelong PRIVATE ortools absl_base absl_strings)
+    target_link_libraries(lifelong PRIVATE ortools absl_base absl_strings)
 
     # Link against ortools from conda
-    target_link_libraries(lifelong PRIVATE ortools::ortools)
+    # target_link_libraries(lifelong PRIVATE ortools::ortools)
    
     target_compile_definitions(lifelong PRIVATE PYTHON=${PYTHON_FLAG})
 
