@@ -34,6 +34,17 @@ LRRenv::LRRenv(
                 random_agents_and_tasks(random_agents_and_tasks)
 {
     std::cout << "Environment constructed" << std::endl;
+
+    auto input_json_file = inputFile;
+    std::ifstream f(input_json_file);
+    try{
+        data = json::parse(f);
+    }
+    catch (json::parse_error error){
+        std::cerr << "Failed to load " << input_json_file << std::endl;
+        std::cerr << "Message: " << error.what() << std::endl;
+        exit(1);
+    }
 }
 
 // reset function with optional arguments to change environment
@@ -49,7 +60,19 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     step_count = 0;
 
     // overwrite existing environment arguments with optional new ones
-    if (!inputFile_.empty()) inputFile = inputFile_;
+    if (!inputFile_.empty()){
+        inputFile = inputFile_;
+        auto input_json_file = inputFile;
+        std::ifstream f(input_json_file);
+        try{
+            data = json::parse(f);
+        }
+        catch (json::parse_error error){
+            std::cerr << "Failed to load " << input_json_file << std::endl;
+            std::cerr << "Message: " << error.what() << std::endl;
+            exit(1);
+        }
+    }
     if (!outputFile_.empty()) outputFile = outputFile_;
     if (outputScreen_ != -1) outputScreen = outputScreen_;
     if (evaluationMode_) evaluationMode = evaluationMode_;
@@ -90,17 +113,6 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     Entry *planner = new Entry();
 
     // load map as in driver.cpp
-    auto input_json_file = inputFile;
-    json data;
-    std::ifstream f(input_json_file);
-    try{
-        data = json::parse(f);
-    }
-    catch (json::parse_error error){
-        std::cerr << "Failed to load " << input_json_file << std::endl;
-        std::cerr << "Message: " << error.what() << std::endl;
-        exit(1);
-    }
     auto map_path = read_param_json<std::string>(data, "mapFile");
     // Grid grid(base_folder + map_path);
     grid.emplace(base_folder + map_path);

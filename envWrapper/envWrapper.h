@@ -30,6 +30,7 @@ private:
     std::string rewardType;
     std::unordered_set<std::string> observationTypes;
     std::string random_agents_and_tasks;
+    json data;
 
     // Command-line arguments stored as class variables
     std::string inputFile;
