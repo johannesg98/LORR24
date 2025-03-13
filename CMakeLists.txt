@@ -98,7 +98,7 @@ ELSE()
     # via third party libraries
     # target_link_libraries(lifelong PRIVATE ortools absl_base absl_strings)
     # via conda
-    target_link_libraries(lifelong PRIVATE ortools::ortools)
+    target_link_libraries(lifelong PRIVATE ortools::ortools stdc++ pthread dl)
     target_compile_definitions(lifelong PRIVATE PYTHON=${PYTHON_FLAG})
 
     #copied to IF(PYTHON) to here because always needed after for envWrapper
