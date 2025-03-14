@@ -21,8 +21,8 @@ list(FILTER SOURCES EXCLUDE REGEX ".*driver\\.cpp$")
 
 #my stuff
 include_directories("../my_scheduler")
-include_directories("../third_party_libraries/or-tools/include")
-link_directories("../third_party_libraries/or-tools/lib")
+include_directories("../third_party_libraries/or-22/or-tools/include")
+link_directories("../third_party_libraries/or-22/or-tools/lib")
 
 # Find Boost
 ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)
