@@ -27,6 +27,11 @@ make -j8
 add envWrapper to python path (not sure if necessary):
 export PYTHONPATH=/home/johannes/LORR24_johannesg98/envWrapper/build:$PYTHONPATH
 
+Run Slurm:
+ssh jgaber@lids-cluster-login.mit.edu
+sbatch --job-name=my_python_job --output=slurm/output.txt --error=slurm/error.txt --time=00:10:00 --ntasks=1 --cpus-per-task=8 --partition=cpu --wrap="python3 RL/train.py"
+git add . && git commit -m"cluster push" && git push
+
 
 Map creation of 4x3 world:
 Go to masterarbeit/Benchmark-Archive/2023 Competition/Problem Generator
