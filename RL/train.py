@@ -80,6 +80,7 @@ def main(cfg: DictConfig):
         wandb5 = wandb.init(
             project="mit_a2c_scheduler",
             entity="johannesg98",
+            name=cfg.model.checkpoint_path,
             config=config
         )
         model.wandb = wandb5

@@ -245,10 +245,7 @@ class SAC(nn.Module):
         q1 = self.critic1(state_batch, edge_index, action_batch)
         q2 = self.critic2(state_batch, edge_index, action_batch)
 
-        if self.wandb is not None:
-            self.wandb.log({"Q1": q1.mean().item()})
-        if self.tensorboard is not None:
-            self.tensorboard.add_scalar("Q1", q1.mean().item(), self.i_episode)
+        self.LogQ1.append(q1.mean().item())
         with torch.no_grad():
             # Target actions come from *current* policy
             a2, logp_a2 = self.actor(next_state_batch, edge_index2)
@@ -370,10 +367,7 @@ class SAC(nn.Module):
             ):
                 p_targ.data.mul_(self.polyak)
                 p_targ.data.add_((1 - self.polyak) * p.data)
-        if self.wandb is not None:
-            self.wandb.log({"Q1 Loss": loss_q1.item()})
-        if self.tensorboard is not None:
-            self.tensorboard.add_scalar("Q1 Loss", loss_q1.item(), self.i_episode)
+        self.LogQ1Loss.append(loss_q1.item())
         if not only_q:
             # Freeze Q-networks so you don't waste computational effort
             # computing gradients for them during the policy learning step.
@@ -395,10 +389,7 @@ class SAC(nn.Module):
             for p in self.critic2.parameters():
                 p.requires_grad = True
 
-            if self.wandb is not None:
-                self.wandb.log({"Policy Loss": loss_pi.item()})
-            if self.tensorboard is not None:
-                self.tensorboard.add_scalar("Policy Loss", loss_pi.item(), self.i_episode)
+            self.LogPolicyLoss.append(loss_pi.item())
 
     def _get_action_and_values(self, data, num_actions, batch_size, action_dim):
       
@@ -491,6 +482,9 @@ class SAC(nn.Module):
             episode_num_tasks_finished = 0
             task_search_durations = []
             task_distances = []
+            self.LogQ1 = []
+            self.LogQ1Loss = []
+            self.LogPolicyLoss = []
             
             done = False
 
@@ -557,12 +551,16 @@ class SAC(nn.Module):
             )
             myTimer.printAvgTimes(i_episode+1)
             if self.wandb is not None:
-                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode})
+                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)})
             if self.tensorboard is not None:
                 self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
                 self.tensorboard.add_scalar("Num Tasks finished", episode_num_tasks_finished, i_episode)
                 self.tensorboard.add_scalar("Task search duration", np.mean(task_search_durations), i_episode)
                 self.tensorboard.add_scalar("Task distance", np.mean(task_distances), i_episode)
+                self.tensorboard.add_scalar("Q1 Loss", np.mean(self.LogQ1Loss), i_episode)
+                self.tensorboard.add_scalar("Policy Loss", np.mean(self.LogPolicyLoss), i_episode)
+                self.tensorboard.add_scalar("Q1", np.mean(self.LogQ1), i_episode)
+            
                 
                     
             self.save_checkpoint(
