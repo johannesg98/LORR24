@@ -79,7 +79,7 @@ def main(cfg: DictConfig):
             config[key] = cfg.model[key]
         wandb5 = wandb.init(
             project="mit_a2c_scheduler",
-            entity="johannesg98-org",
+            entity="johannesg98",
             config=config
         )
         model.wandb = wandb5
