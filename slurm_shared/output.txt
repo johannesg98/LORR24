@@ -1,0 +1,38 @@
+Environment constructed
+reset started cpp
+Shuffling agents and tasks
+[2025-03-14 13:58:04.848816] [0x00007fac8fd96740] [info]    [timestep=0] Preprocessing success
+[2025-03-14 13:58:04.848835] [0x00007fac8fd96740] [info]    Task 0 is revealed
+[2025-03-14 13:58:04.848844] [0x00007fac8fd96740] [info]    Task 1 is revealed
+[2025-03-14 13:58:04.848853] [0x00007fac8fd96740] [info]    Task 2 is revealed
+[2025-03-14 13:58:04.848861] [0x00007fac8fd96740] [info]    Task 3 is revealed
+[2025-03-14 13:58:04.848870] [0x00007fac8fd96740] [info]    Task 4 is revealed
+[2025-03-14 13:58:04.848878] [0x00007fac8fd96740] [info]    Task 5 is revealed
+[2025-03-14 13:58:04.848887] [0x00007fac8fd96740] [info]    Task 6 is revealed
+[2025-03-14 13:58:04.848895] [0x00007fac8fd96740] [info]    Task 7 is revealed
+[2025-03-14 13:58:04.848904] [0x00007fac8fd96740] [info]    Task 8 is revealed
+[2025-03-14 13:58:04.848912] [0x00007fac8fd96740] [info]    Task 9 is revealed
+[2025-03-14 13:58:04.848920] [0x00007fac8fd96740] [info]    Task 10 is revealed
+[2025-03-14 13:58:04.848929] [0x00007fac8fd96740] [info]    Task 11 is revealed
+[2025-03-14 13:58:04.848937] [0x00007fac8fd96740] [info]    Task 12 is revealed
+[2025-03-14 13:58:04.848946] [0x00007fac8fd96740] [info]    Task 13 is revealed
+[2025-03-14 13:58:04.848955] [0x00007fac8fd96740] [info]    Task 14 is revealed
+[2025-03-14 13:58:04.848963] [0x00007fac8fd96740] [info]    Task 15 is revealed
+[2025-03-14 13:58:04.848972] [0x00007fac8fd96740] [info]    Task 16 is revealed
+[2025-03-14 13:58:04.848980] [0x00007fac8fd96740] [info]    Task 17 is revealed
+[2025-03-14 13:58:04.848989] [0x00007fac8fd96740] [info]    Task 18 is revealed
+[2025-03-14 13:58:04.848997] [0x00007fac8fd96740] [info]    Task 19 is revealed
+[2025-03-14 13:58:04.849006] [0x00007fac8fd96740] [info]    Task 20 is revealed
+[2025-03-14 13:58:04.849014] [0x00007fac8fd96740] [info]    Task 21 is revealed
+[2025-03-14 13:58:04.849022] [0x00007fac8fd96740] [info]    Task 22 is revealed
+[2025-03-14 13:58:04.849031] [0x00007fac8fd96740] [info]    Task 23 is revealed
+[2025-03-14 13:58:04.849039] [0x00007fac8fd96740] [info]    Task 24 is revealed
+[2025-03-14 13:58:04.849048] [0x00007fac8fd96740] [info]    Task 25 is revealed
+[2025-03-14 13:58:04.849056] [0x00007fac8fd96740] [info]    Task 26 is revealed
+[2025-03-14 13:58:04.849064] [0x00007fac8fd96740] [info]    Task 27 is revealed
+[2025-03-14 13:58:04.849073] [0x00007fac8fd96740] [info]    Task 28 is revealed
+[2025-03-14 13:58:04.849082] [0x00007fac8fd96740] [info]    Task 29 is revealed
+reset done cpp
+[1;34mwandb[0m: 
+[1;34mwandb[0m: 🚀 View run [33m[0m at: [34mhttps://wandb.ai/johannesg98-org/mit_a2c_scheduler/runs/oqoewpu3[0m
+[1;34mwandb[0m: Find logs at: [1;35mwandb/run-20250314_135820-oqoewpu3/logs[0m
