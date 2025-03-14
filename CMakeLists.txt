@@ -34,8 +34,8 @@ file(GLOB SOURCES "src/*.cpp" "default_planner/*.cpp" "my_scheduler/*.cpp")
 include_directories("my_scheduler")
 
 # ortools manual
-include_directories("third_party_libraries/or-tools_old/include")
-link_directories("third_party_libraries/or-tools_old/lib")
+include_directories("third_party_libraries/or-tools/include")
+link_directories("third_party_libraries/or-tools/lib")
 
 # Link against ortools from conda
 # set(CMAKE_PREFIX_PATH "${CONDA_PREFIX}/lib/cmake/ortools")

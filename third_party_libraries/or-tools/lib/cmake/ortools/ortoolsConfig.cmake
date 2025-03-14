@@ -1,6 +1,6 @@
 ## ortools CMake configuration file
 
-set(ORTOOLS_VERSION 9.10.4067)
+set(ORTOOLS_VERSION 9.11.4210)
 
 
 ####### Expanded from @PACKAGE_INIT@ by configure_package_config_file() #######

@@ -908,6 +908,7 @@ class DualSolutionProto final : public ::google::protobuf::Message
   enum : int {
     kDualValuesFieldNumber = 1,
     kReducedCostsFieldNumber = 2,
+    kQuadraticDualValuesFieldNumber = 5,
     kObjectiveValueFieldNumber = 3,
     kFeasibilityStatusFieldNumber = 4,
   };
@@ -941,6 +942,21 @@ class DualSolutionProto final : public ::google::protobuf::Message
   ::operations_research::math_opt::SparseDoubleVectorProto* _internal_mutable_reduced_costs();
 
   public:
+  // .operations_research.math_opt.SparseDoubleVectorProto quadratic_dual_values = 5;
+  bool has_quadratic_dual_values() const;
+  void clear_quadratic_dual_values() ;
+  const ::operations_research::math_opt::SparseDoubleVectorProto& quadratic_dual_values() const;
+  PROTOBUF_NODISCARD ::operations_research::math_opt::SparseDoubleVectorProto* release_quadratic_dual_values();
+  ::operations_research::math_opt::SparseDoubleVectorProto* mutable_quadratic_dual_values();
+  void set_allocated_quadratic_dual_values(::operations_research::math_opt::SparseDoubleVectorProto* value);
+  void unsafe_arena_set_allocated_quadratic_dual_values(::operations_research::math_opt::SparseDoubleVectorProto* value);
+  ::operations_research::math_opt::SparseDoubleVectorProto* unsafe_arena_release_quadratic_dual_values();
+
+  private:
+  const ::operations_research::math_opt::SparseDoubleVectorProto& _internal_quadratic_dual_values() const;
+  ::operations_research::math_opt::SparseDoubleVectorProto* _internal_mutable_quadratic_dual_values();
+
+  public:
   // optional double objective_value = 3;
   bool has_objective_value() const;
   void clear_objective_value() ;
@@ -967,7 +983,7 @@ class DualSolutionProto final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      2, 4, 2,
+      3, 5, 3,
       0, 2>
       _table_;
   friend class ::google::protobuf::MessageLite;
@@ -987,6 +1003,7 @@ class DualSolutionProto final : public ::google::protobuf::Message
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     ::operations_research::math_opt::SparseDoubleVectorProto* dual_values_;
     ::operations_research::math_opt::SparseDoubleVectorProto* reduced_costs_;
+    ::operations_research::math_opt::SparseDoubleVectorProto* quadratic_dual_values_;
     double objective_value_;
     int feasibility_status_;
     PROTOBUF_TSAN_DECLARE_MEMBER
@@ -1965,6 +1982,97 @@ inline void DualSolutionProto::set_allocated_dual_values(::operations_research::
   // @@protoc_insertion_point(field_set_allocated:operations_research.math_opt.DualSolutionProto.dual_values)
 }
 
+// .operations_research.math_opt.SparseDoubleVectorProto quadratic_dual_values = 5;
+inline bool DualSolutionProto::has_quadratic_dual_values() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.quadratic_dual_values_ != nullptr);
+  return value;
+}
+inline const ::operations_research::math_opt::SparseDoubleVectorProto& DualSolutionProto::_internal_quadratic_dual_values() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::operations_research::math_opt::SparseDoubleVectorProto* p = _impl_.quadratic_dual_values_;
+  return p != nullptr ? *p : reinterpret_cast<const ::operations_research::math_opt::SparseDoubleVectorProto&>(::operations_research::math_opt::_SparseDoubleVectorProto_default_instance_);
+}
+inline const ::operations_research::math_opt::SparseDoubleVectorProto& DualSolutionProto::quadratic_dual_values() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:operations_research.math_opt.DualSolutionProto.quadratic_dual_values)
+  return _internal_quadratic_dual_values();
+}
+inline void DualSolutionProto::unsafe_arena_set_allocated_quadratic_dual_values(::operations_research::math_opt::SparseDoubleVectorProto* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.quadratic_dual_values_);
+  }
+  _impl_.quadratic_dual_values_ = reinterpret_cast<::operations_research::math_opt::SparseDoubleVectorProto*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000004u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000004u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:operations_research.math_opt.DualSolutionProto.quadratic_dual_values)
+}
+inline ::operations_research::math_opt::SparseDoubleVectorProto* DualSolutionProto::release_quadratic_dual_values() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000004u;
+  ::operations_research::math_opt::SparseDoubleVectorProto* released = _impl_.quadratic_dual_values_;
+  _impl_.quadratic_dual_values_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::operations_research::math_opt::SparseDoubleVectorProto* DualSolutionProto::unsafe_arena_release_quadratic_dual_values() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:operations_research.math_opt.DualSolutionProto.quadratic_dual_values)
+
+  _impl_._has_bits_[0] &= ~0x00000004u;
+  ::operations_research::math_opt::SparseDoubleVectorProto* temp = _impl_.quadratic_dual_values_;
+  _impl_.quadratic_dual_values_ = nullptr;
+  return temp;
+}
+inline ::operations_research::math_opt::SparseDoubleVectorProto* DualSolutionProto::_internal_mutable_quadratic_dual_values() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.quadratic_dual_values_ == nullptr) {
+    auto* p = ::google::protobuf::Message::DefaultConstruct<::operations_research::math_opt::SparseDoubleVectorProto>(GetArena());
+    _impl_.quadratic_dual_values_ = reinterpret_cast<::operations_research::math_opt::SparseDoubleVectorProto*>(p);
+  }
+  return _impl_.quadratic_dual_values_;
+}
+inline ::operations_research::math_opt::SparseDoubleVectorProto* DualSolutionProto::mutable_quadratic_dual_values() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  ::operations_research::math_opt::SparseDoubleVectorProto* _msg = _internal_mutable_quadratic_dual_values();
+  // @@protoc_insertion_point(field_mutable:operations_research.math_opt.DualSolutionProto.quadratic_dual_values)
+  return _msg;
+}
+inline void DualSolutionProto::set_allocated_quadratic_dual_values(::operations_research::math_opt::SparseDoubleVectorProto* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.quadratic_dual_values_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000004u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000004u;
+  }
+
+  _impl_.quadratic_dual_values_ = reinterpret_cast<::operations_research::math_opt::SparseDoubleVectorProto*>(value);
+  // @@protoc_insertion_point(field_set_allocated:operations_research.math_opt.DualSolutionProto.quadratic_dual_values)
+}
+
 // .operations_research.math_opt.SparseDoubleVectorProto reduced_costs = 2;
 inline bool DualSolutionProto::has_reduced_costs() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
@@ -2058,13 +2166,13 @@ inline void DualSolutionProto::set_allocated_reduced_costs(::operations_research
 
 // optional double objective_value = 3;
 inline bool DualSolutionProto::has_objective_value() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline void DualSolutionProto::clear_objective_value() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.objective_value_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
 inline double DualSolutionProto::objective_value() const {
   // @@protoc_insertion_point(field_get:operations_research.math_opt.DualSolutionProto.objective_value)
@@ -2072,7 +2180,7 @@ inline double DualSolutionProto::objective_value() const {
 }
 inline void DualSolutionProto::set_objective_value(double value) {
   _internal_set_objective_value(value);
-  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_._has_bits_[0] |= 0x00000008u;
   // @@protoc_insertion_point(field_set:operations_research.math_opt.DualSolutionProto.objective_value)
 }
 inline double DualSolutionProto::_internal_objective_value() const {

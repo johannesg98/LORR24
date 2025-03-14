@@ -27,7 +27,8 @@
 #include <cstdint>
 #include <cstdlib>
 #include <limits>
-#include <numeric>  // must be call before fenv_access see: https://github.com/microsoft/STL/issues/2613
+// Needed before fenv_access. See https://github.com/microsoft/STL/issues/2613.
+#include <numeric>  // IWYU pragma:keep.
 #include <vector>
 
 #include "absl/log/check.h"
@@ -89,7 +90,7 @@ class ScopedFloatingPointEnv {
     excepts &= FE_ALL_EXCEPT;
 #if defined(__APPLE__)
     fenv_.__control &= ~excepts;
-#elif defined(__FreeBSD__)
+#elif (defined(__FreeBSD__) || defined(__OpenBSD__))
     fenv_.__x87.__control &= ~excepts;
 #else  // Linux
     fenv_.__control_word &= ~excepts;
@@ -206,7 +207,7 @@ inline bool IsIntegerWithinTolerance(FloatType x, FloatType tolerance) {
 //
 // TODO(user): incorporate the gcd computation here? The issue is that I am
 // not sure if I just do factor /= gcd that round(x * factor) will be the same.
-void GetBestScalingOfDoublesToInt64(const std::vector<double>& input,
+void GetBestScalingOfDoublesToInt64(absl::Span<const double> input,
                                     int64_t max_absolute_sum,
                                     double* scaling_factor,
                                     double* max_relative_coeff_error);

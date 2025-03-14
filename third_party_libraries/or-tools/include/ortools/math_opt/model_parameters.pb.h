@@ -615,6 +615,7 @@ class ModelSolveParametersProto final : public ::google::protobuf::Message
     kInitialBasisFieldNumber = 4,
     kBranchingPrioritiesFieldNumber = 6,
     kPrimaryObjectiveParametersFieldNumber = 7,
+    kQuadraticDualValuesFilterFieldNumber = 10,
   };
   // repeated .operations_research.math_opt.SolutionHintProto solution_hints = 5;
   int solution_hints_size() const;
@@ -756,12 +757,27 @@ class ModelSolveParametersProto final : public ::google::protobuf::Message
   ::operations_research::math_opt::ObjectiveParametersProto* _internal_mutable_primary_objective_parameters();
 
   public:
+  // .operations_research.math_opt.SparseVectorFilterProto quadratic_dual_values_filter = 10;
+  bool has_quadratic_dual_values_filter() const;
+  void clear_quadratic_dual_values_filter() ;
+  const ::operations_research::math_opt::SparseVectorFilterProto& quadratic_dual_values_filter() const;
+  PROTOBUF_NODISCARD ::operations_research::math_opt::SparseVectorFilterProto* release_quadratic_dual_values_filter();
+  ::operations_research::math_opt::SparseVectorFilterProto* mutable_quadratic_dual_values_filter();
+  void set_allocated_quadratic_dual_values_filter(::operations_research::math_opt::SparseVectorFilterProto* value);
+  void unsafe_arena_set_allocated_quadratic_dual_values_filter(::operations_research::math_opt::SparseVectorFilterProto* value);
+  ::operations_research::math_opt::SparseVectorFilterProto* unsafe_arena_release_quadratic_dual_values_filter();
+
+  private:
+  const ::operations_research::math_opt::SparseVectorFilterProto& _internal_quadratic_dual_values_filter() const;
+  ::operations_research::math_opt::SparseVectorFilterProto* _internal_mutable_quadratic_dual_values_filter();
+
+  public:
   // @@protoc_insertion_point(class_scope:operations_research.math_opt.ModelSolveParametersProto)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      4, 9, 9,
+      4, 10, 10,
       0, 2>
       _table_;
   friend class ::google::protobuf::MessageLite;
@@ -792,6 +808,7 @@ class ModelSolveParametersProto final : public ::google::protobuf::Message
     ::operations_research::math_opt::BasisProto* initial_basis_;
     ::operations_research::math_opt::SparseInt32VectorProto* branching_priorities_;
     ::operations_research::math_opt::ObjectiveParametersProto* primary_objective_parameters_;
+    ::operations_research::math_opt::SparseVectorFilterProto* quadratic_dual_values_filter_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -1242,6 +1259,97 @@ inline void ModelSolveParametersProto::set_allocated_dual_values_filter(::operat
 
   _impl_.dual_values_filter_ = reinterpret_cast<::operations_research::math_opt::SparseVectorFilterProto*>(value);
   // @@protoc_insertion_point(field_set_allocated:operations_research.math_opt.ModelSolveParametersProto.dual_values_filter)
+}
+
+// .operations_research.math_opt.SparseVectorFilterProto quadratic_dual_values_filter = 10;
+inline bool ModelSolveParametersProto::has_quadratic_dual_values_filter() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.quadratic_dual_values_filter_ != nullptr);
+  return value;
+}
+inline const ::operations_research::math_opt::SparseVectorFilterProto& ModelSolveParametersProto::_internal_quadratic_dual_values_filter() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::operations_research::math_opt::SparseVectorFilterProto* p = _impl_.quadratic_dual_values_filter_;
+  return p != nullptr ? *p : reinterpret_cast<const ::operations_research::math_opt::SparseVectorFilterProto&>(::operations_research::math_opt::_SparseVectorFilterProto_default_instance_);
+}
+inline const ::operations_research::math_opt::SparseVectorFilterProto& ModelSolveParametersProto::quadratic_dual_values_filter() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:operations_research.math_opt.ModelSolveParametersProto.quadratic_dual_values_filter)
+  return _internal_quadratic_dual_values_filter();
+}
+inline void ModelSolveParametersProto::unsafe_arena_set_allocated_quadratic_dual_values_filter(::operations_research::math_opt::SparseVectorFilterProto* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.quadratic_dual_values_filter_);
+  }
+  _impl_.quadratic_dual_values_filter_ = reinterpret_cast<::operations_research::math_opt::SparseVectorFilterProto*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000040u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000040u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:operations_research.math_opt.ModelSolveParametersProto.quadratic_dual_values_filter)
+}
+inline ::operations_research::math_opt::SparseVectorFilterProto* ModelSolveParametersProto::release_quadratic_dual_values_filter() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000040u;
+  ::operations_research::math_opt::SparseVectorFilterProto* released = _impl_.quadratic_dual_values_filter_;
+  _impl_.quadratic_dual_values_filter_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::operations_research::math_opt::SparseVectorFilterProto* ModelSolveParametersProto::unsafe_arena_release_quadratic_dual_values_filter() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:operations_research.math_opt.ModelSolveParametersProto.quadratic_dual_values_filter)
+
+  _impl_._has_bits_[0] &= ~0x00000040u;
+  ::operations_research::math_opt::SparseVectorFilterProto* temp = _impl_.quadratic_dual_values_filter_;
+  _impl_.quadratic_dual_values_filter_ = nullptr;
+  return temp;
+}
+inline ::operations_research::math_opt::SparseVectorFilterProto* ModelSolveParametersProto::_internal_mutable_quadratic_dual_values_filter() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.quadratic_dual_values_filter_ == nullptr) {
+    auto* p = ::google::protobuf::Message::DefaultConstruct<::operations_research::math_opt::SparseVectorFilterProto>(GetArena());
+    _impl_.quadratic_dual_values_filter_ = reinterpret_cast<::operations_research::math_opt::SparseVectorFilterProto*>(p);
+  }
+  return _impl_.quadratic_dual_values_filter_;
+}
+inline ::operations_research::math_opt::SparseVectorFilterProto* ModelSolveParametersProto::mutable_quadratic_dual_values_filter() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  _impl_._has_bits_[0] |= 0x00000040u;
+  ::operations_research::math_opt::SparseVectorFilterProto* _msg = _internal_mutable_quadratic_dual_values_filter();
+  // @@protoc_insertion_point(field_mutable:operations_research.math_opt.ModelSolveParametersProto.quadratic_dual_values_filter)
+  return _msg;
+}
+inline void ModelSolveParametersProto::set_allocated_quadratic_dual_values_filter(::operations_research::math_opt::SparseVectorFilterProto* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.quadratic_dual_values_filter_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000040u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000040u;
+  }
+
+  _impl_.quadratic_dual_values_filter_ = reinterpret_cast<::operations_research::math_opt::SparseVectorFilterProto*>(value);
+  // @@protoc_insertion_point(field_set_allocated:operations_research.math_opt.ModelSolveParametersProto.quadratic_dual_values_filter)
 }
 
 // .operations_research.math_opt.SparseVectorFilterProto reduced_costs_filter = 3;

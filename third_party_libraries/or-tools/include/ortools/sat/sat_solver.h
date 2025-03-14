@@ -391,6 +391,7 @@ class SatSolver {
   int64_t num_branches() const;
   int64_t num_failures() const;
   int64_t num_propagations() const;
+  int64_t num_backtracks() const;
 
   // Note that we count the number of backtrack to level zero from a positive
   // level. Those can corresponds to actual restarts, or conflicts that learn
@@ -403,6 +404,7 @@ class SatSolver {
     int64_t num_branches = 0;
     int64_t num_failures = 0;
     int64_t num_restarts = 0;
+    int64_t num_backtracks = 0;
 
     // Minimization stats.
     int64_t num_minimizations = 0;
@@ -438,9 +440,6 @@ class SatSolver {
   // satisfy this saved assignment.
   void SaveDebugAssignment();
   void LoadDebugSolution(const std::vector<Literal>& solution);
-
-  // Returns true iff the loaded problem only contains clauses.
-  bool ProblemIsPureSat() const { return problem_is_pure_sat_; }
 
   void SetDratProofHandler(DratProofHandler* drat_proof_handler) {
     drat_proof_handler_ = drat_proof_handler;
@@ -853,9 +852,6 @@ class SatSolver {
   // As the deterministic time in the time limit has to be advanced manually,
   // it is necessary to keep track of the last time the time was advanced.
   double deterministic_time_at_last_advanced_time_limit_ = 0;
-
-  // This is true iff the loaded problem only contains clauses.
-  bool problem_is_pure_sat_;
 
   DratProofHandler* drat_proof_handler_;
 
