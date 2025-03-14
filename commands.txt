@@ -6,7 +6,7 @@ Run code in environment: source env_generator/bin/activate
 
 build:
 cmake -B build ./ -DCMAKE_BUILD_TYPE=Release
-make -C build -j2
+make -C build -j8
 
 Run
 ./build/lifelong --inputFile ./example_problems/random.domain/random_32_32_20_200.json -o ./outputs/tmp.json -s 20
@@ -22,7 +22,7 @@ Own code in default stuff:
 envWrapper:
 build: go into folder envWrapper/build:
 cmake ..
-make
+make -j8
 
 add envWrapper to python path (not sure if necessary):
 export PYTHONPATH=/home/johannes/LORR24_johannesg98/envWrapper/build:$PYTHONPATH
