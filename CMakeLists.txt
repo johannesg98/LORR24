@@ -34,13 +34,32 @@ file(GLOB SOURCES "src/*.cpp" "default_planner/*.cpp" "my_scheduler/*.cpp")
 include_directories("my_scheduler")
 
 # ortools manual
-include_directories("third_party_libraries/or-22/or-tools/include")
-link_directories("third_party_libraries/or-22/or-tools/lib")
+# include_directories("third_party_libraries/or-22/or-tools/include")
+# link_directories("third_party_libraries/or-22/or-tools/lib")
 
 # Link against ortools from conda
 # set(CMAKE_PREFIX_PATH "${CONDA_PREFIX}/lib/cmake/ortools")
 # find_package(ortools REQUIRED)
 
+
+
+
+execute_process(COMMAND lsb_release -sr
+    OUTPUT_VARIABLE UBUNTU_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+if(UBUNTU_VERSION VERSION_GREATER_EQUAL 24)
+    message(STATUS "Running on Ubuntu 24 or later")
+    include_directories("third_party_libraries/or-22/or-tools/include")
+    link_directories("third_party_libraries/or-22/or-tools/lib")
+elseif(UBUNTU_VERSION VERSION_GREATER_EQUAL 22)
+    message(STATUS "Running on Ubuntu 22")
+    include_directories("third_party_libraries/or-24/or-tools/include")
+    link_directories("third_party_libraries/or-24/or-tools/lib")
+else()
+    message(STATUS "Unknown Ubuntu version: ${UBUNTU_VERSION}")
+endif()
 
 
 

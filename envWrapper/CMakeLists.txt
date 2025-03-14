@@ -21,8 +21,23 @@ list(FILTER SOURCES EXCLUDE REGEX ".*driver\\.cpp$")
 
 #my stuff
 include_directories("../my_scheduler")
-include_directories("../third_party_libraries/or-22/or-tools/include")
-link_directories("../third_party_libraries/or-22/or-tools/lib")
+# include_directories("../third_party_libraries/or-22/or-tools/include")
+# link_directories("../third_party_libraries/or-22/or-tools/lib")
+execute_process(COMMAND lsb_release -sr
+    OUTPUT_VARIABLE UBUNTU_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+if(UBUNTU_VERSION VERSION_GREATER_EQUAL 24)
+    message(STATUS "Running on Ubuntu 24 or later")
+    include_directories("../third_party_libraries/or-22/or-tools/include")
+    link_directories("../third_party_libraries/or-22/or-tools/lib")
+elseif(UBUNTU_VERSION VERSION_GREATER_EQUAL 22)
+    message(STATUS "Running on Ubuntu 22")
+    include_directories("../third_party_libraries/or-24/or-tools/include")
+    link_directories("../third_party_libraries/or-24/or-tools/lib")
+else()
+    message(STATUS "Unknown Ubuntu version: ${UBUNTU_VERSION}")
+endif()
 
 # Find Boost
 ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)
