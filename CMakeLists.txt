@@ -106,7 +106,7 @@ ELSE()
     target_compile_definitions(lifelong PRIVATE PYTHON=${PYTHON_FLAG})
 
     #copied to IF(PYTHON) to here because always needed after for envWrapper
-    target_link_libraries(lifelong PRIVATE pybind11::embed ${Boost_LIBRARIES})
+    target_link_libraries(lifelong pybind11::embed ${Boost_LIBRARIES})
 ENDIF()
 
 
