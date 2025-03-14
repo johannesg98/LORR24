@@ -116,7 +116,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
         assert(free_agents_per_node[node].size() == outgoing_agents_targets.size() + staying_agents);
 
-        if (num_agents > 1){  // num_agents > 1, somehow the else part doesnt work. NumOfTaskFinished drops from 70 to 60. But doenst matter since its not much faster anway.
+        if (true){  // num_agents > 1, somehow the else part doesnt work. NumOfTaskFinished drops from 70 to 60. But doenst matter since its not much faster anway.
         
             // Create cost matrix
             std::vector<std::vector<int>> cost_matrix(num_agents, std::vector<int>(num_tasks, 0));
