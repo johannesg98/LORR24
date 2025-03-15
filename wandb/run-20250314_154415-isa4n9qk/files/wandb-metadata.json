@@ -1,0 +1,69 @@
+{
+  "os":  "Linux-5.15.0-117-generic-x86_64-with-glibc2.35",
+  "python":  "CPython 3.12.3",
+  "startedAt":  "2025-03-14T19:44:15.529998Z",
+  "program":  "/mnt/home/jgaber/LORR24_johannesg98/RL/train.py",
+  "codePath":  "RL/train.py",
+  "git":  {
+    "remote":  "git@github.com:MAPF-COMPETITION-REPOS/LORR24_johannesg98.git",
+    "commit":  "291a61735a954aa5e07e96b6c9e93ae6d2e0b5e1"
+  },
+  "email":  "johannes.gaber@online.de",
+  "root":  "/mnt/home/jgaber/LORR24_johannesg98",
+  "host":  "node25",
+  "executable":  "/mnt/home/jgaber/miniconda3/envs/myenv/bin/python3",
+  "codePathLocal":  "RL/train.py",
+  "cpu_count":  36,
+  "cpu_count_logical":  72,
+  "disk":  {
+    "/":  {
+      "total":  "231379357696",
+      "used":  "15922229248"
+    }
+  },
+  "memory":  {
+    "total":  "270077034496"
+  },
+  "cpu":  {
+    "count":  36,
+    "countLogical":  72
+  },
+  "slurm":  {
+    "cluster_name":  "lids-cluster",
+    "conf":  "/usr/local/slurm-23.11.8_lua/etc/slurm.conf",
+    "cpus_on_node":  "8",
+    "cpus_per_task":  "8",
+    "gtids":  "0",
+    "job_account":  "zardini",
+    "job_cpus_per_node":  "8",
+    "job_end_time":  "1741985044",
+    "job_gid":  "2075",
+    "job_id":  "3395227",
+    "job_name":  "my_python_job",
+    "job_nodelist":  "node25",
+    "job_num_nodes":  "1",
+    "job_partition":  "cpu",
+    "job_qos":  "normal",
+    "job_start_time":  "1741981444",
+    "job_uid":  "2075",
+    "job_user":  "jgaber",
+    "jobid":  "3395227",
+    "localid":  "0",
+    "mem_per_node":  "32768",
+    "nnodes":  "1",
+    "nodeid":  "0",
+    "nodelist":  "node25",
+    "nprocs":  "1",
+    "ntasks":  "1",
+    "prio_process":  "0",
+    "procid":  "0",
+    "script_context":  "prolog_task",
+    "submit_dir":  "/mnt/home/jgaber/LORR24_johannesg98",
+    "submit_host":  "lids-cluster-login.mit.edu",
+    "task_pid":  "2871110",
+    "tasks_per_node":  "1",
+    "topology_addr":  "node25",
+    "topology_addr_pattern":  "node",
+    "tres_per_task":  "cpu:8"
+  }
+}

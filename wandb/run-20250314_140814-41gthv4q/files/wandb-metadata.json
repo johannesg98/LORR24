@@ -1,0 +1,83 @@
+{
+  "os":  "Linux-5.15.0-117-generic-x86_64-with-glibc2.35",
+  "python":  "CPython 3.12.3",
+  "startedAt":  "2025-03-14T18:08:14.767230Z",
+  "program":  "/mnt/home/jgaber/LORR24_johannesg98/RL/train.py",
+  "codePath":  "RL/train.py",
+  "git":  {
+    "remote":  "git@github.com:MAPF-COMPETITION-REPOS/LORR24_johannesg98.git",
+    "commit":  "d463c221badc17023d60847b201adc3d0aa62ca7"
+  },
+  "email":  "johannes.gaber@online.de",
+  "root":  "/mnt/home/jgaber/LORR24_johannesg98",
+  "host":  "node3",
+  "executable":  "/mnt/home/jgaber/miniconda3/envs/myenv/bin/python3",
+  "codePathLocal":  "RL/train.py",
+  "cpu_count":  36,
+  "cpu_count_logical":  72,
+  "gpu":  "Tesla V100-SXM2-16GB",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "231379357696",
+      "used":  "29948530688"
+    }
+  },
+  "memory":  {
+    "total":  "540665643008"
+  },
+  "cpu":  {
+    "count":  36,
+    "countLogical":  72
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "Tesla V100-SXM2-16GB",
+      "memoryTotal":  "17179869184",
+      "cudaCores":  5120,
+      "architecture":  "Volta"
+    }
+  ],
+  "slurm":  {
+    "cluster_name":  "lids-cluster",
+    "conf":  "/usr/local/slurm-23.11.8_lua/etc/slurm.conf",
+    "cpus_on_node":  "8",
+    "cpus_per_task":  "8",
+    "gpus":  "1",
+    "gpus_on_node":  "1",
+    "gtids":  "0",
+    "job_account":  "zardini",
+    "job_cpus_per_node":  "8",
+    "job_end_time":  "1741976274",
+    "job_gid":  "2075",
+    "job_gpus":  "0",
+    "job_id":  "3395155",
+    "job_name":  "my_python_job",
+    "job_nodelist":  "node3",
+    "job_num_nodes":  "1",
+    "job_partition":  "cpu-gpu-v100",
+    "job_qos":  "normal",
+    "job_start_time":  "1741975674",
+    "job_uid":  "2075",
+    "job_user":  "jgaber",
+    "jobid":  "3395155",
+    "localid":  "0",
+    "mem_per_node":  "32768",
+    "nnodes":  "1",
+    "nodeid":  "0",
+    "nodelist":  "node3",
+    "nprocs":  "1",
+    "ntasks":  "1",
+    "prio_process":  "0",
+    "procid":  "0",
+    "script_context":  "prolog_task",
+    "submit_dir":  "/mnt/home/jgaber/LORR24_johannesg98",
+    "submit_host":  "lids-cluster-login.mit.edu",
+    "task_pid":  "3940397",
+    "tasks_per_node":  "1",
+    "topology_addr":  "node3",
+    "topology_addr_pattern":  "node",
+    "tres_per_task":  "cpu:8"
+  },
+  "cudaVersion":  "12.5"
+}

@@ -1,0 +1,22 @@
+2025-03-14 15:39:34,822 INFO    MainThread:2869011 [wandb_setup.py:_flush():67] Current SDK version is 0.19.7
+2025-03-14 15:39:34,823 INFO    MainThread:2869011 [wandb_setup.py:_flush():67] Configure stats pid to 2869011
+2025-03-14 15:39:34,823 INFO    MainThread:2869011 [wandb_setup.py:_flush():67] Loading settings from /mnt/home/jgaber/.config/wandb/settings
+2025-03-14 15:39:34,823 INFO    MainThread:2869011 [wandb_setup.py:_flush():67] Loading settings from /mnt/home/jgaber/LORR24_johannesg98/wandb/settings
+2025-03-14 15:39:34,823 INFO    MainThread:2869011 [wandb_setup.py:_flush():67] Loading settings from environment variables
+2025-03-14 15:39:34,823 INFO    MainThread:2869011 [wandb_init.py:setup_run_log_directory():647] Logging user logs to /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250314_153934-spxu6mnx/logs/debug.log
+2025-03-14 15:39:34,823 INFO    MainThread:2869011 [wandb_init.py:setup_run_log_directory():648] Logging internal logs to /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250314_153934-spxu6mnx/logs/debug-internal.log
+2025-03-14 15:39:34,823 INFO    MainThread:2869011 [wandb_init.py:init():761] calling init triggers
+2025-03-14 15:39:34,823 INFO    MainThread:2869011 [wandb_init.py:init():766] wandb.init called with sweep_config: {}
+config: {'name': 'sac', 'agent_name': '20250314_sac_gnn', 'cplexpath': 'None', 'directory': 'saved_files', 'max_episodes': 20000, 'max_steps': 150, 'no_cuda': False, 'batch_size': 100, 'p_lr': 0.001, 'q_lr': 0.001, 'alpha': 0.3, 'auto_entropy': False, 'hidden_size': 256, 'clip': 500, 'checkpoint_path': 'SAC_A**20_20000', 'load_from_ckeckpoint': False, 'use_LSTM': False, 'input_size': 3, 'test_episodes': 10, 'determinisitc_backup': False, 'pretrained_path': None, 'only_q_steps': 0, 'wandb': True, 'tensorboard': True, 'mask_impactless_actions': True, '_wandb': {}}
+2025-03-14 15:39:34,823 INFO    MainThread:2869011 [wandb_init.py:init():784] starting backend
+2025-03-14 15:39:34,823 INFO    MainThread:2869011 [wandb_init.py:init():788] sending inform_init request
+2025-03-14 15:39:34,829 INFO    MainThread:2869011 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-03-14 15:39:34,830 INFO    MainThread:2869011 [wandb_init.py:init():803] backend started and connected
+2025-03-14 15:39:34,834 INFO    MainThread:2869011 [wandb_init.py:init():896] updated telemetry
+2025-03-14 15:39:34,852 INFO    MainThread:2869011 [wandb_init.py:init():920] communicating run to backend with 90.0 second timeout
+2025-03-14 15:39:35,135 INFO    MainThread:2869011 [wandb_init.py:init():995] starting run threads in backend
+2025-03-14 15:39:35,548 INFO    MainThread:2869011 [wandb_run.py:_console_start():2377] atexit reg
+2025-03-14 15:39:35,549 INFO    MainThread:2869011 [wandb_run.py:_redirect():2227] redirect: wrap_raw
+2025-03-14 15:39:35,549 INFO    MainThread:2869011 [wandb_run.py:_redirect():2292] Wrapping output streams.
+2025-03-14 15:39:35,549 INFO    MainThread:2869011 [wandb_run.py:_redirect():2317] Redirects installed.
+2025-03-14 15:39:35,555 INFO    MainThread:2869011 [wandb_init.py:init():1037] run started, returning control to user process

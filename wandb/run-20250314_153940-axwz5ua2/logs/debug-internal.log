@@ -1,0 +1,7 @@
+{"time":"2025-03-14T15:39:40.757498109-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250314_153940-axwz5ua2/logs/debug-core.log"}
+{"time":"2025-03-14T15:39:40.882877158-04:00","level":"INFO","msg":"created new stream","id":"axwz5ua2"}
+{"time":"2025-03-14T15:39:40.882953399-04:00","level":"INFO","msg":"stream: started","id":"axwz5ua2"}
+{"time":"2025-03-14T15:39:40.882989962-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"axwz5ua2"}
+{"time":"2025-03-14T15:39:40.883049199-04:00","level":"INFO","msg":"sender: started","stream_id":"axwz5ua2"}
+{"time":"2025-03-14T15:39:40.88314078-04:00","level":"INFO","msg":"handler: started","stream_id":"axwz5ua2"}
+{"time":"2025-03-14T15:39:41.080393748-04:00","level":"INFO","msg":"Starting system monitor"}
