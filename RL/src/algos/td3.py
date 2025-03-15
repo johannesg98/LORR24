@@ -400,6 +400,8 @@ class TD3(nn.Module):
                 f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | NumTasksFinishe: {episode_num_tasks_finished:.1f} | Checkpoint: {cfg.model.checkpoint_path}"
             )
 
+            if self.wandb is not None:
+                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode, "Critic Loss": np.mean(self.LogCriticLoss), "Policy Loss": np.mean(self.LogPolicyLoss)})
             if self.tensorboard is not None:
                 self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
                 self.tensorboard.add_scalar("Num Tasks finished", episode_num_tasks_finished, i_episode)
