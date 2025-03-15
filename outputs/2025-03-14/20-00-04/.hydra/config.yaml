@@ -1,0 +1,20 @@
+model:
+  name: td3
+  agent_name: ${now:%Y%m%d}_td3_gnn
+  cplexpath: None
+  directory: saved_files
+  max_episodes: 10000
+  max_steps: 150
+  no_cuda: false
+  batch_size: 100
+  checkpoint_path: TD3
+  load_from_ckeckpoint: false
+  hidden_size: 256
+  input_size: 3
+  test_episodes: 10
+  actor_layer_norm: false
+  q_layer_norm: false
+  entropy_factor: 0
+  mask_impactless_actions: true
+  tensorboard: true
+  wandb: false

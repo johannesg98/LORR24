@@ -3,34 +3,44 @@
     "version": "2024 LoRR",
     "teamSize": 20,
     "numTaskFinished": 64,
-    "makespan": 150,
+    "makespan": 149,
     "numPlannerErrors": 0,
     "numScheduleErrors": 0,
     "numEntryTimeouts": 0,
     "start": [
         [
-            6,
-            29,
-            "E"
-        ],
-        [
-            19,
-            3,
+            8,
+            24,
             "E"
         ],
         [
             9,
-            15,
+            1,
             "E"
         ],
         [
-            0,
+            16,
             6,
             "E"
         ],
         [
-            14,
-            11,
+            23,
+            17,
+            "E"
+        ],
+        [
+            16,
+            3,
+            "E"
+        ],
+        [
+            23,
+            16,
+            "E"
+        ],
+        [
+            7,
+            28,
             "E"
         ],
         [
@@ -39,1158 +49,1160 @@
             "E"
         ],
         [
-            2,
-            7,
-            "E"
-        ],
-        [
-            7,
-            21,
-            "E"
-        ],
-        [
-            6,
-            22,
-            "E"
-        ],
-        [
-            3,
-            17,
-            "E"
-        ],
-        [
-            6,
-            4,
-            "E"
-        ],
-        [
-            17,
-            16,
-            "E"
-        ],
-        [
-            9,
-            11,
-            "E"
-        ],
-        [
-            14,
-            15,
-            "E"
-        ],
-        [
             20,
             17,
             "E"
         ],
         [
-            10,
-            15,
-            "E"
-        ],
-        [
-            13,
-            10,
-            "E"
-        ],
-        [
             16,
-            0,
+            24,
             "E"
         ],
         [
-            19,
-            1,
+            15,
+            23,
+            "E"
+        ],
+        [
+            10,
+            5,
             "E"
         ],
         [
             21,
+            11,
+            "E"
+        ],
+        [
+            22,
+            10,
+            "E"
+        ],
+        [
+            4,
+            28,
+            "E"
+        ],
+        [
+            14,
+            25,
+            "E"
+        ],
+        [
+            21,
+            23,
+            "E"
+        ],
+        [
+            10,
+            7,
+            "E"
+        ],
+        [
+            7,
+            7,
+            "E"
+        ],
+        [
+            3,
             23,
             "E"
         ]
     ],
     "actualPaths": [
-        "R,F,R,F,F,F,F,F,W,F,F,F,F,F,F,F,F,F,C,F,F,F,R,F,F,F,F,C,F,F,W,F,C,F,F,F,F,R,F,F,F,R,F,F,R,R,F,F,C,F,F,F,R,F,F,F,F,F,F,F,F,F,C,F,F,F,R,F,C,F,R,F,C,F,F,R,F,F,W,F,R,R,F,F,W,W,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,F,F,F,C,F,F,F,C,F,F,F,F,R,F,F,C,F,R,F,F,F,F,C,F,F,R,F,C,F,F,F,F,F,F,F,F,R",
-        "C,F,F,C,F,F,R,F,R,F,F,C,F,F,F,F,C,F,F,R,F,F,F,R,F,R,F,F,C,F,R,F,F,F,F,F,C,F,F,R,F,F,F,F,F,F,R,R,F,F,R,F,C,F,F,R,F,F,F,F,F,F,F,F,F,F,F,C,F,R,F,F,F,F,F,F,C,F,F,F,R,R,F,R,R,F,F,R,F,F,F,F,F,F,C,F,F,C,F,F,C,F,F,R,F,F,F,F,F,F,F,F,F,F,F,W,F,R,F,F,F,F,F,F,C,F,F,F,F,F,F,R,R,F,C,F,R,F,F,F,F,F,F,F,F,F,C,F,F,R",
-        "C,F,F,R,F,W,F,R,R,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,C,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,F,R,F,F,F,F,C,F,F,R,R,F,F,W,R,F,F,F,C,F,F,F,R,F,F,F,F,C,F,R,R,F,F,F,R,F,C,F,F,F,R,F,F,R,R,F,C,F,F,F,R,F,F,F,F,C,F,F,R,F,F,C,F,F,F,R,F,F,F,F,F,F,R,R,F,F,R,F,W",
-        "R,F,F,F,F,F,F,F,F,F,F,F,F,W,F,F,F,F,F,F,F,R,F,C,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,F,F,C,F,R,F,F,C,F,F,F,R,F,F,F,F,F,F,F,F,C,F,F,R,F,F,F,R,F,F,C,F,F,F,F,C,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,F,R,F,F,C,F,R,F,F,F,F,F,F,F,F,F,F,C,F,F,F,R,F,F,F,W,R,F,R,F,F,F,C,F,R,F,F,F,F,R,F,F,C,F,F",
-        "C,F,C,F,F,F,F,C,F,F,F,C,F,F,F,F,F,F,F,F,C,F,F,F,C,F,F,F,F,W,W,F,F,F,F,R,F,F,F,F,W,R,R,F,C,F,F,F,F,F,F,F,R,R,F,R,R,F,W,F,F,F,F,F,R,F,F,F,F,F,F,C,F,F,F,F,C,F,F,F,F,R,F,F,F,F,F,F,C,F,C,F,F,F,R,F,F,F,C,F,F,F,R,F,C,F,F,R,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,F,R,R,F,C,F,R,F,F,F,F,F,F,F,F,F,F,F",
-        "R,R,F,R,F,F,F,R,R,F,F,R,F,C,F,R,F,C,F,R,F,F,F,F,F,F,C,F,F,R,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,C,F,R,R,F,F,F,F,F,R,F,F,W,W,F,F,F,C,F,F,F,R,F,F,F,F,F,F,C,F,F,F,R,R,F,F,F,R,F,C,F,R,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,F,F,R,F,F,C,F,F,F,R,F,F,F,F,F,F,F,F,F,C,F,W,F,F,R,R,F,F,R,F,F,F,F,F,C",
-        "R,F,C,F,F,F,F,F,F,F,C,F,F,R,R,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,C,F,F,F,F,F,F,W,F,F,F,F,F,F,R,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,R,F,R,F,R,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,C,F,F,F,F,F,R,R,F,F,C,F,F,F,F,F,F,R,F,F,R,F,F,F,F,F,F,C,F,R,F,F,W,F,F,F",
-        "F,F,F,R,F,C,F,F,F,R,F,F,F,C,F,F,R,R,F,C,F,R,F,C,F,F,R,F,C,F,F,R,F,C,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,W,F,R,R,F,F,R,F,F,F,F,F,F,F,F,F,F,F,C,F,R,F,C,F,F,F,F,F,R,F,F,F,F,F,R,R,F,F,F,F,W,F,F,R,F,C,F,F,F,F,R,F,F,F,R,F,F,R,R,F,F,R,F,R,R,F,W,C,W,F,R,R,F,R,F,F,F,F,F,C,F,F,R,F,F,C,F,F,F,F,F,F,F,F,F,F",
-        "F,W,R,F,F,R,R,F,C,F,F,F,F,F,F,F,F,F,R,R,F,R,F,F,F,F,F,F,F,F,F,R,F,C,F,R,F,C,F,F,F,R,F,C,F,F,R,R,F,F,W,R,F,C,F,F,R,F,F,F,C,F,F,C,F,F,F,C,F,F,F,F,R,F,C,F,F,R,R,F,F,R,F,F,F,C,F,F,F,F,F,F,F,F,F,F,R,F,F,F,F,C,F,R,R,F,R,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,R,F,W,F,C,F,F,R,F,F,F,F,C,F,F,F,R,R,F,F,R,F,F,F,C,F,R",
-        "R,F,F,F,F,C,F,F,R,F,F,W,W,F,F,F,F,F,F,W,F,R,F,C,F,R,F,F,F,F,F,F,F,R,F,F,W,W,F,R,R,F,F,C,F,W,F,F,W,F,F,F,F,R,R,F,F,F,C,F,R,F,F,F,F,R,F,F,F,F,F,F,F,R,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,C,F,F,R,F,F,F,C,F,F,R,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,R,R,F,F,F,R,F,F,F,F,F,F,R,F,F,F,F,C,F,F,F,F,F,F,R,R,F,F,C",
-        "R,F,F,F,C,F,F,R,F,F,C,F,C,F,F,F,C,F,C,F,F,F,F,F,C,F,F,F,F,R,R,F,F,F,F,R,R,F,F,F,F,F,F,F,F,F,C,F,F,F,R,F,F,F,F,C,F,F,F,F,R,F,F,F,F,C,F,R,F,C,F,F,R,F,C,F,F,R,R,F,C,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,R,R,F,F,F,C,F,F,R,F,F,F,F,F,F,F,C,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,W,F,R,F,F,F,R,R,F,F,F,C,F,F,F",
-        "R,F,F,F,F,W,W,F,C,F,F,F,C,F,F,F,F,F,F,C,F,F,W,R,R,F,F,C,F,R,R,F,R,F,F,C,F,F,F,F,F,F,R,F,R,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,R,F,F,F,C,F,R,F,C,F,F,R,F,F,F,F,F,F,F,F,F,C,F,F,F,C,F,C,F,F,F,R,F,C,F,F,F,F,F,F,F,W,R,F,F,F,F,F,F,F,C,F,F,F,F,R,F,F,F,W,F,F,F,F,C,F,R,F,F,R,R,F,F,F,F,C,F,R,F,F,C,F,F,F,W,W,F,F,F,F",
-        "R,F,F,F,F,F,F,F,R,F,F,C,F,R,F,F,C,F,F,F,R,F,F,C,F,F,F,R,R,F,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,F,F,F,C,F,R,F,F,C,F,F,F,F,R,F,F,C,F,F,F,F,R,F,F,C,F,C,F,F,F,C,F,F,F,F,F,F,C,F,R,F,C,F,F,R,F,R,F,F,C,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,R,F,R,R,F,C,F,F,F,F,F,F,R,F,C,F,R,R,F",
-        "W,C,F,F,F,F,R,W,F,F,F,R,R,F,R,R,F,F,F,F,F,R,R,F,F,F,C,W,F,R,R,F,F,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,F,F,F,R,F,F,C,F,R,R,F,R,F,F,F,C,F,F,F,R,F,F,F,F,W,C,F,R,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,R,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,R,W,F,F,R,R,F,F,C,F,F,F,C,F,F,F,F,R,F,F,R,R,F,F",
-        "R,F,F,R,F,R,R,F,C,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,R,F,C,F,C,F,F,F,F,F,R,F,C,F,F,W,R,R,F,F,F,C,F,F,F,R,F,F,F,C,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,R,F,F,F,R,F,F,C,F,F,F,R,F,F,R,R,F,F,F,C,F,F,F,F,F,F,R,F,F,F,C,F,F,F,R,F,F,F,F,F,W,F,F,F,C,F,R,F,C,F,F,F,F,R,F,F,F,C,F",
-        "F,F,R,R,F,W,R,R,F,F,F,R,R,F,R,R,F,F,F,F,F,R,R,F,F,F,W,W,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,C,F,F,F,F,R,F,F,F,C,F,F,F,W,F,F,F,F,F,F,F,R,F,R,F,C,F,F,F,R,F,C,F,F,R,F,R,F,F,C,F,F,F,R,F,C,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,R,F,F,F,C,F,R,F,F,F,W,C,W,F,R,R,F,R,F,F,F,R,F,C,F,F,F,F",
-        "R,R,F,W,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,W,R,R,F,R,R,F,F,F,F,F,R,F,F,R,R,F,F,F,F,F,F,C,F,F,W,F,R,W,F,R,R,F,R,F,F,F,F,F,W,F,F,R,F,F,F,F,C,F,R,F,F,F,C,F,F,R,F,F,F,C,F,F,R,R,F,W,R,R,F,F,W,R,R,F,F,F,R,F,C,F,R,F,F,C,F,F,R,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,C,F,R,R,F,F,C,F,F,F,F,F,F,R,F",
-        "F,F,F,C,F,R,F,F,F,C,F,F,W,R,F,C,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,R,F,C,F,F,F,F,F,F,C,F,C,F,F,R,F,F,F,F,C,F,F,F,R,F,C,F,F,R,F,C,F,F,F,F,R,F,R,R,F,F,F,C,F,F,F,R,F,C,F,R,F,C,F,R,F,F,F,C,F,F,F,R,F,F,C,F,F,R,F,F,F,C,F,R,R,F,R,F,F,F,F,R,F,F,C,F,F,F,F,F,R,R,F,F,R,R,F,F,W,F,F,F,F,F,F,F,R,R,F,F,R,F,F,F",
-        "C,F,F,F,R,F,F,C,F,R,F,C,F,R,F,C,F,F,F,R,F,F,C,F,R,F,F,F,F,R,F,F,W,F,F,W,R,R,F,R,R,F,F,W,F,F,F,F,F,F,F,C,F,W,R,F,R,R,F,F,W,F,F,F,R,F,F,F,F,C,F,R,F,F,F,F,F,C,F,C,F,F,F,F,F,F,R,F,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,W,W,W,W,F,R,F,R,F,F,F,F,F,F,C,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,W,F,R,R,F,F,F,W,F,F,F",
-        "C,F,C,F,F,F,F,F,F,F,C,F,F,R,R,F,F,C,F,F,F,R,F,F,C,F,F,F,R,F,C,F,F,F,R,F,F,C,F,F,F,F,R,F,F,F,C,F,F,R,R,F,F,F,F,F,F,R,F,C,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,W,W,F,F,W,R,R,F,F,F,F,R,F,C,F,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,F,F,R,F,F,F,F,C,F,F,R,R,F,C,F,F,F,R,F,F,F,F,C,F,F,F,F,F"
+        "R,R,F,C,F,W,W,F,F,F,F,R,F,F,F,F,F,F,F,W,F,F,F,F,F,R,F,F,F,C,F,F,F,F,C,F,F,F,C,F,F,F,F,C,F,F,W,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,R,F,F,F,C,F,F,R,F,F,C,F,F,F,R,R,F,F,F,F,F,F,R,F,F,F,F,F,F,F,F,R,F,F,C,F,F,R,R,F,C,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,F",
+        "R,F,F,F,R,R,F,F,F,R,R,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,W,F,F,R,R,F,F,F,F,F,R,F,F,F,F,R,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,F,F,F,F,F,F,F,F,R,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,R,F,F,C,F,F,F,F,C,F,F,R,R,F,F,R,F,F,C,F,F,R,F,F,C,F,F,R,F,F,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,C,F,R,F,F",
+        "F,C,F,F,F,F,C,F,R,F,F,F,F,F,F,R,F,F,C,F,R,F,F,F,F,F,F,C,F,R,F,F,F,F,C,F,R,F,F,C,F,F,R,F,R,F,F,F,R,F,F,C,F,W,F,F,F,F,F,F,W,W,F,W,F,R,F,F,F,F,R,F,F,F,C,F,F,F,F,C,F,F,F,C,F,F,F,W,R,R,F,F,F,R,R,F,F,F,W,F,F,F,F,F,F,F,F,F,C,F,R,R,F,R,R,F,F,F,C,F,R,R,F,C,F,F,F,C,F,R,F,F,C,F,F,F,F,R,F,F,F,F,R,R,F,F,F,F,F,F",
+        "R,R,F,R,F,F,F,F,F,F,F,C,F,R,F,R,R,F,F,R,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,R,F,C,F,F,R,F,C,F,R,F,F,F,C,F,F,F,F,R,F,W,W,F,F,F,C,F,W,R,R,F,C,F,R,R,F,C,F,F,F,F,C,F,F,F,R,W,F,F,F,R,R,F,F,F,R,F,F,F,R,F,F,C,F,R,F,F,F,C,F,R,F,F,C,F,F,R,F,F,F,C,F,F,R,R,F,F,F,C,F,R,F,F,F,F,F,F,F,F,C,F,R,F,F,C,F,F",
+        "C,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,F,F,F,F,W,W,F,F,F,F,F,C,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,F,C,F,R,F,F,F,F,F,F,F,C,F,F,F,R,R,F,C,F,R,F,F,F,F,F,R,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,R,F,R,R,F,F,F,F,R,F,W,R,R,F,R,F,F,W,F,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,W,F,F,R,F,W,W,W,R,F,F,F,R,F,F,F",
+        "C,F,F,F,F,F,F,F,C,F,R,F,F,F,R,F,R,R,F,C,F,R,R,F,F,F,W,R,R,F,F,R,R,F,F,F,F,F,W,F,R,F,C,F,F,W,W,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,R,F,C,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,F,R,F,F,R,R,F,R,F,F,F,W,R,R,F,F,W,F,R,R,F,F,F,W,F,R,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,F",
+        "W,W,R,R,F,C,F,R,F,C,F,R,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,R,F,F,C,F,F,F,F,C,F,R,F,F,F,C,F,R,R,F,F,R,F,C,F,F,R,F,F,F,C,F,R,F,F,F,C,F,F,R,R,F,R,F,C,F,F,R,F,F,F,C,F,R,F,F,C,F,F,F,R,F,R,F,F,F,F,C,F,F,F,F,F,F,R,F,F,R,R,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,W,F,F,R,R,F,C,F,R,R,F,R,R,F,R,F,F,F,F,F,W,F",
+        "R,R,F,R,F,F,F,R,R,F,F,F,F,F,F,F,F,R,F,F,C,F,R,F,F,F,F,C,F,F,R,R,F,F,C,F,F,F,F,F,F,W,W,W,F,R,R,F,F,F,F,F,F,F,F,F,R,R,F,F,R,F,F,R,R,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,C,F,C,F,F,R,F,C,F,F,F,F,R,F,F,C,F,F,F,F,F,F,R,F,F,F,F,C,F,F,W,W,F,C,F,W,F,W,F,F,C,F,W,F,F,F,F,W,F,R,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F",
+        "F,R,F,F,C,F,C,F,F,F,R,F,F,F,F,F,F,F,F,W,W,F,F,W,C,W,F,C,F,F,W,W,F,F,C,F,R,F,F,F,F,F,F,C,F,F,R,F,F,F,C,F,R,R,F,W,F,F,R,F,F,C,F,R,F,F,F,F,F,F,F,F,C,F,F,F,F,R,F,F,F,R,R,F,F,C,F,R,F,F,R,F,C,F,R,F,F,F,F,C,F,F,F,F,F,C,F,F,F,R,F,F,F,F,F,W,R,R,F,R,F,R,R,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,R,R",
+        "R,R,F,F,F,F,C,F,F,F,F,R,F,C,F,F,R,R,F,C,F,F,F,R,F,C,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,F,R,F,R,R,F,F,F,F,F,F,F,F,F,F,W,W,F,W,F,F,F,F,R,F,F,C,F,F,F,F,F,F,R,R,F,F,R,F,F,C,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,R,F,C,F,F,F,R,F,W,W,F,R,R,F,F,W,F,F,F,F,R,F,W,F",
+        "C,F,F,F,F,F,C,F,F,F,F,C,F,F,F,F,F,F,R,F,F,F,C,F,R,F,C,F,F,F,R,F,F,F,C,F,F,R,F,F,F,R,F,F,F,F,C,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,C,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,F,C,F,F,F,F,F,F,R,R,F,F,C,F,F,F,R,F,F,F,F,W,F,F,R,R,F,R,F,F,F,F,R,F,F,F,C,F,R,F,F,C,F,C,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F",
+        "W,W,F,F,F,F,F,F,R,F,R,R,F,F,F,F,C,F,F,R,F,C,F,R,F,F,F,C,F,R,F,F,C,F,C,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,F,C,F,F,F,R,F,F,F,W,W,C,F,F,R,R,F,F,R,F,F,F,F,R,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,C,F,F,F,F,C,F,F,F,F,F,R,F,C,F,F,F,F,R,F,F,F,F,F,R,R,F,F,F,F,F,C,F,F,R,F",
+        "F,R,F,R,R,F,F,F,F,F,F,C,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,W,W,F,F,R,R,F,C,F,R,F,C,F,R,F,C,F,F,R,F,F,F,F,F,F,C,F,F,F,R,R,F,R,R,F,R,R,F,F,F,F,F,F,F,R,F,F,F,C,F,F,F,F,R,R,F,F,C,F,R,F,C,F,R,F,F,C,F,F,F,F,R,F,F,R,F,F,F,C,F,F,F,R,F,C,F,F,F,F,R,F,F,R,F,F,C,F,F,F,F,F,W,W,W,F,F,F,F,R,F,F,C,F,F,W,F,F,R,F,F,F,F,F",
+        "C,F,F,F,F,C,F,R,F,C,F,F,R,F,F,F,F,F,C,F,C,F,R,F,C,F,F,F,R,F,F,F,F,C,F,C,F,F,C,F,F,F,R,F,F,C,F,R,F,C,F,F,F,F,F,F,R,F,F,F,C,F,F,C,F,F,F,F,F,F,F,F,R,R,F,F,F,C,F,F,R,F,F,F,F,F,F,F,C,F,F,R,R,F,F,F,R,F,F,C,F,F,R,F,F,F,C,F,R,F,F,C,F,F,F,F,F,F,F,F,F,R,F,F,F,R,R,F,F,C,F,F,F,F,C,F,F,R,R,F,F,R,F,C,F,R,F,F,F,F",
+        "W,W,W,R,F,F,F,R,F,C,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,R,F,F,F,W,C,W,F,C,F,F,R,F,F,F,C,F,R,F,F,F,F,C,F,R,F,F,F,F,F,C,F,F,R,F,F,C,F,F,F,R,F,F,F,F,C,F,R,R,F,R,F,F,F,W,W,F,F,F,F,F,F,F,F,F,C,F,F,F,C,F,R,F,F,R,R,F,F,R,R,F,R,F,C,F,F,F,R,F,F,F,F,F,F,C,F,F,R,R,F,C,F,R,F,R",
+        "W,W,W,W,W,W,W,R,R,F,R,F,F,F,C,F,R,F,C,F,F,F,F,R,F,F,F,F,C,F,F,F,R,F,C,F,F,F,F,F,R,F,F,C,F,F,F,F,R,F,F,C,F,C,F,F,F,W,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,R,R,F,R,F,F,F,F,F,F,F,C,F,R,F,R,F,F,F,F,F,F,F,C,F,F,F,F,W,W,F,F,W,F,R,R,F,F,F,C,F,F,F,C,F,R,F,F,F,C,F,F,F,R,F,F,F,R,R,F",
+        "F,C,F,R,F,C,F,R,F,F,F,F,C,F,R,R,F,R,F,R,R,F,F,W,R,R,F,F,F,F,R,F,F,F,F,C,F,F,R,F,F,C,F,F,F,F,R,R,F,F,F,C,F,F,F,C,F,W,F,F,W,F,C,F,F,W,F,F,F,F,R,F,C,F,F,R,F,F,F,F,F,F,C,F,F,F,F,R,R,F,C,F,F,R,F,C,F,F,R,F,F,F,F,C,F,R,F,W,R,R,F,C,F,F,F,F,F,W,F,F,W,F,W,W,F,F,F,F,F,F,F,F,W,F,F,F,R,F,F,C,F,F,F,R,R,F,F,R,F,F",
+        "W,F,F,F,F,R,F,F,W,W,R,R,F,F,F,F,W,F,F,F,F,F,F,F,R,R,F,R,R,F,F,R,R,F,W,F,F,R,F,F,F,F,R,F,F,C,F,C,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,R,F,C,F,R,F,F,F,C,F,R,F,F,F,F,F,F,C,F,R,F,F,F,F,C,F,F,F,F,F,F,F,F,R,R,F,R,F,F,F,F,F,F,W,W,F,W,F,F,F,F,F,R,F,R,R,F,R,F,R,R,F,F,F,F,F,R,F,F,F,C,F,F,F,F,F,F",
+        "W,R,F,F,F,F,W,F,F,F,F,F,C,F,F,F,F,F,R,F,F,F,F,F,F,R,F,R,F,F,F,F,F,F,F,F,F,F,F,F,R,F,R,R,F,R,R,F,F,R,R,F,R,R,F,F,F,F,W,W,W,F,R,R,F,F,F,F,F,F,F,F,F,F,C,F,R,F,C,F,F,F,F,F,R,F,F,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,C,F,R,R,F,C,F,F,F,R,F,C,F,F,F,C,F,C,F,W,R,R,F,F,F,F,F,F,F,F,C,F,F,F,C,F,F,F,F,F,F,F,F,F,R,F,F,F",
+        "W,W,R,F,F,F,F,F,F,F,R,F,F,F,F,R,F,F,F,C,F,R,R,F,F,C,F,F,R,F,F,C,F,F,R,F,F,F,C,F,F,R,R,F,F,W,F,R,F,F,F,F,F,R,F,F,F,C,F,F,R,R,F,R,F,F,R,F,F,F,C,F,F,F,F,R,F,F,W,F,F,W,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,C,F,F,F,R,F,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,R,F,F,R,R,F,R,F,F,C,F,F,R,F,F,C,F,F,F,C,F,F"
     ],
     "plannerPaths": [
-        "R,F,R,F,F,F,F,F,W,F,F,F,F,F,F,F,F,F,C,F,F,F,R,F,F,F,F,C,F,F,W,F,C,F,F,F,F,R,F,F,F,R,F,F,R,R,F,F,C,F,F,F,R,F,F,F,F,F,F,F,F,F,C,F,F,F,R,F,C,F,R,F,C,F,F,R,F,F,W,F,R,R,F,F,W,W,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,F,F,F,C,F,F,F,C,F,F,F,F,R,F,F,C,F,R,F,F,F,F,C,F,F,R,F,C,F,F,F,F,F,F,F,F,R",
-        "C,F,F,C,F,F,R,F,R,F,F,C,F,F,F,F,C,F,F,R,F,F,F,R,F,R,F,F,C,F,R,F,F,F,F,F,C,F,F,R,F,F,F,F,F,F,R,R,F,F,R,F,C,F,F,R,F,F,F,F,F,F,F,F,F,F,F,C,F,R,F,F,F,F,F,F,C,F,F,F,R,R,F,R,R,F,F,R,F,F,F,F,F,F,C,F,F,C,F,F,C,F,F,R,F,F,F,F,F,F,F,F,F,F,F,W,F,R,F,F,F,F,F,F,C,F,F,F,F,F,F,R,R,F,C,F,R,F,F,F,F,F,F,F,F,F,C,F,F,R",
-        "C,F,F,R,F,W,F,R,R,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,C,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,F,R,F,F,F,F,C,F,F,R,R,F,F,W,R,F,F,F,C,F,F,F,R,F,F,F,F,C,F,R,R,F,F,F,R,F,C,F,F,F,R,F,F,R,R,F,C,F,F,F,R,F,F,F,F,C,F,F,R,F,F,C,F,F,F,R,F,F,F,F,F,F,R,R,F,F,R,F,W",
-        "R,F,F,F,F,F,F,F,F,F,F,F,F,W,F,F,F,F,F,F,F,R,F,C,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,F,F,C,F,R,F,F,C,F,F,F,R,F,F,F,F,F,F,F,F,C,F,F,R,F,F,F,R,F,F,C,F,F,F,F,C,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,F,R,F,F,C,F,R,F,F,F,F,F,F,F,F,F,F,C,F,F,F,R,F,F,F,W,R,F,R,F,F,F,C,F,R,F,F,F,F,R,F,F,C,F,F",
-        "C,F,C,F,F,F,F,C,F,F,F,C,F,F,F,F,F,F,F,F,C,F,F,F,C,F,F,F,F,W,W,F,F,F,F,R,F,F,F,F,W,R,R,F,C,F,F,F,F,F,F,F,R,R,F,R,R,F,W,F,F,F,F,F,R,F,F,F,F,F,F,C,F,F,F,F,C,F,F,F,F,R,F,F,F,F,F,F,C,F,C,F,F,F,R,F,F,F,C,F,F,F,R,F,C,F,F,R,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,F,R,R,F,C,F,R,F,F,F,F,F,F,F,F,F,F,F",
-        "R,R,F,R,F,F,F,R,R,F,F,R,F,C,F,R,F,C,F,R,F,F,F,F,F,F,C,F,F,R,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,C,F,R,R,F,F,F,F,F,R,F,F,W,W,F,F,F,C,F,F,F,R,F,F,F,F,F,F,C,F,F,F,R,R,F,F,F,R,F,C,F,R,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,F,F,R,F,F,C,F,F,F,R,F,F,F,F,F,F,F,F,F,C,F,W,F,F,R,R,F,F,R,F,F,F,F,F,C",
-        "R,F,C,F,F,F,F,F,F,F,C,F,F,R,R,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,C,F,F,F,F,F,F,W,F,F,F,F,F,F,R,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,R,F,R,F,R,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,C,F,F,F,F,F,R,R,F,F,C,F,F,F,F,F,F,R,F,F,R,F,F,F,F,F,F,C,F,R,F,F,W,F,F,F",
-        "F,F,F,R,F,C,F,F,F,R,F,F,F,C,F,F,R,R,F,C,F,R,F,C,F,F,R,F,C,F,F,R,F,C,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,W,F,R,R,F,F,R,F,F,F,F,F,F,F,F,F,F,F,C,F,R,F,C,F,F,F,F,F,R,F,F,F,F,F,R,R,F,F,F,F,W,F,F,R,F,C,F,F,F,F,R,F,F,F,R,F,F,R,R,F,F,R,F,R,R,F,W,C,W,F,R,R,F,R,F,F,F,F,F,C,F,F,R,F,F,C,F,F,F,F,F,F,F,F,F,F",
-        "F,W,R,F,F,R,R,F,C,F,F,F,F,F,F,F,F,F,R,R,F,R,F,F,F,F,F,F,F,F,F,R,F,C,F,R,F,C,F,F,F,R,F,C,F,F,R,R,F,F,W,R,F,C,F,F,R,F,F,F,C,F,F,C,F,F,F,C,F,F,F,F,R,F,C,F,F,R,R,F,F,R,F,F,F,C,F,F,F,F,F,F,F,F,F,F,R,F,F,F,F,C,F,R,R,F,R,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,R,F,W,F,C,F,F,R,F,F,F,F,C,F,F,F,R,R,F,F,R,F,F,F,C,F,R",
-        "R,F,F,F,F,C,F,F,R,F,F,W,W,F,F,F,F,F,F,W,F,R,F,C,F,R,F,F,F,F,F,F,F,R,F,F,W,W,F,R,R,F,F,C,F,W,F,F,W,F,F,F,F,R,R,F,F,F,C,F,R,F,F,F,F,R,F,F,F,F,F,F,F,R,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,C,F,F,R,F,F,F,C,F,F,R,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,R,R,F,F,F,R,F,F,F,F,F,F,R,F,F,F,F,C,F,F,F,F,F,F,R,R,F,F,C",
-        "R,F,F,F,C,F,F,R,F,F,C,F,C,F,F,F,C,F,C,F,F,F,F,F,C,F,F,F,F,R,R,F,F,F,F,R,R,F,F,F,F,F,F,F,F,F,C,F,F,F,R,F,F,F,F,C,F,F,F,F,R,F,F,F,F,C,F,R,F,C,F,F,R,F,C,F,F,R,R,F,C,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,R,R,F,F,F,C,F,F,R,F,F,F,F,F,F,F,C,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,W,F,R,F,F,F,R,R,F,F,F,C,F,F,F",
-        "R,F,F,F,F,W,W,F,C,F,F,F,C,F,F,F,F,F,F,C,F,F,W,R,R,F,F,C,F,R,R,F,R,F,F,C,F,F,F,F,F,F,R,F,R,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,R,F,F,F,C,F,R,F,C,F,F,R,F,F,F,F,F,F,F,F,F,C,F,F,F,C,F,C,F,F,F,R,F,C,F,F,F,F,F,F,F,W,R,F,F,F,F,F,F,F,C,F,F,F,F,R,F,F,F,W,F,F,F,F,C,F,R,F,F,R,R,F,F,F,F,C,F,R,F,F,C,F,F,F,W,W,F,F,F,F",
-        "R,F,F,F,F,F,F,F,R,F,F,C,F,R,F,F,C,F,F,F,R,F,F,C,F,F,F,R,R,F,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,F,F,F,C,F,R,F,F,C,F,F,F,F,R,F,F,C,F,F,F,F,R,F,F,C,F,C,F,F,F,C,F,F,F,F,F,F,C,F,R,F,C,F,F,R,F,R,F,F,C,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,R,F,R,R,F,C,F,F,F,F,F,F,R,F,C,F,R,R,F",
-        "W,C,F,F,F,F,R,W,F,F,F,R,R,F,R,R,F,F,F,F,F,R,R,F,F,F,C,W,F,R,R,F,F,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,F,F,F,R,F,F,C,F,R,R,F,R,F,F,F,C,F,F,F,R,F,F,F,F,W,C,F,R,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,R,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,R,W,F,F,R,R,F,F,C,F,F,F,C,F,F,F,F,R,F,F,R,R,F,F",
-        "R,F,F,R,F,R,R,F,C,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,R,F,C,F,C,F,F,F,F,F,R,F,C,F,F,W,R,R,F,F,F,C,F,F,F,R,F,F,F,C,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,R,F,F,F,R,F,F,C,F,F,F,R,F,F,R,R,F,F,F,C,F,F,F,F,F,F,R,F,F,F,C,F,F,F,R,F,F,F,F,F,W,F,F,F,C,F,R,F,C,F,F,F,F,R,F,F,F,C,F",
-        "F,F,R,R,F,W,R,R,F,F,F,R,R,F,R,R,F,F,F,F,F,R,R,F,F,F,W,W,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,C,F,F,F,F,R,F,F,F,C,F,F,F,W,F,F,F,F,F,F,F,R,F,R,F,C,F,F,F,R,F,C,F,F,R,F,R,F,F,C,F,F,F,R,F,C,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,R,F,F,F,C,F,R,F,F,F,W,C,W,F,R,R,F,R,F,F,F,R,F,C,F,F,F,F",
-        "R,R,F,W,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,W,R,R,F,R,R,F,F,F,F,F,R,F,F,R,R,F,F,F,F,F,F,C,F,F,W,F,R,W,F,R,R,F,R,F,F,F,F,F,W,F,F,R,F,F,F,F,C,F,R,F,F,F,C,F,F,R,F,F,F,C,F,F,R,R,F,W,R,R,F,F,W,R,R,F,F,F,R,F,C,F,R,F,F,C,F,F,R,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,C,F,R,R,F,F,C,F,F,F,F,F,F,R,F",
-        "F,F,F,C,F,R,F,F,F,C,F,F,W,R,F,C,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,R,F,C,F,F,F,F,F,F,C,F,C,F,F,R,F,F,F,F,C,F,F,F,R,F,C,F,F,R,F,C,F,F,F,F,R,F,R,R,F,F,F,C,F,F,F,R,F,C,F,R,F,C,F,R,F,F,F,C,F,F,F,R,F,F,C,F,F,R,F,F,F,C,F,R,R,F,R,F,F,F,F,R,F,F,C,F,F,F,F,F,R,R,F,F,R,R,F,F,W,F,F,F,F,F,F,F,R,R,F,F,R,F,F,F",
-        "C,F,F,F,R,F,F,C,F,R,F,C,F,R,F,C,F,F,F,R,F,F,C,F,R,F,F,F,F,R,F,F,W,F,F,W,R,R,F,R,R,F,F,W,F,F,F,F,F,F,F,C,F,W,R,F,R,R,F,F,W,F,F,F,R,F,F,F,F,C,F,R,F,F,F,F,F,C,F,C,F,F,F,F,F,F,R,F,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,W,W,W,W,F,R,F,R,F,F,F,F,F,F,C,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,W,F,R,R,F,F,F,W,F,F,F",
-        "C,F,C,F,F,F,F,F,F,F,C,F,F,R,R,F,F,C,F,F,F,R,F,F,C,F,F,F,R,F,C,F,F,F,R,F,F,C,F,F,F,F,R,F,F,F,C,F,F,R,R,F,F,F,F,F,F,R,F,C,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,W,W,F,F,W,R,R,F,F,F,F,R,F,C,F,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,F,F,R,F,F,F,F,C,F,F,R,R,F,C,F,F,F,R,F,F,F,F,C,F,F,F,F,F"
+        "R,R,F,C,F,W,W,F,F,F,F,R,F,F,F,F,F,F,F,W,F,F,F,F,F,R,F,F,F,C,F,F,F,F,C,F,F,F,C,F,F,F,F,C,F,F,W,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,R,F,F,F,C,F,F,R,F,F,C,F,F,F,R,R,F,F,F,F,F,F,R,F,F,F,F,F,F,F,F,R,F,F,C,F,F,R,R,F,C,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,F",
+        "R,F,F,F,R,R,F,F,F,R,R,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,W,F,F,R,R,F,F,F,F,F,R,F,F,F,F,R,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,F,F,F,F,F,F,F,F,R,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,R,F,F,C,F,F,F,F,C,F,F,R,R,F,F,R,F,F,C,F,F,R,F,F,C,F,F,R,F,F,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,C,F,R,F,F",
+        "F,C,F,F,F,F,C,F,R,F,F,F,F,F,F,R,F,F,C,F,R,F,F,F,F,F,F,C,F,R,F,F,F,F,C,F,R,F,F,C,F,F,R,F,R,F,F,F,R,F,F,C,F,W,F,F,F,F,F,F,W,W,F,W,F,R,F,F,F,F,R,F,F,F,C,F,F,F,F,C,F,F,F,C,F,F,F,W,R,R,F,F,F,R,R,F,F,F,W,F,F,F,F,F,F,F,F,F,C,F,R,R,F,R,R,F,F,F,C,F,R,R,F,C,F,F,F,C,F,R,F,F,C,F,F,F,F,R,F,F,F,F,R,R,F,F,F,F,F,F",
+        "R,R,F,R,F,F,F,F,F,F,F,C,F,R,F,R,R,F,F,R,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,R,F,C,F,F,R,F,C,F,R,F,F,F,C,F,F,F,F,R,F,W,W,F,F,F,C,F,W,R,R,F,C,F,R,R,F,C,F,F,F,F,C,F,F,F,R,W,F,F,F,R,R,F,F,F,R,F,F,F,R,F,F,C,F,R,F,F,F,C,F,R,F,F,C,F,F,R,F,F,F,C,F,F,R,R,F,F,F,C,F,R,F,F,F,F,F,F,F,F,C,F,R,F,F,C,F,F",
+        "C,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,F,F,F,F,W,W,F,F,F,F,F,C,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,F,C,F,R,F,F,F,F,F,F,F,C,F,F,F,R,R,F,C,F,R,F,F,F,F,F,R,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,R,F,R,R,F,F,F,F,R,F,W,R,R,F,R,F,F,W,F,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,W,F,F,R,F,W,W,W,R,F,F,F,R,F,F,F",
+        "C,F,F,F,F,F,F,F,C,F,R,F,F,F,R,F,R,R,F,C,F,R,R,F,F,F,W,R,R,F,F,R,R,F,F,F,F,F,W,F,R,F,C,F,F,W,W,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,R,F,C,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,F,R,F,F,R,R,F,R,F,F,F,W,R,R,F,F,W,F,R,R,F,F,F,W,F,R,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,F",
+        "W,W,R,R,F,C,F,R,F,C,F,R,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,R,F,F,C,F,F,F,F,C,F,R,F,F,F,C,F,R,R,F,F,R,F,C,F,F,R,F,F,F,C,F,R,F,F,F,C,F,F,R,R,F,R,F,C,F,F,R,F,F,F,C,F,R,F,F,C,F,F,F,R,F,R,F,F,F,F,C,F,F,F,F,F,F,R,F,F,R,R,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,W,F,F,R,R,F,C,F,R,R,F,R,R,F,R,F,F,F,F,F,W,F",
+        "R,R,F,R,F,F,F,R,R,F,F,F,F,F,F,F,F,R,F,F,C,F,R,F,F,F,F,C,F,F,R,R,F,F,C,F,F,F,F,F,F,W,W,W,F,R,R,F,F,F,F,F,F,F,F,F,R,R,F,F,R,F,F,R,R,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,C,F,C,F,F,R,F,C,F,F,F,F,R,F,F,C,F,F,F,F,F,F,R,F,F,F,F,C,F,F,W,W,F,C,F,W,F,W,F,F,C,F,W,F,F,F,F,W,F,R,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F",
+        "F,R,F,F,C,F,C,F,F,F,R,F,F,F,F,F,F,F,F,W,W,F,F,W,C,W,F,C,F,F,W,W,F,F,C,F,R,F,F,F,F,F,F,C,F,F,R,F,F,F,C,F,R,R,F,W,F,F,R,F,F,C,F,R,F,F,F,F,F,F,F,F,C,F,F,F,F,R,F,F,F,R,R,F,F,C,F,R,F,F,R,F,C,F,R,F,F,F,F,C,F,F,F,F,F,C,F,F,F,R,F,F,F,F,F,W,R,R,F,R,F,R,R,F,F,F,F,R,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,R,R",
+        "R,R,F,F,F,F,C,F,F,F,F,R,F,C,F,F,R,R,F,C,F,F,F,R,F,C,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,R,F,C,F,F,R,F,R,R,F,F,F,F,F,F,F,F,F,F,W,W,F,W,F,F,F,F,R,F,F,C,F,F,F,F,F,F,R,R,F,F,R,F,F,C,F,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,R,F,C,F,F,F,R,F,W,W,F,R,R,F,F,W,F,F,F,F,R,F,W,F",
+        "C,F,F,F,F,F,C,F,F,F,F,C,F,F,F,F,F,F,R,F,F,F,C,F,R,F,C,F,F,F,R,F,F,F,C,F,F,R,F,F,F,R,F,F,F,F,C,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,R,F,F,F,F,F,C,F,F,F,F,F,F,F,F,R,F,F,F,F,F,F,F,C,F,F,F,F,F,F,R,R,F,F,C,F,F,F,R,F,F,F,F,W,F,F,R,R,F,R,F,F,F,F,R,F,F,F,C,F,R,F,F,C,F,C,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F",
+        "W,W,F,F,F,F,F,F,R,F,R,R,F,F,F,F,C,F,F,R,F,C,F,R,F,F,F,C,F,R,F,F,C,F,C,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,R,F,F,C,F,F,F,R,F,F,F,W,W,C,F,F,R,R,F,F,R,F,F,F,F,R,F,F,R,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,C,F,F,F,F,C,F,F,F,F,F,R,F,C,F,F,F,F,R,F,F,F,F,F,R,R,F,F,F,F,F,C,F,F,R,F",
+        "F,R,F,R,R,F,F,F,F,F,F,C,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,W,W,F,F,R,R,F,C,F,R,F,C,F,R,F,C,F,F,R,F,F,F,F,F,F,C,F,F,F,R,R,F,R,R,F,R,R,F,F,F,F,F,F,F,R,F,F,F,C,F,F,F,F,R,R,F,F,C,F,R,F,C,F,R,F,F,C,F,F,F,F,R,F,F,R,F,F,F,C,F,F,F,R,F,C,F,F,F,F,R,F,F,R,F,F,C,F,F,F,F,F,W,W,W,F,F,F,F,R,F,F,C,F,F,W,F,F,R,F,F,F,F,F",
+        "C,F,F,F,F,C,F,R,F,C,F,F,R,F,F,F,F,F,C,F,C,F,R,F,C,F,F,F,R,F,F,F,F,C,F,C,F,F,C,F,F,F,R,F,F,C,F,R,F,C,F,F,F,F,F,F,R,F,F,F,C,F,F,C,F,F,F,F,F,F,F,F,R,R,F,F,F,C,F,F,R,F,F,F,F,F,F,F,C,F,F,R,R,F,F,F,R,F,F,C,F,F,R,F,F,F,C,F,R,F,F,C,F,F,F,F,F,F,F,F,F,R,F,F,F,R,R,F,F,C,F,F,F,F,C,F,F,R,R,F,F,R,F,C,F,R,F,F,F,F",
+        "W,W,W,R,F,F,F,R,F,C,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,R,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,R,F,F,F,W,C,W,F,C,F,F,R,F,F,F,C,F,R,F,F,F,F,C,F,R,F,F,F,F,F,C,F,F,R,F,F,C,F,F,F,R,F,F,F,F,C,F,R,R,F,R,F,F,F,W,W,F,F,F,F,F,F,F,F,F,C,F,F,F,C,F,R,F,F,R,R,F,F,R,R,F,R,F,C,F,F,F,R,F,F,F,F,F,F,C,F,F,R,R,F,C,F,R,F,R",
+        "W,W,W,W,W,W,W,R,R,F,R,F,F,F,C,F,R,F,C,F,F,F,F,R,F,F,F,F,C,F,F,F,R,F,C,F,F,F,F,F,R,F,F,C,F,F,F,F,R,F,F,C,F,C,F,F,F,W,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,R,R,F,R,F,F,F,F,F,F,F,C,F,R,F,R,F,F,F,F,F,F,F,C,F,F,F,F,W,W,F,F,W,F,R,R,F,F,F,C,F,F,F,C,F,R,F,F,F,C,F,F,F,R,F,F,F,R,R,F",
+        "F,C,F,R,F,C,F,R,F,F,F,F,C,F,R,R,F,R,F,R,R,F,F,W,R,R,F,F,F,F,R,F,F,F,F,C,F,F,R,F,F,C,F,F,F,F,R,R,F,F,F,C,F,F,F,C,F,W,F,F,W,F,C,F,F,W,F,F,F,F,R,F,C,F,F,R,F,F,F,F,F,F,C,F,F,F,F,R,R,F,C,F,F,R,F,C,F,F,R,F,F,F,F,C,F,R,F,W,R,R,F,C,F,F,F,F,F,W,F,F,W,F,W,W,F,F,F,F,F,F,F,F,W,F,F,F,R,F,F,C,F,F,F,R,R,F,F,R,F,F",
+        "W,F,F,F,F,R,F,F,W,W,R,R,F,F,F,F,W,F,F,F,F,F,F,F,R,R,F,R,R,F,F,R,R,F,W,F,F,R,F,F,F,F,R,F,F,C,F,C,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,F,R,R,F,F,R,F,C,F,R,F,F,F,C,F,R,F,F,F,F,F,F,C,F,R,F,F,F,F,C,F,F,F,F,F,F,F,F,R,R,F,R,F,F,F,F,F,F,W,W,F,W,F,F,F,F,F,R,F,R,R,F,R,F,R,R,F,F,F,F,F,R,F,F,F,C,F,F,F,F,F,F",
+        "W,R,F,F,F,F,W,F,F,F,F,F,C,F,F,F,F,F,R,F,F,F,F,F,F,R,F,R,F,F,F,F,F,F,F,F,F,F,F,F,R,F,R,R,F,R,R,F,F,R,R,F,R,R,F,F,F,F,W,W,W,F,R,R,F,F,F,F,F,F,F,F,F,F,C,F,R,F,C,F,F,F,F,F,R,F,F,F,F,F,R,R,F,F,F,F,F,F,F,F,F,F,C,F,R,R,F,C,F,F,F,R,F,C,F,F,F,C,F,C,F,W,R,R,F,F,F,F,F,F,F,F,C,F,F,F,C,F,F,F,F,F,F,F,F,F,R,F,F,F",
+        "W,W,R,F,F,F,F,F,F,F,R,F,F,F,F,R,F,F,F,C,F,R,R,F,F,C,F,F,R,F,F,C,F,F,R,F,F,F,C,F,F,R,R,F,F,W,F,R,F,F,F,F,F,R,F,F,F,C,F,F,R,R,F,R,F,F,R,F,F,F,C,F,F,F,F,R,F,F,W,F,F,W,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,C,F,F,F,R,F,F,F,C,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,F,C,F,R,F,F,R,R,F,R,F,F,C,F,F,R,F,F,C,F,F,F,C,F,F"
     ],
     "plannerTimes": [
-        0.043670892,
-        0.025053737,
-        0.025077535,
-        0.025067497,
-        0.025070022,
-        0.025077463,
-        0.025068377,
-        0.025092207,
-        0.025070555,
-        0.025060925,
-        0.025074835,
-        0.025075028,
-        0.02506239,
-        0.025694479,
-        0.025063548,
-        0.025669549,
-        0.025682611,
-        0.025072182,
-        0.025702947,
-        0.025071182,
-        0.025067947,
-        0.025690658,
-        0.025061955,
-        0.025728638,
-        0.025068639,
-        0.02507324,
-        0.025072852,
-        0.02568086,
-        0.025690413,
-        0.025678351,
-        0.025073123,
-        0.025096337,
-        0.025078796,
-        0.025084762,
-        0.025079561,
-        0.025077841,
-        0.025074337,
-        0.025061893,
-        0.025702364,
-        0.025693624,
-        0.02567361,
-        0.025071942,
-        0.025076092,
-        0.025070595,
-        0.025075998,
-        0.025715402,
-        0.025081546,
-        0.025072204,
-        0.025076464,
-        0.025706504,
-        0.025077919,
-        0.0250714,
-        0.025676879,
-        0.025078628,
-        0.025072743,
-        0.02568676,
-        0.025712477,
-        0.025691607,
-        0.025071523,
-        0.025100875,
-        0.025080011,
-        0.02507943,
-        0.025091228,
-        0.025770196,
-        0.02577682,
-        0.025076075,
-        0.025765451,
-        0.025093992,
-        0.025077966,
-        0.02506526,
-        0.025071184,
-        0.025074224,
-        0.025743048,
-        0.025722241,
-        0.025079424,
-        0.025710099,
-        0.02507607,
-        0.025070858,
-        0.02573763,
-        0.025727406,
-        0.025698111,
-        0.025724513,
-        0.02570599,
-        0.025082734,
-        0.025083463,
-        0.02506867,
-        0.025065131,
-        0.025085635,
-        0.025077325,
-        0.025687292,
-        0.02570331,
-        0.025730876,
-        0.025080814,
-        0.025078853,
-        0.025072687,
-        0.02507789,
-        0.025708885,
-        0.025086048,
-        0.02506905,
-        0.025700477,
-        0.025089293,
-        0.025082627,
-        0.02507548,
-        0.025732643,
-        0.025066425,
-        0.025077673,
-        0.025075845,
-        0.025675755,
-        0.025691892,
-        0.025716386,
-        0.025071628,
-        0.02507437,
-        0.025111442,
-        0.025071827,
-        0.025681196,
-        0.025677311,
-        0.025666613,
-        0.025718022,
-        0.025680376,
-        0.025081756,
-        0.025699031,
-        0.025681398,
-        0.025079137,
-        0.025702883,
-        0.025077169,
-        0.025067972,
-        0.025069952,
-        0.025066238,
-        0.0250672,
-        0.025071426,
-        0.025678269,
-        0.025660798,
-        0.025665869,
-        0.02568961,
-        0.025674615,
-        0.025065188,
-        0.025089046,
-        0.025064713,
-        0.025069486,
-        0.02572349,
-        0.025067755,
-        0.025686437,
-        0.02507933,
-        0.025078639,
-        0.025085491,
-        0.025078633,
-        0.025673801,
-        0.025659843,
-        0.02508228,
-        0.025082745
+        0.035192951,
+        0.027886437,
+        0.028132373,
+        0.025605222,
+        0.025573784,
+        0.025715702,
+        0.025595003,
+        0.02567681,
+        0.025119448,
+        0.025601416,
+        0.025147934,
+        0.025131127,
+        0.025137083,
+        0.025152152,
+        0.025163723,
+        0.025773233,
+        0.025806224,
+        0.025721082,
+        0.025581336,
+        0.025627094,
+        0.025576679,
+        0.025570024,
+        0.025123136,
+        0.025124688,
+        0.025568903,
+        0.025610271,
+        0.02562017,
+        0.025787499,
+        0.025614902,
+        0.025582028,
+        0.025603028,
+        0.025608032,
+        0.025576929,
+        0.025657851,
+        0.025644115,
+        0.025132413,
+        0.025141481,
+        0.025139026,
+        0.025152979,
+        0.025158202,
+        0.025145908,
+        0.025702166,
+        0.025167009,
+        0.025162732,
+        0.025659394,
+        0.02559907,
+        0.025548263,
+        0.025588241,
+        0.025573091,
+        0.025593199,
+        0.025551401,
+        0.025611924,
+        0.026844406,
+        0.026740931,
+        0.026849496,
+        0.025658883,
+        0.025613077,
+        0.025121142,
+        0.025125161,
+        0.025151068,
+        0.025588351,
+        0.025539236,
+        0.025603649,
+        0.025589942,
+        0.025580394,
+        0.025577048,
+        0.025581268,
+        0.025535249,
+        0.025554115,
+        0.025555978,
+        0.025566548,
+        0.025515391,
+        0.025642623,
+        0.025542444,
+        0.025583531,
+        0.025526393,
+        0.025517826,
+        0.025529868,
+        0.025537924,
+        0.025517014,
+        0.025563282,
+        0.025544987,
+        0.025539267,
+        0.025508207,
+        0.025551811,
+        0.025525671,
+        0.025546039,
+        0.025517946,
+        0.02551514,
+        0.025598496,
+        0.025586526,
+        0.025628676,
+        0.025664591,
+        0.025554756,
+        0.025544135,
+        0.025512887,
+        0.025512667,
+        0.025501173,
+        0.025517545,
+        0.025113627,
+        0.025118036,
+        0.025143034,
+        0.025111303,
+        0.025112256,
+        0.025122896,
+        0.025131403,
+        0.025112296,
+        0.025490183,
+        0.025481236,
+        0.025464023,
+        0.025515621,
+        0.025475366,
+        0.025468402,
+        0.025131903,
+        0.025478792,
+        0.025461909,
+        0.025458132,
+        0.025448704,
+        0.025437002,
+        0.0268624,
+        0.025460678,
+        0.025423366,
+        0.025476107,
+        0.025450538,
+        0.025461429,
+        0.025461248,
+        0.025471498,
+        0.025445007,
+        0.025122615,
+        0.025143014,
+        0.025123927,
+        0.025475816,
+        0.025412978,
+        0.025421763,
+        0.025419228,
+        0.02542037,
+        0.025416132,
+        0.026784623,
+        0.025477129,
+        0.025437315,
+        0.025489433,
+        0.025148253,
+        0.025442382,
+        0.025426969,
+        0.025422256,
+        0.025443537,
+        0.025428839,
+        0.025447724,
+        0.025427977,
+        0.025428959
     ],
     "errors": [],
     "actualSchedule": [
-        "1:21,30:39,81:51,121:63",
-        "1:16,24:18,81:-1,83:64,116:-1,117:74",
-        "1:1,28:32,57:50,81:58,115:75",
-        "1:20,74:8,131:71,148:56",
-        "1:19,14:4,41:25,91:48",
-        "1:9,46:44,64:54,109:72",
-        "1:22,41:45,90:65,135:62",
-        "1:15,57:41,108:57,118:78",
-        "1:13,19:33,64:52,104:66",
-        "1:27,40:43,76:24,122:80",
-        "1:0,17:31,58:46,104:70,142:87",
-        "1:23,30:37,65:55,115:69",
-        "1:11,79:10,134:83",
-        "1:17,22:29,100:47,147:90",
-        "1:26,39:40,53:36,92:35,124:81,133:84",
-        "1:6,39:38,67:53,119:79",
-        "1:3,16:28,56:42,132:82",
-        "1:14,29:2,73:49,110:59",
-        "1:12,29:34,80:61,140:67",
-        "1:5,50:7,97:68,133:86"
+        "1:10,28:-1,30:30,71:-1,80:54,113:61",
+        "1:1,10:2,57:37,94:-1,95:69,125:-1,127:85",
+        "1:9,45:-1,48:44,74:49,111:-1,112:66",
+        "1:26,16:-1,20:29,71:-1,76:31,127:-1,128:86",
+        "1:8,51:-1,55:46,99:38,138:-1,139:84",
+        "1:21,17:-1,22:20,64:-1,69:43,108:-1,111:73",
+        "1:-1,3:0,47:47,92:65,132:-1,138:89",
+        "1:19,21:13,46:-1,57:50,111:-1,113:74,148:-1,150:83",
+        "1:12,28:-1,33:36,82:-1,88:41,116:-1,122:70",
+        "1:22,17:-1,18:5,65:53,95:52",
+        "1:24,42:4,95:-1,99:68,115:-1,117:72",
+        "1:-1,3:18,33:-1,34:32,88:-1,98:62,139:-1,141:77",
+        "1:3,32:-1,33:7,80:-1,81:48,120:-1,123:63",
+        "1:6,34:-1,35:42,73:-1,75:51,126:80",
+        "1:-1,4:11,54:-1,56:45,93:60,117:-1,120:67,143:-1,149:88",
+        "1:-1,8:27,91:64,125:81",
+        "1:28,47:40,88:-1,90:58,109:-1,110:71",
+        "1:-1,2:23,25:-1,28:15,70:55,128:79,148:91",
+        "1:-1,2:17,26:-1,28:35,50:-1,53:14,91:-1,94:56,120:-1,126:82",
+        "1:-1,3:25,22:16,61:-1,63:33,132:75"
     ],
     "plannerSchedule": [
-        "1:21,30:39,81:51,121:63",
-        "1:16,24:18,81:-1,83:64,116:-1,117:74",
-        "1:1,28:32,57:50,81:58,115:75",
-        "1:20,74:8,131:71,148:56",
-        "1:19,14:4,41:25,91:48",
-        "1:9,46:44,64:54,109:72",
-        "1:22,41:45,90:65,135:62",
-        "1:15,57:41,108:57,118:78",
-        "1:13,19:33,64:52,104:66",
-        "1:27,40:43,76:24,122:80",
-        "1:0,17:31,58:46,104:70,142:87",
-        "1:23,30:37,65:55,115:69",
-        "1:11,79:10,134:83",
-        "1:17,22:29,100:47,147:90",
-        "1:26,39:40,53:36,92:35,124:81,133:84",
-        "1:6,39:38,67:53,119:79",
-        "1:3,16:28,56:42,132:82",
-        "1:14,29:2,73:49,110:59",
-        "1:12,29:34,80:61,140:67",
-        "1:5,50:7,97:68,133:86"
+        "1:10,28:-1,30:30,71:-1,80:54,113:61",
+        "1:1,10:2,57:37,94:-1,95:69,125:-1,127:85",
+        "1:9,45:-1,48:44,74:49,111:-1,112:66",
+        "1:26,16:-1,20:29,71:-1,76:31,127:-1,128:86",
+        "1:8,51:-1,55:46,99:38,138:-1,139:84",
+        "1:21,17:-1,22:20,64:-1,69:43,108:-1,111:73",
+        "1:-1,3:0,47:47,92:65,132:-1,138:89",
+        "1:19,21:13,46:-1,57:50,111:-1,113:74,148:-1,150:83",
+        "1:12,28:-1,33:36,82:-1,88:41,116:-1,122:70",
+        "1:22,17:-1,18:5,65:53,95:52",
+        "1:24,42:4,95:-1,99:68,115:-1,117:72",
+        "1:-1,3:18,33:-1,34:32,88:-1,98:62,139:-1,141:77",
+        "1:3,32:-1,33:7,80:-1,81:48,120:-1,123:63",
+        "1:6,34:-1,35:42,73:-1,75:51,126:80",
+        "1:-1,4:11,54:-1,56:45,93:60,117:-1,120:67,143:-1,149:88",
+        "1:-1,8:27,91:64,125:81",
+        "1:28,47:40,88:-1,90:58,109:-1,110:71",
+        "1:-1,2:23,25:-1,28:15,70:55,128:79,148:91",
+        "1:-1,2:17,26:-1,28:35,50:-1,53:14,91:-1,94:56,120:-1,126:82",
+        "1:-1,3:25,22:16,61:-1,63:33,132:75"
     ],
     "scheduleErrors": [],
     "events": [
         [
-            1,
-            13,
-            17,
-            1
-        ],
-        [
-            1,
-            17,
-            14,
-            1
-        ],
-        [
             2,
-            0,
+            5,
             21,
             1
         ],
         [
-            2,
-            15,
-            6,
+            3,
+            0,
+            10,
             1
         ],
         [
             3,
-            16,
+            12,
             3,
             1
         ],
         [
             4,
-            18,
-            12,
+            1,
+            1,
             1
         ],
         [
             5,
-            8,
-            13,
-            1
-        ],
-        [
-            5,
-            14,
+            3,
             26,
             1
         ],
         [
-            7,
-            2,
-            1,
-            1
-        ],
-        [
-            7,
-            5,
-            9,
-            1
-        ],
-        [
-            8,
-            1,
-            16,
-            1
-        ],
-        [
-            8,
-            11,
-            23,
-            1
-        ],
-        [
-            9,
-            4,
-            19,
-            1
-        ],
-        [
-            12,
-            10,
-            0,
-            1
-        ],
-        [
-            13,
-            4,
-            19,
-            2
-        ],
-        [
-            13,
             6,
+            2,
+            9,
+            1
+        ],
+        [
+            6,
+            8,
+            12,
+            1
+        ],
+        [
+            6,
+            9,
             22,
             1
         ],
         [
-            13,
-            19,
-            5,
-            1
-        ],
-        [
-            15,
-            16,
-            3,
-            2
-        ],
-        [
-            16,
             7,
-            15,
+            7,
+            19,
             1
         ],
         [
-            16,
-            10,
-            0,
-            2
-        ],
-        [
-            18,
             8,
-            13,
-            2
+            10,
+            24,
+            1
         ],
         [
-            21,
-            13,
+            8,
             17,
-            2
+            23,
+            1
         ],
         [
-            23,
-            1,
-            16,
-            2
-        ],
-        [
-            23,
             9,
-            27,
-            1
-        ],
-        [
-            26,
-            4,
-            4,
-            1
-        ],
-        [
-            26,
-            12,
-            11,
-            1
-        ],
-        [
-            27,
-            2,
+            1,
             1,
             2
         ],
         [
-            27,
-            3,
-            20,
-            1
-        ],
-        [
-            28,
-            17,
-            14,
-            2
-        ],
-        [
-            28,
-            18,
-            12,
-            2
-        ],
-        [
-            29,
-            0,
-            21,
-            2
-        ],
-        [
-            29,
             10,
-            31,
-            1
-        ],
-        [
-            29,
             11,
-            23,
-            2
-        ],
-        [
-            36,
-            2,
-            32,
-            1
-        ],
-        [
-            38,
-            14,
-            26,
-            2
-        ],
-        [
-            38,
-            15,
-            6,
-            2
-        ],
-        [
-            39,
-            9,
-            27,
-            2
-        ],
-        [
-            39,
-            16,
-            28,
-            1
-        ],
-        [
-            40,
-            4,
-            4,
-            2
-        ],
-        [
-            40,
-            6,
-            22,
-            2
-        ],
-        [
-            44,
-            0,
-            39,
-            1
-        ],
-        [
-            44,
-            11,
-            37,
-            1
-        ],
-        [
-            45,
-            5,
-            9,
-            2
-        ],
-        [
-            46,
-            1,
             18,
             1
         ],
         [
-            46,
-            8,
-            33,
-            1
-        ],
-        [
-            46,
-            17,
-            2,
-            1
-        ],
-        [
-            47,
-            6,
-            45,
-            1
-        ],
-        [
-            47,
-            15,
-            38,
-            1
-        ],
-        [
-            48,
-            5,
-            44,
-            1
-        ],
-        [
-            49,
-            19,
-            5,
-            2
-        ],
-        [
-            51,
-            14,
-            40,
-            1
-        ],
-        [
-            52,
-            14,
-            40,
-            2
-        ],
-        [
-            53,
-            9,
-            43,
-            1
-        ],
-        [
-            53,
-            18,
-            34,
-            1
-        ],
-        [
-            55,
-            16,
-            28,
-            2
-        ],
-        [
-            56,
-            2,
-            32,
-            2
-        ],
-        [
-            56,
-            7,
-            15,
-            2
-        ],
-        [
-            57,
-            10,
-            31,
-            2
-        ],
-        [
-            59,
-            2,
-            50,
-            1
-        ],
-        [
-            61,
             13,
-            29,
-            1
-        ],
-        [
-            63,
-            5,
-            44,
-            2
-        ],
-        [
-            63,
-            8,
-            33,
-            2
-        ],
-        [
-            64,
-            11,
-            37,
-            2
-        ],
-        [
-            66,
-            15,
-            38,
-            2
-        ],
-        [
-            67,
-            14,
-            36,
-            1
-        ],
-        [
-            70,
             19,
-            7,
-            1
-        ],
-        [
-            72,
-            17,
-            2,
-            2
-        ],
-        [
-            73,
-            3,
-            20,
-            2
-        ],
-        [
-            73,
-            4,
             25,
             1
         ],
         [
-            75,
-            9,
-            43,
+            14,
+            16,
+            28,
+            1
+        ],
+        [
+            15,
+            3,
+            26,
             2
         ],
         [
-            77,
+            15,
+            4,
             8,
-            52,
             1
         ],
         [
-            77,
-            10,
-            46,
-            1
-        ],
-        [
-            77,
-            17,
-            49,
-            1
-        ],
-        [
-            78,
+            16,
             5,
-            54,
+            21,
+            2
+        ],
+        [
+            16,
+            9,
+            22,
+            2
+        ],
+        [
+            18,
+            13,
+            6,
             1
         ],
         [
-            78,
+            18,
+            18,
+            17,
+            1
+        ],
+        [
+            20,
+            7,
+            19,
+            2
+        ],
+        [
+            21,
+            19,
+            25,
+            2
+        ],
+        [
+            24,
+            14,
+            11,
+            1
+        ],
+        [
+            24,
+            17,
+            23,
+            2
+        ],
+        [
+            25,
+            18,
+            17,
+            2
+        ],
+        [
+            27,
+            0,
+            10,
+            2
+        ],
+        [
+            27,
+            8,
             12,
+            2
+        ],
+        [
+            30,
+            6,
+            0,
+            1
+        ],
+        [
+            30,
+            7,
+            13,
+            1
+        ],
+        [
+            31,
+            1,
+            2,
+            1
+        ],
+        [
+            31,
+            12,
+            3,
+            2
+        ],
+        [
+            32,
+            11,
+            18,
+            2
+        ],
+        [
+            33,
+            13,
+            6,
+            2
+        ],
+        [
+            35,
+            18,
+            35,
+            1
+        ],
+        [
+            40,
+            0,
+            30,
+            1
+        ],
+        [
+            40,
+            9,
+            5,
+            1
+        ],
+        [
+            41,
+            3,
+            29,
+            1
+        ],
+        [
+            41,
+            10,
+            24,
+            2
+        ],
+        [
+            41,
+            19,
+            16,
+            1
+        ],
+        [
+            42,
+            5,
+            20,
+            1
+        ],
+        [
+            44,
+            2,
+            9,
+            2
+        ],
+        [
+            45,
+            7,
+            13,
+            2
+        ],
+        [
+            45,
+            17,
+            15,
+            1
+        ],
+        [
+            46,
+            6,
+            0,
+            2
+        ],
+        [
+            46,
+            16,
+            28,
+            2
+        ],
+        [
+            49,
+            18,
+            35,
+            2
+        ],
+        [
+            50,
+            4,
+            8,
+            2
+        ],
+        [
+            51,
+            15,
+            27,
+            1
+        ],
+        [
+            52,
+            8,
+            36,
+            1
+        ],
+        [
+            53,
+            14,
             11,
             2
         ],
         [
-            79,
+            56,
+            1,
+            2,
+            2
+        ],
+        [
+            56,
+            12,
+            7,
+            1
+        ],
+        [
+            57,
+            16,
+            40,
+            1
+        ],
+        [
+            58,
+            2,
+            44,
+            1
+        ],
+        [
+            60,
+            13,
+            42,
+            1
+        ],
+        [
+            60,
+            19,
+            16,
+            2
+        ],
+        [
+            62,
+            18,
+            14,
+            1
+        ],
+        [
+            63,
+            5,
+            20,
+            2
+        ],
+        [
+            64,
+            9,
+            5,
+            2
+        ],
+        [
+            67,
+            10,
+            4,
+            1
+        ],
+        [
+            68,
+            6,
+            47,
+            1
+        ],
+        [
+            69,
+            4,
+            46,
+            1
+        ],
+        [
+            69,
+            17,
             15,
+            2
+        ],
+        [
+            70,
+            0,
+            30,
+            2
+        ],
+        [
+            70,
+            3,
+            29,
+            2
+        ],
+        [
+            72,
+            13,
+            42,
+            2
+        ],
+        [
+            73,
+            2,
+            44,
+            2
+        ],
+        [
+            74,
+            1,
+            37,
+            1
+        ],
+        [
+            75,
+            11,
+            32,
+            1
+        ],
+        [
+            76,
+            9,
             53,
             1
         ],
         [
-            79,
-            18,
-            34,
-            2
-        ],
-        [
-            80,
-            0,
-            39,
-            2
-        ],
-        [
-            80,
-            1,
-            18,
-            2
-        ],
-        [
-            80,
+            78,
             2,
-            50,
+            49,
+            1
+        ],
+        [
+            79,
+            12,
+            7,
             2
         ],
         [
-            84,
-            3,
+            80,
+            14,
+            45,
+            1
+        ],
+        [
+            81,
             8,
+            36,
+            2
+        ],
+        [
+            82,
+            7,
+            50,
             1
         ],
         [
             87,
             11,
-            55,
-            1
+            32,
+            2
         ],
         [
-            88,
-            7,
-            41,
-            1
-        ],
-        [
-            88,
+            87,
             16,
-            42,
-            1
+            40,
+            2
         ],
         [
             89,
-            6,
-            45,
+            5,
+            43,
+            1
+        ],
+        [
+            90,
+            15,
+            27,
             2
         ],
         [
             90,
-            4,
-            25,
+            18,
+            14,
             2
         ],
         [
             91,
-            14,
-            36,
+            6,
+            47,
             2
         ],
         [
-            96,
-            19,
-            7,
-            2
-        ],
-        [
-            97,
-            1,
-            64,
-            1
-        ],
-        [
-            97,
-            19,
-            68,
-            1
-        ],
-        [
-            99,
+            91,
             13,
-            29,
-            2
-        ],
-        [
-            100,
-            2,
-            58,
-            1
-        ],
-        [
-            100,
-            12,
-            10,
-            1
-        ],
-        [
-            103,
-            8,
-            52,
-            2
-        ],
-        [
-            103,
-            9,
-            24,
-            1
-        ],
-        [
-            103,
-            10,
-            46,
-            2
-        ],
-        [
-            104,
-            0,
             51,
             1
         ],
         [
-            105,
+            92,
             14,
-            35,
-            1
-        ],
-        [
-            107,
-            7,
-            41,
+            45,
             2
         ],
         [
-            108,
-            5,
-            54,
-            2
-        ],
-        [
-            109,
-            17,
-            49,
-            2
-        ],
-        [
-            111,
-            7,
-            57,
-            1
-        ],
-        [
-            112,
-            18,
-            61,
-            1
-        ],
-        [
-            114,
-            2,
-            58,
-            2
-        ],
-        [
-            114,
-            11,
-            55,
-            2
-        ],
-        [
-            115,
+            93,
             1,
-            64,
+            37,
             2
         ],
         [
-            117,
-            7,
-            57,
-            2
+            93,
+            3,
+            31,
+            1
         ],
         [
-            118,
-            15,
+            94,
+            9,
             53,
             2
         ],
         [
-            120,
-            0,
-            51,
-            2
-        ],
-        [
-            120,
-            6,
-            65,
-            1
-        ],
-        [
-            121,
-            9,
-            24,
-            2
-        ],
-        [
-            122,
+            94,
             10,
-            70,
-            1
-        ],
-        [
-            123,
-            14,
-            35,
-            2
-        ],
-        [
-            124,
-            7,
-            78,
-            1
-        ],
-        [
-            129,
-            11,
-            69,
-            1
-        ],
-        [
-            130,
-            3,
-            8,
-            2
-        ],
-        [
-            130,
-            13,
-            47,
-            1
-        ],
-        [
-            131,
-            1,
-            74,
-            1
-        ],
-        [
-            131,
-            3,
-            71,
-            1
-        ],
-        [
-            131,
-            14,
-            81,
-            1
-        ],
-        [
-            131,
-            16,
-            42,
-            2
-        ],
-        [
-            132,
-            14,
-            81,
-            2
-        ],
-        [
-            132,
-            19,
-            68,
-            2
-        ],
-        [
-            133,
             4,
+            2
+        ],
+        [
+            98,
+            4,
+            46,
+            2
+        ],
+        [
+            101,
+            10,
+            68,
+            1
+        ],
+        [
+            101,
+            12,
             48,
             1
         ],
         [
-            133,
-            12,
-            10,
+            101,
+            15,
+            64,
+            1
+        ],
+        [
+            101,
+            19,
+            33,
+            1
+        ],
+        [
+            102,
+            0,
+            54,
+            1
+        ],
+        [
+            103,
+            8,
+            41,
+            1
+        ],
+        [
+            104,
+            1,
+            69,
+            1
+        ],
+        [
+            104,
+            18,
+            56,
+            1
+        ],
+        [
+            106,
+            4,
+            38,
+            1
+        ],
+        [
+            106,
+            6,
+            65,
+            1
+        ],
+        [
+            106,
+            17,
+            55,
+            1
+        ],
+        [
+            107,
+            5,
+            43,
             2
         ],
         [
-            134,
+            107,
+            14,
+            60,
+            1
+        ],
+        [
+            107,
+            16,
+            58,
+            1
+        ],
+        [
+            108,
+            16,
+            58,
+            2
+        ],
+        [
+            110,
+            2,
+            49,
+            2
+        ],
+        [
+            110,
+            7,
+            50,
+            2
+        ],
+        [
+            112,
+            0,
+            54,
+            2
+        ],
+        [
+            114,
+            10,
+            68,
+            2
+        ],
+        [
+            115,
+            8,
+            41,
+            2
+        ],
+        [
+            116,
+            5,
+            73,
+            1
+        ],
+        [
+            116,
+            14,
+            60,
+            2
+        ],
+        [
+            119,
+            12,
+            48,
+            2
+        ],
+        [
+            119,
+            18,
+            56,
+            2
+        ],
+        [
+            123,
+            14,
+            67,
+            1
+        ],
+        [
+            124,
+            1,
+            69,
+            2
+        ],
+        [
+            124,
+            15,
+            64,
+            2
+        ],
+        [
+            125,
+            0,
+            61,
+            1
+        ],
+        [
+            125,
+            11,
+            62,
+            1
+        ],
+        [
+            125,
+            13,
+            51,
+            2
+        ],
+        [
+            126,
+            3,
+            31,
+            2
+        ],
+        [
+            127,
+            17,
+            55,
+            2
+        ],
+        [
+            131,
             6,
             65,
             2
         ],
         [
-            136,
-            15,
+            131,
+            19,
+            33,
+            2
+        ],
+        [
+            132,
+            17,
             79,
             1
         ],
         [
-            137,
-            14,
-            84,
+            133,
+            7,
+            74,
             1
         ],
         [
-            137,
-            16,
-            82,
-            1
-        ],
-        [
-            139,
-            5,
+            133,
+            10,
             72,
             1
         ],
         [
-            139,
-            8,
-            66,
-            1
-        ],
-        [
-            139,
-            18,
-            61,
-            2
-        ],
-        [
-            141,
-            10,
-            70,
-            2
-        ],
-        [
-            142,
-            17,
-            59,
-            1
-        ],
-        [
-            143,
-            2,
-            75,
-            1
-        ],
-        [
-            145,
+            134,
             9,
+            52,
+            1
+        ],
+        [
+            137,
+            4,
+            38,
+            2
+        ],
+        [
+            137,
+            12,
+            63,
+            1
+        ],
+        [
+            137,
+            13,
             80,
             1
         ],
         [
-            146,
-            13,
-            47,
+            138,
+            11,
+            62,
             2
         ],
         [
-            147,
-            3,
+            141,
+            1,
+            85,
+            1
+        ],
+        [
+            142,
+            2,
+            66,
+            1
+        ],
+        [
+            142,
+            14,
+            67,
+            2
+        ],
+        [
+            143,
+            16,
             71,
+            1
+        ],
+        [
+            147,
+            7,
+            74,
             2
         ],
         [
             147,
-            12,
-            83,
+            15,
+            81,
+            1
+        ],
+        [
+            147,
+            17,
+            79,
+            2
+        ],
+        [
+            147,
+            19,
+            75,
+            1
+        ],
+        [
+            148,
+            8,
+            70,
+            1
+        ],
+        [
+            148,
+            18,
+            82,
             1
         ],
         [
             150,
-            16,
-            82,
-            2
+            3,
+            86,
+            1
         ]
     ],
     "tasks": [
@@ -1198,20 +1210,20 @@
             0,
             0,
             [
-                11,
-                7,
-                8,
-                7
+                22,
+                23,
+                22,
+                16
             ]
         ],
         [
             1,
             0,
             [
-                7,
-                17,
-                16,
-                10
+                12,
+                1,
+                9,
+                1
             ]
         ],
         [
@@ -1219,29 +1231,29 @@
             0,
             [
                 12,
-                7,
-                1,
-                14
+                15,
+                16,
+                21
             ]
         ],
         [
             3,
             0,
             [
-                13,
-                9,
-                13,
-                12
+                22,
+                12,
+                1,
+                11
             ]
         ],
         [
             4,
             0,
             [
+                1,
+                7,
                 13,
-                14,
-                9,
-                7
+                17
             ]
         ],
         [
@@ -1249,209 +1261,209 @@
             0,
             [
                 22,
-                16,
-                12,
-                1
+                5,
+                22,
+                19
             ]
         ],
         [
             6,
             0,
             [
-                10,
-                17,
-                10,
-                10
+                12,
+                7,
+                16,
+                1
             ]
         ],
         [
             7,
             0,
             [
-                13,
-                17,
-                22,
-                5
+                10,
+                18,
+                7,
+                8
             ]
         ],
         [
             8,
             0,
             [
+                5,
                 1,
-                25,
-                22,
-                9
+                1,
+                25
             ]
         ],
         [
             9,
             0,
             [
+                12,
+                7,
                 1,
-                25,
-                15,
-                11
+                21
             ]
         ],
         [
             10,
             0,
             [
-                14,
-                29,
-                22,
-                9
+                8,
+                23,
+                12,
+                11
             ]
         ],
         [
             11,
             0,
             [
-                22,
-                5,
-                7,
-                29
+                18,
+                29,
+                1,
+                25
             ]
         ],
         [
             12,
             0,
             [
-                16,
-                1,
-                10,
-                10
+                22,
+                19,
+                18,
+                29
             ]
         ],
         [
             13,
             0,
             [
-                8,
-                23,
-                7,
-                14
+                12,
+                19,
+                10,
+                12
             ]
         ],
         [
             14,
             0,
             [
+                10,
+                17,
                 16,
-                1,
-                1,
-                7
+                1
             ]
         ],
         [
             15,
             0,
             [
-                11,
-                29,
-                22,
-                12
+                1,
+                7,
+                1,
+                21
             ]
         ],
         [
             16,
             0,
             [
-                16,
                 1,
-                9,
-                1
+                25,
+                1,
+                18
             ]
         ],
         [
             17,
             0,
             [
-                14,
-                15,
-                10,
-                22
+                16,
+                12,
+                22,
+                12
             ]
         ],
         [
             18,
             0,
             [
-                22,
-                5,
-                14,
-                23
+                11,
+                11,
+                1,
+                7
             ]
         ],
         [
             19,
             0,
             [
-                14,
-                7,
-                16,
-                8
+                1,
+                25,
+                9,
+                23
             ]
         ],
         [
             20,
             0,
             [
-                22,
+                7,
+                16,
                 5,
-                1,
-                21
+                1
             ]
         ],
         [
             21,
             0,
             [
-                7,
-                29,
-                11,
-                11
+                22,
+                16,
+                13,
+                16
             ]
         ],
         [
             22,
             0,
             [
-                1,
-                14,
-                15,
-                23
+                16,
+                20,
+                22,
+                19
             ]
         ],
         [
             23,
             0,
             [
-                22,
-                16,
-                15,
-                19
+                12,
+                11,
+                1,
+                11
             ]
         ],
         [
             24,
             0,
             [
-                22,
-                23,
                 10,
-                20
+                22,
+                22,
+                9
             ]
         ],
         [
             25,
             0,
             [
-                16,
-                20,
-                11,
-                29
+                10,
+                21,
+                7,
+                18
             ]
         ],
         [
@@ -1460,48 +1472,48 @@
             [
                 22,
                 16,
-                7,
-                8
+                15,
+                15
             ]
         ],
         [
             27,
             0,
             [
-                16,
-                18,
-                14,
-                11
+                1,
+                7,
+                15,
+                23
             ]
         ],
         [
             28,
             0,
             [
-                7,
-                21,
-                10,
-                14
+                18,
+                29,
+                13,
+                20
             ]
         ],
         [
             29,
             0,
             [
-                22,
-                16,
-                7,
-                29
+                1,
+                11,
+                10,
+                20
             ]
         ],
         [
             30,
-            13,
+            9,
             [
+                13,
+                8,
                 7,
-                14,
-                10,
-                8
+                29
             ]
         ],
         [
@@ -1509,629 +1521,629 @@
             15,
             [
                 13,
-                10,
-                9,
-                19
+                12,
+                22,
+                5
             ]
         ],
         [
             32,
             16,
             [
-                16,
+                11,
+                29,
+                7,
+                29
+            ]
+        ],
+        [
+            33,
+            16,
+            [
+                22,
+                12,
                 1,
+                14
+            ]
+        ],
+        [
+            34,
+            20,
+            [
+                9,
+                11,
+                13,
+                18
+            ]
+        ],
+        [
+            35,
+            21,
+            [
+                15,
+                11,
+                10,
+                13
+            ]
+        ],
+        [
+            36,
+            24,
+            [
+                22,
+                16,
+                14,
+                29
+            ]
+        ],
+        [
+            37,
+            25,
+            [
+                13,
+                12,
+                14,
+                29
+            ]
+        ],
+        [
+            38,
+            27,
+            [
+                13,
+                10,
+                18,
+                29
+            ]
+        ],
+        [
+            39,
+            27,
+            [
+                10,
+                10,
+                10,
+                13
+            ]
+        ],
+        [
+            40,
+            31,
+            [
+                10,
+                22,
+                22,
+                12
+            ]
+        ],
+        [
+            41,
+            32,
+            [
+                10,
+                21,
                 13,
                 14
             ]
         ],
         [
+            42,
             33,
-            18,
             [
-                22,
-                12,
-                16,
-                16
-            ]
-        ],
-        [
-            34,
-            21,
-            [
-                22,
-                12,
-                16,
-                21
-            ]
-        ],
-        [
-            35,
-            23,
-            [
-                22,
+                7,
                 9,
-                15,
-                15
-            ]
-        ],
-        [
-            36,
-            27,
-            [
-                1,
-                7,
-                16,
-                13
-            ]
-        ],
-        [
-            37,
-            28,
-            [
-                22,
-                16,
-                14,
-                7
-            ]
-        ],
-        [
-            38,
-            28,
-            [
-                13,
-                8,
-                16,
-                21
-            ]
-        ],
-        [
-            39,
-            29,
-            [
-                16,
-                13,
-                7,
-                29
-            ]
-        ],
-        [
-            40,
-            29,
-            [
-                5,
-                1,
                 5,
                 1
-            ]
-        ],
-        [
-            41,
-            38,
-            [
-                14,
-                29,
-                11,
-                19
-            ]
-        ],
-        [
-            42,
-            38,
-            [
-                22,
-                5,
-                11,
-                19
             ]
         ],
         [
             43,
-            39,
+            41,
             [
-                16,
-                18,
-                10,
-                12
+                22,
+                5,
+                9,
+                7
             ]
         ],
         [
             44,
-            40,
+            44,
             [
-                16,
+                9,
+                19,
+                11,
+                15
+            ]
+        ],
+        [
+            45,
+            45,
+            [
+                7,
                 12,
                 11,
                 7
             ]
         ],
         [
-            45,
-            40,
-            [
-                22,
-                23,
-                9,
-                1
-            ]
-        ],
-        [
             46,
-            45,
+            46,
             [
-                1,
-                25,
-                18,
-                29
+                11,
+                29,
+                9,
+                11
             ]
         ],
         [
             47,
-            49,
+            46,
             [
-                13,
-                9,
-                8,
-                7
+                15,
+                23,
+                22,
+                16
             ]
         ],
         [
             48,
-            52,
+            49,
             [
-                5,
                 1,
-                1,
+                14,
+                7,
                 21
             ]
         ],
         [
             49,
-            55,
+            50,
             [
-                1,
-                11,
+                10,
                 12,
-                1
+                12,
+                23
             ]
         ],
         [
             50,
-            56,
+            53,
             [
-                13,
-                17,
+                1,
                 18,
-                29
+                15,
+                11
             ]
         ],
         [
             51,
             56,
             [
-                7,
-                9,
-                12,
+                1,
+                11,
+                16,
                 1
             ]
         ],
         [
             52,
-            57,
+            60,
             [
-                22,
                 12,
-                9,
-                19
+                1,
+                14,
+                7
             ]
         ],
         [
             53,
             63,
             [
-                22,
+                12,
                 19,
                 1,
-                7
+                21
             ]
         ],
         [
             54,
-            63,
+            64,
             [
-                5,
-                1,
+                22,
+                19,
                 16,
-                14
+                20
             ]
         ],
         [
             55,
-            64,
+            69,
             [
-                5,
-                1,
-                13,
-                14
+                14,
+                7,
+                14,
+                19
             ]
         ],
         [
             56,
-            66,
+            70,
             [
-                16,
-                20,
                 15,
-                7
+                11,
+                16,
+                17
             ]
         ],
         [
             57,
-            72,
+            70,
             [
                 10,
-                21,
-                9,
+                10,
+                8,
                 19
             ]
         ],
         [
             58,
-            73,
+            72,
             [
-                11,
-                23,
-                14,
-                29
+                15,
+                7,
+                15,
+                7
             ]
         ],
         [
             59,
-            75,
+            73,
             [
-                13,
-                17,
-                8,
-                15
-            ]
-        ],
-        [
-            60,
-            78,
-            [
-                1,
-                21,
+                12,
+                19,
                 22,
                 9
             ]
         ],
         [
-            61,
+            60,
             79,
             [
-                12,
-                1,
                 10,
-                22
+                16,
+                7,
+                18
+            ]
+        ],
+        [
+            61,
+            81,
+            [
+                18,
+                29,
+                11,
+                7
             ]
         ],
         [
             62,
-            80,
+            87,
             [
+                12,
                 7,
-                8,
-                11,
-                29
+                16,
+                1
             ]
         ],
         [
             63,
-            80,
+            87,
             [
-                22,
                 16,
+                18,
                 22,
-                5
+                9
             ]
         ],
         [
             64,
-            80,
-            [
-                11,
-                29,
-                13,
-                16
-            ]
-        ],
-        [
-            65,
-            89,
-            [
-                16,
-                20,
-                22,
-                16
-            ]
-        ],
-        [
-            66,
             90,
             [
-                22,
-                5,
-                12,
-                11
-            ]
-        ],
-        [
-            67,
-            91,
-            [
-                1,
-                7,
-                22,
-                5
-            ]
-        ],
-        [
-            68,
-            96,
-            [
-                22,
-                5,
-                1,
-                11
-            ]
-        ],
-        [
-            69,
-            99,
-            [
-                22,
                 16,
-                13,
+                16,
+                10,
                 8
             ]
         ],
         [
-            70,
-            103,
+            65,
+            90,
             [
-                22,
-                19,
+                16,
                 10,
-                22
+                18,
+                29
+            ]
+        ],
+        [
+            66,
+            91,
+            [
+                1,
+                18,
+                10,
+                13
+            ]
+        ],
+        [
+            67,
+            92,
+            [
+                7,
+                18,
+                1,
+                25
+            ]
+        ],
+        [
+            68,
+            93,
+            [
+                13,
+                20,
+                16,
+                13
+            ]
+        ],
+        [
+            69,
+            94,
+            [
+                18,
+                29,
+                11,
+                23
+            ]
+        ],
+        [
+            70,
+            94,
+            [
+                1,
+                25,
+                8,
+                23
             ]
         ],
         [
             71,
-            103,
+            98,
             [
-                22,
-                9,
-                22,
-                16
+                18,
+                29,
+                7,
+                12
             ]
         ],
         [
             72,
             107,
             [
-                5,
+                22,
+                9,
                 1,
-                14,
-                15
+                21
             ]
         ],
         [
             73,
             108,
             [
-                14,
-                23,
-                22,
-                16
+                10,
+                9,
+                18,
+                29
             ]
         ],
         [
             74,
-            109,
-            [
-                7,
-                9,
-                1,
-                25
-            ]
-        ],
-        [
-            75,
-            114,
-            [
-                1,
-                21,
-                13,
-                12
-            ]
-        ],
-        [
-            76,
-            114,
-            [
-                15,
-                7,
-                1,
-                25
-            ]
-        ],
-        [
-            77,
-            115,
+            110,
             [
                 10,
-                21,
-                14,
-                29
-            ]
-        ],
-        [
-            78,
-            117,
-            [
-                10,
-                20,
-                1,
-                7
-            ]
-        ],
-        [
-            79,
-            118,
-            [
-                5,
-                1,
-                22,
-                23
-            ]
-        ],
-        [
-            80,
-            120,
-            [
-                22,
-                19,
-                15,
-                11
-            ]
-        ],
-        [
-            81,
-            121,
-            [
-                13,
-                20,
-                13,
-                20
-            ]
-        ],
-        [
-            82,
-            123,
-            [
-                7,
                 18,
-                1,
-                21
-            ]
-        ],
-        [
-            83,
-            130,
-            [
-                15,
-                11,
-                7,
-                29
-            ]
-        ],
-        [
-            84,
-            131,
-            [
-                12,
-                23,
-                7,
-                29
-            ]
-        ],
-        [
-            85,
-            132,
-            [
-                1,
-                14,
-                12,
-                23
-            ]
-        ],
-        [
-            86,
-            132,
-            [
-                11,
-                19,
-                1,
-                18
-            ]
-        ],
-        [
-            87,
-            133,
-            [
-                16,
-                14,
-                7,
-                29
-            ]
-        ],
-        [
-            88,
-            134,
-            [
-                7,
-                29,
-                13,
-                17
-            ]
-        ],
-        [
-            89,
-            139,
-            [
-                18,
-                29,
-                22,
-                9
-            ]
-        ],
-        [
-            90,
-            141,
-            [
-                22,
-                9,
                 22,
                 19
             ]
         ],
         [
-            91,
-            146,
+            75,
+            110,
             [
-                15,
+                7,
+                10,
                 11,
+                19
+            ]
+        ],
+        [
+            76,
+            112,
+            [
+                11,
+                29,
+                16,
+                21
+            ]
+        ],
+        [
+            77,
+            114,
+            [
+                8,
+                23,
+                16,
+                20
+            ]
+        ],
+        [
+            78,
+            115,
+            [
+                14,
+                29,
+                13,
+                18
+            ]
+        ],
+        [
+            79,
+            116,
+            [
+                13,
+                20,
+                10,
+                12
+            ]
+        ],
+        [
+            80,
+            119,
+            [
                 12,
+                1,
+                18,
+                29
+            ]
+        ],
+        [
+            81,
+            119,
+            [
+                1,
+                7,
+                8,
+                15
+            ]
+        ],
+        [
+            82,
+            124,
+            [
+                12,
+                15,
+                7,
+                13
+            ]
+        ],
+        [
+            83,
+            124,
+            [
+                14,
+                29,
+                16,
                 1
+            ]
+        ],
+        [
+            84,
+            125,
+            [
+                1,
+                25,
+                1,
+                21
+            ]
+        ],
+        [
+            85,
+            126,
+            [
+                22,
+                23,
+                7,
+                18
+            ]
+        ],
+        [
+            86,
+            127,
+            [
+                9,
+                1,
+                22,
+                12
+            ]
+        ],
+        [
+            87,
+            131,
+            [
+                16,
+                13,
+                1,
+                21
+            ]
+        ],
+        [
+            88,
+            131,
+            [
+                1,
+                14,
+                7,
+                13
+            ]
+        ],
+        [
+            89,
+            137,
+            [
+                16,
+                14,
+                15,
+                15
+            ]
+        ],
+        [
+            90,
+            138,
+            [
+                13,
+                12,
+                1,
+                11
+            ]
+        ],
+        [
+            91,
+            142,
+            [
+                12,
+                1,
+                9,
+                7
             ]
         ],
         [
             92,
             147,
             [
-                8,
-                11,
+                22,
+                16,
                 15,
                 23
             ]
         ],
         [
             93,
-            150,
+            147,
             [
-                1,
-                14,
-                7,
-                20
+                22,
+                23,
+                10,
+                17
             ]
         ]
     ]
