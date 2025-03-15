@@ -177,7 +177,7 @@ class TD3(nn.Module):
             a, _ = self.actor(data.x, data.edge_index, deterministic)
         a = a.squeeze(-1)
         a = a.detach().cpu().numpy()[0]
-        return list(a)
+        return a
     
     def assign_discrete_actions(self, total_agents, action_rl):
         desired_agent_dist = np.floor(action_rl * total_agents).astype(int)
@@ -261,6 +261,8 @@ class TD3(nn.Module):
         self.critic_1_optimizer.step()
         self.critic_2_optimizer.step()
 
+        self.LogCriticLoss.append(critic_loss.item())
+
         # Delayed policy updates
         if (self.total_it % self.policy_freq == 0):
 
@@ -310,6 +312,8 @@ class TD3(nn.Module):
             for param, target_param in zip(self.actor.parameters(), self.actor_target.parameters()):
                 target_param.data.copy_(self.tau * param.data + (1 - self.tau) * target_param.data)
 
+            self.LogPolicyLoss.append(actor_loss.item())
+
     def learn(self, cfg):
         
         train_episodes = cfg.model.max_episodes  # set max number of training episodes
@@ -317,6 +321,8 @@ class TD3(nn.Module):
         best_reward = -np.inf  # set best reward
         self.train()  # set model in train mode
         myTimer = timer()
+        self.LogPolicyLoss = []
+        self.LogCriticLoss = []
     
 
         for i_episode in epochs:
@@ -340,12 +346,12 @@ class TD3(nn.Module):
                 print("free agents per node", obs["free_agents_per_node"])
                 action_rl = self.select_action(obs_parsed)
                 # action_rl = skip_actor(self.env, obs)
-
+                
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
                 desired_agent_dist = self.assign_discrete_actions(total_agents, action_rl)
                 myTimer.selectAction += myTimer.addTime()
-
+                
                 # solve rebalancing
                 reb_action = solveRebFlow(
                     self.env,
@@ -399,6 +405,8 @@ class TD3(nn.Module):
                 self.tensorboard.add_scalar("Num Tasks finished", episode_num_tasks_finished, i_episode)
                 self.tensorboard.add_scalar("Task search duration", np.mean(task_search_durations), i_episode)
                 self.tensorboard.add_scalar("Task distance", np.mean(task_distances), i_episode)
+                self.tensorboard.add_scalar("Critic Loss", np.mean(self.LogCriticLoss), i_episode)
+                self.tensorboard.add_scalar("Policy Loss", np.mean(self.LogPolicyLoss), i_episode)
                 
 
             self.save_checkpoint(

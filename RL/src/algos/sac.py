@@ -168,16 +168,20 @@ class SAC(nn.Module):
             self.actor = GNNActorLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
             self.critic1 = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
             self.critic2 = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic1_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic2_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
         else:
             self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim)
             self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
             self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
 
         assert self.critic1.parameters() != self.critic2.parameters()
 
-        self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+        
         self.critic1_target.load_state_dict(self.critic1.state_dict())
-        self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+        
         self.critic2_target.load_state_dict(self.critic2.state_dict())
         
         for p in self.critic1_target.parameters():
@@ -495,12 +499,12 @@ class SAC(nn.Module):
                 print("free agents per node", obs["free_agents_per_node"])
                 action_rl = self.select_action(obs_parsed)
                 # action_rl = skip_actor(self.env, obs)
-
+            
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
                 desired_agent_dist = self.assign_discrete_actions(total_agents, action_rl)
                 myTimer.selectAction += myTimer.addTime()
-
+                
                 # solve rebalancing
                 reb_action = solveRebFlow(
                     self.env,
