@@ -20,13 +20,13 @@ q_lr: 1e-3  # Defines q-value learning rate
 
 alpha: 0.3  # Defines entropy coefficient
 
-auto_entropy: true  # Use automatic entropy tuning
+auto_entropy: false  # Use automatic entropy tuning
 
-hidden_size: 256  # Defines hidden units in the MLP layers
+hidden_size: 128  # Defines hidden units in the MLP layers
 
 clip: 500  # Clip value for gradient clipping (default: 500)
 
-checkpoint_path: "SAC_wknd_autoEntropy"  # Path where to save model checkpoints
+checkpoint_path: "SAC_wknd_size128"  # Path where to save model checkpoints
 
 load_from_ckeckpoint: false  # Load model from checkpoint
 
