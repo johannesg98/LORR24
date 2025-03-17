@@ -565,7 +565,7 @@ class SAC(nn.Module):
                 self.tensorboard.add_scalar("Policy Loss", np.mean(self.LogPolicyLoss), i_episode)
                 self.tensorboard.add_scalar("Q1", np.mean(self.LogQ1), i_episode)
 
-            if i_episode == 150:
+            if i_episode == 300:
                 new_lr = 0.0001  # Set your new learning rate
 
                 # Update learning rate for all optimizers

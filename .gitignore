@@ -12,3 +12,5 @@ RL/venv/
 third_party_libraries/RL4AMOD/venv/
 third_party_libraries/cluster/
 slurm
+outputs/trainRL.json
+RL/src/algos/__pycache__/
