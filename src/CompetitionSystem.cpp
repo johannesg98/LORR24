@@ -442,6 +442,8 @@ pybind11::dict BaseSystem::get_reward(){
     reward_dict["idle-agents"] = env->idle_agents_reward;
 
     reward_dict["tasks-assigned"] = env->tasks_assigned_reward;
+
+    reward_dict["dist-reward"] = env->dist_reward;
     
     return reward_dict;
 }

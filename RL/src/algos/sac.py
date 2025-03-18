@@ -148,7 +148,7 @@ class SAC(nn.Module):
         self.BATCH_SIZE = cfg.batch_size
         self.p_lr = cfg.p_lr
         self.q_lr = cfg.q_lr
-        self.gamma = 0.90 #0.99
+        self.gamma = 0.99 #0.99
         self.use_automatic_entropy_tuning = cfg.auto_entropy
         self.clip = cfg.clip
         self.use_LSTM = cfg.use_LSTM
@@ -520,7 +520,7 @@ class SAC(nn.Module):
                 myTimer.step += myTimer.addTime()
 
                 # reward
-                rew = reward_dict["A*-distance"] + reward_dict["idle-agents"]
+                rew = reward_dict["dist-reward"] + reward_dict["idle-agents"]
                 
                 # store in replay buffer
                 new_obs_parsed = self.parser.parse_obs(new_obs).to(self.device)
