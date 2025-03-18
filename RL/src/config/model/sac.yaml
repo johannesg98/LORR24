@@ -18,7 +18,7 @@ p_lr: 1e-3  # Define policy learning rate
 
 q_lr: 1e-3  # Defines q-value learning rate
 
-alpha: 0.0  # Defines entropy coefficient
+alpha: 0.3  # Defines entropy coefficient
 
 auto_entropy: false  # Use automatic entropy tuning
 
