@@ -1,7 +1,0 @@
-{"time":"2025-03-14T15:44:15.533537602-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250314_154415-isa4n9qk/logs/debug-core.log"}
-{"time":"2025-03-14T15:44:15.64873925-04:00","level":"INFO","msg":"created new stream","id":"isa4n9qk"}
-{"time":"2025-03-14T15:44:15.648780598-04:00","level":"INFO","msg":"stream: started","id":"isa4n9qk"}
-{"time":"2025-03-14T15:44:15.648834671-04:00","level":"INFO","msg":"handler: started","stream_id":"isa4n9qk"}
-{"time":"2025-03-14T15:44:15.648810089-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"isa4n9qk"}
-{"time":"2025-03-14T15:44:15.648887195-04:00","level":"INFO","msg":"sender: started","stream_id":"isa4n9qk"}
-{"time":"2025-03-14T15:44:15.901354985-04:00","level":"INFO","msg":"Starting system monitor"}
