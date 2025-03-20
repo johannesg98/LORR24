@@ -520,7 +520,7 @@ class SAC(nn.Module):
                 myTimer.step += myTimer.addTime()
 
                 # reward
-                rew = reward_dict["A*-reward"] + reward_dict["idle-agents"]
+                rew = reward_dict["A*-distance"] + reward_dict["idle-agents"]
                 
                 # store in replay buffer
                 new_obs_parsed = self.parser.parse_obs(new_obs).to(self.device)
@@ -565,7 +565,7 @@ class SAC(nn.Module):
                 self.tensorboard.add_scalar("Policy Loss", np.mean(self.LogPolicyLoss), i_episode)
                 self.tensorboard.add_scalar("Q1", np.mean(self.LogQ1), i_episode)
 
-            if i_episode == 300:
+            if i_episode == 100:
                 new_lr = 0.0001  # Set your new learning rate
 
                 # Update learning rate for all optimizers
