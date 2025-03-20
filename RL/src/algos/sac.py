@@ -520,7 +520,7 @@ class SAC(nn.Module):
                 myTimer.step += myTimer.addTime()
 
                 # reward
-                rew = 6*reward_dict["dist-reward"] + reward_dict["idle-agents"]
+                rew = 20*reward_dict["dist-reward"] + reward_dict["idle-agents"]
                 
                 # store in replay buffer
                 new_obs_parsed = self.parser.parse_obs(new_obs).to(self.device)
