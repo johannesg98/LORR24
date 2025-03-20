@@ -565,18 +565,18 @@ class SAC(nn.Module):
                 self.tensorboard.add_scalar("Policy Loss", np.mean(self.LogPolicyLoss), i_episode)
                 self.tensorboard.add_scalar("Q1", np.mean(self.LogQ1), i_episode)
 
-            # if i_episode == 300:
-            #     new_lr = 0.0003  # Set your new learning rate
+            if i_episode == 100:
+                new_lr = 0.0001  # Set your new learning rate
 
-            #     # Update learning rate for all optimizers
-            #     for param_group in self.optimizers["a_optimizer"].param_groups:
-            #         param_group['lr'] = new_lr
+                # Update learning rate for all optimizers
+                for param_group in self.optimizers["a_optimizer"].param_groups:
+                    param_group['lr'] = new_lr
 
-            #     for param_group in self.optimizers["c1_optimizer"].param_groups:
-            #         param_group['lr'] = new_lr
+                for param_group in self.optimizers["c1_optimizer"].param_groups:
+                    param_group['lr'] = new_lr
 
-            #     for param_group in self.optimizers["c2_optimizer"].param_groups:
-            #         param_group['lr'] = new_lr
+                for param_group in self.optimizers["c2_optimizer"].param_groups:
+                    param_group['lr'] = new_lr
             
                 
                     
