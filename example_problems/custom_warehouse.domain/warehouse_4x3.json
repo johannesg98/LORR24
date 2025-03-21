@@ -1,6 +1,6 @@
 {
     "mapFile": "maps/warehouse_4x3.map",
-    "agentFile": "agents/warehouse_4x3_100.agents",
+    "agentFile": "agents/warehouse_4x3_400.agents",
     "teamSize": 20,
     "taskFile": "tasks/tasks_4x3.tasks",
     "numTasksReveal": 1.5,

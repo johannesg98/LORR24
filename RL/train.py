@@ -47,9 +47,11 @@ def load_actor_weights(model, path):
 
 @hydra.main(version_base=None, config_path=os.path.join(script_dir, "src/config/"), config_name="config")
 def main(cfg: DictConfig):
+
+    json_path = "../example_problems/custom_warehouse.domain/warehouse_4x3.json"
     
     env = envWrapper.LRRenv(
-        inputFile=os.path.join(script_dir, "../example_problems/custom_warehouse.domain/warehouse_4x3_100.json"),
+        inputFile=os.path.join(script_dir, json_path),
         outputFile=os.path.join(script_dir, "../outputs/trainRL.json"),
         simulationTime=cfg.model.max_steps,
         planTimeLimit=70,
@@ -78,7 +80,7 @@ def main(cfg: DictConfig):
         for key in cfg.model.keys():
             config[key] = cfg.model[key]
         wandb5 = wandb.init(
-            project="mit_a2c_scheduler",
+            project=json_path.split("/")[-1].replace(".json", ""),
             entity="johannesg98",
             name=cfg.model.checkpoint_path,
             config=config
