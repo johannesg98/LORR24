@@ -6,13 +6,13 @@ cplexpath: "None"  # Defines directory of the CPLEX installation
   
 directory: "saved_files"  # Defines directory where to save files
 
-max_episodes: 100  # Number of episodes to train agent (default: 16k)
+max_episodes: 30000  # Number of episodes to train agent (default: 16k)
 
 max_steps: 150  # Number of steps per episode
 
 no_cuda: false  # Disables CUDA training
 
-batch_size: 30000  # Defines batch size
+batch_size: 100  # Defines batch size
 
 p_lr: 1e-3  # Define policy learning rate
 
