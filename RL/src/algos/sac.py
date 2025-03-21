@@ -618,8 +618,8 @@ class SAC(nn.Module):
             while not done:
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
-                action_rl = self.select_action(obs_parsed)
-                # action_rl = skip_actor(self.env, obs)
+                # action_rl = self.select_action(obs_parsed)
+                action_rl = skip_actor(self.env, obs)
             
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
