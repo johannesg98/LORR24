@@ -12,6 +12,7 @@ import os
 import sys
 import pickle
 import time
+import wandb
 
 from src.helperfunctions.skip_actor import skip_actor
 
@@ -463,6 +464,20 @@ class SAC(nn.Module):
 
         return optimizers
     
+    def wandb_policy_logger(self, i_episode):
+        if not hasattr(self, "obs1"):
+            self.obs1 = {"agents_per_node":      [2, 0, 1, 0, 1, 0, 1, 1, 0, 0, 3, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 2, 1, 0],
+                         "free_agents_per_node": [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         "free_tasks_per_node":  [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+            
+            self.wandbTable = wandb.Table(columns=["Timestep"] + [f"action_rl_{i}" for i in range(self.env.nNodes)])
+        
+        obs1_parsed = self.parser.parse_obs(self.obs1).to(self.device)
+        act1 = self.select_action(obs1_parsed)
+        self.wandbTable.add_data(i_episode, *act1)
+        self.wandb.log({"Policy actions": self.wandbTable})
+
+    
     def learn(self, cfg, Dataset=None):
         if cfg.model.load_from_ckeckpoint:
             self.load_checkpoint(path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}.pth"))
@@ -520,7 +535,7 @@ class SAC(nn.Module):
                 myTimer.step += myTimer.addTime()
 
                 # reward
-                rew = 20*reward_dict["dist-reward"] + reward_dict["idle-agents"]
+                rew = reward_dict["dist-reward"] + reward_dict["idle-agents"]
                 
                 # store in replay buffer
                 new_obs_parsed = self.parser.parse_obs(new_obs).to(self.device)
@@ -556,6 +571,7 @@ class SAC(nn.Module):
             myTimer.printAvgTimes(i_episode+1)
             if self.wandb is not None:
                 self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)})
+                self.wandb_policy_logger(i_episode)
             if self.tensorboard is not None:
                 self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
                 self.tensorboard.add_scalar("Num Tasks finished", episode_num_tasks_finished, i_episode)
