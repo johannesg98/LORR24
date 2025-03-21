@@ -478,22 +478,21 @@ class SAC(nn.Module):
             self.wandbTable = wandb.Table(columns=["Timestep"] + [f"action_rl_{i}" for i in range(self.env.nNodes)])
 
             self.heatmap_data = np.zeros((34, 0))
+            
+            self.last_wandb_policy_log = -1
+
+        if i_episode >= self.last_wandb_policy_log + min(self.last_wandb_policy_log, 100) + 1:
         
-        obs1_parsed = self.parser.parse_obs(self.obs1).to(self.device)
-        act1 = self.select_action(obs1_parsed)
+            obs1_parsed = self.parser.parse_obs(self.obs1).to(self.device)
+            act1 = self.select_action(obs1_parsed)
 
-        print(act1)
-        print("shape: ", act1.shape)
-        self.wandbTable.add_data(i_episode, *act1)
-        self.wandb.log({"Policy actions": self.wandbTable}, commit=False)
+            self.heatmap_data = np.hstack((self.heatmap_data, act1.reshape(-1, 1)))
+            plt.figure(figsize=(20, 10))
+            sns.heatmap(self.heatmap_data, cmap="viridis", cbar=True)
+            wandb.log({"Heatmap": wandb.Image(plt)})
+            plt.close()
 
-
-
-        self.heatmap_data = np.hstack((self.heatmap_data, act1.reshape(-1, 1)))
-        plt.figure(figsize=(10, 5))
-        sns.heatmap(self.heatmap_data, cmap="viridis", cbar=True)
-        wandb.log({"Heatmap": wandb.Image(plt)})
-        plt.close()
+            self.last_wandb_policy_log = i_episode
 
     
     def learn(self, cfg, Dataset=None):
