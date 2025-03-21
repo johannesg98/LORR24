@@ -68,7 +68,7 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
         if (proposed_schedule_old[agent] == -1 && proposed_schedule[agent] != -1){
             int dist = DefaultPlanner::get_h(env, env->curr_states[agent].location, env->task_pool[proposed_schedule[agent]].locations[0]);
             task_distances.push_back(dist);
-            dist_reward += -dist + 20;
+            dist_reward += -dist;
             double rew = max_dist - dist;
             rew = static_cast<float>(rew) / max_dist;
             rew = rew*rew*rew*rew;    // rew^4, otherwise often high rewards
