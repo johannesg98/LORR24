@@ -570,7 +570,7 @@ class SAC(nn.Module):
             self.heatmap3 = np.hstack((self.heatmap3, act.reshape(-1, 1)))
             plt.figure(figsize=(20, 10))
             sns.heatmap(self.heatmap3, cmap="viridis", cbar=True)
-            wandb.log({"Task at node 1 and nTasks/3 random tasks": wandb.Image(plt)}, step=i_episode)
+            wandb.log({"Task at node 1 and nTasks-third random tasks": wandb.Image(plt)}, step=i_episode)
             plt.close()
 
             obs_parsed = self.parser.parse_obs(self.obs4).to(self.device)
