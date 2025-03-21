@@ -164,6 +164,9 @@ class SAC(nn.Module):
         self.step = 0
         self.nodes = env.nNodes
 
+        self.tensorboard = None
+        self.wandb = None
+
         self.replay_buffer = ReplayData(device=device)
         # nnets
   

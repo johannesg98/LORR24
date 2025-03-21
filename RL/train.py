@@ -71,7 +71,7 @@ def main(cfg: DictConfig):
         from datetime import datetime
         model.tensorboard = SummaryWriter(os.path.join(script_dir, "logs/", cfg.model.checkpoint_path, datetime.now().strftime("%Y%m%d-%H%M%S")))
     
-    model.wandb = None
+    
     if cfg.model.wandb: 
         import wandb
         config = {}
