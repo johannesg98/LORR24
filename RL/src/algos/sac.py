@@ -13,6 +13,8 @@ import sys
 import pickle
 import time
 import wandb
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 from src.helperfunctions.skip_actor import skip_actor
 
@@ -471,13 +473,24 @@ class SAC(nn.Module):
                          "free_tasks_per_node":  [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
             
             self.wandbTable = wandb.Table(columns=["Timestep"] + [f"action_rl_{i}" for i in range(self.env.nNodes)])
+
+            self.heatmap_data = np.zeros((34, 0))
         
         obs1_parsed = self.parser.parse_obs(self.obs1).to(self.device)
         act1 = self.select_action(obs1_parsed)
+
         print(act1)
         print("shape: ", act1.shape)
         self.wandbTable.add_data(i_episode, *act1)
         self.wandb.log({"Policy actions": self.wandbTable}, commit=False)
+
+
+
+        self.heatmap_data = np.hstack((self.heatmap_data, act1.reshape(-1, 1)))
+        plt.figure(figsize=(10, 5))
+        sns.heatmap(self.heatmap_data, cmap="viridis", cbar=True)
+        wandb.log({"Heatmap": wandb.Image(plt)})
+        plt.close()
 
     
     def learn(self, cfg, Dataset=None):

@@ -44,6 +44,6 @@ only_q_steps: 0
 
 wandb: true # Enables Weights and Biases logging
 
-tensorboard: true # Enables Tensorboard logging
+tensorboard: false # Enables Tensorboard logging
 
 mask_impactless_actions: true # Mask useless actions
