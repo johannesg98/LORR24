@@ -474,6 +474,8 @@ class SAC(nn.Module):
         
         obs1_parsed = self.parser.parse_obs(self.obs1).to(self.device)
         act1 = self.select_action(obs1_parsed)
+        print(act1)
+        print("shape: ", act1.shape)
         self.wandbTable.add_data(i_episode, *act1)
         self.wandb.log({"Policy actions": self.wandbTable}, commit=False)
 
