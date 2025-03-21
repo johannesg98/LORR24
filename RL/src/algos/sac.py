@@ -545,7 +545,7 @@ class SAC(nn.Module):
             self.heatmap3 = np.zeros((self.env.nNodes, 0))
             self.heatmap4 = np.zeros((self.env.nNodes, 0))
             
-            self.last_wandb_policy_log = 7
+            self.last_wandb_policy_log = 0
 
         if i_episode >= self.last_wandb_policy_log + min(0.5 * max(0,(self.last_wandb_policy_log-10)), 100):
         
