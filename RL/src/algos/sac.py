@@ -471,25 +471,114 @@ class SAC(nn.Module):
     
     def wandb_policy_logger(self, i_episode):
         if not hasattr(self, "obs1"):
-            self.obs1 = {"agents_per_node":      [2, 0, 1, 0, 1, 0, 1, 1, 0, 0, 3, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 2, 1, 0],
-                         "free_agents_per_node": [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         "free_tasks_per_node":  [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
-            
-            self.wandbTable = wandb.Table(columns=["Timestep"] + [f"action_rl_{i}" for i in range(self.env.nNodes)])
+            np.random.seed(0)
 
-            self.heatmap_data = np.zeros((34, 0))
+            # Task at node 2 and last
+            agents_per_node = np.zeros(self.env.nNodes)
+            free_agents_per_node = np.zeros(self.env.nNodes)
+            free_tasks_per_node = np.zeros(self.env.nNodes)
+            indices = np.random.choice(self.env.nNodes, self.env.nAgents-1, replace=True)
+            for i in indices:
+                agents_per_node[i] += 1
+            agents_per_node[0] += 1
+            free_agents_per_node[0] += 1
+            free_tasks_per_node[1] += 1
+            free_tasks_per_node[-1] += 1
+            self.obs1 = {"agents_per_node":      agents_per_node.tolist(),
+                         "free_agents_per_node": free_agents_per_node.tolist(),
+                         "free_tasks_per_node":  free_tasks_per_node.tolist()}
             
-            self.last_wandb_policy_log = -1
+            # Task at node 2 and 3
+            agents_per_node = np.zeros(self.env.nNodes)
+            free_agents_per_node = np.zeros(self.env.nNodes)
+            free_tasks_per_node = np.zeros(self.env.nNodes)
+            indices = np.random.choice(self.env.nNodes, self.env.nAgents-1, replace=True)
+            for i in indices:
+                agents_per_node[i] += 1
+            agents_per_node[0] += 1
+            free_agents_per_node[0] += 1
+            free_tasks_per_node[1] += 1
+            free_tasks_per_node[2] += 1
+            self.obs2 = {"agents_per_node":      agents_per_node.tolist(),
+                         "free_agents_per_node": free_agents_per_node.tolist(),
+                         "free_tasks_per_node":  free_tasks_per_node.tolist()}
+            
+            # Task at node 1 and nTasks/3 random tasks
+            agents_per_node = np.zeros(self.env.nNodes)
+            free_agents_per_node = np.zeros(self.env.nNodes)
+            free_tasks_per_node = np.zeros(self.env.nNodes)
+            indices = np.random.choice(self.env.nNodes, self.env.nAgents-1, replace=True)
+            for i in indices:
+                agents_per_node[i] += 1
+            agents_per_node[0] += 1
+            free_agents_per_node[0] += 1
+            free_tasks_per_node[0] += 1
+            indices = np.random.choice(self.env.nNodes, int(self.env.nTasks/3), replace=True)
+            for i in indices:
+                free_tasks_per_node[i] += 1
+            self.obs3 = {"agents_per_node":      agents_per_node.tolist(),
+                         "free_agents_per_node": free_agents_per_node.tolist(),
+                         "free_tasks_per_node":  free_tasks_per_node.tolist()}
+            
 
-        if i_episode >= self.last_wandb_policy_log + min(self.last_wandb_policy_log, 100) + 1:
+            # Two random agents full szenario
+            agents_per_node = np.zeros(self.env.nNodes)
+            free_agents_per_node = np.zeros(self.env.nNodes)
+            free_tasks_per_node = np.zeros(self.env.nNodes)
+            indices = np.random.choice(self.env.nNodes, self.env.nAgents-2, replace=True)
+            for i in indices:
+                agents_per_node[i] += 1
+            indices = np.random.choice(self.env.nNodes, 2, replace=False)
+            for i in indices:
+                agents_per_node[i] += 1
+                free_agents_per_node[i] += 1
+            indices = np.random.choice(self.env.nNodes, int(self.env.nTasks/3)+2, replace=True)
+            for i in indices:
+                free_tasks_per_node[i] += 1
+            self.obs4 = {"agents_per_node":      agents_per_node.tolist(),
+                         "free_agents_per_node": free_agents_per_node.tolist(),
+                         "free_tasks_per_node":  free_tasks_per_node.tolist()}
+
+            
+            self.heatmap1 = np.zeros((self.env.nNodes, 0))
+            self.heatmap2 = np.zeros((self.env.nNodes, 0))
+            self.heatmap3 = np.zeros((self.env.nNodes, 0))
+            self.heatmap4 = np.zeros((self.env.nNodes, 0))
+            
+            self.last_wandb_policy_log = 7
+
+        if i_episode >= self.last_wandb_policy_log + min(0.5 * max(0,(self.last_wandb_policy_log-10)), 100):
         
-            obs1_parsed = self.parser.parse_obs(self.obs1).to(self.device)
-            act1 = self.select_action(obs1_parsed)
-
-            self.heatmap_data = np.hstack((self.heatmap_data, act1.reshape(-1, 1)))
+            obs_parsed = self.parser.parse_obs(self.obs1).to(self.device)
+            act = self.select_action(obs_parsed)
+            self.heatmap1 = np.hstack((self.heatmap1, act.reshape(-1, 1)))
             plt.figure(figsize=(20, 10))
-            sns.heatmap(self.heatmap_data, cmap="viridis", cbar=True)
-            wandb.log({"Heatmap": wandb.Image(plt)})
+            sns.heatmap(self.heatmap1, cmap="viridis", cbar=True)
+            wandb.log({"Task at node 2 and last": wandb.Image(plt)}, step=i_episode)
+            plt.close()
+
+            obs_parsed = self.parser.parse_obs(self.obs2).to(self.device)
+            act = self.select_action(obs_parsed)
+            self.heatmap2 = np.hstack((self.heatmap2, act.reshape(-1, 1)))
+            plt.figure(figsize=(20, 10))
+            sns.heatmap(self.heatmap2, cmap="viridis", cbar=True)
+            wandb.log({"Task at node 2 and 3": wandb.Image(plt)}, step=i_episode)
+            plt.close()
+
+            obs_parsed = self.parser.parse_obs(self.obs3).to(self.device)
+            act = self.select_action(obs_parsed)
+            self.heatmap3 = np.hstack((self.heatmap3, act.reshape(-1, 1)))
+            plt.figure(figsize=(20, 10))
+            sns.heatmap(self.heatmap3, cmap="viridis", cbar=True)
+            wandb.log({"Task at node 1 and nTasks/3 random tasks": wandb.Image(plt)}, step=i_episode)
+            plt.close()
+
+            obs_parsed = self.parser.parse_obs(self.obs4).to(self.device)
+            act = self.select_action(obs_parsed)
+            self.heatmap4 = np.hstack((self.heatmap4, act.reshape(-1, 1)))
+            plt.figure(figsize=(20, 10))
+            sns.heatmap(self.heatmap4, cmap="viridis", cbar=True)
+            wandb.log({"Two random agents full szenario": wandb.Image(plt)}, step=i_episode)
             plt.close()
 
             self.last_wandb_policy_log = i_episode
@@ -587,7 +676,7 @@ class SAC(nn.Module):
             )
             myTimer.printAvgTimes(i_episode+1)
             if self.wandb is not None:
-                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)})
+                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)}, step=i_episode)
                 self.wandb_policy_logger(i_episode)
             if self.tensorboard is not None:
                 self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
