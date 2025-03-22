@@ -9,10 +9,10 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/custom_warehouse.domain/warehouse_4x3_100.json",
+    inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",
     outputFile="./outputs/pyTest.json",
     simulationTime=150,
-    planTimeLimit=50,
+    planTimeLimit=100,
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},
     random_agents_and_tasks="true"
@@ -20,7 +20,7 @@ env = envWrapper.LRRenv(
 env.make_env_params_available()
 
 
-number_of_runs = 10
+number_of_runs = 1
 
 sum_reward = 0
 sum_Astar_reward = 0
@@ -39,7 +39,7 @@ for i in range(number_of_runs):
 
     while not done:
         # Take a step in the environment
-        obs, reward, done = env.step()
+        obs, reward, done, info = env.step()
         this_reward += reward["task-finished"]
         Astar_reward += reward["A*-distance"]
         print(f"Astar reward: {reward['A*-distance']}, Task reward: {reward['task-finished']}, Idle agents reward: {reward['idle-agents']}")
