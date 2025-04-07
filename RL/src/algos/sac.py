@@ -618,8 +618,8 @@ class SAC(nn.Module):
             while not done:
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
-                # action_rl = self.select_action(obs_parsed)
-                action_rl = skip_actor(self.env, obs)
+                action_rl = self.select_action(obs_parsed)
+                # action_rl = skip_actor(self.env, obs)
             
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
@@ -650,13 +650,13 @@ class SAC(nn.Module):
                 myTimer.rest += myTimer.addTime()
 
                 # learn
-                # if i_episode > 10:
-                #     batch = self.replay_buffer.sample_batch(cfg.model.batch_size)
-                #     if i_episode < cfg.model.only_q_steps:
-                #         self.update(data=batch, only_q=True)
-                #     else:
-                #         self.update(data=batch)
-                #     myTimer.learning += myTimer.addTime()
+                if i_episode > 10:
+                    batch = self.replay_buffer.sample_batch(cfg.model.batch_size)
+                    if i_episode < cfg.model.only_q_steps:
+                        self.update(data=batch, only_q=True)
+                    else:
+                        self.update(data=batch)
+                    myTimer.learning += myTimer.addTime()
 
                 # obs = new_obs
                 obs = new_obs
