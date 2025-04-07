@@ -14,9 +14,9 @@ third_party_libraries/cluster/
 slurm
 outputs/trainRL.json
 RL/src/algos/__pycache__/
-# RL/src/nets/__pycache__/
-# RL/src/helperfunctions/__pycache__/
+RL/src/nets/__pycache__/
+RL/src/helperfunctions/__pycache__/
 wandb
 outputs
-# RL/ckpt/
-# RL/logs
+RL/ckpt/
+RL/logs
