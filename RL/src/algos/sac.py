@@ -620,11 +620,12 @@ class SAC(nn.Module):
                 print("free agents per node", obs["free_agents_per_node"])
                 action_rl = self.select_action(obs_parsed)
                 # action_rl = skip_actor(self.env, obs)
+                myTimer.selectAction += myTimer.addTime()
             
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
                 desired_agent_dist = self.assign_discrete_actions(total_agents, action_rl)
-                myTimer.selectAction += myTimer.addTime()
+                myTimer.rest += myTimer.addTime()
                 
                 # solve rebalancing
                 reb_action = solveRebFlow(

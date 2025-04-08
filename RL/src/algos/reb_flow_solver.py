@@ -15,7 +15,8 @@ def solveRebFlow_pulp(env, obs, desired_agent_dist):
 
 
     # Fully connected graph
-    edges = [(i, j) for i in range(env.nNodes) for j in range(env.nNodes) if i!=j]
+    # edges = [(i, j) for i in range(env.nNodes) for j in range(env.nNodes) if i!=j]
+    edges = [(i, j) for i in range(env.nNodes) for j in range(env.nNodes) if i!=j and ((obs["free_agents_per_node"][i] > 0 and desired_agent_dist[j] > 0) or (obs["free_agents_per_node"][j] > 0 and desired_agent_dist[i] > 0))]
 
     # Define the PuLP problem
     model = LpProblem("RebalancingFlowMinimization", LpMinimize)
@@ -53,6 +54,11 @@ def solveRebFlow_pulp(env, obs, desired_agent_dist):
         #add all agents that stay at a node
         for i in range(env.nNodes):
             flow[(i, i)] = obs["free_agents_per_node"][i] - outgoing_per_node[i]
+        #add edges that are not in edges (and therefore 0 by default)
+        for i in range(env.nNodes):
+            for j in range(env.nNodes):
+                if (i,j) not in edges and i!=j:
+                    flow[(i,j)] = 0
         #print(len(rebFlow.keys()))
        
         #flow_result = {(i, j): value(rebFlow[(i, j)]) for (i, j) in edges}
@@ -62,7 +68,4 @@ def solveRebFlow_pulp(env, obs, desired_agent_dist):
     else:
         print(f"Optimization failed with status: {LpStatus[status]}")
         return None
-
-
-
-   
+    
