@@ -60,7 +60,7 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     int dist_reward = 0;
     std::vector<int> task_search_durations;
     std::vector<int> task_distances;
-    int max_dist = (env->rows + env->cols) / 4;
+    int max_dist = (env->rows + env->cols) / 1;
     for (int agent = 0; agent < proposed_schedule_old.size(); agent++){
         if (proposed_schedule_old[agent] == -1 && task_search_start_times[agent] == -1){
             task_search_start_times[agent] = env->curr_timestep;
@@ -71,11 +71,11 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
             dist_reward += -dist;
             double rew = max_dist - dist;
             rew = static_cast<float>(rew) / max_dist;
-            float sign = 0;
-            if (rew != 0){
-                sign = rew / abs(rew);
-            }
-            rew = sign * rew*rew*rew*rew;    // rew^4, otherwise often high rewards
+            // float sign = 0;
+            // if (rew != 0){
+            //     sign = rew / abs(rew);
+            // }
+            rew = rew*rew*rew*rew*rew*rew*rew*rew;    // rew^4, otherwise often high rewards
             Astar_reward += rew;//(rew-0.5)*20; // onyl rew
             tasks_assigned++;
             task_search_durations.push_back(env->curr_timestep - task_search_start_times[agent]);
