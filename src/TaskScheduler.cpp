@@ -75,7 +75,7 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
             // if (rew != 0){
             //     sign = rew / abs(rew);
             // }
-            rew = rew*rew*rew*rew*rew*rew*rew*rew;    // rew^4, otherwise often high rewards
+            rew = rew*rew*rew*rew;    // rew^4, otherwise often high rewards
             Astar_reward += rew;//(rew-0.5)*20; // onyl rew
             tasks_assigned++;
             task_search_durations.push_back(env->curr_timestep - task_search_start_times[agent]);
