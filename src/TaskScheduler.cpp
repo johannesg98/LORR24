@@ -60,7 +60,7 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     int dist_reward = 0;
     std::vector<int> task_search_durations;
     std::vector<int> task_distances;
-    int max_dist = (env->rows + env->cols) / 2;
+    int max_dist = (env->rows + env->cols) / 4;
     for (int agent = 0; agent < proposed_schedule_old.size(); agent++){
         if (proposed_schedule_old[agent] == -1 && task_search_start_times[agent] == -1){
             task_search_start_times[agent] = env->curr_timestep;
