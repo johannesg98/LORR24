@@ -26,7 +26,7 @@ hidden_size: 256  # Defines hidden units in the MLP layers
 
 clip: 500  # Clip value for gradient clipping (default: 500)
 
-checkpoint_path: "A*8x62tFin5"  # Path where to save model checkpoints
+checkpoint_path: "A*8x62tFin10"  # Path where to save model checkpoints
 
 load_from_ckeckpoint: false  # Load model from checkpoint
 
