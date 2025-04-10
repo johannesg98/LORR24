@@ -139,7 +139,7 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
             if (rew != 0){
                 sign = rew / abs(rew);
             }
-            rew = sign * rew*rew;
+            rew = rew;
             rew_sum += rew;
         }
         env->backtrack_rewards_first_errand[starttime] = rew_sum;
