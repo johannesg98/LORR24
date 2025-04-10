@@ -655,7 +655,7 @@ class SAC(nn.Module):
                 if cfg.model.backtrack_reward:
                     for starttime, bcktr_reward in reward_dict["backtrack-rewards-first-errand"].items():                   # backtrack-rewards-first-errand, backtrack-rewards-whole-task
                         if starttime in bcktr_buffer:
-                            bcktr_buffer[starttime][2] += 1 * bcktr_reward
+                            bcktr_buffer[starttime][2] += 20 * bcktr_reward
                             self.replay_buffer.store(*bcktr_buffer[starttime][:4])
                             #check if bcktr_buffer[starttime][4] is empty
                             # if bcktr_buffer[starttime][4] != []:
