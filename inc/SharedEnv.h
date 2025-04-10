@@ -4,9 +4,11 @@
 #include "nlohmann/json.hpp"
 #include "Tasks.h"
 #include <unordered_map>
+#include <unordered_set>
 
 //RL added stuff
 #include <Nodes.h>
+#include <BacktrackBundle.h>
 
 
 typedef std::chrono::steady_clock::time_point TimePoint;
@@ -48,6 +50,13 @@ public:
     double dist_reward = 0;
     std::vector<int> task_search_durations;
     std::vector<int> task_distances;
+    std::vector<BacktrackBundle> backtrack_bundles_first_errand;
+    std::unordered_map<int,std::vector<int>> backtrack_times_first_errand; //starttime, traveltimes
+    std::unordered_map<int,double> backtrack_rewards_first_errand; //starttime, reward
+    std::vector<BacktrackBundle> backtrack_bundles_whole_task;
+    std::unordered_map<int,std::vector<int>> backtrack_times_whole_task;
+    std::unordered_map<int,double> backtrack_rewards_whole_task;
+
 
     SharedEnvironment(){}
 };

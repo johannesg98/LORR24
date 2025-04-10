@@ -2,6 +2,7 @@
 #include "Tasks.h"
 #include "nlohmann/json.hpp"
 #include <vector>
+#include "BacktrackBundle.h"
 
 using json = nlohmann::ordered_json;
 
@@ -129,8 +130,11 @@ list<int> TaskManager::check_finished_tasks(vector<State>& states, int timestep)
     for (int k = 0; k < num_of_agents; k++)
     {
         if (current_assignment[k] != -1 && states[k].location == ongoing_tasks[current_assignment[k]]->get_next_loc())
-        {
+        {   
             Task * task = ongoing_tasks[current_assignment[k]];
+            if (task->idx_next_loc == 0){
+                agent_first_errand_time.push_back(make_pair(k,timestep));
+            }
             task->idx_next_loc += 1;
 
             if (task->is_finished())
@@ -167,7 +171,28 @@ void TaskManager::sync_shared_env(SharedEnvironment* env)
     }
     env->curr_task_schedule = current_assignment;
     env->new_freeagents = new_freeagents;
-    env->new_tasks = new_tasks; 
+    env->new_tasks = new_tasks;
+    //Backtracking
+    env->backtrack_times_first_errand.clear();
+    for (std::pair<int,int> entry: agent_first_errand_time)
+    {   
+        for (auto bundle_it = env->backtrack_bundles_first_errand.begin(); bundle_it != env->backtrack_bundles_first_errand.end(); ++bundle_it)
+        {   
+            if (bundle_it->agents_unfinished.find(entry.first) != bundle_it->agents_unfinished.end())
+            {
+                bundle_it->traveltimes.push_back(entry.second - bundle_it->start_time);
+                bundle_it->agents_unfinished.erase(entry.first);
+                if (bundle_it->agents_unfinished.empty())
+                {
+                    env->backtrack_times_first_errand[bundle_it->start_time] = bundle_it->traveltimes;
+                    env->backtrack_bundles_first_errand.erase(bundle_it);
+                }
+                break;
+            }
+        }
+    }
+    agent_first_errand_time.clear();
+    
 }
 
 /**

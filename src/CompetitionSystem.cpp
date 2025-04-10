@@ -444,6 +444,10 @@ pybind11::dict BaseSystem::get_reward(){
     reward_dict["tasks-assigned"] = env->tasks_assigned_reward;
 
     reward_dict["dist-reward"] = env->dist_reward;
+
+    reward_dict["backtrack-rewards-first-errand"] = env->backtrack_rewards_first_errand;
+
+    reward_dict["backtrack-rewards-whole-task"] = env->backtrack_rewards_whole_task;    
     
     return reward_dict;
 }
@@ -454,6 +458,10 @@ pybind11::dict BaseSystem::get_info(){
     info_dict["task-search-durations"] = env->task_search_durations;
 
     info_dict["task-distances"] = env->task_distances;
+
+    info_dict["backtrack-times-first-errand"] = env->backtrack_times_first_errand;
+
+    info_dict["backtrack-times-whole-task"] = env->backtrack_times_whole_task;
     
     return info_dict;
 }

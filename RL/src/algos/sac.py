@@ -643,6 +643,12 @@ class SAC(nn.Module):
 
                 # reward
                 rew = 1 * reward_dict["A*-distance"] + 1 * reward_dict["idle-agents"] + 0 * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
+
+                print("Backtrack info first errand", info["backtrack-times-first-errand"])
+                print("Backtrack info whole task", info["backtrack-times-whole-task"])
+
+                print("Backtrack reward first errand", reward_dict["backtrack-rewards-first-errand"])
+                print("Backtrack reward whole task", reward_dict["backtrack-rewards-whole-task"])
                 
                 # store in replay buffer
                 new_obs_parsed = self.parser.parse_obs(new_obs).to(self.device)

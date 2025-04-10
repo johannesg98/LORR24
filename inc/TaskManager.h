@@ -79,5 +79,6 @@ private:
 
     std::vector<list<int>>& tasks;
     int task_id = 0;
+    std::vector<std::pair<int,int>> agent_first_errand_time; // <agent_id, timestep>
 
 };

@@ -42,7 +42,7 @@ pretrained_path: null
 
 only_q_steps: 0 
 
-wandb: true # Enables Weights and Biases logging
+wandb: false # Enables Weights and Biases logging
 
 tensorboard: false # Enables Tensorboard logging
 
