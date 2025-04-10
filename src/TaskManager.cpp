@@ -173,7 +173,6 @@ void TaskManager::sync_shared_env(SharedEnvironment* env)
     env->new_freeagents = new_freeagents;
     env->new_tasks = new_tasks;
     //Backtracking
-    env->backtrack_times_first_errand.clear();
     for (std::pair<int,int> entry: agent_first_errand_time)
     {   
         for (auto bundle_it = env->backtrack_bundles_first_errand.begin(); bundle_it != env->backtrack_bundles_first_errand.end(); ++bundle_it)

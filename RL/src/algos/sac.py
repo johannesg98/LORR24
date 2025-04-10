@@ -610,6 +610,7 @@ class SAC(nn.Module):
             self.LogQ1 = []
             self.LogQ1Loss = []
             self.LogPolicyLoss = []
+            bcktr_buffer = {}
             
             done = False
 
@@ -642,20 +643,27 @@ class SAC(nn.Module):
                 myTimer.step += myTimer.addTime()
 
                 # reward
-                rew = 1 * reward_dict["A*-distance"] + 1 * reward_dict["idle-agents"] + 0 * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
+                rew = 0 * reward_dict["A*-distance"] + 1 * reward_dict["idle-agents"] + 0 * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
 
-                print("Backtrack info first errand", info["backtrack-times-first-errand"])
-                print("Backtrack info whole task", info["backtrack-times-whole-task"])
-
-                print("Backtrack reward first errand", reward_dict["backtrack-rewards-first-errand"])
-                print("Backtrack reward whole task", reward_dict["backtrack-rewards-whole-task"])
-                
-                # store in replay buffer
+                # store in replay buffer or backtrack buffer and backtrack
                 new_obs_parsed = self.parser.parse_obs(new_obs).to(self.device)
                 if not cfg.model.mask_impactless_actions or total_agents > 0:
-                    self.replay_buffer.store(obs_parsed, action_rl, rew, new_obs_parsed)
+                    if not cfg.model.backtrack_reward:
+                        self.replay_buffer.store(obs_parsed, action_rl, rew, new_obs_parsed)
+                    else:
+                        bcktr_buffer[step] = [obs_parsed, action_rl, rew, new_obs_parsed, info["task-distances"]]
+                if cfg.model.backtrack_reward:
+                    for starttime, bcktr_reward in reward_dict["backtrack-rewards-first-errand"].items():                   # backtrack-rewards-first-errand, backtrack-rewards-whole-task
+                        if starttime in bcktr_buffer:
+                            bcktr_buffer[starttime][2] += 20 * bcktr_reward
+                            self.replay_buffer.store(*bcktr_buffer[starttime][:4])
+                            #check if bcktr_buffer[starttime][4] is empty
+                            # if bcktr_buffer[starttime][4] != []:
+                            #     print("Starttime: ", starttime, " A*: ", bcktr_buffer[starttime][4], " Actual Distances: ", oldInfo[starttime])
+                            del bcktr_buffer[starttime]
+                # oldInfo = info["backtrack-times-first-errand"]
                 myTimer.rest += myTimer.addTime()
-
+                
                 # learn
                 if i_episode > 10:
                     batch = self.replay_buffer.sample_batch(cfg.model.batch_size)
@@ -676,7 +684,13 @@ class SAC(nn.Module):
                 task_distances.extend(info["task-distances"])
                 # if info["task-search-durations"]:
                 #     print("Task assigned after steps", info["task-search-durations"])
-                myTimer.rest += myTimer.addTime()
+                # print("Backtrack info first errand", info["backtrack-times-first-errand"])
+                # print("Backtrack info whole task", info["backtrack-times-whole-task"])
+
+                # print("Backtrack reward first errand", reward_dict["backtrack-rewards-first-errand"])
+                # print("Backtrack reward whole task", reward_dict["backtrack-rewards-whole-task"])
+                step+= 1
+                myTimer.rest += myTimer.addTime()            
 
             epochs.set_description(
                 f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | NumTasksFinishe: {episode_num_tasks_finished:.1f} | Checkpoint: {cfg.model.checkpoint_path}"

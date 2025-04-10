@@ -61,27 +61,13 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     int dist_reward = 0;
     std::vector<int> task_search_durations;
     std::vector<int> task_distances;
-    BacktrackBundle backtrack_bundle(env->curr_timestep);
-    env->backtrack_times_whole_task.clear();
+    
     int max_dist = (env->rows + env->cols) / 1;
     for (int agent = 0; agent < proposed_schedule_old.size(); agent++){
         // agent finished task last step and starts searching for new one this step
         if (proposed_schedule_old[agent] == -1 && task_search_start_times[agent] == -1){
             task_search_start_times[agent] = env->curr_timestep;
-            
-            //Backtracking
-            for (auto bundle_it = env->backtrack_bundles_whole_task.begin(); bundle_it != env->backtrack_bundles_whole_task.end(); ++bundle_it) {
-                if (bundle_it->agents_unfinished.find(agent) != bundle_it->agents_unfinished.end()) {
-                    bundle_it->traveltimes.push_back(env->curr_timestep - bundle_it->start_time);
-                    bundle_it->agents_unfinished.erase(agent);
-                    if (bundle_it->agents_unfinished.empty()){
-                        env->backtrack_times_whole_task[bundle_it->start_time] = bundle_it->traveltimes;
-                        env->backtrack_bundles_whole_task.erase(bundle_it);
-                    }
-                    break;
-                }
-            }
-            
+          
         }
         // agent received a new task
         if (proposed_schedule_old[agent] == -1 && proposed_schedule[agent] != -1){
@@ -98,27 +84,57 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
             Astar_reward += rew;//(rew-0.5)*20; // onyl rew
             tasks_assigned++;
             task_search_durations.push_back(env->curr_timestep - task_search_start_times[agent]);
-            task_search_start_times[agent] = -1;
-            //Backtracking
-            backtrack_bundle.agents_unfinished.insert(agent);
+            task_search_start_times[agent] = -1;            
         }
         // agent is idle and did not get a task
         if (proposed_schedule[agent] == -1){
             idle_agents++;
         }
     }
+    
+    env->Astar_reward = Astar_reward * 20; //*20
+    env->idle_agents_reward = -idle_agents*20; // *20
+    env->tasks_assigned_reward = tasks_assigned;
+    env->task_search_durations = task_search_durations;
+    env->dist_reward = dist_reward;
+    env->task_distances = task_distances;
+
+
     //Backtracking
-    if (backtrack_bundle.agents_unfinished.size() > 0){
-        env->backtrack_bundles_first_errand.push_back(backtrack_bundle);
-        env->backtrack_bundles_whole_task.push_back(backtrack_bundle);
+    BacktrackBundle backtrack_bundle(env->curr_timestep);
+    env->backtrack_times_whole_task.clear();
+    for (int agent = 0; agent < proposed_schedule_old.size(); agent++){
+        // agent finished task last step and starts searching for new one this step
+        if(task_search_start_times[agent] == env->curr_timestep){
+            for (auto bundle_it = env->backtrack_bundles_whole_task.begin(); bundle_it != env->backtrack_bundles_whole_task.end(); ++bundle_it) {
+                if (bundle_it->agents_unfinished.find(agent) != bundle_it->agents_unfinished.end()) {
+                    bundle_it->traveltimes.push_back(env->curr_timestep - bundle_it->start_time);
+                    bundle_it->agents_unfinished.erase(agent);
+                    if (bundle_it->agents_unfinished.empty()){
+                        env->backtrack_times_whole_task[bundle_it->start_time] = bundle_it->traveltimes;
+                        env->backtrack_bundles_whole_task.erase(bundle_it);
+                    }
+                    break;
+                }
+            }
+        }
+        // agent received a new task
+        if (proposed_schedule_old[agent] == -1 && proposed_schedule[agent] != -1){
+            backtrack_bundle.agents_unfinished.insert(agent);
+        }
     }
+    
     env->backtrack_rewards_first_errand.clear();
     env->backtrack_rewards_whole_task.clear();
-    for (const auto& [starttime, timesSet] : env->backtrack_times_first_errand){
+
+    for (const auto& [starttime, timesVec] : env->backtrack_times_first_errand){
+        if (timesVec[0] == -1)
+            continue;
         double rew_sum = 0;
-        for (int time : timesSet){
+        for (int time : timesVec){
             double rew = max_dist - time;
             rew = rew / max_dist;
+            // rew = (rew - 0.5) * 2;
             float sign = 0;
             if (rew != 0){
                 sign = rew / abs(rew);
@@ -128,9 +144,24 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
         }
         env->backtrack_rewards_first_errand[starttime] = rew_sum;
     }
-    for (const auto& [starttime, timesSet] : env->backtrack_times_whole_task){
+    env->backtrack_times_first_errand.clear();
+
+    if (backtrack_bundle.agents_unfinished.size() > 0){
+        env->backtrack_bundles_first_errand.push_back(backtrack_bundle);
+        env->backtrack_bundles_whole_task.push_back(backtrack_bundle);
+    }
+    else{
+        env->backtrack_times_first_errand[backtrack_bundle.start_time] = std::vector<int>{-1};
+        env->backtrack_times_whole_task[backtrack_bundle.start_time] = std::vector<int>{-1};
+        env->backtrack_rewards_first_errand[backtrack_bundle.start_time] = 0;
+        env->backtrack_rewards_whole_task[backtrack_bundle.start_time] = 0;
+    }
+    
+    for (const auto& [starttime, timesVec] : env->backtrack_times_whole_task){
+        if (timesVec[0] == -1)
+            continue;
         double rew_sum = 0;
-        for (int time : timesSet){
+        for (int time : timesVec){
             double rew = max_dist - time;
             rew = rew / max_dist;
             float sign = 0;
@@ -138,15 +169,9 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
                 sign = rew / abs(rew);
             }
             rew = sign * rew*rew*rew*rew;
+            // rew = rew;
             rew_sum += rew;
         }
         env->backtrack_rewards_whole_task[starttime] = rew_sum;
     }
-    env->Astar_reward = Astar_reward * 20; //*20
-    env->idle_agents_reward = -idle_agents*20; // *20
-    env->tasks_assigned_reward = tasks_assigned;
-    env->task_search_durations = task_search_durations;
-    env->dist_reward = dist_reward;
-    env->task_distances = task_distances;
-    
 }
