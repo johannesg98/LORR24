@@ -1,3 +1,0 @@
-python3: can't open file '/mnt/home/jgaber/LORR24_johannesg98/train_multiple_slurm.py': [Errno 2] No such file or directory
-
-ERROR conda.cli.main_run:execute(125): `conda run python3 train_multiple_slurm.py 1` failed. (See above for error)
