@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/train_multiple_slurm.py", line 54, in <module>
+    main(slurm_task_id=slurm_task_id)
+TypeError: main() got an unexpected keyword argument 'slurm_task_id'
+
+ERROR conda.cli.main_run:execute(125): `conda run python3 RL/train_multiple_slurm.py 6` failed. (See above for error)
