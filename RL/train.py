@@ -48,10 +48,10 @@ def load_actor_weights(model, path):
 @hydra.main(version_base=None, config_path=os.path.join(script_dir, "src/config/"), config_name="config")
 def main(cfg: DictConfig):
 
-    json_path = "../example_problems/custom_warehouse.domain/warehouse_8x6.json"
+    # json_path = "../example_problems/custom_warehouse.domain/warehouse_8x6.json"
     
     env = envWrapper.LRRenv(
-        inputFile=os.path.join(script_dir, json_path),
+        inputFile=os.path.join(script_dir, cfg.model.map_path),
         outputFile=os.path.join(script_dir, "../outputs/trainRL.json"),
         simulationTime=cfg.model.max_steps,
         planTimeLimit=70,

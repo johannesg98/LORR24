@@ -2,6 +2,8 @@ name: sac
 
 agent_name: ${now:%Y%m%d}_sac_gnn  # Agent name for training or evaluation (default: today's date + '_sac_gnn')
 
+map_path: "../example_problems/custom_warehouse.domain/warehouse_8x6.json"  # Path to json file with map, agents, tasks, etc.
+
 cplexpath: "None"  # Defines directory of the CPLEX installation
   
 directory: "saved_files"  # Defines directory where to save files
@@ -52,4 +54,4 @@ backtrack_reward: true # Use actual traveldistance and backtrack to initial acti
 
 use_markovian_new_obs: false # Do not use the current steps new obs but wait until next agents become available and use that obs instead
 
-normalise_obs: false # Normalise observations
+normalise_obs: true # Normalise observations
