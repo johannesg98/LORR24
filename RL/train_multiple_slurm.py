@@ -42,6 +42,7 @@ def main(cfg: DictConfig):
     
 
 def run_training(cfg):
+    global iterator
     run_done = False
     if iterator == slurm_task_id:
         train_main(cfg)
