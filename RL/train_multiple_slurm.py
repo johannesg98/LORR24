@@ -8,6 +8,7 @@ from train import main as train_main
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 slurm_task_id = int(sys.argv[1])
+sys.argv = sys.argv[:1]
 iterator = 1
 
 @hydra.main(version_base=None, config_path=os.path.join(script_dir, "src/config/"), config_name="config")
