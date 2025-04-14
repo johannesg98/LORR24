@@ -1,0 +1,13 @@
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/train_multiple_slurm.py", line 34, in main
+    if run_training(cfg):
+       ^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/train_multiple_slurm.py", line 46, in run_training
+    if iterator == slurm_task_id:
+       ^^^^^^^^
+UnboundLocalError: cannot access local variable 'iterator' where it is not associated with a value
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+
+ERROR conda.cli.main_run:execute(125): `conda run python3 RL/train_multiple_slurm.py 5` failed. (See above for error)
