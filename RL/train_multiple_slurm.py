@@ -27,12 +27,12 @@ def main(cfg: DictConfig):
     for map_path in map_path_list:
         cfg.model.map_path = map_path
 
-        for max_episodes in max_episodes_list:
-            cfg.model.max_episodes = max_episodes
-
-            cfg.model.checkpoint_path = f"script_test_ep{max_episodes}"
+        for i in range(2):
+            cfg.model.checkpoint_path = f"markovian_new_obs_{i}"
             if run_training(cfg):
                 return
+
+        
             
 
 

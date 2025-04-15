@@ -611,6 +611,7 @@ class SAC(nn.Module):
             self.LogQ1Loss = []
             self.LogPolicyLoss = []
             bcktr_buffer = {}
+            last_step_tmp = None
             
             done = False
 
@@ -653,7 +654,9 @@ class SAC(nn.Module):
                         bcktr_buffer[step]["new_obs_parsed"] = new_obs_parsed
                     else:
                         last_step = list(bcktr_buffer.keys())[-1]
-                        bcktr_buffer[last_step]["new_obs_parsed"] = obs_parsed
+                        if last_step_tmp is not None:
+                            bcktr_buffer[last_step_tmp]["new_obs_parsed"] = obs_parsed
+                        last_step_tmp = step
                 if cfg.model.backtrack_reward:
                     for starttime, bcktr_reward in reward_dict["backtrack-rewards-first-errand"].items():                   # backtrack-rewards-first-errand, backtrack-rewards-whole-task
                         if starttime in bcktr_buffer:
