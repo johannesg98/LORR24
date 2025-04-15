@@ -92,8 +92,8 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
         }
     }
     
-    env->Astar_reward = Astar_reward * 20; //*20
-    env->idle_agents_reward = -idle_agents*20; // *20
+    env->Astar_reward = Astar_reward; //*20
+    env->idle_agents_reward = -idle_agents; // *20
     env->tasks_assigned_reward = tasks_assigned;
     env->task_search_durations = task_search_durations;
     env->dist_reward = dist_reward;

@@ -22,15 +22,27 @@ def main(cfg: DictConfig):
         "../example_problems/custom_warehouse.domain/warehouse_8x6.json",
         "../example_problems/custom_warehouse.domain/warehouse_4x3.json"
     ]
-    max_episodes_list = [10, 20, 50]
+    use_markovian_new_obs_list = [False, True]
+    rew_w_idle_list = [0.0, 20.0]
+    rew_w_backtrack_list = [5, 10, 20, 30, 70]
 
     for map_path in map_path_list:
         cfg.model.map_path = map_path
 
-        for i in range(2):
-            cfg.model.checkpoint_path = f"markovian_new_obs_{i}"
-            if run_training(cfg):
-                return
+        for use_markovian_new_obs in use_markovian_new_obs_list:
+            cfg.model.use_markovian_new_obs = use_markovian_new_obs
+
+            for rew_w_idle in rew_w_idle_list:
+                cfg.model.rew_w_idle = rew_w_idle
+
+                for rew_w_backtrack in rew_w_backtrack_list:
+                    cfg.model.rew_w_backtrack = rew_w_backtrack
+
+                    cfg.model.checkpoint_path = f"mrkv{use_markovian_new_obs}_rIdle{rew_w_idle}_rBack{rew_w_backtrack}"
+                    if run_training(cfg):
+                        return
+
+            
 
         
             

@@ -644,7 +644,7 @@ class SAC(nn.Module):
                 myTimer.step += myTimer.addTime()
 
                 # reward
-                rew = 0 * reward_dict["A*-distance"] + 1 * reward_dict["idle-agents"] + 0 * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
+                rew = cfg.model.rew_w_Astar * reward_dict["A*-distance"] + cfg.model.rew_w_idle * reward_dict["idle-agents"] + cfg.model.rew_w_task_finish * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
 
                 # store in replay buffer or backtrack buffer and backtrack
                 new_obs_parsed = self.parser.parse_obs(new_obs).to(self.device)
@@ -660,7 +660,7 @@ class SAC(nn.Module):
                 if cfg.model.backtrack_reward:
                     for starttime, bcktr_reward in reward_dict["backtrack-rewards-first-errand"].items():                   # backtrack-rewards-first-errand, backtrack-rewards-whole-task
                         if starttime in bcktr_buffer:
-                            bcktr_buffer[starttime]["rew"] += 20 * bcktr_reward
+                            bcktr_buffer[starttime]["rew"] += cfg.model.rew_w_backtrack * bcktr_reward
                             bcktr_buffer[starttime]["bcktr_rew_added"] = True
                 myTimer.rest += myTimer.addTime()
                 
