@@ -38,7 +38,7 @@ def main(cfg: DictConfig):
                 for rew_w_backtrack in rew_w_backtrack_list:
                     cfg.model.rew_w_backtrack = rew_w_backtrack
 
-                    cfg.model.checkpoint_path = f"mrkv{use_markovian_new_obs}_rIdle{rew_w_idle}_rBack{rew_w_backtrack}"
+                    cfg.model.checkpoint_path = f"mrkv{use_markovian_new_obs}_rIdle{rew_w_idle}_rBktrDist{rew_w_backtrack}"
                     if run_training(cfg):
                         return
 
