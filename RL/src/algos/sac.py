@@ -633,7 +633,7 @@ class SAC(nn.Module):
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
                 action_rl = self.select_action(obs_parsed)
-                # action_rl = skip_actor(self.env, obs)
+                skip_action_rl = skip_actor(self.env, obs)
                 myTimer.selectAction += myTimer.addTime()
             
                 # create discrete action distribution
@@ -648,9 +648,7 @@ class SAC(nn.Module):
                     desired_agent_dist,
                     self.cplexpath,
                 )
-                action_dict = {"reb_action": reb_action}
-                if not cfg.model.mask_impactless_actions or total_agents > 0:
-                    action_dict["action_rl"] = action_rl.tolist()
+                action_dict = {"reb_action": reb_action, "action_rl": action_rl.tolist()}
                 myTimer.solveReb += myTimer.addTime()
 
                 # step
@@ -658,9 +656,10 @@ class SAC(nn.Module):
                 myTimer.step += myTimer.addTime()
 
                 # reward
-                rew = cfg.model.rew_w_Astar * reward_dict["A*-distance"] + cfg.model.rew_w_idle * reward_dict["idle-agents"] + cfg.model.rew_w_task_finish * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
+                rew = cfg.model.rew_w_immitation * np.linalg.norm(action_rl - skip_action_rl) + cfg.model.rew_w_Astar * reward_dict["A*-distance"] + cfg.model.rew_w_idle * reward_dict["idle-agents"] + cfg.model.rew_w_task_finish * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
 
-                # store in replay buffer or backtrack buffer and backtrack
+
+                # backtracking
                 new_obs_parsed = self.parser.parse_obs(new_obs).to(self.device)
                 if not cfg.model.mask_impactless_actions or total_agents > 0:
                     bcktr_buffer[step] = {"obs_parsed": obs_parsed, "action_rl": action_rl, "rew": rew, "task-distances": info["task-distances"], "bcktr_rew_added": False}
@@ -696,21 +695,18 @@ class SAC(nn.Module):
                 episode_num_tasks_finished += reward_dict["task-finished"]
                 task_search_durations.extend(info["task-search-durations"])
                 task_distances.extend(info["task-distances"])
-                # if info["task-search-durations"]:
-                #     print("Task assigned after steps", info["task-search-durations"])
-                # print("Backtrack info first errand", info["backtrack-times-first-errand"])
-                # print("Backtrack info whole task", info["backtrack-times-whole-task"])
-
-                # print("Backtrack reward first errand", reward_dict["backtrack-rewards-first-errand"])
-                # print("Backtrack reward whole task", reward_dict["backtrack-rewards-whole-task"])
                 step+= 1
-                myTimer.rest += myTimer.addTime()            
+                myTimer.rest += myTimer.addTime()      
+
+            # replay buffer
             for step in bcktr_buffer:
                 if (not cfg.model.backtrack_reward or bcktr_buffer[step]["bcktr_rew_added"]) and "new_obs_parsed" in bcktr_buffer[step]:
                     self.replay_buffer.store(bcktr_buffer[step]["obs_parsed"], bcktr_buffer[step]["action_rl"], bcktr_buffer[step]["rew"], bcktr_buffer[step]["new_obs_parsed"])
-            epochs.set_description(
-                f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | NumTasksFinishe: {episode_num_tasks_finished:.1f} | Checkpoint: {cfg.model.checkpoint_path}"
-            )
+            
+            # print episode infos
+            epochs.set_description(f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | NumTasksFinishe: {episode_num_tasks_finished:.1f} | Checkpoint: {cfg.model.checkpoint_path}")
+
+            # log wandb + tensorboard
             myTimer.printAvgTimes(i_episode+1)
             if self.wandb is not None:
                 self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)}, step=i_episode)
@@ -738,10 +734,8 @@ class SAC(nn.Module):
             #         param_group['lr'] = new_lr
             
                 
-                    
-            self.save_checkpoint(
-                path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}.pth")
-            )
+            #save checkpoints        
+            self.save_checkpoint(path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}.pth"))
             if episode_reward > best_reward: 
                 best_reward = episode_reward
                 self.save_checkpoint(

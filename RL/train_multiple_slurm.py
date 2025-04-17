@@ -25,22 +25,30 @@ def main(cfg: DictConfig):
     use_markovian_new_obs_list = [False, True]
     rew_w_idle_list = [0.0]
     rew_w_backtrack_list = [1,10,20,40,80,160,320,500,1000,2500,5000,10000,20000]
+    rew_w_immitation_list = [1,10,20,40,80,160,320,500,1000,2500,5000,10000,20000]
 
     for map_path in map_path_list:
         cfg.model.map_path = map_path
 
-        for use_markovian_new_obs in use_markovian_new_obs_list:
-            cfg.model.use_markovian_new_obs = use_markovian_new_obs
+        for rew_w_immitation in rew_w_immitation_list:
+            cfg.model.rew_w_immitation = rew_w_immitation
 
-            for rew_w_idle in rew_w_idle_list:
-                cfg.model.rew_w_idle = rew_w_idle
+            cfg.model.checkpoint_path = f"immitation{rew_w_immitation}"
+            if run_training(cfg):
+                return
 
-                for rew_w_backtrack in rew_w_backtrack_list:
-                    cfg.model.rew_w_backtrack = rew_w_backtrack
+        # for use_markovian_new_obs in use_markovian_new_obs_list:
+        #     cfg.model.use_markovian_new_obs = use_markovian_new_obs
 
-                    cfg.model.checkpoint_path = f"mrkv{use_markovian_new_obs}_rIdle{rew_w_idle}_rBktr1Dtime{rew_w_backtrack}"
-                    if run_training(cfg):
-                        return
+        #     for rew_w_idle in rew_w_idle_list:
+        #         cfg.model.rew_w_idle = rew_w_idle
+
+        #         for rew_w_backtrack in rew_w_backtrack_list:
+        #             cfg.model.rew_w_backtrack = rew_w_backtrack
+
+        #             cfg.model.checkpoint_path = f"mrkv{use_markovian_new_obs}_rIdle{rew_w_idle}_rBktr1Dtime{rew_w_backtrack}"
+        #             if run_training(cfg):
+        #                 return
 
             
 
