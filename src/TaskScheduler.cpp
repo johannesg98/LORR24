@@ -55,6 +55,8 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
         schedulerRL::schedule_plan(limit, proposed_schedule, env, action_dict);
     }
 
+    
+
     double Astar_reward = 0;
     double idle_agents = 0;
     int tasks_assigned = 0;

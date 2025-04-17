@@ -18,6 +18,8 @@ import seaborn as sns
 
 from src.helperfunctions.skip_actor import skip_actor
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
 class timer:
     def __init__(self):
         self.now = time.time()
@@ -595,11 +597,20 @@ class SAC(nn.Module):
         best_reward = -np.inf  # set best reward
         self.train()  # set model in train mode
         myTimer = timer()
+        if not cfg.model.visu_episode_list.empty():
+            curr_visu_idx = 0
+            outputFile = os.path.join(script_dir, "../../cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx]))
 
 
         for i_episode in epochs:
             self.i_episode = i_episode
-            obs, rew, _ = self.env.reset()  # initialize environment
+            if not cfg.model.visu_episode_list.empty():
+                obs, rew, _ = self.env.reset(outputFile_=outputFile)
+                if cfg.model.visu_episode_list[curr_visu_idx] == i_episode and curr_visu_idx < len(cfg.model.visu_episode_list)-1:
+                    curr_visu_idx += 1
+                    outputFile = os.path.join(script_dir, "../../cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx]))
+            else:
+                obs, rew, _ = self.env.reset()
             step = 0
             obs_parsed = self.parser.parse_obs(obs).to(self.device)
             episode_reward = 0
@@ -637,6 +648,8 @@ class SAC(nn.Module):
                     self.cplexpath,
                 )
                 action_dict = {"reb_action": reb_action}
+                if not cfg.model.mask_impactless_actions or total_agents > 0:
+                    action_dict["action_rl"] = action_rl.tolist()
                 myTimer.solveReb += myTimer.addTime()
 
                 # step

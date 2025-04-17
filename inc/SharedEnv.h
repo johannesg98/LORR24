@@ -56,6 +56,7 @@ public:
     std::vector<BacktrackBundle> backtrack_bundles_whole_task;
     std::unordered_map<int,std::vector<int>> backtrack_times_whole_task;
     std::unordered_map<int,double> backtrack_rewards_whole_task;
+    std::unordered_map<int,std::vector<float>> action_rl;
 
 
     SharedEnvironment(){}

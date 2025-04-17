@@ -43,6 +43,8 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
         return;
     }
 
+    env->action_rl[env->curr_timestep] = action_dict.at("action_rl").cast<std::vector<float>>();
+
     int min_task_i, min_task_makespan, dist, agent_loc, task_loc, count, node_id;
     count = 0;
 

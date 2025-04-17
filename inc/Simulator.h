@@ -54,6 +54,9 @@ public:
 
     nlohmann::ordered_json action_errors_to_json() const;
 
+    nlohmann::ordered_json action_rl_to_json(SharedEnvironment* env) const;
+    nlohmann::ordered_json node_regions_to_json(SharedEnvironment* env) const;
+
     int get_number_errors() const {return model->errors.size();}
 
 private:

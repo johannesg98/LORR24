@@ -186,3 +186,25 @@ json Simulator::action_errors_to_json() const
 
     return errors;
 }
+
+json Simulator::action_rl_to_json(SharedEnvironment* env) const
+{
+    json action_rl = json::object();
+
+    for (const auto& [timestep, actions] : env->action_rl)
+    {
+        json actions_json = json::array();
+        for (const auto& action : actions)
+        {
+            actions_json.push_back(action);
+        }
+        action_rl[std::to_string(timestep)] = actions_json;
+    }
+
+    return action_rl;
+}
+
+json Simulator::node_regions_to_json(SharedEnvironment* env) const
+{
+    return env->nodes->regions;
+}

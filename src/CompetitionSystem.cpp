@@ -384,6 +384,14 @@ void BaseSystem::saveResults(const string &fileName, int screen) const
         // Save all tasks
         json tasks = task_manager.to_json(map.cols);
         js["tasks"] = tasks;
+
+        // Save nodes and action_rl
+        if (env->nodes && !env->action_rl.empty())
+        {
+            js["nodeRegions"] = simulator.node_regions_to_json(env);
+            js["action_rl"] = simulator.action_rl_to_json(env);
+        }
+
     }
 
     std::ofstream f(fileName,std::ios_base::trunc |std::ios_base::out);
