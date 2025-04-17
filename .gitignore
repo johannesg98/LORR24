@@ -22,3 +22,4 @@ outputs/*
 outputs/cont_outputs/*
 RL/ckpt/
 RL/logs
+RL/__pycache__
