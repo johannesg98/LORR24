@@ -1,0 +1,106 @@
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Currently logged in as: johannes-gaber (johannesg98) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250417_154801-shmsue6d
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run immitation20000
+wandb: ⭐️ View project at https://wandb.ai/johannesg98/warehouse_4x3_ag20
+wandb: 🚀 View run at https://wandb.ai/johannesg98/warehouse_4x3_ag20/runs/shmsue6d
+
+  0%|          | 0/10000 [00:00<?, ?it/s]
+Episode 1 | Reward: 1984191.98 | NumTasksFinishe: 66.0 | Checkpoint: immitation20000:   0%|          | 0/10000 [00:23<?, ?it/s]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 1 | Reward: 1984191.98 | NumTasksFinishe: 66.0 | Checkpoint: immitation20000:   0%|          | 1/10000 [00:26<74:02:20, 26.66s/it]
+Episode 2 | Reward: 2055156.03 | NumTasksFinishe: 83.0 | Checkpoint: immitation20000:   0%|          | 1/10000 [00:50<74:02:20, 26.66s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 2 | Reward: 2055156.03 | NumTasksFinishe: 83.0 | Checkpoint: immitation20000:   0%|          | 2/10000 [00:53<73:49:07, 26.58s/it]
+Episode 3 | Reward: 2173761.19 | NumTasksFinishe: 69.0 | Checkpoint: immitation20000:   0%|          | 2/10000 [01:18<73:49:07, 26.58s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 3 | Reward: 2173761.19 | NumTasksFinishe: 69.0 | Checkpoint: immitation20000:   0%|          | 3/10000 [01:20<75:12:30, 27.08s/it]
+Episode 4 | Reward: 2206607.72 | NumTasksFinishe: 74.0 | Checkpoint: immitation20000:   0%|          | 3/10000 [01:46<75:12:30, 27.08s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 4 | Reward: 2206607.72 | NumTasksFinishe: 74.0 | Checkpoint: immitation20000:   0%|          | 4/10000 [01:48<75:50:55, 27.32s/it]
+Episode 5 | Reward: 2141750.77 | NumTasksFinishe: 73.0 | Checkpoint: immitation20000:   0%|          | 4/10000 [02:13<75:50:55, 27.32s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 5 | Reward: 2141750.77 | NumTasksFinishe: 73.0 | Checkpoint: immitation20000:   0%|          | 5/10000 [02:16<76:12:47, 27.45s/it]
+Episode 6 | Reward: 2106267.78 | NumTasksFinishe: 67.0 | Checkpoint: immitation20000:   0%|          | 5/10000 [02:41<76:12:47, 27.45s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 6 | Reward: 2106267.78 | NumTasksFinishe: 67.0 | Checkpoint: immitation20000:   0%|          | 6/10000 [02:43<75:50:26, 27.32s/it]
+Episode 7 | Reward: 1835420.01 | NumTasksFinishe: 82.0 | Checkpoint: immitation20000:   0%|          | 6/10000 [03:07<75:50:26, 27.32s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 7 | Reward: 1835420.01 | NumTasksFinishe: 82.0 | Checkpoint: immitation20000:   0%|          | 7/10000 [03:09<75:09:18, 27.07s/it]
+Episode 8 | Reward: 2152102.35 | NumTasksFinishe: 71.0 | Checkpoint: immitation20000:   0%|          | 7/10000 [03:34<75:09:18, 27.07s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 8 | Reward: 2152102.35 | NumTasksFinishe: 71.0 | Checkpoint: immitation20000:   0%|          | 8/10000 [03:37<75:28:40, 27.19s/it]
+Episode 9 | Reward: 2236684.45 | NumTasksFinishe: 75.0 | Checkpoint: immitation20000:   0%|          | 8/10000 [04:02<75:28:40, 27.19s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 9 | Reward: 2236684.45 | NumTasksFinishe: 75.0 | Checkpoint: immitation20000:   0%|          | 9/10000 [04:04<75:44:36, 27.29s/it]
+Episode 10 | Reward: 2123823.83 | NumTasksFinishe: 71.0 | Checkpoint: immitation20000:   0%|          | 9/10000 [04:30<75:44:36, 27.29s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 10 | Reward: 2123823.83 | NumTasksFinishe: 71.0 | Checkpoint: immitation20000:   0%|          | 10/10000 [04:32<75:58:39, 27.38s/it]
+Episode 11 | Reward: 1944213.84 | NumTasksFinishe: 74.0 | Checkpoint: immitation20000:   0%|          | 10/10000 [04:57<75:58:39, 27.38s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 11 | Reward: 1944213.84 | NumTasksFinishe: 74.0 | Checkpoint: immitation20000:   0%|          | 11/10000 [04:59<75:45:12, 27.30s/it]
+Episode 11 | Reward: 1944213.84 | NumTasksFinishe: 74.0 | Checkpoint: immitation20000:   0%|          | 11/10000 [04:59<75:39:03, 27.26s/it]
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/train_multiple_slurm.py", line 37, in main
+    if run_training(cfg):
+       ^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/train_multiple_slurm.py", line 68, in run_training
+    train_main(cfg)
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/hydra/main.py", line 83, in decorated_main
+    return task_function(cfg_passthrough)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/train.py", line 90, in main
+    model.learn(cfg) #online RL
+    ^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/src/algos/sac.py", line 686, in learn
+    self.update(data=batch)
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/src/algos/sac.py", line 362, in update
+    loss_q1.backward(retain_graph=True)
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/torch/_tensor.py", line 525, in backward
+    torch.autograd.backward(
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/torch/autograd/__init__.py", line 267, in backward
+    _engine_run_backward(
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Found dtype Double but expected Float
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+
+ERROR conda.cli.main_run:execute(125): `conda run python3 RL/train_multiple_slurm.py 26` failed. (See above for error)
