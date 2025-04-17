@@ -597,18 +597,19 @@ class SAC(nn.Module):
         best_reward = -np.inf  # set best reward
         self.train()  # set model in train mode
         myTimer = timer()
-        if not cfg.model.visu_episode_list.empty():
+        if cfg.model.visu_episode_list:
             curr_visu_idx = 0
-            outputFile = os.path.join(script_dir, "../../cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx]))
+            outputFile = os.path.join(script_dir, "../../../outputs/cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx])+".json")
+            os.makedirs(os.path.join(script_dir, "../../../outputs/cont_outputs/", cfg.model.checkpoint_path), exist_ok=True)
 
 
         for i_episode in epochs:
             self.i_episode = i_episode
-            if not cfg.model.visu_episode_list.empty():
+            if cfg.model.visu_episode_list:
                 obs, rew, _ = self.env.reset(outputFile_=outputFile)
                 if cfg.model.visu_episode_list[curr_visu_idx] == i_episode and curr_visu_idx < len(cfg.model.visu_episode_list)-1:
                     curr_visu_idx += 1
-                    outputFile = os.path.join(script_dir, "../../cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx]))
+                    outputFile = os.path.join(script_dir, "../../../outputs/cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx])+".json")
             else:
                 obs, rew, _ = self.env.reset()
             step = 0

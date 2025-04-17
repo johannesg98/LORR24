@@ -17,6 +17,8 @@ RL/src/algos/__pycache__/
 RL/src/nets/__pycache__/
 RL/src/helperfunctions/__pycache__/
 wandb
-outputs
+outputs/*
+!outputs/cont_outputs
+outputs/cont_outputs/*
 RL/ckpt/
 RL/logs
