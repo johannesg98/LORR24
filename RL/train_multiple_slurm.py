@@ -22,9 +22,9 @@ def main(cfg: DictConfig):
         "../example_problems/custom_warehouse.domain/warehouse_8x6.json",
         "../example_problems/custom_warehouse.domain/warehouse_4x3.json"
     ]
-    use_markovian_new_obs_list = [False, True]
-    rew_w_idle_list = [0.0, 20.0]
-    rew_w_backtrack_list = [5, 10, 20, 30, 70]
+    use_markovian_new_obs_list = [False]
+    rew_w_idle_list = [0.0]
+    rew_w_backtrack_list = [12,14,16,18,20,22,24,26,28]
 
     for map_path in map_path_list:
         cfg.model.map_path = map_path
