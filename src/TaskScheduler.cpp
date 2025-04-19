@@ -134,7 +134,8 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
             continue;
         double rew_sum = 0;
         for (int time : timesVec){
-            double rew = 1/time;
+            // double rew = 1/time;
+            double rew = max_dist - time;
             // rew = rew / max_dist;
             // // rew = (rew - 0.5) * 2;
             // float sign = 0;
