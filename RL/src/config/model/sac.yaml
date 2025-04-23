@@ -52,7 +52,7 @@ tensorboard: false # Enables Tensorboard logging
 
 mask_impactless_actions: true # Mask useless actions
 
-backtrack_reward: false # Use actual traveldistance and backtrack to initial action
+backtrack_reward: true # Use actual traveldistance and backtrack to initial action
 
 use_markovian_new_obs: false # Do not use the current steps new obs but wait until next agents become available and use that obs instead
 
@@ -60,8 +60,8 @@ normalise_obs: true # Normalise observations
 
 
 # Reward weigths
-rew_w_Astar: 20    # best: 20
-rew_w_idle: 20     # best: 20
+rew_w_Astar: 0    # best: 20
+rew_w_idle: 0     # best: 20
 rew_w_task_finish: 0
-rew_w_backtrack: 0 # best: 20
+rew_w_backtrack: 20 # best: 20
 rew_w_immitation: 0
