@@ -18,8 +18,6 @@ import seaborn as sns
 
 from src.helperfunctions.skip_actor import skip_actor
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-
 class timer:
     def __init__(self):
         self.now = time.time()
@@ -36,7 +34,7 @@ class timer:
         return ret
     
     def printAvgTimes(self, iEpisode):
-        print(f"\n Times: Episode {iEpisode} | Avg outer-loop: {self.outerLoop/iEpisode:.2f} | Avg select-action: {self.selectAction/iEpisode:.2f} | Avg solve-reb: {self.solveReb/iEpisode:.2f} | Avg step: {self.step/iEpisode:.2f} | Avg rest: {self.rest/iEpisode:.2f} | Avg learning: {self.learning/iEpisode:.2f}")
+        print(f"\n Times: Episode {iEpisode} | Avg outer-loop: {self.outerLoop/iEpisode:.2f} | Avg select-action: {self.selectAction/iEpisode:.2f} | Avg solve-reb: {self.solveReb/iEpisode:.2f} | Avg step: {self.step/iEpisode:.2f} | Avg rest: {self.rest/iEpisode:.2f} | Avg learning: {self.learning/max(1,iEpisode-10):.2f}")
         
     
 
@@ -603,8 +601,8 @@ class SAC(nn.Module):
         myTimer = timer()
         if cfg.model.visu_episode_list:
             curr_visu_idx = 0
-            outputFile = os.path.join(script_dir, "../../../outputs/cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx])+".json")
-            os.makedirs(os.path.join(script_dir, "../../../outputs/cont_outputs/", cfg.model.checkpoint_path), exist_ok=True)
+            outputFile = os.path.join(self.train_dir, "../outputs/cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx])+".json")
+            os.makedirs(os.path.join(self.train_dir, "../outputs/cont_outputs/", cfg.model.checkpoint_path), exist_ok=True)
 
         episode_tasks_finished_sum = 0
 
@@ -614,7 +612,7 @@ class SAC(nn.Module):
                 obs, rew, _ = self.env.reset(outputFile_=outputFile)
                 if cfg.model.visu_episode_list[curr_visu_idx] == i_episode and curr_visu_idx < len(cfg.model.visu_episode_list)-1:
                     curr_visu_idx += 1
-                    outputFile = os.path.join(script_dir, "../../../outputs/cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx])+".json")
+                    outputFile = os.path.join(self.train_dir, "../outputs/cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx])+".json")
             else:
                 obs, rew, _ = self.env.reset()
             step = 0
