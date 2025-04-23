@@ -52,7 +52,7 @@ tensorboard: false # Enables Tensorboard logging
 
 mask_impactless_actions: true # Mask useless actions
 
-backtrack_reward: true # Use actual traveldistance and backtrack to initial action
+backtrack_reward: false # Use actual traveldistance and backtrack to initial action
 
 use_markovian_new_obs: false # Do not use the current steps new obs but wait until next agents become available and use that obs instead
 
