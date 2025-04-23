@@ -585,6 +585,11 @@ class SAC(nn.Module):
 
             self.last_wandb_policy_log = i_episode
 
+    def immitation_reward(self, action_rl, obs, cfg):
+        if cfg.model.rew_w_immitation > 0:
+            skip_action_rl = skip_actor(self.env, obs)
+            return float(np.linalg.norm(action_rl - skip_action_rl))
+        return 0
     
     def learn(self, cfg, Dataset=None):
         if cfg.model.load_from_ckeckpoint:
@@ -594,7 +599,6 @@ class SAC(nn.Module):
         
         train_episodes = cfg.model.max_episodes  # set max number of training episodes
         epochs = trange(train_episodes)  # epoch iterator
-        best_reward = -np.inf  # set best reward
         self.train()  # set model in train mode
         myTimer = timer()
         if cfg.model.visu_episode_list:
@@ -602,6 +606,7 @@ class SAC(nn.Module):
             outputFile = os.path.join(script_dir, "../../../outputs/cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx])+".json")
             os.makedirs(os.path.join(script_dir, "../../../outputs/cont_outputs/", cfg.model.checkpoint_path), exist_ok=True)
 
+        episode_tasks_finished_sum = 0
 
         for i_episode in epochs:
             self.i_episode = i_episode
@@ -624,6 +629,8 @@ class SAC(nn.Module):
             self.LogPolicyLoss = []
             bcktr_buffer = {}
             last_step_tmp = None
+
+            
             
             done = False
 
@@ -633,7 +640,7 @@ class SAC(nn.Module):
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
                 action_rl = self.select_action(obs_parsed)
-                skip_action_rl = skip_actor(self.env, obs)
+                # action_rl = skip_actor(self.env, obs)
                 myTimer.selectAction += myTimer.addTime()
             
                 # create discrete action distribution
@@ -656,7 +663,7 @@ class SAC(nn.Module):
                 myTimer.step += myTimer.addTime()
 
                 # reward
-                rew = cfg.model.rew_w_immitation * float(np.linalg.norm(action_rl - skip_action_rl)) + cfg.model.rew_w_Astar * reward_dict["A*-distance"] + cfg.model.rew_w_idle * reward_dict["idle-agents"] + cfg.model.rew_w_task_finish * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
+                rew = cfg.model.rew_w_immitation * self.immitation_reward(action_rl, obs, cfg) + cfg.model.rew_w_Astar * reward_dict["A*-distance"] + cfg.model.rew_w_idle * reward_dict["idle-agents"] + cfg.model.rew_w_task_finish * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
 
 
                 # backtracking
@@ -691,7 +698,6 @@ class SAC(nn.Module):
                 obs_parsed = new_obs_parsed
                 
                 # save infos
-                episode_reward += rew
                 episode_num_tasks_finished += reward_dict["task-finished"]
                 task_search_durations.extend(info["task-search-durations"])
                 task_distances.extend(info["task-distances"])
@@ -702,6 +708,7 @@ class SAC(nn.Module):
             for step in bcktr_buffer:
                 if (not cfg.model.backtrack_reward or bcktr_buffer[step]["bcktr_rew_added"]) and "new_obs_parsed" in bcktr_buffer[step]:
                     self.replay_buffer.store(bcktr_buffer[step]["obs_parsed"], bcktr_buffer[step]["action_rl"], bcktr_buffer[step]["rew"], bcktr_buffer[step]["new_obs_parsed"])
+                    episode_reward += bcktr_buffer[step]["rew"]
             
             # print episode infos
             epochs.set_description(f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | NumTasksFinishe: {episode_num_tasks_finished:.1f} | Checkpoint: {cfg.model.checkpoint_path}")
@@ -720,6 +727,8 @@ class SAC(nn.Module):
                 self.tensorboard.add_scalar("Policy Loss", np.mean(self.LogPolicyLoss), i_episode)
                 self.tensorboard.add_scalar("Q1", np.mean(self.LogQ1), i_episode)
 
+            episode_tasks_finished_sum += episode_num_tasks_finished
+            print("Avg episode reward: ", episode_tasks_finished_sum / (i_episode + 1))
             # if i_episode == 300:
             #     new_lr = 0.0003  # Set your new learning rate
 
@@ -734,13 +743,86 @@ class SAC(nn.Module):
             #         param_group['lr'] = new_lr
             
                 
-            #save checkpoints        
-            self.save_checkpoint(path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}.pth"))
-            if episode_reward > best_reward: 
-                best_reward = episode_reward
-                self.save_checkpoint(
-                    path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}_best.pth")
-                )
+            # save checkpoints   
+            self.checkpoint_handler(i_episode, episode_num_tasks_finished, cfg)
+
+            # test agent
+            if i_episode % 20 == 0:
+                self.test_during_training(i_episode)
+            if i_episode % 50 == 0:
+                self.test_best_checkpoint(i_episode, cfg)
+
+    def test_best_checkpoint(self, i_episode, cfg):
+        num_tests = 10
+
+        #load best checkpoint
+        if self.last_best_checkpoint is not None:
+            self.load_checkpoint(path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}_best_{self.last_best_checkpoint}.pth"))
+            
+            num_tasks_finished_sum = 0
+            for test_i in range(num_tests):
+                obs, _, _ = self.env.reset()
+                obs_parsed = self.parser.parse_obs(obs).to(self.device)
+                done = False
+                while not done:
+                    action_rl = self.select_action(obs_parsed, deterministic=True)
+                    
+                    total_agents = sum(obs["free_agents_per_node"])
+                    desired_agent_dist = self.assign_discrete_actions(total_agents, action_rl)
+                    reb_action = solveRebFlow(
+                        self.env,
+                        obs,
+                        desired_agent_dist,
+                        self.cplexpath,
+                    )
+                    action_dict = {"reb_action": reb_action}
+                    
+                    # step
+                    new_obs, reward_dict, done, _ = self.env.step(action_dict)
+
+                    obs = new_obs
+                    obs_parsed = self.parser.parse_obs(obs).to(self.device)
+                    
+                    # save infos
+                    num_tasks_finished_sum += reward_dict["task-finished"]
+            
+            #load most recent checkpoint
+            self.load_checkpoint(path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}.pth"))
+
+            if self.wandb is not None:
+                self.wandb.log({"Test best checkpoint (num_tasks_finished)": num_tasks_finished_sum / num_tests}, step=i_episode)
+
+
+    def test_during_training(self, i_episode):
+        obs, rew, _ = self.env.reset()
+        obs_parsed = self.parser.parse_obs(obs).to(self.device)
+        episode_num_tasks_finished = 0
+        done = False
+        while not done:
+            action_rl = self.select_action(obs_parsed, deterministic=True)
+            
+            total_agents = sum(obs["free_agents_per_node"])
+            desired_agent_dist = self.assign_discrete_actions(total_agents, action_rl)
+            reb_action = solveRebFlow(
+                self.env,
+                obs,
+                desired_agent_dist,
+                self.cplexpath,
+            )
+            action_dict = {"reb_action": reb_action}
+            
+            # step
+            new_obs, reward_dict, done, _ = self.env.step(action_dict)
+
+            obs = new_obs
+            obs_parsed = self.parser.parse_obs(obs).to(self.device)
+            
+            # save infos
+            episode_num_tasks_finished += reward_dict["task-finished"]
+        if self.wandb is not None:
+            self.wandb.log({"Test during training (num_tasks_finished)": episode_num_tasks_finished}, step=i_episode)
+
+            
 
     def test(self, test_episodes, env, verbose = True):
         sim = env.cfg.name
@@ -867,6 +949,23 @@ class SAC(nn.Module):
         
         for key, value in self.optimizers.items():
             self.optimizers[key].load_state_dict(checkpoint[key])
+
+    def checkpoint_handler(self, i_episode, episode_num_tasks_finished, cfg):
+        if i_episode == 0:
+            self.last_20_episode_tasks_finished = [0]*20
+            self.best_num_tasks_finished = -np.inf
+            self.last_best_checkpoint = None
+        self.save_checkpoint(path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}.pth"))
+        self.last_20_episode_tasks_finished.pop(0)
+        self.last_20_episode_tasks_finished.append(episode_num_tasks_finished)
+        if i_episode > 20 and np.mean(self.last_20_episode_tasks_finished) > self.best_num_tasks_finished:
+            self.best_num_tasks_finished = np.mean(self.last_20_episode_tasks_finished)
+            self.save_checkpoint(
+                path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}_best_{i_episode}.pth")
+            )
+            if self.last_best_checkpoint is not None:
+                os.remove(os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}_best_{self.last_best_checkpoint}.pth"))
+            self.last_best_checkpoint = i_episode
 
     def log(self, log_dict, path="log.pth"):
         torch.save(log_dict, path)
