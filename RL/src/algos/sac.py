@@ -627,18 +627,16 @@ class SAC(nn.Module):
             self.LogPolicyLoss = []
             bcktr_buffer = {}
             last_step_tmp = None
-
-            
-            
             done = False
-
             myTimer.outerLoop += myTimer.addTime()
 
             while not done:
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
-                action_rl = self.select_action(obs_parsed)
-                # action_rl = skip_actor(self.env, obs)
+                if np.random.rand() < 0.66:
+                    action_rl = self.select_action(obs_parsed)
+                else:
+                    action_rl = skip_actor(self.env, obs)
                 myTimer.selectAction += myTimer.addTime()
             
                 # create discrete action distribution
