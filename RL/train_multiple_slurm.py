@@ -26,19 +26,32 @@ def main(cfg: DictConfig):
     rew_w_idle_list = [0.0]
     rew_w_backtrack_list = [1,10,20,40,80,160,320,500,1000,2500,5000,10000,20000]
     rew_w_immitation_list = [1,10,20,40,80,160,320,500,1000,2500,5000,10000,20000]
-    trys = range(10)
+    trys = range(2)
 
-    # for tri in trys:
+    
 
-    for map_path in map_path_list:
-        cfg.model.map_path = map_path
+    # for map_path in map_path_list:
+    #     cfg.model.map_path = map_path
 
-        for rew_w_immitation in rew_w_immitation_list:
-            cfg.model.rew_w_immitation = rew_w_immitation
+    #     for rew_w_immitation in rew_w_immitation_list:
+    #         cfg.model.rew_w_immitation = rew_w_immitation
+
+    for tri in trys:
+        cfg.model.rew_w_idle = 20
+        cfg.model.rew_w_Astar = 20
+        cfg.model.rew_w_backtrack = 0
         
-            cfg.model.checkpoint_path = f"fixed_immitation{rew_w_immitation}_id{slurm_task_id}"
-            if run_training(cfg):
-                return
+        cfg.model.checkpoint_path = f"AstartClassic-33perc-skip_id{slurm_task_id}"
+        if run_training(cfg):
+            return
+
+        cfg.model.rew_w_idle = 0
+        cfg.model.rew_w_Astar = 0
+        cfg.model.rew_w_backtrack = 20
+        
+        cfg.model.checkpoint_path = f"BacktrackDist-33perc-skip_id{slurm_task_id}"
+        if run_training(cfg):
+            return
 
         # for use_markovian_new_obs in use_markovian_new_obs_list:
         #     cfg.model.use_markovian_new_obs = use_markovian_new_obs
