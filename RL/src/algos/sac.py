@@ -586,7 +586,7 @@ class SAC(nn.Module):
     def immitation_reward(self, action_rl, obs, cfg):
         if cfg.model.rew_w_immitation > 0:
             skip_action_rl = skip_actor(self.env, obs)
-            return float(np.linalg.norm(action_rl - skip_action_rl))
+            return -float(np.linalg.norm(action_rl - skip_action_rl))
         return 0
     
     def learn(self, cfg, Dataset=None):

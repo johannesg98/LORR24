@@ -28,16 +28,17 @@ def main(cfg: DictConfig):
     rew_w_immitation_list = [1,10,20,40,80,160,320,500,1000,2500,5000,10000,20000]
     trys = range(10)
 
-    
+    # for tri in trys:
 
-    # for map_path in map_path_list:
-    #     cfg.model.map_path = map_path
+    for map_path in map_path_list:
+        cfg.model.map_path = map_path
 
-    for tri in trys:
+        for rew_w_immitation in rew_w_immitation_list:
+            cfg.model.rew_w_immitation = rew_w_immitation
         
-        cfg.model.checkpoint_path = f"mrkvF_idle0_rBtrDist20_test_try{tri}_id{slurm_task_id}"
-        if run_training(cfg):
-            return
+            cfg.model.checkpoint_path = f"fixed_immitation{rew_w_immitation}_id{slurm_task_id}"
+            if run_training(cfg):
+                return
 
         # for use_markovian_new_obs in use_markovian_new_obs_list:
         #     cfg.model.use_markovian_new_obs = use_markovian_new_obs
