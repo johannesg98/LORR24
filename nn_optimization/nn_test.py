@@ -205,7 +205,7 @@ for lr in lr_list:
             )
     
     for i in range(num_epochs):
-        wandb.log({"test wrong assignments (%)": test_results[i]}, step=i)
+        wandb1.log({"test wrong assignments (%)": test_results[i]}, step=i)
 
 
 
