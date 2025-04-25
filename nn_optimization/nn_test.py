@@ -119,7 +119,12 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
                 action_pred, log_prob, regularize = model(obs, edge_index, deterministic=True, return_dist=False)
                 
                 # Compute test loss
-                loss = loss_fn(action_pred, actions)
+                if isinstance(loss_fn, nn.CosineEmbeddingLoss):
+                    target = torch.ones(actions.size(0), device=device)  # Assuming all pairs are similar
+                    loss = loss_fn(action_pred, actions, target)
+                else:
+                    loss = loss_fn(action_pred, actions)
+                
                 total_test_loss += loss.item()
                 for i in range(len(actions)):  # len(actions) should be equal to the batch size
                     one_action = actions[i]
@@ -150,7 +155,11 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
             action_pred, log_prob, regularize = model(obs, edge_index, deterministic=True, return_dist=False)
         
             # Compute training loss (mean squared error for now, adjust as necessary)
-            loss = loss_fn(action_pred, actions)
+            if isinstance(loss_fn, nn.CosineEmbeddingLoss):
+                target = torch.ones(actions.size(0), device=device)  # Assuming all pairs are similar
+                loss = loss_fn(action_pred, actions, target)
+            else:
+                loss = loss_fn(action_pred, actions)
             
             # Backward pass
             optimizer.zero_grad()
@@ -185,7 +194,7 @@ perc_data_used = 0.1
 ##### Lists of parameters to test #####
 lr_list = [1e-2, 1e-3, 1e-4, 1e-5]
 batch_size_list = [16, 32, 64, 128]
-loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn.CosineEmbeddingLoss(), nn.KLDivLoss(), nn.CrossEntropyLoss(), nn.BCELoss(), nn.BCEWithLogitsLoss(), nn.MarginRankingLoss(), nn.NLLLoss(), nn.TripletMarginLoss()]
+loss_fn_list = [nn.CosineEmbeddingLoss(), nn.KLDivLoss(), nn.CrossEntropyLoss(), nn.BCELoss(), nn.BCEWithLogitsLoss(), nn.NLLLoss()]   #nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(),
 
 
 
