@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from src.helperfunctions.skip_actor import skip_actor
+from src.helperfunctions.assign_discrete_actions import assign_discrete_actions
 
 class timer:
     def __init__(self):
@@ -224,16 +225,6 @@ class SAC(nn.Module):
         a = a.detach().cpu().numpy()[0]
         return a
     
-    def assign_discrete_actions(self, total_agents, action_rl):
-        desired_agent_dist = np.floor(action_rl * total_agents).astype(int)
-
-        remaining_agents = total_agents - np.sum(desired_agent_dist)
-
-        fractional_parts = (action_rl * total_agents) - desired_agent_dist
-        top_indices = np.argpartition(-fractional_parts, int(remaining_agents))[:int(remaining_agents)]
-
-        desired_agent_dist[top_indices] += 1
-        return desired_agent_dist
     
     def compute_loss_q(self, data, conservative=False):
         (
@@ -641,7 +632,7 @@ class SAC(nn.Module):
             
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
-                desired_agent_dist = self.assign_discrete_actions(total_agents, action_rl)
+                desired_agent_dist = assign_discrete_actions(total_agents, action_rl)
                 myTimer.rest += myTimer.addTime()
                 
                 # solve rebalancing
@@ -764,7 +755,7 @@ class SAC(nn.Module):
                     action_rl = self.select_action(obs_parsed, deterministic=True)
                     
                     total_agents = sum(obs["free_agents_per_node"])
-                    desired_agent_dist = self.assign_discrete_actions(total_agents, action_rl)
+                    desired_agent_dist = assign_discrete_actions(total_agents, action_rl)
                     reb_action = solveRebFlow(
                         self.env,
                         obs,
@@ -798,7 +789,7 @@ class SAC(nn.Module):
             action_rl = self.select_action(obs_parsed, deterministic=True)
             
             total_agents = sum(obs["free_agents_per_node"])
-            desired_agent_dist = self.assign_discrete_actions(total_agents, action_rl)
+            desired_agent_dist = assign_discrete_actions(total_agents, action_rl)
             reb_action = solveRebFlow(
                 self.env,
                 obs,
