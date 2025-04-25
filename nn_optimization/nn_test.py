@@ -62,7 +62,7 @@ def assign_discrete_actions(total_agents, action_rl):
         return desired_agent_dist
 
 
-def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss_fn = nn.MSELoss()):
+def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss_fn = nn.MSELoss(), perc_data_used = 1):
     # Unpack the dataset
     nAgents = dataset['nAgents']
     normalized = dataset['normalise_obs']
@@ -71,7 +71,8 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
     edge_index = dataset['edge_index'].to(device)  # Shape: appropriate for edge_index, e.g., (2, num_edges)
 
     # Convert the data to a TensorDataset for DataLoader
-    dataset = TensorDataset(obs_vec, action_vec)
+    sample_size = int(obs_vec.shape[0] * perc_data_used)
+    dataset = TensorDataset(obs_vec[:sample_size], action_vec[:sample_size])
 
     # 2. Split dataset into training (90%) and testing (10%)
     train_size = int(0.95 * len(dataset))
@@ -178,6 +179,7 @@ lr = 1e-3
 loss_fn = nn.MSELoss()          # nn.L1Loss()
 num_epochs = 5
 n_repeats = 3
+perc_data_used = 0.3
 
 
 ##### Lists of parameters to test #####
@@ -190,7 +192,7 @@ for lr in lr_list:
     test_results = np.zeros(num_epochs)
 
     for i in range(n_repeats):
-        results = do_one_training(dataset, batch_size, lr, num_epochs, loss_fn)
+        results = do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used)
         test_results += results
 
     test_results /= n_repeats
