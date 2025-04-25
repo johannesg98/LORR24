@@ -186,15 +186,15 @@ dataset = torch.load(os.path.join(script_dir, "data/skip_dataset_normalized1000.
 batch_size = 32
 lr = 1e-3
 loss_fn = nn.MSELoss()          # nn.L1Loss()
-num_epochs = 5
+num_epochs = 50
 n_repeats = 1
-perc_data_used = 0.1
+perc_data_used = 0.3
 
 
 ##### Lists of parameters to test #####
 lr_list = [1e-2, 1e-3, 1e-4, 1e-5]
 batch_size_list = [16, 32, 64, 128]
-loss_fn_list = [nn.CosineEmbeddingLoss(), nn.KLDivLoss(), nn.CrossEntropyLoss(), nn.BCELoss(), nn.BCEWithLogitsLoss(), nn.NLLLoss()]   #nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(),
+loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn.CosineEmbeddingLoss(), nn.KLDivLoss(), nn.CrossEntropyLoss(), nn.BCELoss(), nn.BCEWithLogitsLoss()] 
 
 
 
