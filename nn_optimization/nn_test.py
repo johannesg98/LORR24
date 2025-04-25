@@ -164,6 +164,8 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
         # Print training loss after each epoch
         print(f"Epoch {epoch+1}/{num_epochs}, Training Loss: {total_train_loss / len(train_loader)}, Reg: {total_reg / len(train_loader)}, Time: {time.time()-start_time}")
 
+    return test_results
+
     # torch.save(model.state_dict(), "gnn_actor_model.pth")
 
 
