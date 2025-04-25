@@ -545,7 +545,7 @@ class SAC(nn.Module):
             self.heatmap1 = np.hstack((self.heatmap1, act.reshape(-1, 1)))
             plt.figure(figsize=(20, 10))
             sns.heatmap(self.heatmap1, cmap="viridis", cbar=True)
-            wandb.log({"Task at node 2 and last": wandb.Image(plt)}, step=i_episode)
+            self.wandb.log({"Task at node 2 and last": wandb.Image(plt)}, step=i_episode)
             plt.close()
 
             obs_parsed = self.parser.parse_obs(self.obs2).to(self.device)
@@ -553,7 +553,7 @@ class SAC(nn.Module):
             self.heatmap2 = np.hstack((self.heatmap2, act.reshape(-1, 1)))
             plt.figure(figsize=(20, 10))
             sns.heatmap(self.heatmap2, cmap="viridis", cbar=True)
-            wandb.log({"Task at node 2 and 3": wandb.Image(plt)}, step=i_episode)
+            self.wandb.log({"Task at node 2 and 3": wandb.Image(plt)}, step=i_episode)
             plt.close()
 
             obs_parsed = self.parser.parse_obs(self.obs3).to(self.device)
@@ -561,7 +561,7 @@ class SAC(nn.Module):
             self.heatmap3 = np.hstack((self.heatmap3, act.reshape(-1, 1)))
             plt.figure(figsize=(20, 10))
             sns.heatmap(self.heatmap3, cmap="viridis", cbar=True)
-            wandb.log({"Task at node 1 and nTasks-third random tasks": wandb.Image(plt)}, step=i_episode)
+            self.wandb.log({"Task at node 1 and nTasks-third random tasks": wandb.Image(plt)}, step=i_episode)
             plt.close()
 
             obs_parsed = self.parser.parse_obs(self.obs4).to(self.device)
@@ -569,7 +569,7 @@ class SAC(nn.Module):
             self.heatmap4 = np.hstack((self.heatmap4, act.reshape(-1, 1)))
             plt.figure(figsize=(20, 10))
             sns.heatmap(self.heatmap4, cmap="viridis", cbar=True)
-            wandb.log({"Two random agents full szenario": wandb.Image(plt)}, step=i_episode)
+            self.wandb.log({"Two random agents full szenario": wandb.Image(plt)}, step=i_episode)
             plt.close()
 
             self.last_wandb_policy_log = i_episode
@@ -585,6 +585,8 @@ class SAC(nn.Module):
             self.load_checkpoint(path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}.pth"))
             print("last checkpoint loaded")
 
+        if cfg.model.load_external_actor:
+            self.load_external_actor()
         
         train_episodes = cfg.model.max_episodes  # set max number of training episodes
         epochs = trange(train_episodes)  # epoch iterator
@@ -624,10 +626,10 @@ class SAC(nn.Module):
             while not done:
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
-                if np.random.rand() < 0.66:
-                    action_rl = self.select_action(obs_parsed)
-                else:
+                if cfg.model.skip_actor:
                     action_rl = skip_actor(self.env, obs)
+                else:
+                    action_rl = self.select_action(obs_parsed)
                 myTimer.selectAction += myTimer.addTime()
             
                 # create discrete action distribution
@@ -672,7 +674,7 @@ class SAC(nn.Module):
                 myTimer.rest += myTimer.addTime()
                 
                 # learn
-                if i_episode > 10:
+                if cfg.model.train and i_episode > 10:
                     batch = self.replay_buffer.sample_batch(cfg.model.batch_size)
                     if i_episode < cfg.model.only_q_steps:
                         self.update(data=batch, only_q=True)
@@ -936,6 +938,10 @@ class SAC(nn.Module):
         
         for key, value in self.optimizers.items():
             self.optimizers[key].load_state_dict(checkpoint[key])
+
+    def load_external_actor(self):
+        self.actor.load_state_dict(torch.load(self.cfg.model.external_actor_path))
+        print("External actor loaded")
 
     def checkpoint_handler(self, i_episode, episode_num_tasks_finished, cfg):
         if i_episode == 0:

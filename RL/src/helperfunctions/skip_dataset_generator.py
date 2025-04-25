@@ -99,7 +99,7 @@ dataset_dict = {
     "normalise_obs": cfg.normalise_obs,
 }
 
-torch.save(dataset_dict, os.path.join(script_dir, "../../../outputs/skip_dataset_normalized1000.pt"))
+torch.save(dataset_dict, os.path.join(script_dir, "../../../outputs/skip_dataset_normalized100.pt"))
 print("Dataset saved successfully.")
 
 
