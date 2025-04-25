@@ -186,8 +186,8 @@ dataset = torch.load(os.path.join(script_dir, "data/skip_dataset_normalized1000.
 batch_size = 32
 lr = 1e-3
 loss_fn = nn.MSELoss()          # nn.L1Loss()
-num_epochs = 50
-n_repeats = 1
+num_epochs = 100
+n_repeats = 3
 perc_data_used = 0.3
 
 
