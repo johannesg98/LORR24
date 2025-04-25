@@ -142,8 +142,6 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
         start_time = time.time()
         for batch_idx, (obs, actions) in enumerate(train_loader):
 
-            if batch_idx == 30:
-                    break
             # Move data to device (GPU if available)
             obs, actions = obs.to(device), actions.to(device)
 
@@ -179,11 +177,11 @@ batch_size = 32
 lr = 1e-3
 loss_fn = nn.MSELoss()          # nn.L1Loss()
 num_epochs = 5
-n_repeats = 2
+n_repeats = 3
 
 
 ##### Lists of parameters to test #####
-lr_list = [1e-3, 1e-4]
+lr_list = [1e-2, 1e-3, 1e-4, 1e-5]
 
 
 
