@@ -112,6 +112,9 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
                 # Move data to device (GPU if available)
                 obs, actions = obs.to(device), actions.to(device)
 
+                if batch_idx == 30:
+                    break
+
                 # Forward pass
                 action_pred, log_prob, regularize = model(obs, edge_index, deterministic=True, return_dist=False)
                 
