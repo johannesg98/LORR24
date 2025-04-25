@@ -177,19 +177,20 @@ dataset = torch.load(os.path.join(script_dir, "data/skip_dataset_normalized1000.
 batch_size = 32
 lr = 1e-3
 loss_fn = nn.MSELoss()          # nn.L1Loss()
-num_epochs = 200
-n_repeats = 3
-perc_data_used = 0.3
+num_epochs = 5
+n_repeats = 1
+perc_data_used = 0.1
 
 
 ##### Lists of parameters to test #####
 lr_list = [1e-2, 1e-3, 1e-4, 1e-5]
 batch_size_list = [16, 32, 64, 128]
+loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn.CosineEmbeddingLoss(), nn.KLDivLoss(), nn.CrossEntropyLoss(), nn.BCELoss(), nn.BCEWithLogitsLoss(), nn.MarginRankingLoss(), nn.NLLLoss(), nn.TripletMarginLoss()]
 
 
 
 #####   Iterate over parameters   #####
-for batch_size in batch_size_list:
+for loss_fn in loss_fn_list:
     test_results = np.zeros(num_epochs)
 
     for i in range(n_repeats):
@@ -202,7 +203,7 @@ for batch_size in batch_size_list:
     wandb1 = wandb.init(
                 project="nn-optimization",
                 entity="johannesg98",
-                name=f"batch_size_{batch_size}_{n_repeats}Repeats"
+                name=f"lossfn_{loss_fn}_{n_repeats}Repeats"
             )
     
     for i in range(num_epochs):
