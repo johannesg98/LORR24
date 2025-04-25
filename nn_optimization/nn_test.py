@@ -112,8 +112,7 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
                 # Move data to device (GPU if available)
                 obs, actions = obs.to(device), actions.to(device)
 
-                if batch_idx == 30:
-                    break
+                
 
                 # Forward pass
                 action_pred, log_prob, regularize = model(obs, edge_index, deterministic=True, return_dist=False)
@@ -142,6 +141,9 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
         total_reg = 0.0
         start_time = time.time()
         for batch_idx, (obs, actions) in enumerate(train_loader):
+
+            if batch_idx == 30:
+                    break
             # Move data to device (GPU if available)
             obs, actions = obs.to(device), actions.to(device)
 
