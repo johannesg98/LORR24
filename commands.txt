@@ -28,7 +28,7 @@ conda activate myenv
 cd LORR24_johannesg98/
 JOBNAME= && sbatch --job-name=$JOBNAME --output=slurm/output$JOBNAME.txt --error=slurm/error$JOBNAME.txt --time=7-00:00:00 --ntasks=1 --cpus-per-task=1 --mem=10G --partition=cpu --wrap="python3 RL/train.py"
 sbatch --job-name= --output=slurm/output.txt --error=slurm/error.txt --time=7-00:00:00 --ntasks=1 --cpus-per-task=1 --mem=10G --partition=cpu --wrap="python3 RL/train.py"
-JOBNAME= && sbatch --job-name=$JOBNAME --output=slurm/output$JOBNAME.txt --error=slurm/error$JOBNAME.txt --time=7-00:00:00 --ntasks=1 --cpus-per-task=1 --mem=32G --partition=cpu-gpu-v100 --gpus=1 --wrap="python3 nn_optimization/nn_test.py" 
+JOBNAME= && sbatch --job-name=$JOBNAME --output=slurm/output$JOBNAME.txt --error=slurm/error$JOBNAME.txt --time=7-00:00:00 --ntasks=1 --cpus-per-task=1 --mem=16G --partition=cpu-gpu-v100 --gpus=1 --wrap="python3 nn_optimization/nn_test.py" 
 sbatch RL/run.slurm
 git add . && git commit -m"cluster push" && git push
 cd envWrapper/build/ && cmake .. && make -j30 && cd ../..

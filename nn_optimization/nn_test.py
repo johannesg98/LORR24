@@ -186,38 +186,78 @@ dataset = torch.load(os.path.join(script_dir, "data/skip_dataset_normalized1000.
 batch_size = 32
 lr = 1e-3
 loss_fn = nn.MSELoss()          # nn.L1Loss()
-num_epochs = 1000
-n_repeats = 3
-perc_data_used = 0.3
+num_epochs = 5
+n_repeats = 1
+perc_data_used = 0.03
 
 
 ##### Lists of parameters to test #####
 lr_list = [1e-4, 1e-5]
-batch_size_list = [16, 32, 64, 128]
-loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn.CosineEmbeddingLoss(), nn.KLDivLoss(), nn.CrossEntropyLoss(), nn.BCELoss(), nn.BCEWithLogitsLoss()] 
+batch_size_list = [8, 16, 32]
+loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn.CosineEmbeddingLoss()]         #nn.KLDivLoss(), nn.CrossEntropyLoss(), nn.BCELoss(), nn.BCEWithLogitsLoss()
 
 
+##############################
+#####   NN grid search   #####
 
-#####   Iterate over parameters   #####
-for lr in lr_list:
-    test_results = np.zeros(num_epochs)
+name = "this-nn"
 
-    for i in range(n_repeats):
-        results = do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used)
-        test_results += results
-
-    test_results /= n_repeats
-
-    ##### Initialize WandB #####
-    wandb1 = wandb.init(
-                project="nn-optimization",
+wandb1 = wandb.init(
+                project= "nn-overview",
                 entity="johannesg98",
-                name=f"lr_long_{lr}_{n_repeats}Repeats"
+                name=name
             )
+table = wandb.Table(columns=["Loss_fn\Batch_size"]+[str(i) for i in batch_size_list])
+save_runs = []
+for i, loss_fn in enumerate(loss_fn_list):
+    save_runs.append([])
+    wandb_data_row = [str(loss_fn)]
+
+    for j, batch_size in enumerate(batch_size_list):
+        results = do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used)
+        save_runs[i].append(results)
+        wandb_data_row.append(results[-1])
     
-    for i in range(num_epochs):
-        wandb1.log({"test wrong assignments (%)": test_results[i]}, step=i)
-    wandb1.finish()
+    table.add_data(*wandb_data_row)
+    wandb1.log({"test wrong assignments (%)": table})
+
+wandb1.finish()
+
+# Log individual runs to WandB dump
+for i, loss_fn in enumerate(loss_fn_list):
+    for j, batch_size in enumerate(batch_size_list):
+        wandb1 = wandb.init(
+                project= name + " - dump",
+                entity="johannesg98",
+                name=f"loss_fn_{loss_fn}_batch_size_{batch_size}"
+            )
+        for k in range(num_epochs):
+            wandb1.log({"test wrong assignments (%)": save_runs[i][j][k]}, step=i)
+        wandb1.finish()
+
+
+###########################
+#####   Plot graphs   #####
+
+# for lr in lr_list:
+#     test_results = np.zeros(num_epochs)
+
+#     for i in range(n_repeats):
+#         results = do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used)
+#         test_results += results
+
+#     test_results /= n_repeats
+
+#     # Initialize WandB
+#     wandb1 = wandb.init(
+#                 project="nn-optimization",
+#                 entity="johannesg98",
+#                 name=f"lr_long_{lr}_{n_repeats}Repeats"
+#             )
+    
+#     for i in range(num_epochs):
+#         wandb1.log({"test wrong assignments (%)": test_results[i]}, step=i)
+#     wandb1.finish()
 
 
 
