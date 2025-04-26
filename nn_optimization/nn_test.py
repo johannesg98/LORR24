@@ -207,7 +207,7 @@ wandb1 = wandb.init(
                 entity="johannesg98",
                 name=name
             )
-table = wandb.Table(columns=["Loss_fn\Batch_size"]+[str(i) for i in batch_size_list])
+table = wandb.Table(columns=["Loss_fn v | Batch_size >"]+[str(i) for i in batch_size_list])
 save_runs = []
 for i, loss_fn in enumerate(loss_fn_list):
     save_runs.append([])
