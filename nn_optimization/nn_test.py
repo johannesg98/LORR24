@@ -200,7 +200,7 @@ loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn
 ##############################
 #####   NN grid search   #####
 
-name = "this-nn"
+name = "this-nn-tmp-test"
 
 wandb1 = wandb.init(
                 project= "nn-overview",
