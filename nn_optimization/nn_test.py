@@ -202,39 +202,41 @@ loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn
 
 name = "this-nn-tmp-test"
 
-wandb1 = wandb.init(
-                project= "nn-overview",
-                entity="johannesg98",
-                name=name
-            )
-table = wandb.Table(columns=["Loss_fn v | Batch_size >"]+[str(i) for i in batch_size_list])
-save_runs = []
+
+final_values = []
 for i, loss_fn in enumerate(loss_fn_list):
-    save_runs.append([])
+    final_values.append([])
     wandb_data_row = [str(loss_fn)]
 
     for j, batch_size in enumerate(batch_size_list):
         results = do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used)
-        save_runs[i].append(results)
-        wandb_data_row.append(results[-1])
-    
-    table.add_data(*wandb_data_row)
-    wandb1.log({"test wrong assignments (%)": table})
+        final_values[i].append(results[-3:].mean())
 
-wandb1.finish()
-
-# Log individual runs to WandB dump
-for i, loss_fn in enumerate(loss_fn_list):
-    for j, batch_size in enumerate(batch_size_list):
+        # Log graph
         wandb1 = wandb.init(
                 project= name + " - dump",
                 entity="johannesg98",
                 name=f"loss_fn_{loss_fn}_batch_size_{batch_size}"
             )
         for k in range(num_epochs):
-            wandb1.log({"test wrong assignments (%)": save_runs[i][j][k]}, step=i)
+            wandb1.log({"test wrong assignments (%)": results[k]}, step=k)
         wandb1.finish()
 
+
+# Log overview table
+wandb1 = wandb.init(
+                project= "nn-overview",
+                entity="johannesg98",
+                name=name
+            )
+table = wandb.Table(columns=["Loss_fn v | Batch_size >"]+[str(i) for i in batch_size_list])
+
+for i, loss_fn in enumerate(loss_fn_list):
+    wandb_data_row = [str(loss_fn)] + final_values[i]
+    table.add_data(*wandb_data_row)
+
+wandb1.log({"test wrong assignments (%)": table})        
+wandb1.finish()
 
 ###########################
 #####   Plot graphs   #####
