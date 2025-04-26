@@ -187,7 +187,7 @@ batch_size = 32
 lr = 1e-3
 loss_fn = nn.MSELoss()          # nn.L1Loss()
 num_epochs = 1000
-n_repeats = 2
+n_repeats = 3
 perc_data_used = 0.3
 
 
