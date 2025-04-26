@@ -90,7 +90,7 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
     # 4. Initialize the model
     in_channels = obs_vec.shape[2]  # Assuming 3 channels in the input
     nNodes = action_vec.shape[1]
-    model = GNNActor(in_channels=in_channels, hidden_size=512, act_dim=nNodes)  # Action dim is 79
+    model = GNNActor(in_channels=in_channels, hidden_size=256, act_dim=nNodes)  # Action dim is 79
 
     # Move the model to the selected device
     model.to(device)
@@ -197,13 +197,13 @@ perc_data_used = 0.3
 ##### Lists of parameters to test #####
 lr_list = [1e-4, 1e-5]
 batch_size_list = [8, 16, 32]
-loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn.CosineEmbeddingLoss()]         #nn.KLDivLoss(), nn.CrossEntropyLoss(), nn.BCELoss(), nn.BCEWithLogitsLoss()
+loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn.CosineEmbeddingLoss(), nn.BCELoss()]         #nn.KLDivLoss(), nn.CrossEntropyLoss(), nn.BCELoss(), nn.BCEWithLogitsLoss()
 
 
 ##############################
 #####   NN grid search   #####
 
-name = "replace_graph_with_fully_connected_hidden512-nn"
+name = "replace_graph_with_fully_connected-nn"
 
 
 final_values = []
