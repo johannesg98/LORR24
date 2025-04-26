@@ -240,7 +240,7 @@ for i, loss_fn in enumerate(loss_fn_list):
         final_sum += final_values[i][j]
 
 last_row = ["Average"] + [final_sum/(len(loss_fn_list)*len(batch_size_list))] + [ 0 for _ in range(len(batch_size_list)-1)]
-table.add_data("Average", )
+table.add_data(*last_row)
     
 
 wandb1.log({"test wrong assignments (%)": table})        
