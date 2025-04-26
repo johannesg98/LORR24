@@ -186,8 +186,8 @@ dataset = torch.load(os.path.join(script_dir, "data/skip_dataset_normalized1000.
 batch_size = 32
 lr = 1e-3
 loss_fn = nn.MSELoss()          # nn.L1Loss()
-num_epochs = 300
-n_repeats = 1
+num_epochs = 1000
+n_repeats = 2
 perc_data_used = 0.3
 
 
@@ -212,7 +212,7 @@ for lr in lr_list:
     wandb1 = wandb.init(
                 project="nn-optimization",
                 entity="johannesg98",
-                name=f"lr_{lr}_{n_repeats}Repeats"
+                name=f"lr_long_{lr}_{n_repeats}Repeats"
             )
     
     for i in range(num_epochs):
