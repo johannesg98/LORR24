@@ -186,9 +186,9 @@ dataset = torch.load(os.path.join(script_dir, "data/skip_dataset_normalized1000.
 batch_size = 32
 lr = 1e-3
 loss_fn = nn.MSELoss()          # nn.L1Loss()
-num_epochs = 5
+num_epochs = 50
 n_repeats = 1
-perc_data_used = 0.03
+perc_data_used = 0.3
 
 
 ##### Lists of parameters to test #####
@@ -200,7 +200,7 @@ loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn
 ##############################
 #####   NN grid search   #####
 
-name = "this-nn-tmp-test2"
+name = "default-graph-nn"
 
 
 final_values = []
