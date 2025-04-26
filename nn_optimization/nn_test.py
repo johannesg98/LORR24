@@ -29,10 +29,11 @@ class GNNActor(nn.Module):
         self.lin3 = nn.Linear(hidden_size, 1)
 
     def forward(self, state, edge_index, deterministic=False, return_dist=False):
-        out = F.relu(self.conv1(state, edge_index))
-        if torch.isnan(out).any():
-            print("NaN values detected in out!")
-        x = out + state
+        # out = F.relu(self.conv1(state, edge_index))
+        # if torch.isnan(out).any():
+        #     print("NaN values detected in out!")
+        # x = out + state
+        x = state
         x = x.reshape(-1, self.act_dim, self.in_channels)
         x = F.leaky_relu(self.lin1(x))
         x = F.leaky_relu(self.lin2(x))
@@ -200,7 +201,7 @@ loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn
 ##############################
 #####   NN grid search   #####
 
-name = "default-graph-nn"
+name = "skip_graph-nn"
 
 
 final_values = []
