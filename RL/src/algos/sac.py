@@ -586,7 +586,7 @@ class SAC(nn.Module):
             print("last checkpoint loaded")
 
         if cfg.model.load_external_actor:
-            self.load_external_actor()
+            self.load_external_actor(cfg)
         
         train_episodes = cfg.model.max_episodes  # set max number of training episodes
         epochs = trange(train_episodes)  # epoch iterator
@@ -939,8 +939,8 @@ class SAC(nn.Module):
         for key, value in self.optimizers.items():
             self.optimizers[key].load_state_dict(checkpoint[key])
 
-    def load_external_actor(self):
-        self.actor.load_state_dict(torch.load(os.path.join(self.train_dir, self.cfg.model.external_actor_path)))
+    def load_external_actor(self, cfg):
+        self.actor.load_state_dict(torch.load(os.path.join(self.train_dir, cfg.model.external_actor_path)))
         print("External actor loaded")
 
     def checkpoint_handler(self, i_episode, episode_num_tasks_finished, cfg):
