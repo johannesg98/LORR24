@@ -1,0 +1,109 @@
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Currently logged in as: johannes-gaber (johannesg98) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250426_084353-ix9jbzq2
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run replace_graph_with_fully_connected_hidden512-nn_loss_fn_MSELoss()_batch_size_8
+wandb: ⭐️ View project at https://wandb.ai/johannesg98/nn-dump
+wandb: 🚀 View run at https://wandb.ai/johannesg98/nn-dump/runs/ix9jbzq2
+wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb: test wrong assignments (%) █▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb: test wrong assignments (%) 60.03723
+wandb: 
+wandb: 🚀 View run replace_graph_with_fully_connected_hidden512-nn_loss_fn_MSELoss()_batch_size_8 at: https://wandb.ai/johannesg98/nn-dump/runs/ix9jbzq2
+wandb: ⭐️ View project at: https://wandb.ai/johannesg98/nn-dump
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20250426_084353-ix9jbzq2/logs
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250426_085937-hoq07ovh
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run replace_graph_with_fully_connected_hidden512-nn_loss_fn_MSELoss()_batch_size_16
+wandb: ⭐️ View project at https://wandb.ai/johannesg98/nn-dump
+wandb: 🚀 View run at https://wandb.ai/johannesg98/nn-dump/runs/hoq07ovh
+wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb: test wrong assignments (%) █▂▂▃▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb: test wrong assignments (%) 61.74836
+wandb: 
+wandb: 🚀 View run replace_graph_with_fully_connected_hidden512-nn_loss_fn_MSELoss()_batch_size_16 at: https://wandb.ai/johannesg98/nn-dump/runs/hoq07ovh
+wandb: ⭐️ View project at: https://wandb.ai/johannesg98/nn-dump
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20250426_085937-hoq07ovh/logs
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250426_090814-jkal35t5
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run replace_graph_with_fully_connected_hidden512-nn_loss_fn_MSELoss()_batch_size_32
+wandb: ⭐️ View project at https://wandb.ai/johannesg98/nn-dump
+wandb: 🚀 View run at https://wandb.ai/johannesg98/nn-dump/runs/jkal35t5
+wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb: test wrong assignments (%) █▂▂▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb: test wrong assignments (%) 55.20374
+wandb: 
+wandb: 🚀 View run replace_graph_with_fully_connected_hidden512-nn_loss_fn_MSELoss()_batch_size_32 at: https://wandb.ai/johannesg98/nn-dump/runs/jkal35t5
+wandb: ⭐️ View project at: https://wandb.ai/johannesg98/nn-dump
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20250426_090814-jkal35t5/logs
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250426_093758-t6y0lxe4
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run replace_graph_with_fully_connected_hidden512-nn_loss_fn_L1Loss()_batch_size_8
+wandb: ⭐️ View project at https://wandb.ai/johannesg98/nn-dump
+wandb: 🚀 View run at https://wandb.ai/johannesg98/nn-dump/runs/t6y0lxe4
+wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb: test wrong assignments (%) ▅▁▁▁▁▆▆███▆█████████████████████████████
+wandb: 
+wandb: Run summary:
+wandb: test wrong assignments (%) 142.58902
+wandb: 
+wandb: 🚀 View run replace_graph_with_fully_connected_hidden512-nn_loss_fn_L1Loss()_batch_size_8 at: https://wandb.ai/johannesg98/nn-dump/runs/t6y0lxe4
+wandb: ⭐️ View project at: https://wandb.ai/johannesg98/nn-dump
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20250426_093758-t6y0lxe4/logs
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250426_095405-0eo4epos
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run replace_graph_with_fully_connected_hidden512-nn_loss_fn_L1Loss()_batch_size_16
+wandb: ⭐️ View project at https://wandb.ai/johannesg98/nn-dump
+wandb: 🚀 View run at https://wandb.ai/johannesg98/nn-dump/runs/0eo4epos
+wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb: test wrong assignments (%) ▄▁▁█▁▁▁▆▆▄▄▄▄▆▆▂▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb: test wrong assignments (%) 54.40184
+wandb: 
+wandb: 🚀 View run replace_graph_with_fully_connected_hidden512-nn_loss_fn_L1Loss()_batch_size_16 at: https://wandb.ai/johannesg98/nn-dump/runs/0eo4epos
+wandb: ⭐️ View project at: https://wandb.ai/johannesg98/nn-dump
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20250426_095405-0eo4epos/logs
+Traceback (most recent call last):
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test.py", line 215, in <module>
+    results = do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test.py", line 139, in do_one_training
+    diff = assign_discrete_actions(total_agents, one_pred_action.cpu().numpy()) - assign_discrete_actions(total_agents, one_action.cpu().numpy())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test.py", line 62, in assign_discrete_actions
+    top_indices = np.argpartition(-fractional_parts, int(remaining_agents))[:int(remaining_agents)]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py", line 858, in argpartition
+    return _wrapfunc(a, 'argpartition', kth, axis=axis, kind=kind, order=order)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py", line 59, in _wrapfunc
+    return bound(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^
+ValueError: kth(=200) out of bounds (79)
