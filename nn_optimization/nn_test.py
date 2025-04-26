@@ -200,7 +200,7 @@ loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn
 ##############################
 #####   NN grid search   #####
 
-name = "this-nn-tmp-test"
+name = "this-nn-tmp-test2"
 
 
 final_values = []
@@ -210,13 +210,13 @@ for i, loss_fn in enumerate(loss_fn_list):
 
     for j, batch_size in enumerate(batch_size_list):
         results = do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used)
-        final_values[i].append(results[-3:].mean())
+        final_values[i].append(results[-5:].mean())
 
         # Log graph
         wandb1 = wandb.init(
-                project= name + " - dump",
+                project= "nn-dump",
                 entity="johannesg98",
-                name=f"loss_fn_{loss_fn}_batch_size_{batch_size}"
+                name= name + f"_loss_fn_{loss_fn}_batch_size_{batch_size}"
             )
         for k in range(num_epochs):
             wandb1.log({"test wrong assignments (%)": results[k]}, step=k)
@@ -231,12 +231,22 @@ wandb1 = wandb.init(
             )
 table = wandb.Table(columns=["Loss_fn v | Batch_size >"]+[str(i) for i in batch_size_list])
 
+final_sum = 0
 for i, loss_fn in enumerate(loss_fn_list):
     wandb_data_row = [str(loss_fn)] + final_values[i]
     table.add_data(*wandb_data_row)
 
+    for j in range(len(batch_size_list)):
+        final_sum += final_values[i][j]
+
+last_row = ["Average"] + [final_sum/(len(loss_fn_list)*len(batch_size_list))] + [ 0 for _ in range(len(batch_size_list)-1)]
+table.add_data("Average", )
+    
+
 wandb1.log({"test wrong assignments (%)": table})        
 wandb1.finish()
+
+
 
 ###########################
 #####   Plot graphs   #####
