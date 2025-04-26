@@ -197,7 +197,7 @@ perc_data_used = 0.3
 ##### Lists of parameters to test #####
 lr_list = [1e-4, 1e-5]
 batch_size_list = [8, 16, 32]
-loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn.CosineEmbeddingLoss(), nn.BCELoss()]         #nn.KLDivLoss(), nn.CrossEntropyLoss(), nn.BCELoss(), nn.BCEWithLogitsLoss()
+loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn.CosineEmbeddingLoss()]         #nn.KLDivLoss(), nn.CrossEntropyLoss(), nn.BCELoss(), nn.BCEWithLogitsLoss()
 
 
 ##############################
