@@ -940,7 +940,7 @@ class SAC(nn.Module):
             self.optimizers[key].load_state_dict(checkpoint[key])
 
     def load_external_actor(self):
-        self.actor.load_state_dict(torch.load(self.cfg.model.external_actor_path))
+        self.actor.load_state_dict(torch.load(os.path.join(self.train_dir, self.cfg.model.external_actor_path)))
         print("External actor loaded")
 
     def checkpoint_handler(self, i_episode, episode_num_tasks_finished, cfg):
