@@ -24,7 +24,8 @@ class GNNActor(nn.Module):
         self.in_channels = in_channels
         self.act_dim = act_dim
         self.conv1 = GCNConv(in_channels, in_channels)
-        self.lin1 = nn.Linear(in_channels, hidden_size)
+        self.lin0 = nn.Linear(in_channels, hidden_size)
+        self.lin1 = nn.Linear(hidden_size, hidden_size)
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)
 
@@ -35,6 +36,7 @@ class GNNActor(nn.Module):
         # x = out + state
         x = state
         x = x.reshape(-1, self.act_dim, self.in_channels)
+        x = F.leaky_relu(self.lin0(x))
         x = F.leaky_relu(self.lin1(x))
         x = F.leaky_relu(self.lin2(x))
         x = F.softplus(self.lin3(x))
@@ -201,7 +203,7 @@ loss_fn_list = [nn.MSELoss(), nn.L1Loss(), nn.SmoothL1Loss(), nn.HuberLoss(), nn
 ##############################
 #####   NN grid search   #####
 
-name = "skip_graph-nn"
+name = "replace_graph_with_fully_connected-nn"
 
 
 final_values = []
