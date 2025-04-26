@@ -40,7 +40,7 @@ load_from_ckeckpoint: false  # Load model from checkpoint
 
 load_external_actor: true  # Load externally trainged actor e.g. from imitation learning in colab
 
-external_actor_path: "../nn_optimization/actor_37percent.pth"  # Path to externally trained actor
+external_actor_path: "../nn_optimization/actors/actor_37percent.pth"  # Path to externally trained actor
 
 use_LSTM: false  # Use LSTM in the model
 
