@@ -23,11 +23,11 @@ class GNNActor(nn.Module):
         super().__init__()
         self.in_channels = in_channels
         self.act_dim = act_dim
-        self.conv1 = GCNConv(in_channels, in_channels)
-        self.lin0 = nn.Linear(in_channels, hidden_size)
+        # self.conv1 = GCNConv(in_channels, in_channels)
+        self.lin0 = nn.Linear(in_channels*act_dim, hidden_size)
         self.lin1 = nn.Linear(hidden_size, hidden_size)
         self.lin2 = nn.Linear(hidden_size, hidden_size)
-        self.lin3 = nn.Linear(hidden_size, 1)
+        self.lin3 = nn.Linear(hidden_size, act_dim)
 
     def forward(self, state, edge_index, deterministic=False, return_dist=False):
         # out = F.relu(self.conv1(state, edge_index))
@@ -35,7 +35,7 @@ class GNNActor(nn.Module):
         #     print("NaN values detected in out!")
         # x = out + state
         x = state
-        x = x.reshape(-1, self.act_dim, self.in_channels)
+        x = x.reshape(-1, self.act_dim*self.in_channels)
         x = F.leaky_relu(self.lin0(x))
         x = F.leaky_relu(self.lin1(x))
         x = F.leaky_relu(self.lin2(x))
@@ -304,14 +304,14 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
 ###############################
 ### Long sparse grid search ###
 
-n_experiments = 5
+n_experiments = 3
 for i in range(n_experiments):
 
     dataset = torch.load(os.path.join(script_dir, "data/skip_dataset_normalized1000.pt"))
     batch_size = 32
     lr = 1e-3
     loss_fn = nn.MSELoss()          # nn.L1Loss()
-    num_epochs = 10
+    num_epochs = 200
     perc_data_used = 0.3
     multiStepLr = None
     wandb_dict = {
@@ -319,7 +319,7 @@ for i in range(n_experiments):
     }
     name = "fully_connected_256"
         
-    match 1:
+    match i:
         case 0:
             batch_size = 16
             perc_data_used = 0.6
@@ -327,6 +327,7 @@ for i in range(n_experiments):
         case 1:
             multiStepLr = {"milestones": [200], "gamma": 0.1}
             loss_fn = nn.HuberLoss()
+            num_epochs = 1000
             wandb_dict["name"] = name + f"_loss_fn_{str(loss_fn)}_lr-decay-to1e-4"
         case 2:
             batch_size = 64
