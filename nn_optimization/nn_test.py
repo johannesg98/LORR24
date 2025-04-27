@@ -90,7 +90,7 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
     # 4. Initialize the model
     in_channels = obs_vec.shape[2]  # Assuming 3 channels in the input
     nNodes = action_vec.shape[1]
-    model = GNNActor(in_channels=in_channels, hidden_size=256, act_dim=nNodes)  # Action dim is 79
+    model = GNNActor(in_channels=in_channels, hidden_size=2048, act_dim=nNodes)  # Action dim is 79
 
     # Move the model to the selected device
     model.to(device)
@@ -317,7 +317,7 @@ for i in range(n_experiments):
     wandb_dict = {
         "project": "nn-sparse-grid-search",
     }
-    name = "fully_connected_256"
+    name = "fully_connected_2048"
         
     match i:
         case 0:
