@@ -10,48 +10,18 @@ import math
 import time
 import wandb
 import os
+import sys
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(script_dir)
+
+from nets.glob_info_feed import GNNActor
 
 # Device configuration (GPU if available, otherwise CPU)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
 
-# Your GNNActor model definition
-class GNNActor(nn.Module):
-    def __init__(self, in_channels, hidden_size=32, act_dim=6):
-        super().__init__()
-        self.in_channels = in_channels
-        self.act_dim = act_dim
-        # self.conv1 = GCNConv(in_channels, in_channels)
-        self.lin0 = nn.Linear(in_channels*act_dim, hidden_size)
-        self.lin1 = nn.Linear(hidden_size, hidden_size)
-        self.lin2 = nn.Linear(hidden_size, hidden_size)
-        self.lin3 = nn.Linear(hidden_size, act_dim)
 
-    def forward(self, state, edge_index, deterministic=False, return_dist=False):
-        # out = F.relu(self.conv1(state, edge_index))
-        # if torch.isnan(out).any():
-        #     print("NaN values detected in out!")
-        # x = out + state
-        x = state
-        x = x.reshape(-1, self.act_dim*self.in_channels)
-        x = F.leaky_relu(self.lin0(x))
-        x = F.leaky_relu(self.lin1(x))
-        x = F.leaky_relu(self.lin2(x))
-        x = F.softplus(self.lin3(x))
-        concentration = x.squeeze(-1)
-        if return_dist:
-            return Dirichlet(concentration + 1e-20)
-        if deterministic:
-            action = concentration / (concentration.sum(dim=-1, keepdim=True) + 1e-20)  # Normalize
-            log_prob = None
-        else:
-            m = Dirichlet(concentration + 1e-20)
-            action = m.rsample()
-            log_prob = m.log_prob(action)
-        regularize = concentration.abs().mean()
-        return action, log_prob, regularize
 
 def assign_discrete_actions(total_agents, action_rl):
         desired_agent_dist = np.floor(action_rl * total_agents).astype(int)
@@ -317,7 +287,7 @@ for i in range(n_experiments):
     wandb_dict = {
         "project": "nn-sparse-grid-search",
     }
-    name = "fully_connected_2048"
+    name = "glob_feed_10"
         
     match i:
         case 0:
