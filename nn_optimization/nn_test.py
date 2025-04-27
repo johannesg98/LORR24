@@ -65,7 +65,7 @@ def assign_discrete_actions(total_agents, action_rl):
         return desired_agent_dist
 
 
-def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss_fn = nn.MSELoss(), perc_data_used = 1):
+def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss_fn = nn.MSELoss(), perc_data_used = 1, wandb_dict = None, multiStepLr = None):
     # Unpack the dataset
     nAgents = dataset['nAgents']
     normalized = dataset['normalise_obs']
@@ -97,10 +97,21 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
 
     # 5. Define Loss Function and Optimizer
     optimizer = optim.Adam(model.parameters(), lr=lr)
+    if multiStepLr is not None:
+        scheduler = optim.lr_scheduler.MultiStepLR(optimizer, **multiStepLr)
 
     # Prepare testing and save results
     agent_scale_fac = 1/math.ceil(nAgents/nNodes*4)
     test_results = np.zeros(num_epochs)
+
+    # WandB initialization
+    if wandb_dict is not None:
+        wandb1 = wandb.init(
+                project= wandb_dict['project'],
+                entity="johannesg98",
+                name= wandb_dict["name"]
+            )
+       
 
     # 6. Loop
     for epoch in range(num_epochs):
@@ -144,6 +155,7 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
         print(f"Epoch {epoch+1}/{num_epochs}, Test Loss: {total_test_loss / len(test_loader)}, Wrong assignments: {wrong_assignments} of {total_assignments} = {wrong_assignments/total_assignments*100:.2f}%, , Time: {time.time()-start_time}")
         test_results[epoch] = wrong_assignments/total_assignments*100
 
+
         # 7. Training
         model.train()  # Set model to training mode
         total_train_loss = 0.0
@@ -175,6 +187,19 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
         # Print training loss after each epoch
         print(f"Epoch {epoch+1}/{num_epochs}, Training Loss: {total_train_loss / len(train_loader)}, Reg: {total_reg / len(train_loader)}, Time: {time.time()-start_time}")
 
+        # Log test results to WandB
+        if wandb_dict is not None:
+            wandb1.log({"test wrong assignments (%)": wrong_assignments/total_assignments*100}, step=epoch)
+            wandb1.log({"test loss": total_test_loss / len(test_loader)}, step=epoch)
+            wandb1.log({"train loss": total_train_loss / len(train_loader)}, step=epoch)
+            wandb1.log({"train regularize": total_reg / len(train_loader)}, step=epoch)
+
+        # Step the scheduler if using one
+        if multiStepLr is not None:
+            scheduler.step()
+
+    if wandb_dict is not None:
+        wandb1.finish()
     return test_results
 
     # torch.save(model.state_dict(), "gnn_actor_model.pth")
@@ -275,6 +300,40 @@ wandb1.finish()
 #     wandb1.finish()
 
 
+
+###############################
+### Long sparse grid search ###
+
+n_experiments = 5
+for i in range(n_experiments):
+
+    dataset = torch.load(os.path.join(script_dir, "data/skip_dataset_normalized1000.pt"))
+    batch_size = 32
+    lr = 1e-3
+    loss_fn = nn.MSELoss()          # nn.L1Loss()
+    num_epochs = 10
+    perc_data_used = 0.3
+    multiStepLr = None
+    wandb_dict = {
+        "project": "nn-sparse-grid-search",
+    }
+    name = "fully_connected_256"
+        
+    match 1:
+        case 0:
+            batch_size = 16
+            perc_data_used = 0.6
+            wandb_dict["name"] = name + f"_batch_{batch_size}_perc_{perc_data_used}"
+        case 1:
+            multiStepLr = {"milestones": [200], "gamma": 0.1}
+            loss_fn = nn.HuberLoss()
+            wandb_dict["name"] = name + f"_loss_fn_{str(loss_fn)}_lr-decay-to1e-4"
+        case 2:
+            batch_size = 64
+            nn.SmoothL1Loss()
+            wandb_dict["name"] = name + f"_batch_{batch_size}_loss_fn_{str(loss_fn)}"
+
+    do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used,wandb_dict=wandb_dict, multiStepLr=multiStepLr)
 
 
 
