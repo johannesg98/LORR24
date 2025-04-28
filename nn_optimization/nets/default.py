@@ -1,14 +1,11 @@
 from torch import nn
+import torch
 import torch.nn.functional as F
 from torch.distributions import Dirichlet
 from torch_geometric.nn import GCNConv
 
 
 class GNNActor(nn.Module):
-    """
-    Actor \pi(a_t | s_t) parametrizing the concentration parameters of a Dirichlet Policy.
-    """
-
     def __init__(self, in_channels, hidden_size=32, act_dim=6):
         super().__init__()
         self.in_channels = in_channels
@@ -18,8 +15,10 @@ class GNNActor(nn.Module):
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)
 
-    def forward(self, state, edge_index, deterministic=False, return_dist=False):
+    def forward(self, state, edge_index, deterministic=False, return_dist=False, return_raw=False):
         out = F.relu(self.conv1(state, edge_index))
+        if torch.isnan(out).any():
+            print("NaN values detected in out!")
         x = out + state
         x = x.reshape(-1, self.act_dim, self.in_channels)
         x = F.leaky_relu(self.lin1(x))
@@ -28,8 +27,11 @@ class GNNActor(nn.Module):
         concentration = x.squeeze(-1)
         if return_dist:
             return Dirichlet(concentration + 1e-20)
-        if deterministic:
-            action = (concentration) / (concentration.sum() + 1e-20)
+        if return_raw:
+            action = concentration
+            log_prob = None
+        elif deterministic:
+            action = concentration / (concentration.sum(dim=-1, keepdim=True) + 1e-20)  # Normalize
             log_prob = None
         else:
             m = Dirichlet(concentration + 1e-20)
