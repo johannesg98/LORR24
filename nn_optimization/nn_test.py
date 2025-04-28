@@ -15,7 +15,7 @@ import sys
 script_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_dir)
 
-from nets.default import GNNActor
+from nets.glob_info_feed import GNNActor
 
 # Device configuration (GPU if available, otherwise CPU)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -281,13 +281,13 @@ for i in range(n_experiments):
     batch_size = 32
     lr = 1e-3
     loss_fn = nn.MSELoss()          # nn.L1Loss()
-    num_epochs = 200
+    num_epochs = 100
     perc_data_used = 0.3
     multiStepLr = None
     wandb_dict = {
         "project": "nn-sparse-grid-search",
     }
-    name = "default"
+    name = "glob_feed_numerized"
         
     match i:
         case 0:
@@ -297,7 +297,7 @@ for i in range(n_experiments):
         case 1:
             multiStepLr = {"milestones": [200], "gamma": 0.1}
             loss_fn = nn.HuberLoss()
-            num_epochs = 1000
+            num_epochs = 500
             wandb_dict["name"] = name + f"_loss_fn_{str(loss_fn)}_lr-decay-to1e-4"
         case 2:
             batch_size = 64
