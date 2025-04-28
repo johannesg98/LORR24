@@ -13,7 +13,7 @@ class GNNActor(nn.Module):
         self.globLin1 = nn.Linear(in_channels*act_dim, 256)
         self.globLin2 = nn.Linear(256, 10)
         self.conv1 = GCNConv(in_channels, in_channels)
-        self.lin1 = nn.Linear(in_channels+10, hidden_size)
+        self.lin1 = nn.Linear(in_channels+10+1, hidden_size)
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)
 
@@ -28,7 +28,8 @@ class GNNActor(nn.Module):
         xglob = F.leaky_relu(self.globLin2(xglob))
         xglob = xglob.unsqueeze(1)
         xglob = xglob.expand(-1, self.act_dim, -1)
-        x = torch.cat((x, xglob), dim=-1)
+        xNum = (torch.arange(self.act_dim).unsqueeze(0).unsqueeze(2).expand(x.shape[0],-1, -1)/self.act_dim).to(device)
+        x = torch.cat((x, xglob, xNum), dim=-1)
 
         x = F.leaky_relu(self.lin1(x))
         x = F.leaky_relu(self.lin2(x))
