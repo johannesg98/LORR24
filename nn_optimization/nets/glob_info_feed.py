@@ -28,6 +28,7 @@ class GNNActor(nn.Module):
         xglob = F.leaky_relu(self.globLin2(xglob))
         xglob = xglob.unsqueeze(1)
         xglob = xglob.expand(-1, self.act_dim, -1)
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         xNum = (torch.arange(self.act_dim).unsqueeze(0).unsqueeze(2).expand(x.shape[0],-1, -1)/self.act_dim).to(device)
         x = torch.cat((x, xglob, xNum), dim=-1)
 
