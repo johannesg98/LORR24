@@ -11,12 +11,16 @@ class GNNActor(nn.Module):
         self.in_channels = in_channels
         self.act_dim = act_dim
         self.conv1 = GCNConv(in_channels, in_channels)
+        self.conv2 = GCNConv(in_channels, in_channels)
+        self.conv3 = GCNConv(in_channels, in_channels)
         self.lin1 = nn.Linear(in_channels, hidden_size)
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)
 
     def forward(self, state, edge_index, deterministic=False, return_dist=False, return_raw=False):
         out = F.relu(self.conv1(state, edge_index))
+        out = F.relu(self.conv2(out, edge_index))
+        out = F.relu(self.conv3(out, edge_index))
         if torch.isnan(out).any():
             print("NaN values detected in out!")
         x = out + state
