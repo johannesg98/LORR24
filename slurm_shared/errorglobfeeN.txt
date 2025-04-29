@@ -1,0 +1,24 @@
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Currently logged in as: johannes-gaber (johannesg98) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250428_141321-eqqwom94
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run glob_feed_numerized_batch_16_perc_0.6
+wandb: ⭐️ View project at https://wandb.ai/johannesg98/nn-sparse-grid-search
+wandb: 🚀 View run at https://wandb.ai/johannesg98/nn-sparse-grid-search/runs/eqqwom94
+Traceback (most recent call last):
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test.py", line 307, in <module>
+    do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used,wandb_dict=wandb_dict, multiStepLr=multiStepLr)
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test.py", line 120, in do_one_training
+    diff = assign_discrete_actions(total_agents, one_pred_action.cpu().numpy()) - assign_discrete_actions(total_agents, one_action.cpu().numpy())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test.py", line 32, in assign_discrete_actions
+    top_indices = np.argpartition(-fractional_parts, int(remaining_agents))[:int(remaining_agents)]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py", line 858, in argpartition
+    return _wrapfunc(a, 'argpartition', kth, axis=axis, kind=kind, order=order)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py", line 59, in _wrapfunc
+    return bound(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^
+ValueError: kth(=200) out of bounds (79)
