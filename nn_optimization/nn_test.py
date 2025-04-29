@@ -35,7 +35,7 @@ def assign_discrete_actions(total_agents, action_rl):
         return desired_agent_dist
 
 
-def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss_fn = nn.MSELoss(), perc_data_used = 1, wandb_dict = None, multiStepLr = None):
+def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss_fn = nn.MSELoss(), perc_data_used = 1, wandb_dict = None, multiStepLr = None, hidden_size=256):
     # Unpack the dataset
     nAgents = dataset['nAgents']
     normalized = dataset['normalise_obs']
@@ -60,7 +60,7 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
     # 4. Initialize the model
     in_channels = obs_vec.shape[2]  # Assuming 3 channels in the input
     nNodes = action_vec.shape[1]
-    model = GNNActor(in_channels=in_channels, hidden_size=2048, act_dim=nNodes)  # Action dim is 79
+    model = GNNActor(in_channels=in_channels, hidden_size=hidden_size, act_dim=nNodes)  # Action dim is 79
 
     # Move the model to the selected device
     model.to(device)
@@ -283,6 +283,7 @@ for i in range(n_experiments):
     loss_fn = nn.MSELoss()          # nn.L1Loss()
     num_epochs = 100
     perc_data_used = 0.3
+    hidden_size=256
     multiStepLr = None
     wandb_dict = {
         "project": "nn-sparse-grid-search",
@@ -304,7 +305,7 @@ for i in range(n_experiments):
             nn.SmoothL1Loss()
             wandb_dict["name"] = name + f"_batch_{batch_size}_loss_fn_{str(loss_fn)}"
 
-    do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used,wandb_dict=wandb_dict, multiStepLr=multiStepLr)
+    do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used,wandb_dict=wandb_dict, multiStepLr=multiStepLr, hidden_size=hidden_size)
 
 
 
