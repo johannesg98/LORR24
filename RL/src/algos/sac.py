@@ -16,6 +16,8 @@ import wandb
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from src.nets.penta_actor_critic import GNNActorPenta, GNNCriticPenta
+
 from src.helperfunctions.skip_actor import skip_actor
 from src.helperfunctions.assign_discrete_actions import assign_discrete_actions
 
@@ -178,11 +180,11 @@ class SAC(nn.Module):
             self.critic1_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
             self.critic2_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
         else:
-            self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.actor = GNNActorPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic1 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic2 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic1_target = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic2_target = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
 
         assert self.critic1.parameters() != self.critic2.parameters()
 
