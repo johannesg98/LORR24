@@ -13,7 +13,9 @@ class GNNActor(nn.Module):
         self.conv1 = GCNConv(in_channels, in_channels)
         self.conv2 = GCNConv(in_channels, in_channels)
         self.conv3 = GCNConv(in_channels, in_channels)
-        self.lin1 = nn.Linear(4*in_channels, hidden_size)
+        self.conv4 = GCNConv(in_channels, in_channels)
+        self.conv5 = GCNConv(in_channels, in_channels)
+        self.lin1 = nn.Linear(6*in_channels, hidden_size)
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)
 
@@ -21,9 +23,11 @@ class GNNActor(nn.Module):
         out1 = F.relu(self.conv1(state, edge_index))
         out2 = F.relu(self.conv2(out1, edge_index))
         out3 = F.relu(self.conv3(out2, edge_index))
-        if torch.isnan(out3).any():
+        out4 = F.relu(self.conv3(out3, edge_index))
+        out5 = F.relu(self.conv3(out4, edge_index))
+        if torch.isnan(out5).any():
             print("NaN values detected in out!")
-        x = torch.cat((out1, out2, out3, state), dim=-1)
+        x = torch.cat((out1, out2, out3, out4, out5, state), dim=-1)
         # x = x.reshape(-1, self.act_dim, self.in_channels)
         x = F.leaky_relu(self.lin1(x))
         x = F.leaky_relu(self.lin2(x))
