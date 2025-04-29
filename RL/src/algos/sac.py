@@ -169,6 +169,7 @@ class SAC(nn.Module):
 
         self.tensorboard = None
         self.wandb = None
+        self.last_best_checkpoint = None
 
         self.replay_buffer = ReplayData(device=device)
         # nnets
@@ -180,11 +181,11 @@ class SAC(nn.Module):
             self.critic1_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
             self.critic2_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
         else:
-            self.actor = GNNActorPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic1 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic2 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic1_target = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic2_target = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
 
         assert self.critic1.parameters() != self.critic2.parameters()
 
@@ -224,7 +225,7 @@ class SAC(nn.Module):
         with torch.no_grad():
             a, _ = self.actor(data.x, data.edge_index, deterministic)
         a = a.squeeze(-1)
-        a = a.detach().cpu().numpy()    #[0]
+        a = a.detach().cpu().numpy()[0]    #
         return a
     
     
@@ -719,7 +720,7 @@ class SAC(nn.Module):
                 self.tensorboard.add_scalar("Q1", np.mean(self.LogQ1), i_episode)
 
             episode_tasks_finished_sum += episode_num_tasks_finished
-            print("Avg episode reward: ", episode_tasks_finished_sum / (i_episode + 1))
+            print("Avg num_task_fisnished reward: ", episode_tasks_finished_sum / (i_episode + 1))
             # if i_episode == 300:
             #     new_lr = 0.0003  # Set your new learning rate
 
@@ -735,7 +736,7 @@ class SAC(nn.Module):
             
                 
             # save checkpoints   
-            self.checkpoint_handler(i_episode, episode_num_tasks_finished, cfg)
+            # self.checkpoint_handler(i_episode, episode_num_tasks_finished, cfg)
 
             # test agent
             if i_episode % 20 == 0:
