@@ -224,7 +224,9 @@ class SAC(nn.Module):
         with torch.no_grad():
             a, _ = self.actor(data.x, data.edge_index, deterministic)
         a = a.squeeze(-1)
+        print("a: ", a)
         a = a.detach().cpu().numpy()[0]
+        print("a: ", a)
         return a
     
     
