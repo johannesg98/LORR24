@@ -45,7 +45,7 @@ class GNNActorPenta(nn.Module):
             m = Dirichlet(concentration + 1e-20)
             action = m.rsample()
             log_prob = m.log_prob(action)
-            action = concentration / (concentration.sum(dim=-1, keepdim=True) + 1e-20)
+            action = action / (action.sum(dim=-1, keepdim=True) + 1e-20)
         return action, log_prob
     
 
