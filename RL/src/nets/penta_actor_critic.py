@@ -45,8 +45,7 @@ class GNNActorPenta(nn.Module):
             m = Dirichlet(concentration + 1e-20)
             action = m.rsample()
             log_prob = m.log_prob(action)
-        regularize = concentration.abs().mean()
-        return action, log_prob, regularize
+        return action, log_prob
     
 
 
