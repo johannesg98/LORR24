@@ -1,0 +1,48 @@
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Currently logged in as: johannes-gaber (johannesg98) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250428_210654-p9386in0
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run glob_feed_numerized_batch_16_perc_0.6
+wandb: ⭐️ View project at https://wandb.ai/johannesg98/nn-sparse-grid-search
+wandb: 🚀 View run at https://wandb.ai/johannesg98/nn-sparse-grid-search/runs/p9386in0
+wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:                  test loss █▃▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: test wrong assignments (%) █▅▃█▃▁▂▁▂▂▂▄▁▂▃▅▂▃▁▅▂▃▅▃▃▃▂▄▃▄▆▂▂▅▃▇▂▄▆▃
+wandb:                 train loss █▆▅▄▄▄▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁
+wandb:           train regularize ▁▁▁▁▁▁▂▂▂▂▂▂▂▃▂▃▃▃▃▃▃▄▄▄▄▅▅▆▄▅▆▆▅▆▆▆▆▇▆█
+wandb: 
+wandb: Run summary:
+wandb:                  test loss 0.00229
+wandb: test wrong assignments (%) 37.46042
+wandb:                 train loss 0.00163
+wandb:           train regularize 4.69206
+wandb: 
+wandb: 🚀 View run glob_feed_numerized_batch_16_perc_0.6 at: https://wandb.ai/johannesg98/nn-sparse-grid-search/runs/p9386in0
+wandb: ⭐️ View project at: https://wandb.ai/johannesg98/nn-sparse-grid-search
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20250428_210654-p9386in0/logs
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250428_223026-86vqnz31
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run glob_feed_numerized_loss_fn_HuberLoss()_lr-decay-to1e-4
+wandb: ⭐️ View project at https://wandb.ai/johannesg98/nn-sparse-grid-search
+wandb: 🚀 View run at https://wandb.ai/johannesg98/nn-sparse-grid-search/runs/86vqnz31
+Traceback (most recent call last):
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test.py", line 308, in <module>
+    do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used,wandb_dict=wandb_dict, multiStepLr=multiStepLr, hidden_size=hidden_size)
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test.py", line 120, in do_one_training
+    diff = assign_discrete_actions(total_agents, one_pred_action.cpu().numpy()) - assign_discrete_actions(total_agents, one_action.cpu().numpy())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test.py", line 32, in assign_discrete_actions
+    top_indices = np.argpartition(-fractional_parts, int(remaining_agents))[:int(remaining_agents)]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py", line 858, in argpartition
+    return _wrapfunc(a, 'argpartition', kth, axis=axis, kind=kind, order=order)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py", line 59, in _wrapfunc
+    return bound(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^
+ValueError: kth(=200) out of bounds (79)
