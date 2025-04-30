@@ -25,6 +25,8 @@ class GNNActorPenta(nn.Module):
         out3 = F.relu(self.conv3(out2, edge_index))
         out4 = F.relu(self.conv3(out3, edge_index))
         out5 = F.relu(self.conv3(out4, edge_index))
+        print("out1 shape:", out1.shape)  # (B, N, in_channels)
+        print("state shape:", state.shape)  # (B, N, in_channels)
         if torch.isnan(out5).any():
             print("NaN values detected in out!")
         x = torch.cat((out1, out2, out3, out4, out5, state), dim=-1)
