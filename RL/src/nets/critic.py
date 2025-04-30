@@ -9,7 +9,7 @@ class GNNCritic(nn.Module):
     Architecture 4: GNN, Concatenation, FC, Readout
     """
 
-    def __init__(self, in_channels, hidden_size=32, act_dim=6, edge_index_tmp=None):
+    def __init__(self, in_channels, hidden_size=32, act_dim=6):
         super().__init__()
         self.act_dim = act_dim
         self.conv1 = GCNConv(in_channels, in_channels)
@@ -17,7 +17,6 @@ class GNNCritic(nn.Module):
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)
         self.in_channels = in_channels
-        self.edge_index_tmp = edge_index_tmp
 
     def forward(self, state, edge_index, action):
         # print("critic state shape:", state.shape)  # (B, N, in_channels)

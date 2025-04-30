@@ -186,11 +186,11 @@ class SAC(nn.Module):
             # self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
             # self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
             # self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
-            self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.actor = GNNActorPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic1 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic2 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic1_target = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic2_target = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
 
         assert self.critic1.parameters() != self.critic2.parameters()
 
