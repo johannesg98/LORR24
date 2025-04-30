@@ -75,6 +75,10 @@ class GNNCriticPenta(nn.Module):
         out5 = F.relu(self.conv3(out4, edge_index))
         # x = out + state
         # x = x.reshape(-1, self.act_dim, self.in_channels)  # (B,N,21)
+        print("out1 shape:", out1.shape)  # (B, N, in_channels)
+        print("out5 shape:", out5.shape)  # (B, N, in_channels)
+        print("state shape:", state.shape)  # (B, N, in_channels)
+        print("action shape:", action.shape)  # (B, N, act_dim)
         concat = torch.cat([out1, out2, out3, out4, out5, state, action.unsqueeze(-1)], dim=-1)  # (B,N,22)
         x = F.relu(self.lin1(concat))
         x = F.relu(self.lin2(x))  # (B, N, H)

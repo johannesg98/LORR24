@@ -14,7 +14,7 @@ max_steps: 150  # Number of steps per episode
 
 no_cuda: false  # Disables CUDA training
 
-batch_size: 100  # Defines batch size
+batch_size: 20  # Defines batch size
 
 p_lr: 1e-3  # Define policy learning rate
 
