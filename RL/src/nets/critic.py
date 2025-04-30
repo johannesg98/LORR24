@@ -9,7 +9,7 @@ class GNNCritic(nn.Module):
     Architecture 4: GNN, Concatenation, FC, Readout
     """
 
-    def __init__(self, in_channels, hidden_size=32, act_dim=6):
+    def __init__(self, in_channels, hidden_size=32, act_dim=6, edge_index_tmp=None):
         super().__init__()
         self.act_dim = act_dim
         self.conv1 = GCNConv(in_channels, in_channels)
@@ -17,11 +17,14 @@ class GNNCritic(nn.Module):
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)
         self.in_channels = in_channels
+        self.edge_index_tmp = edge_index_tmp
 
     def forward(self, state, edge_index, action):
         # print("critic state shape:", state.shape)  # (B, N, in_channels)
         state = state.reshape(-1, self.act_dim, self.in_channels)  # (B*N, in_channels)
-        out = F.relu(self.conv1(state, edge_index))
+        # print("state shape:", state.shape)  # (B*N, in_channels)
+        # print("edge_index shape:", edge_index.shape)  # (2, E)
+        out = F.relu(self.conv1(state, self.edge_index_tmp))
         x = out + state
         x = x.reshape(-1, self.act_dim, self.in_channels)  # (B,N,21)
         concat = torch.cat([x, action.unsqueeze(-1)], dim=-1)  # (B,N,22)

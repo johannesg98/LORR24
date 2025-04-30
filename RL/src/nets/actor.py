@@ -8,7 +8,7 @@ class GNNActor(nn.Module):
     Actor \pi(a_t | s_t) parametrizing the concentration parameters of a Dirichlet Policy.
     """
 
-    def __init__(self, in_channels, hidden_size=32, act_dim=6):
+    def __init__(self, in_channels, hidden_size=32, act_dim=6, edge_index_tmp=None):
         super().__init__()
         self.in_channels = in_channels
         self.act_dim = act_dim
@@ -16,11 +16,14 @@ class GNNActor(nn.Module):
         self.lin1 = nn.Linear(in_channels, hidden_size)
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)
+        self.edge_index_tmp = edge_index_tmp
 
     def forward(self, state, edge_index, deterministic=False, return_dist=False):
-        # print("actor state shape:", state.shape)  # (B, N, in_channels)
+        
         state = state.reshape(-1, self.act_dim, self.in_channels)
-        out = F.relu(self.conv1(state, edge_index))
+        print("actor state shape:", state.shape)  # (B, N, in_channels)
+        print("edge_index shape:", edge_index.shape)  # (2, E)
+        out = F.relu(self.conv1(state, self.edge_index_tmp))
         x = out + state
         x = x.reshape(-1, self.act_dim, self.in_channels)
         x = F.leaky_relu(self.lin1(x))
