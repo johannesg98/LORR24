@@ -18,7 +18,8 @@ class GNNActor(nn.Module):
         self.lin3 = nn.Linear(hidden_size, 1)
 
     def forward(self, state, edge_index, deterministic=False, return_dist=False):
-        print("actor state shape:", state.shape)  # (B, N, in_channels)
+        # print("actor state shape:", state.shape)  # (B, N, in_channels)
+        state = state.reshape(-1, self.act_dim, self.in_channels)
         out = F.relu(self.conv1(state, edge_index))
         x = out + state
         x = x.reshape(-1, self.act_dim, self.in_channels)

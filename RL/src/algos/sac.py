@@ -677,7 +677,7 @@ class SAC(nn.Module):
                 myTimer.rest += myTimer.addTime()
                 
                 # learn
-                if cfg.model.train and i_episode > 1:
+                if cfg.model.train and i_episode > 10:
                     batch = self.replay_buffer.sample_batch(cfg.model.batch_size)
                     if i_episode < cfg.model.only_q_steps:
                         self.update(data=batch, only_q=True)

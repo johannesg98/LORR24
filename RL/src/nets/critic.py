@@ -19,7 +19,8 @@ class GNNCritic(nn.Module):
         self.in_channels = in_channels
 
     def forward(self, state, edge_index, action):
-        print("critic state shape:", state.shape)  # (B, N, in_channels)
+        # print("critic state shape:", state.shape)  # (B, N, in_channels)
+        state = state.reshape(-1, self.act_dim, self.in_channels)  # (B*N, in_channels)
         out = F.relu(self.conv1(state, edge_index))
         x = out + state
         x = x.reshape(-1, self.act_dim, self.in_channels)  # (B,N,21)
