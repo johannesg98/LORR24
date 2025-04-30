@@ -23,7 +23,7 @@ class GNNActor(nn.Module):
         state = state.reshape(-1, self.act_dim, self.in_channels)
         print("actor state shape:", state.shape)  # (B, N, in_channels)
         print("edge_index shape:", edge_index.shape)  # (2, E)
-        out = F.relu(self.conv1(state, self.edge_index_tmp))
+        out = F.relu(self.conv1(state, edge_index))
         x = out + state
         x = x.reshape(-1, self.act_dim, self.in_channels)
         x = F.leaky_relu(self.lin1(x))

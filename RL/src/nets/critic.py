@@ -24,7 +24,7 @@ class GNNCritic(nn.Module):
         state = state.reshape(-1, self.act_dim, self.in_channels)  # (B*N, in_channels)
         # print("state shape:", state.shape)  # (B*N, in_channels)
         # print("edge_index shape:", edge_index.shape)  # (2, E)
-        out = F.relu(self.conv1(state, self.edge_index_tmp))
+        out = F.relu(self.conv1(state, edge_index))
         x = out + state
         x = x.reshape(-1, self.act_dim, self.in_channels)  # (B,N,21)
         concat = torch.cat([x, action.unsqueeze(-1)], dim=-1)  # (B,N,22)

@@ -181,11 +181,16 @@ class SAC(nn.Module):
             self.critic1_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
             self.critic2_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
         else:
-            self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
-            self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
-            self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
-            self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
-            self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
+            # self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
+            # self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
+            # self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
+            # self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
+            # self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
+            self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
 
         assert self.critic1.parameters() != self.critic2.parameters()
 
