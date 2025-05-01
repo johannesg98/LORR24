@@ -24,7 +24,8 @@ def main(cfg: DictConfig):
     ]
     use_markovian_new_obs_list = [False, True]
     rew_w_idle_list = [0.0]
-    rew_w_backtrack_list = [1,10,20,40,80,160,320,500,1000,2500,5000,10000,20000]
+    rew_w_backtrack_list = [5,10,20,20,20,40]
+    rew_w_Astar_list = [5,10,20,20,20,40]
     rew_w_immitation_list = [1,10,20,40,80,160,320,500,1000,2500,5000,10000,20000]
     trys = range(2)
 
@@ -36,20 +37,29 @@ def main(cfg: DictConfig):
     #     for rew_w_immitation in rew_w_immitation_list:
     #         cfg.model.rew_w_immitation = rew_w_immitation
 
-    for tri in trys:
-        cfg.model.rew_w_idle = 20
-        cfg.model.rew_w_Astar = 20
-        cfg.model.rew_w_backtrack = 0
+    for i,rew_w_backtrack in enumerate(rew_w_backtrack_list):
+        cfg.model.rew_w_idle = 0
+        cfg.model.rew_w_Astar = 0
+        cfg.model.rew_w_backtrack = rew_w_backtrack
+        if i == 4:
+            cfg.model.hidden_size = 1024
+        else:
+            cfg.model.hidden_size = 256
         
-        cfg.model.checkpoint_path = f"AstartClassic-33perc-skip_id{slurm_task_id}"
+        cfg.model.checkpoint_path = f"penta_backtrack{rew_w_backtrack}_hidden{cfg.model.hidden_size}_skip_id{slurm_task_id}"
         if run_training(cfg):
             return
 
-        cfg.model.rew_w_idle = 0
-        cfg.model.rew_w_Astar = 0
-        cfg.model.rew_w_backtrack = 20
+    for i,rew_w_Astar in enumerate(rew_w_Astar_list):
+        cfg.model.rew_w_idle = 20
+        cfg.model.rew_w_Astar = rew_w_Astar
+        cfg.model.rew_w_backtrack = 0
+        if i == 4:
+            cfg.model.hidden_size = 1024
+        else:
+            cfg.model.hidden_size = 256
         
-        cfg.model.checkpoint_path = f"BacktrackDist-33perc-skip_id{slurm_task_id}"
+        cfg.model.checkpoint_path = f"penta_Astar{rew_w_Astar}_hidden{cfg.model.hidden_size}_skip_id{slurm_task_id}"
         if run_training(cfg):
             return
 

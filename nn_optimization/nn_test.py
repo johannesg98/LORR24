@@ -302,8 +302,14 @@ for i in range(n_experiments):
             wandb_dict["name"] = name + f"_loss_fn_{str(loss_fn)}_lr-decay-to1e-4"
         case 2:
             batch_size = 64
-            nn.SmoothL1Loss()
+            nn.nn.CosineEmbeddingLoss()()
             wandb_dict["name"] = name + f"_batch_{batch_size}_loss_fn_{str(loss_fn)}"
+        case 3:
+            multiStepLr = {"milestones": [200], "gamma": 0.1}
+            loss_fn = nn.SmoothL1Loss()
+            num_epochs = 300
+            wandb_dict["name"] = name + f"_loss_fn_{str(loss_fn)}_lr-decay-to1e-4"
+
 
     do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used,wandb_dict=wandb_dict, multiStepLr=multiStepLr, hidden_size=hidden_size)
 
