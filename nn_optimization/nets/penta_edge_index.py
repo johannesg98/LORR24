@@ -91,8 +91,8 @@ class GNNActor(nn.Module):
         out1 = F.relu(self.conv1(state, edge_index))
         out2 = F.relu(self.conv2(state, self.edge_index2))
         out3 = F.relu(self.conv3(state, self.edge_index3))
-        out4 = F.relu(self.conv4(state, self.edge_index4))
-        out5 = F.relu(self.conv5(state, self.edge_index5))
+        out4 = F.relu(self.conv3(state, self.edge_index4))
+        out5 = F.relu(self.conv3(state, self.edge_index5))
 
         x = torch.cat((out1, out2, out3, out4, out5, state), dim=-1)
         # x = x.reshape(-1, self.act_dim, self.in_channels)
