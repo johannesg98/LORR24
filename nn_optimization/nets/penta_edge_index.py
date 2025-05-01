@@ -12,11 +12,11 @@ class GNNActor(nn.Module):
         super().__init__()
         self.in_channels = in_channels
         self.act_dim = act_dim
-        self.conv1 = GCNConv(in_channels, in_channels)
-        self.conv2 = GCNConv(in_channels, in_channels)
-        self.conv3 = GCNConv(in_channels, in_channels)
-        self.conv4 = GCNConv(in_channels, in_channels)
-        self.conv5 = GCNConv(in_channels, in_channels)
+        self.conv1 = GCNConv(in_channels, in_channels, add_self_loops=False)
+        self.conv2 = GCNConv(in_channels, in_channels, add_self_loops=False)
+        self.conv3 = GCNConv(in_channels, in_channels, add_self_loops=False)
+        self.conv4 = GCNConv(in_channels, in_channels, add_self_loops=False)
+        self.conv5 = GCNConv(in_channels, in_channels, add_self_loops=False)
         self.lin1 = nn.Linear(6*in_channels, hidden_size)
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)
