@@ -288,7 +288,7 @@ for i in range(n_experiments):
     wandb_dict = {
         "project": "nn-sparse-grid-search",
     }
-    name = "penta_cat_half_stupid(1u2)"
+    name = "penta_cat_full_stupid(only1)"
         
     match i:
         case 0:
