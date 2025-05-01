@@ -274,7 +274,7 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
 ###############################
 ### Long sparse grid search ###
 
-n_experiments = 3
+n_experiments = 4
 for i in range(n_experiments):
 
     dataset = torch.load(os.path.join(script_dir, "data/skip_dataset_normalized1000.pt"))
@@ -288,7 +288,7 @@ for i in range(n_experiments):
     wandb_dict = {
         "project": "nn-sparse-grid-search",
     }
-    name = "penta_cat_full_stupid(only1)"
+    name = "penta_cat_try2"
         
     match i:
         case 0:
@@ -302,7 +302,7 @@ for i in range(n_experiments):
             wandb_dict["name"] = name + f"_loss_fn_{str(loss_fn)}_lr-decay-to1e-4"
         case 2:
             batch_size = 64
-            nn.nn.CosineEmbeddingLoss()()
+            nn.CosineEmbeddingLoss()
             wandb_dict["name"] = name + f"_batch_{batch_size}_loss_fn_{str(loss_fn)}"
         case 3:
             multiStepLr = {"milestones": [200], "gamma": 0.1}
