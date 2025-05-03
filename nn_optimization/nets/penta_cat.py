@@ -23,8 +23,8 @@ class GNNActor(nn.Module):
         out1 = F.relu(self.conv1(state, edge_index))
         out2 = F.relu(self.conv2(out1, edge_index))
         out3 = F.relu(self.conv3(out2, edge_index))
-        out4 = F.relu(self.conv3(out3, edge_index))
-        out5 = F.relu(self.conv3(out4, edge_index))
+        out4 = F.relu(self.conv4(out3, edge_index))
+        out5 = F.relu(self.conv5(out4, edge_index))
         if torch.isnan(out5).any():
             print("NaN values detected in out!")
         x = torch.cat((out1, out2, out3, out4, out5, state), dim=-1)

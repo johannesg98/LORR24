@@ -167,12 +167,17 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
         # Step the scheduler if using one
         if multiStepLr is not None:
             scheduler.step()
-
+    
+    
+    
     if wandb_dict is not None:
         wandb1.finish()
+        torch.save(model.state_dict(), os.path.join(script_dir,"output/" + wandb_dict["name"] + ".pth"))
+    else:
+        torch.save(model.state_dict(), os.path.join(script_dir,"output/gnn_actor_model.pth"))
     return test_results
 
-    # torch.save(model.state_dict(), "gnn_actor_model.pth")
+    
 
 
 
@@ -281,14 +286,14 @@ for i in range(n_experiments):
     batch_size = 32
     lr = 1e-3
     loss_fn = nn.MSELoss()          # nn.L1Loss()
-    num_epochs = 100
+    num_epochs = 1
     perc_data_used = 0.3
     hidden_size=256
     multiStepLr = None
     wandb_dict = {
         "project": "nn-sparse-grid-search",
     }
-    name = "penta_cat_try2"
+    name = "penta_cat_fixed"
         
     match i:
         case 0:
@@ -298,7 +303,7 @@ for i in range(n_experiments):
         case 1:
             multiStepLr = {"milestones": [200], "gamma": 0.1}
             loss_fn = nn.HuberLoss()
-            num_epochs = 500
+            # num_epochs = 500
             wandb_dict["name"] = name + f"_loss_fn_{str(loss_fn)}_lr-decay-to1e-4"
         case 2:
             batch_size = 64
@@ -307,7 +312,7 @@ for i in range(n_experiments):
         case 3:
             multiStepLr = {"milestones": [200], "gamma": 0.1}
             loss_fn = nn.SmoothL1Loss()
-            num_epochs = 300
+            # num_epochs = 300
             wandb_dict["name"] = name + f"_loss_fn_{str(loss_fn)}_lr-decay-to1e-4"
 
 
