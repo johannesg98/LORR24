@@ -286,7 +286,7 @@ for i in range(n_experiments):
     batch_size = 32
     lr = 1e-3
     loss_fn = nn.MSELoss()          # nn.L1Loss()
-    num_epochs = 1
+    num_epochs = 120
     perc_data_used = 0.3
     hidden_size=256
     multiStepLr = None
@@ -297,22 +297,24 @@ for i in range(n_experiments):
         
     match i:
         case 0:
+            multiStepLr = {"milestones": [100], "gamma": 0.1}
             batch_size = 16
             perc_data_used = 0.6
             wandb_dict["name"] = name + f"_batch_{batch_size}_perc_{perc_data_used}"
         case 1:
             multiStepLr = {"milestones": [200], "gamma": 0.1}
             loss_fn = nn.HuberLoss()
-            # num_epochs = 500
+            num_epochs = 500
             wandb_dict["name"] = name + f"_loss_fn_{str(loss_fn)}_lr-decay-to1e-4"
         case 2:
+            multiStepLr = {"milestones": [100], "gamma": 0.1}
             batch_size = 64
             nn.CosineEmbeddingLoss()
             wandb_dict["name"] = name + f"_batch_{batch_size}_loss_fn_{str(loss_fn)}"
         case 3:
             multiStepLr = {"milestones": [200], "gamma": 0.1}
             loss_fn = nn.SmoothL1Loss()
-            # num_epochs = 300
+            num_epochs = 300
             wandb_dict["name"] = name + f"_loss_fn_{str(loss_fn)}_lr-decay-to1e-4"
 
 
