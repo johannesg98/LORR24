@@ -25,3 +25,4 @@ RL/logs
 RL/__pycache__
 nn_optimization/data
 nn_optimization/output
+nn_optimization/nets/__pycache__
