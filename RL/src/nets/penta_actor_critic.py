@@ -3,12 +3,14 @@ import torch
 import torch.nn.functional as F
 from torch.distributions import Dirichlet
 from torch_geometric.nn import GCNConv
+import numpy as np
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class GNNActorPenta(nn.Module):
     def __init__(self, in_channels, hidden_size=32, act_dim=6):
         super().__init__()
+        in_channels += 18
         self.in_channels = in_channels
         self.act_dim = act_dim
         self.conv1 = GCNConv(in_channels, in_channels)
@@ -16,12 +18,19 @@ class GNNActorPenta(nn.Module):
         self.conv3 = GCNConv(in_channels, in_channels)
         self.conv4 = GCNConv(in_channels, in_channels)
         self.conv5 = GCNConv(in_channels, in_channels)
-        self.lin1 = nn.Linear(6*in_channels+1+2, hidden_size)
+        self.lin1 = nn.Linear(6*in_channels+1, hidden_size)
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)
         self.pos_feat = self.get_positions()
 
     def forward(self, state, edge_index, deterministic=False, return_dist=False, return_raw=False):
+        if state.dim() == 3:
+            positions = self.pos_feat.unsqueeze(0).expand(state.shape[0], -1, -1)
+        elif state.dim() == 2:
+            positions = self.pos_feat
+        else:
+            raise ValueError("State tensor must be 2D or 3D.")
+        state = torch.cat((state, positions), dim=-1)
         out1 = F.relu(self.conv1(state, edge_index))
         out2 = F.relu(self.conv2(out1, edge_index))
         out3 = F.relu(self.conv3(out2, edge_index))
@@ -36,10 +45,7 @@ class GNNActorPenta(nn.Module):
         state = state.reshape(-1, self.act_dim, self.in_channels)
 
         total_agents = state[...,1].sum(dim=-1, keepdim=True).unsqueeze(-1).expand(-1, self.act_dim, -1)
-        # if normalized:
-        #     total_agents = torch.round(total_agents/agent_scale_fac)
-        positions = self.pos_feat.unsqueeze(0).expand(state.shape[0], -1, -1)
-        state = torch.cat((state, total_agents, positions), dim=-1)
+        state = torch.cat((state, total_agents), dim=-1)
         x = torch.cat((out1, out2, out3, out4, out5, state), dim=-1)
         # x = x.reshape(-1, self.act_dim, self.in_channels)
         x = F.leaky_relu(self.lin1(x))
@@ -65,7 +71,7 @@ class GNNActorPenta(nn.Module):
         height = 25
         width = 39
         nNodesss = 79
-        position_features = torch.zeros((nNodesss,2))
+        position_features = torch.zeros((nNodesss,18))
         for i,pos_idx in enumerate(pos_indices):
             x = pos_idx % width
             y = pos_idx // width
@@ -73,6 +79,22 @@ class GNNActorPenta(nn.Module):
             y_norm = y / (height-1)
             position_features[i,0] = x_norm
             position_features[i,1] = y_norm
+            position_features[i,2] = np.sin(x_norm*2*np.pi)+1
+            position_features[i,3] = np.cos(x_norm*2*np.pi)+1
+            position_features[i,4] = np.sin(y_norm*2*np.pi)+1
+            position_features[i,5] = np.cos(y_norm*2*np.pi)+1
+            position_features[i,6] = np.sin(x_norm*5*np.pi)+1
+            position_features[i,7] = np.cos(x_norm*5*np.pi)+1
+            position_features[i,8] = np.sin(y_norm*5*np.pi)+1
+            position_features[i,9] = np.cos(y_norm*5*np.pi)+1
+            position_features[i,10] = np.sin(x_norm*12*np.pi)+1
+            position_features[i,11] = np.cos(x_norm*12*np.pi)+1
+            position_features[i,12] = np.sin(y_norm*12*np.pi)+1
+            position_features[i,13] = np.cos(y_norm*12*np.pi)+1
+            position_features[i,14] = np.sin(x_norm*30*np.pi)+1
+            position_features[i,15] = np.cos(x_norm*30*np.pi)+1
+            position_features[i,16] = np.sin(y_norm*30*np.pi)+1
+            position_features[i,17] = np.cos(y_norm*30*np.pi)+1
         return position_features.to(device)
 
     
