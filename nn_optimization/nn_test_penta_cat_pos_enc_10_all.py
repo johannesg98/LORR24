@@ -15,7 +15,7 @@ import sys
 script_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_dir)
 
-from nets.penta_cat_pos_enc_all import GNNActor
+from nets.penta_cat_pos_enc_10_all import GNNActor
 
 # Device configuration (GPU if available, otherwise CPU)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -295,7 +295,7 @@ for i in range(n_experiments):
     wandb_dict = {
         "project": "nn-sparse-grid-search",
     }
-    name = "penta_cat_pos_enc_all"
+    name = "penta_cat_pos_enc_10_all"
         
     match i:
         case 0:
