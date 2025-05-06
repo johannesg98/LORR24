@@ -293,7 +293,7 @@ for i in range(n_experiments):
     wandb_dict = {
         "project": "nn-sparse-grid-search",
     }
-    name = "NNConv_0.2_out4"
+    name = "NNConv_1.0"
         
     match i:
         case 0:
