@@ -300,8 +300,8 @@ for i in range(n_experiments):
             multiStepLr = {"milestones": [100], "gamma": 0.1}
             batch_size = 16
             perc_data_used = 0.6
-            wandb_dict["name"] = name + f"_batch_{batch_size}_perc_{perc_data_used}"
-            # wandb_dict = None
+            # wandb_dict["name"] = name + f"_batch_{batch_size}_perc_{perc_data_used}"
+            wandb_dict = None
         case 1:
             multiStepLr = {"milestones": [200], "gamma": 0.1}
             loss_fn = nn.HuberLoss()
