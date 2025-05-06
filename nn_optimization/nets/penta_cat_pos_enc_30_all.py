@@ -66,7 +66,7 @@ class GNNActor(nn.Module):
         height = 25
         width = 39
         nNodesss = 79
-        position_features = torch.zeros((nNodesss,20))
+        position_features = torch.zeros((nNodesss,30))
         for i,pos_idx in enumerate(pos_indices):
             x = pos_idx % width
             y = pos_idx // width
