@@ -283,7 +283,7 @@ n_experiments = 4
 for i in range(n_experiments):
 
     dataset = torch.load(os.path.join(script_dir, "data/skip_dataset_normalized1000.pt"))
-    batch_size = 32
+    batch_size = 1
     lr = 1e-3
     loss_fn = nn.MSELoss()          # nn.L1Loss()
     num_epochs = 120
@@ -293,15 +293,14 @@ for i in range(n_experiments):
     wandb_dict = {
         "project": "nn-sparse-grid-search",
     }
-    name = "NNConv"
+    name = "NNConv_0.5"
         
     match i:
         case 0:
             multiStepLr = {"milestones": [100], "gamma": 0.1}
-            batch_size = 1
+            # batch_size = 16
             perc_data_used = 0.6
-            # wandb_dict["name"] = name + f"_batch_{batch_size}_perc_{perc_data_used}"
-            wandb_dict = None
+            wandb_dict["name"] = name + f"_batch_{batch_size}_perc_{perc_data_used}"
         case 1:
             multiStepLr = {"milestones": [200], "gamma": 0.1}
             loss_fn = nn.HuberLoss()
@@ -309,7 +308,7 @@ for i in range(n_experiments):
             wandb_dict["name"] = name + f"_loss_fn_{str(loss_fn)}_lr-decay-to1e-4"
         case 2:
             multiStepLr = {"milestones": [100], "gamma": 0.1}
-            batch_size = 64
+            # batch_size = 64
             nn.CosineEmbeddingLoss()
             wandb_dict["name"] = name + f"_batch_{batch_size}_loss_fn_{str(loss_fn)}"
         case 3:
