@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test_penta_cat_pos_enc_30_all.py", line 323, in <module>
+    do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used,wandb_dict=wandb_dict, multiStepLr=multiStepLr, hidden_size=hidden_size)
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test_penta_cat_pos_enc_30_all.py", line 63, in do_one_training
+    model = GNNActor(in_channels=in_channels, hidden_size=hidden_size, act_dim=nNodes)  # Action dim is 79
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nets/penta_cat_pos_enc_30_all.py", line 27, in __init__
+    self.pos_feat = self.get_positions()
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nets/penta_cat_pos_enc_30_all.py", line 95, in get_positions
+    position_features[i,20] = np.sin(y_norm*100*np.pi)+1
+    ~~~~~~~~~~~~~~~~~^^^^^^
+IndexError: index 20 is out of bounds for dimension 1 with size 20
