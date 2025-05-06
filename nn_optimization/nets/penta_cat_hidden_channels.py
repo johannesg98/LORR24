@@ -16,8 +16,6 @@ class GNNActor(nn.Module):
         self.conv1 = GCNConv(in_channels, 10)
         self.conv2 = GCNConv(10, 21)
         self.conv3 = GCNConv(21, 21)
-        self.conv4 = GCNConv(in_channels, in_channels)
-        self.conv5 = GCNConv(in_channels, in_channels)
         self.lin1 = nn.Linear(in_channels+1+10+21+21+21+21, hidden_size)
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)

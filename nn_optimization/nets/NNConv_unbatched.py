@@ -3,7 +3,7 @@ import torch
 import torch.nn.functional as F
 from torch.distributions import Dirichlet
 from torch_geometric.nn import GCNConv, NNConv
-from torch_geometric.data import Data, Batch
+from torch_geometric.data import Data
 import numpy as np
 import os
 
@@ -17,29 +17,26 @@ class GNNActor(nn.Module):
         super().__init__()
         in_channels += 6
         self.in_channels = in_channels
-        self.out_channels = 2 * in_channels
+        out_channels = 2 * in_channels
         self.act_dim = act_dim
-        self.conv1 = NNConv(in_channels, self.out_channels, nn=nn.Sequential(nn.Linear(1,16), nn.ReLU(), nn.Linear(16,in_channels*self.out_channels)))
-        self.lin1 = nn.Linear(in_channels+self.out_channels+1, hidden_size)
+        self.conv1 = NNConv(in_channels, out_channels, nn=nn.Sequential(nn.Linear(1,16), nn.ReLU(), nn.Linear(16,in_channels*out_channels)))
+        self.lin1 = nn.Linear(in_channels+out_channels+1, hidden_size)
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)
         self.pos_feat = self.get_positions()
         self.edge_weights, self.edge_index_distancebased = self.get_edge_weights()
+        self.edge_weights = self.edge_weights.squeeze(0)
 
     def forward(self, state, edge_index, deterministic=False, return_dist=False, return_raw=False):
         positions = self.pos_feat.unsqueeze(0).expand(state.shape[0], -1, -1)
         state = torch.cat((state, positions), dim=-1)
-
-        data_list = []
-        for i in range(state.shape[0]):
-            data_list.append(Data(x=state[i], edge_index=self.edge_index_distancebased, edge_attr=self.edge_weights))
-        batch = Batch.from_data_list(data_list)
-
-        out1 = F.relu(self.conv1(batch.x, batch.edge_index, edge_attr=batch.edge_attr))
-        out1 = out1.reshape(-1, self.act_dim, self.out_channels)
-
+        state = state.squeeze(0)
+        out1 = F.relu(self.conv1(state, self.edge_index_distancebased, edge_attr=self.edge_weights))
+        state = state.unsqueeze(0)
+        out1 = out1.unsqueeze(0)
         total_agents = state[...,1].sum(dim=-1, keepdim=True).unsqueeze(-1).expand(-1, self.act_dim, -1)
-        x = torch.cat((out1, total_agents, state), dim=-1)
+        state = torch.cat((state, total_agents), dim=-1)
+        x = torch.cat((out1, state), dim=-1)
         # x = x.reshape(-1, self.act_dim, self.in_channels)
         x = F.leaky_relu(self.lin1(x))
         x = F.leaky_relu(self.lin2(x))
@@ -102,4 +99,4 @@ class GNNActor(nn.Module):
         weights = (edge_limit-weights) / edge_limit
 
 
-        return weights.squeeze(0).unsqueeze(-1).to(device), edge_index_distancebased.to(device)
+        return weights.unsqueeze(-1).to(device), edge_index_distancebased.to(device)
