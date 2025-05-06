@@ -83,7 +83,7 @@ class GNNActor(nn.Module):
         NodeCostMatrix = torch.load(os.path.join(script_dir, "../data/NodeCostMatrix.pt"))
         nNodesss = NodeCostMatrix.shape[0]
         print("NodeCostMatrix Nodes: ", nNodesss)
-        edge_limit = 0.1
+        edge_limit = 0.5
 
         NodeCostMatrix = NodeCostMatrix/NodeCostMatrix.max()
         origin = []
