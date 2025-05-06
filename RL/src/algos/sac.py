@@ -639,6 +639,10 @@ class SAC(nn.Module):
                 else:
                     action_rl = self.select_action(obs_parsed)
                 myTimer.selectAction += myTimer.addTime()
+
+                NodeCostMatrix = torch.tensor(self.env.NodeCostMatrix)
+                torch.save(NodeCostMatrix, os.path.join(self.train_dir, "NodeCostMatrix.pt"))
+                1/0
             
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
