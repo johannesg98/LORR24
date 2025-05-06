@@ -16,7 +16,7 @@ class GNNActor(nn.Module):
         super().__init__()
         in_channels += 6
         self.in_channels = in_channels
-        out_channels = 2 * in_channels
+        out_channels = 4 * in_channels
         self.act_dim = act_dim
         self.conv1 = NNConv(in_channels, out_channels, nn=nn.Sequential(nn.Linear(1,16), nn.ReLU(), nn.Linear(16,in_channels*out_channels)))
         self.lin1 = nn.Linear(in_channels+out_channels+1, hidden_size)
@@ -79,7 +79,7 @@ class GNNActor(nn.Module):
         NodeCostMatrix = torch.load(os.path.join(script_dir, "../data/NodeCostMatrix.pt"))
         nNodesss = NodeCostMatrix.shape[0]
         print("NodeCostMatrix Nodes: ", nNodesss)
-        edge_limit = 0.2
+        edge_limit = 0.5
 
         NodeCostMatrix = NodeCostMatrix/NodeCostMatrix.max()
         origin = []
