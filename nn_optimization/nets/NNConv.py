@@ -13,11 +13,12 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class GNNActor(nn.Module):
-    def __init__(self, in_channels, hidden_size=32, act_dim=6):
+    def __init__(self, in_channels, hidden_size=32, act_dim=6, edge_limit=0.5, out_channel_fac=2):
         super().__init__()
+        self.edge_limit = edge_limit
         in_channels += 6
         self.in_channels = in_channels
-        self.out_channels = 10 * in_channels
+        self.out_channels = out_channel_fac * in_channels
         self.act_dim = act_dim
         self.conv1 = NNConv(in_channels, self.out_channels, nn=nn.Sequential(nn.Linear(1,16), nn.ReLU(), nn.Linear(16,in_channels*self.out_channels)))
         self.lin1 = nn.Linear(in_channels+self.out_channels+1, hidden_size)
@@ -83,7 +84,6 @@ class GNNActor(nn.Module):
         NodeCostMatrix = torch.load(os.path.join(script_dir, "../data/NodeCostMatrix.pt"))
         nNodesss = NodeCostMatrix.shape[0]
         print("NodeCostMatrix Nodes: ", nNodesss)
-        edge_limit = 0.5
 
         NodeCostMatrix = NodeCostMatrix/NodeCostMatrix.max()
         origin = []
@@ -91,7 +91,7 @@ class GNNActor(nn.Module):
         weight = []
         for o in range(nNodesss):
           for d in range(nNodesss):
-            if NodeCostMatrix[o][d] < edge_limit:
+            if NodeCostMatrix[o][d] < self.edge_limit:
               origin.append(o)
               destination.append(d)
               weight.append(NodeCostMatrix[o][d])
@@ -99,10 +99,10 @@ class GNNActor(nn.Module):
         edge_index_distancebased = torch.cat([torch.tensor([origin]), torch.tensor([destination])])
         weights = torch.tensor([weight])
 
-        weights = (edge_limit-weights) / edge_limit
+        weights = (self.edge_limit-weights) / self.edge_limit
 
-        for i in range(len(weights[0])):
-            print("Edge: ", edge_index_distancebased[0][i].numpy(), "->", edge_index_distancebased[1][i].numpy(), "Weight: ", weights[0][i].numpy())
+        # for i in range(len(weights[0])):
+        #     print("Edge: ", edge_index_distancebased[0][i].numpy(), "->", edge_index_distancebased[1][i].numpy(), "Weight: ", weights[0][i].numpy())
 
 
         return weights.squeeze(0).unsqueeze(-1).to(device), edge_index_distancebased.to(device)
