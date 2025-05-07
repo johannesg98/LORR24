@@ -4,7 +4,8 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=20G
 #SBATCH -t 7-00:00
-#SBATCH -p cpu
+#SBATCH -p cpu-gpu-v100
+#SBATCH --gpus=1
 #SBATCH -o slurm/output_%j.txt
 #SBATCH -e slurm/error_%j.txt
 #SBATCH --array=1-21
