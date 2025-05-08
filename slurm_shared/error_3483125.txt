@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test_multiple_slurm_GATConv.py", line 369, in <module>
+    main()
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test_multiple_slurm_GATConv.py", line 347, in main
+    if run_training(edge_limit, out_channel_fac):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test_multiple_slurm_GATConv.py", line 359, in run_training
+    do_one_configuration(edge_limit, out_channel_fac)
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test_multiple_slurm_GATConv.py", line 331, in do_one_configuration
+    do_one_training(dataset, batch_size, lr, num_epochs, loss_fn, perc_data_used,wandb_dict=wandb_dict, multiStepLr=multiStepLr, hidden_size=hidden_size)
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nn_test_multiple_slurm_GATConv.py", line 69, in do_one_training
+    model = GNNActor(in_channels=in_channels, hidden_size=hidden_size, act_dim=nNodes, edge_limit=edge_limit, out_channel_fac=out_channel_fac)  # Action dim is 79
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nets/GATConv.py", line 31, in __init__
+    self.edge_weights, self.edge_index_distancebased = self.get_edge_weights()
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/nn_optimization/nets/GATConv.py", line 108, in get_edge_weights
+    NodeCostMatrix = torch.load("NodeCostMatrix.pt")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/torch/serialization.py", line 997, in load
+    with _open_file_like(f, 'rb') as opened_file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/torch/serialization.py", line 444, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/torch/serialization.py", line 425, in __init__
+    super().__init__(open(name, mode))
+                     ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'NodeCostMatrix.pt'
+
+ERROR conda.cli.main_run:execute(125): `conda run python3 nn_optimization/nn_test_multiple_slurm_GATConv.py 1` failed. (See above for error)
