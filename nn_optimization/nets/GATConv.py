@@ -105,7 +105,7 @@ class GNNActor(nn.Module):
         return position_features.to(device)
 
     def get_edge_weights(self):
-        NodeCostMatrix = torch.load("NodeCostMatrix.pt")
+        NodeCostMatrix = torch.load(os.path.join(script_dir, "../data/NodeCostMatrix.pt"))
         nNodesss = NodeCostMatrix.shape[0]
         print("NodeCostMatrix Nodes: ", nNodesss)
 
