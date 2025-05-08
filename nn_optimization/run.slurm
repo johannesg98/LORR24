@@ -8,6 +8,6 @@
 #SBATCH --gpus=1
 #SBATCH -o slurm/output_%j.txt
 #SBATCH -e slurm/error_%j.txt
-#SBATCH --array=1-1
+#SBATCH --array=1-8
 
 conda run -n myenv python3 nn_optimization/nn_test_multiple_slurm_GATConv.py $SLURM_ARRAY_TASK_ID

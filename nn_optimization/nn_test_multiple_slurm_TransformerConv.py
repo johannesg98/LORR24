@@ -15,7 +15,7 @@ import sys
 script_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_dir)
 
-from nets.GATConv import GNNActor
+from nets.TransformerConv import GNNActor
 
 # Device configuration (GPU if available, otherwise CPU)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -300,7 +300,7 @@ def do_one_configuration(edge_limit, out_channel_fac):
         hidden_size=256
         multiStepLr = None
         wandb_dict = {
-            "project": "GATConv",
+            "project": "TransformerConv",
         }
         name = f"edge_limit{edge_limit}_outChFac{out_channel_fac}"
             
