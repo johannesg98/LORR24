@@ -15,7 +15,7 @@ import sys
 script_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_dir)
 
-from nets.NNConv import GNNActor
+from nets.GATConv import GNNActor
 
 # Device configuration (GPU if available, otherwise CPU)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -162,6 +162,7 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
         
         # Print training loss after each epoch
         print(f"Epoch {epoch+1}/{num_epochs}, Training Loss: {total_train_loss / len(train_loader)}, Reg: {total_reg / len(train_loader)}, Time: {time.time()-start_time}")
+        val1, val2 = model.eval_storage()
 
         # Log test results to WandB
         if wandb_dict is not None:
@@ -169,6 +170,8 @@ def do_one_training(dataset, batch_size = 32, lr = 0.001, num_epochs = 200, loss
             wandb1.log({"test loss": total_test_loss / len(test_loader)}, step=epoch)
             wandb1.log({"train loss": total_train_loss / len(train_loader)}, step=epoch)
             wandb1.log({"train regularize": total_reg / len(train_loader)}, step=epoch)
+            wandb1.log({"Concentration < 0.0000001": val1}, step=epoch)
+            wandb1.log({"Concentration < 0.01": val2}, step=epoch)
 
         # Step the scheduler if using one
         if multiStepLr is not None:
@@ -297,9 +300,9 @@ def do_one_configuration(edge_limit, out_channel_fac):
         hidden_size=256
         multiStepLr = None
         wandb_dict = {
-            "project": "nn-sparse-grid-search",
+            "project": "GATConv",
         }
-        name = f"NNConv_edge_limit{edge_limit}_outChFac{out_channel_fac}"
+        name = f"edge_limit{edge_limit}_outChFac{out_channel_fac}"
             
         match i:
             case 0:
@@ -333,8 +336,10 @@ def do_one_configuration(edge_limit, out_channel_fac):
 
 def main():
 
-    edge_limit_list = [0.3, 0.5, 0.7, 1.0]
-    out_channel_fac_list = [2, 8]
+    # edge_limit_list = [0.3, 0.5, 0.7, 1.0]
+    # out_channel_fac_list = [2, 8]
+    edge_limit_list = [0.3]
+    out_channel_fac_list = [8]
 
     for edge_limit in edge_limit_list:
         for out_channel_fac in out_channel_fac_list:
