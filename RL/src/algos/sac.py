@@ -649,12 +649,12 @@ class SAC(nn.Module):
 
 
                 # test stuff
-                action_rl_skip = skip_actor(self.env, obs)
-                diff = assign_discrete_actions(total_agents, action_rl) - assign_discrete_actions(total_agents, action_rl_skip)
-                wrong_assignments = np.sum(np.abs(diff))/2
-                skip_assigments = np.where(diff < 0)
-                actor_assignments = np.where(diff > 0)
-                print(f"wrong assignments: {wrong_assignments}/{total_agents}, skip assignments: {skip_assigments}, actor_assignments assignments: {actor_assignments}")
+                # action_rl_skip = skip_actor(self.env, obs)
+                # diff = assign_discrete_actions(total_agents, action_rl) - assign_discrete_actions(total_agents, action_rl_skip)
+                # wrong_assignments = np.sum(np.abs(diff))/2
+                # skip_assigments = np.where(diff < 0)
+                # actor_assignments = np.where(diff > 0)
+                # print(f"wrong assignments: {wrong_assignments}/{total_agents}, skip assignments: {skip_assigments}, actor_assignments assignments: {actor_assignments}")
 
                 
                 # solve rebalancing
@@ -694,7 +694,7 @@ class SAC(nn.Module):
                 myTimer.rest += myTimer.addTime()
                 
                 # learn
-                if cfg.model.train and i_episode > 10:
+                if cfg.model.train and i_episode > cfg.model.start_training_at_episode:
                     batch = self.replay_buffer.sample_batch(cfg.model.batch_size)
                     if i_episode < cfg.model.only_q_steps:
                         self.update(data=batch, only_q=True)
