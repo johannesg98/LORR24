@@ -10,4 +10,4 @@
 #SBATCH -e slurm/error_%j.txt
 #SBATCH --array=1-3
 
-conda run -n myenv python3 nn_optimization/nn_test_multiple_slurm_TransformerConvDouble2.py $SLURM_ARRAY_TASK_ID
+conda run -n myenv python3 nn_optimization/nn_test_multiple_slurm_GATConvDouble.py $SLURM_ARRAY_TASK_ID
