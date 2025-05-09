@@ -37,31 +37,14 @@ def main(cfg: DictConfig):
     #     for rew_w_immitation in rew_w_immitation_list:
     #         cfg.model.rew_w_immitation = rew_w_immitation
 
-    for i,rew_w_backtrack in enumerate(rew_w_backtrack_list):
-        cfg.model.rew_w_idle = 0
-        cfg.model.rew_w_Astar = 0
+    for i,rew_w_backtrack in enumerate(rew_w_immitation_list):
         cfg.model.rew_w_backtrack = rew_w_backtrack
-        if i == 4:
-            cfg.model.hidden_size = 1024
-        else:
-            cfg.model.hidden_size = 256
         
-        cfg.model.checkpoint_path = f"penta_backtrack{rew_w_backtrack}_hidden{cfg.model.hidden_size}_skip_id{slurm_task_id}"
+        cfg.model.checkpoint_path = f"Transformer_rew1dtime_backtrack{rew_w_backtrack}_id{slurm_task_id}"
         if run_training(cfg):
             return
 
-    for i,rew_w_Astar in enumerate(rew_w_Astar_list):
-        cfg.model.rew_w_idle = 20
-        cfg.model.rew_w_Astar = rew_w_Astar
-        cfg.model.rew_w_backtrack = 0
-        if i == 4:
-            cfg.model.hidden_size = 1024
-        else:
-            cfg.model.hidden_size = 256
-        
-        cfg.model.checkpoint_path = f"penta_Astar{rew_w_Astar}_hidden{cfg.model.hidden_size}_skip_id{slurm_task_id}"
-        if run_training(cfg):
-            return
+
 
         # for use_markovian_new_obs in use_markovian_new_obs_list:
         #     cfg.model.use_markovian_new_obs = use_markovian_new_obs
