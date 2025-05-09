@@ -28,7 +28,7 @@ hidden_size: 256  # Defines hidden units in the MLP layers
 
 clip: 500  # Clip value for gradient clipping (default: 500)
 
-checkpoint_path: "actor_17percent"  # Path where to save model checkpoints
+checkpoint_path: "actor_20percent_Transformer"  # Path where to save model checkpoints
 
 train: false # Switches updating the weights on and off
 
@@ -40,7 +40,7 @@ load_from_ckeckpoint: false  # Load model from checkpoint
 
 load_external_actor: true  # Load externally trainged actor e.g. from imitation learning in colab
 
-external_actor_path: "../nn_optimization/actors/actor_17percent.pth"  # Path to externally trained actor
+external_actor_path: "../nn_optimization/actors/actor_20percent_Transformer.pth"  # Path to externally trained actor
 
 use_LSTM: false  # Use LSTM in the model
 
@@ -54,7 +54,7 @@ pretrained_path: null
 
 only_q_steps: 0 
 
-wandb: true # Enables Weights and Biases logging
+wandb: false # Enables Weights and Biases logging
 
 tensorboard: false # Enables Tensorboard logging
 

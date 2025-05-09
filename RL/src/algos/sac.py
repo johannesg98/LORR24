@@ -4,8 +4,8 @@ from torch import nn
 import torch.nn.functional as F
 from torch_geometric.data import Data, Batch
 from src.algos.reb_flow_solver import solveRebFlow
-from src.nets.actor import GNNActor, GNNActorLSTM
-from src.nets.critic import GNNCritic, GNNCriticLSTM
+from src.nets.actor import GNNActorLSTM
+from src.nets.critic import GNNCriticLSTM
 import random
 from tqdm import trange
 import os
@@ -16,6 +16,7 @@ import wandb
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from src.nets.Transformer_actor_critic import GNNActor, GNNCritic
 from src.nets.penta_actor_critic import GNNActorPenta, GNNCriticPenta
 
 from src.helperfunctions.skip_actor import skip_actor
@@ -181,16 +182,16 @@ class SAC(nn.Module):
             self.critic1_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
             self.critic2_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
         else:
-            # self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
-            # self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
-            # self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
-            # self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
-            # self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_index_tmp=self.parser.edge_index)
-            self.actor = GNNActorPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic1 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic2 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic1_target = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic2_target = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            # self.actor = GNNActorPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            # self.critic1 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            # self.critic2 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            # self.critic1_target = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            # self.critic2_target = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
 
         assert self.critic1.parameters() != self.critic2.parameters()
 
@@ -640,14 +641,21 @@ class SAC(nn.Module):
                     action_rl = self.select_action(obs_parsed)
                 myTimer.selectAction += myTimer.addTime()
 
-                NodeCostMatrix = torch.tensor(self.env.NodeCostMatrix)
-                torch.save(NodeCostMatrix, os.path.join(self.train_dir, "NodeCostMatrix.pt"))
-                1/0
             
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
                 desired_agent_dist = assign_discrete_actions(total_agents, action_rl)
                 myTimer.rest += myTimer.addTime()
+
+
+                # test stuff
+                action_rl_skip = skip_actor(self.env, obs)
+                diff = assign_discrete_actions(total_agents, action_rl) - assign_discrete_actions(total_agents, action_rl_skip)
+                wrong_assignments = np.sum(np.abs(diff))/2
+                skip_assigments = np.where(diff < 0)
+                actor_assignments = np.where(diff > 0)
+                print(f"wrong assignments: {wrong_assignments}/{total_agents}, skip assignments: {skip_assigments}, actor_assignments assignments: {actor_assignments}")
+
                 
                 # solve rebalancing
                 reb_action = solveRebFlow(
