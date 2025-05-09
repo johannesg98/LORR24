@@ -1,0 +1,78 @@
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Currently logged in as: johannes-gaber (johannesg98) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250508_232706-bwfoi3n0
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run Transformer_rew1dtime_backtrack20000_id13
+wandb: ⭐️ View project at https://wandb.ai/johannesg98/warehouse_8x6_ag200
+wandb: 🚀 View run at https://wandb.ai/johannesg98/warehouse_8x6_ag200/runs/bwfoi3n0
+
+  0%|          | 0/10000 [00:00<?, ?it/s]
+Episode 1 | Reward: 2060000.00 | NumTasksFinishe: 198.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 0/10000 [00:24<?, ?it/s]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 1 | Reward: 2060000.00 | NumTasksFinishe: 198.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 1/10000 [01:01<170:20:29, 61.33s/it]
+Episode 2 | Reward: 2420000.00 | NumTasksFinishe: 228.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 1/10000 [01:26<170:20:29, 61.33s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 2 | Reward: 2420000.00 | NumTasksFinishe: 228.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 2/10000 [01:29<116:05:54, 41.80s/it]
+Episode 3 | Reward: 2260000.00 | NumTasksFinishe: 208.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 2/10000 [01:56<116:05:54, 41.80s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 3 | Reward: 2260000.00 | NumTasksFinishe: 208.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 3/10000 [01:58<99:52:54, 35.97s/it] 
+Episode 4 | Reward: 2540000.00 | NumTasksFinishe: 222.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 3/10000 [02:25<99:52:54, 35.97s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 4 | Reward: 2540000.00 | NumTasksFinishe: 222.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 4/10000 [02:27<92:40:07, 33.37s/it]
+Episode 5 | Reward: 2280000.00 | NumTasksFinishe: 246.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 4/10000 [02:54<92:40:07, 33.37s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 5 | Reward: 2280000.00 | NumTasksFinishe: 246.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 5/10000 [02:57<88:33:10, 31.89s/it]
+Episode 6 | Reward: 2100000.00 | NumTasksFinishe: 210.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 5/10000 [03:23<88:33:10, 31.89s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 6 | Reward: 2100000.00 | NumTasksFinishe: 210.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 6/10000 [03:25<85:31:06, 30.81s/it]
+Episode 7 | Reward: 2380000.00 | NumTasksFinishe: 215.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 6/10000 [03:52<85:31:06, 30.81s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 7 | Reward: 2380000.00 | NumTasksFinishe: 215.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 7/10000 [03:55<84:03:31, 30.28s/it]
+Episode 8 | Reward: 2460000.00 | NumTasksFinishe: 220.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 7/10000 [04:19<84:03:31, 30.28s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 8 | Reward: 2460000.00 | NumTasksFinishe: 220.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 8/10000 [04:21<80:46:25, 29.10s/it]
+Episode 9 | Reward: 2180000.00 | NumTasksFinishe: 188.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 8/10000 [04:46<80:46:25, 29.10s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 9 | Reward: 2180000.00 | NumTasksFinishe: 188.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 9/10000 [04:49<79:50:12, 28.77s/it]
+Episode 10 | Reward: 2420000.00 | NumTasksFinishe: 212.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 9/10000 [05:15<79:50:12, 28.77s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 10 | Reward: 2420000.00 | NumTasksFinishe: 212.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 10/10000 [05:17<79:21:53, 28.60s/it]
+Episode 11 | Reward: 2040000.00 | NumTasksFinishe: 209.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 10/10000 [05:45<79:21:53, 28.60s/it]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Episode 11 | Reward: 2040000.00 | NumTasksFinishe: 209.0 | Checkpoint: Transformer_rew1dtime_backtrack20000_id13:   0%|          | 11/10000 [05:47<80:27:51, 29.00s/it]/tmp/tmp77awtvyu: line 3: 1070928 Bus error               (core dumped) python3 RL/train_multiple_slurm.py 13
+
+ERROR conda.cli.main_run:execute(125): `conda run python3 RL/train_multiple_slurm.py 13` failed. (See above for error)
