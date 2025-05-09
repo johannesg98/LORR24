@@ -73,12 +73,6 @@ class GNNActor(nn.Module):
             m = Dirichlet(concentration + 1e-20)
             action = m.rsample()
             log_prob = m.log_prob(action)
-
-
-        ac_np = concentration.cpu().detach().numpy()#
-        if ac_np.max(axis=-1) < 0.0000001:
-            print("Max concentration < 0.0000001. Prob no conscious action taken.") 
-
         return action, log_prob
     
     def get_positions(self):
