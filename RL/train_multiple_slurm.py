@@ -26,7 +26,7 @@ def main(cfg: DictConfig):
     rew_w_idle_list = [0.0]
     rew_w_backtrack_list = [5,10,20,20,20,40]
     rew_w_Astar_list = [5,10,20,20,20,40]
-    rew_w_immitation_list = [1,5,10,20,20,30,40,70,200]
+    rew_w_immitation_list = [10,20,20,40,70]
     trys = range(2)
 
     
@@ -39,8 +39,9 @@ def main(cfg: DictConfig):
 
     for i,rew_w_backtrack in enumerate(rew_w_immitation_list):
         cfg.model.rew_w_backtrack = rew_w_backtrack
+        cfg.model.rew_w_idle = 20
         
-        cfg.model.checkpoint_path = f"Transformer_diff-norm-hoch4-_backtrack{rew_w_backtrack}_id{slurm_task_id}"
+        cfg.model.checkpoint_path = f"Transformer_diff-norm-hoch4-_idle20_backtrack{rew_w_backtrack}_id{slurm_task_id}"
         if run_training(cfg):
             return
 
