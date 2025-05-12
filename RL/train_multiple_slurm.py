@@ -26,7 +26,7 @@ def main(cfg: DictConfig):
     rew_w_idle_list = [0.0]
     rew_w_backtrack_list = [5,10,20,20,20,40]
     rew_w_Astar_list = [5,10,20,20,20,40]
-    rew_w_immitation_list = [10,20,20,40,70]
+    rew_w_immitation_list = [5,10,20,30,40,80,160,320]
     trys = range(2)
 
     
@@ -37,11 +37,10 @@ def main(cfg: DictConfig):
     #     for rew_w_immitation in rew_w_immitation_list:
     #         cfg.model.rew_w_immitation = rew_w_immitation
 
-    for i,rew_w_backtrack in enumerate(rew_w_immitation_list):
-        cfg.model.rew_w_backtrack = rew_w_backtrack
-        cfg.model.rew_w_idle = 20
+    for i,rew_w_task_finish in enumerate(rew_w_immitation_list):
+        cfg.model.rew_w_task_finish = rew_w_task_finish
         
-        cfg.model.checkpoint_path = f"Transformer_diff-norm-hoch4-_idle20_backtrack{rew_w_backtrack}_id{slurm_task_id}"
+        cfg.model.checkpoint_path = f"TransformerConv_Immitation_start_task_finished{rew_w_task_finish}_id{slurm_task_id}"
         if run_training(cfg):
             return
 
