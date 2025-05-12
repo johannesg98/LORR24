@@ -28,9 +28,9 @@ hidden_size: 256  # Defines hidden units in the MLP layers
 
 clip: 500  # Clip value for gradient clipping (default: 500)
 
-checkpoint_path: "TransformerConv_Immitation_start_task_finished"  # Path where to save model checkpoints
+checkpoint_path: "actor_20percent_Transformer"  # Path where to save model checkpoints
 
-train: true # Switches updating the weights on and off
+train: False # Switches updating the weights on and off
 
 start_training_at_episode: 10
 
@@ -54,7 +54,7 @@ determinisitc_backup: False #use q-value deterministic backup
 
 pretrained_path: null 
 
-only_q_steps: 100 
+only_q_steps: 0 
 
 wandb: true # Enables Weights and Biases logging
 
@@ -75,5 +75,5 @@ normalise_obs: true # Normalise observations
 rew_w_Astar: 0    # best: 20
 rew_w_idle: 0     # best: 20
 rew_w_task_finish: 0
-rew_w_backtrack: 0 # best: 20
+rew_w_backtrack: 20 # best: 20
 rew_w_immitation: 0
