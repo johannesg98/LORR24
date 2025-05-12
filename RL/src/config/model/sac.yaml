@@ -28,7 +28,7 @@ hidden_size: 256  # Defines hidden units in the MLP layers
 
 clip: 500  # Clip value for gradient clipping (default: 500)
 
-checkpoint_path: "TransformerConv_backtrack20_StopIdleAgents_2"  # Path where to save model checkpoints
+checkpoint_path: "TransformerConv_Immitation_start_backtrack"  # Path where to save model checkpoints
 
 train: true # Switches updating the weights on and off
 
@@ -40,7 +40,7 @@ visu_episode_list: [0, 5, 10, 12, 15, 20, 30, 50, 100, 200, 300, 400, 500, 750, 
 
 load_from_ckeckpoint: false  # Load model from checkpoint
 
-load_external_actor: false  # Load externally trainged actor e.g. from imitation learning in colab
+load_external_actor: true  # Load externally trainged actor e.g. from imitation learning in colab
 
 external_actor_path: "../nn_optimization/actors/actor_20percent_Transformer.pth"  # Path to externally trained actor
 
@@ -54,7 +54,7 @@ determinisitc_backup: False #use q-value deterministic backup
 
 pretrained_path: null 
 
-only_q_steps: 0 
+only_q_steps: 100 
 
 wandb: true # Enables Weights and Biases logging
 
