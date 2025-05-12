@@ -155,7 +155,7 @@ class SAC(nn.Module):
         self.BATCH_SIZE = cfg.batch_size
         self.p_lr = cfg.p_lr
         self.q_lr = cfg.q_lr
-        self.gamma = 0.99 #0.99
+        self.gamma = 0.90 #0.99
         self.use_automatic_entropy_tuning = cfg.auto_entropy
         self.clip = cfg.clip
         self.use_LSTM = cfg.use_LSTM
@@ -759,11 +759,11 @@ class SAC(nn.Module):
             # test agent
             if i_episode % 20 == 0:
                 self.test_during_training(i_episode)
-            if i_episode % 50 == 0:
+            if i_episode % 100 == 0:
                 self.test_best_checkpoint(i_episode, cfg)
 
     def test_best_checkpoint(self, i_episode, cfg):
-        num_tests = 10
+        num_tests = 5
 
         #load best checkpoint
         if self.last_best_checkpoint is not None:
