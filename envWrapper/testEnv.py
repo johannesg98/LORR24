@@ -12,7 +12,7 @@ env = envWrapper.LRRenv(
     inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",
     outputFile="./outputs/pyTest.json",
     simulationTime=150,
-    planTimeLimit=70,
+    planTimeLimit=150,
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},
     random_agents_and_tasks="true"
@@ -20,7 +20,7 @@ env = envWrapper.LRRenv(
 env.make_env_params_available()
 
 
-number_of_runs = 3
+number_of_runs = 100
 
 sum_reward = 0
 sum_Astar_reward = 0
@@ -45,9 +45,11 @@ for i in range(number_of_runs):
         print(f"Astar reward: {reward['A*-distance']}, Task reward: {reward['task-finished']}, Idle agents reward: {reward['idle-agents']}")
 
     print("One simulation complete with reward: ", this_reward)
+    print("avergae reward: ", this_reward / env.nTasks)
     print("Astar reward: ", Astar_reward)
     sum_reward += this_reward
     sum_Astar_reward += Astar_reward
+    print(f"Average reward after {i+1} runs: {sum_reward/(i+1)}")
 
 print("Average reward over ", number_of_runs, " runs: ", sum_reward/number_of_runs)
 print("Average Astar reward over ", number_of_runs, " runs: ", sum_Astar_reward/number_of_runs)
