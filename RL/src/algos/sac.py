@@ -638,7 +638,7 @@ class SAC(nn.Module):
                 if cfg.model.skip_actor:
                     action_rl = skip_actor(self.env, obs)
                 else:
-                    action_rl = self.select_action(obs_parsed)
+                    action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
                 myTimer.selectAction += myTimer.addTime()
 
             
