@@ -23,7 +23,8 @@ from src.helperfunctions.skip_actor import skip_actor
 from src.helperfunctions.assign_discrete_actions import assign_discrete_actions
 
 class timer:
-    def __init__(self):
+    def __init__(self, cfg):
+        self.cfg = cfg
         self.now = time.time()
         self.outerLoop = 0
         self.selectAction = 0
@@ -39,7 +40,7 @@ class timer:
         return ret
     
     def printAvgTimes(self, iEpisode):
-        print(f"\n Times: Episode {iEpisode} | Avg outer-loop: {self.outerLoop/iEpisode:.2f} | Avg select-action: {self.selectAction/iEpisode:.2f} | Avg solve-reb: {self.solveReb/iEpisode:.2f} | Avg step: {self.step/iEpisode:.2f} | Avg rest: {self.rest/iEpisode:.2f} | Avg learning: {self.learning/max(1,iEpisode-10):.2f} | Avg test-cycles: {self.test_cycles/iEpisode:.2f} |")
+        print(f"\n Times: Episode {iEpisode} | Avg outer-loop: {self.outerLoop/iEpisode:.2f} | Avg select-action: {self.selectAction/iEpisode:.2f} | Avg solve-reb: {self.solveReb/iEpisode:.2f} | Avg step: {self.step/iEpisode:.2f} | Avg rest: {self.rest/iEpisode:.2f} | Avg learning: {self.learning/max(1,iEpisode-(self.cfg.model.start_training_at_episode+1)):.2f} | Avg test-cycles: {self.test_cycles/iEpisode:.2f} |")
         
     
 
@@ -608,7 +609,7 @@ class SAC(nn.Module):
         train_episodes = cfg.model.max_episodes  # set max number of training episodes
         epochs = trange(train_episodes)  # epoch iterator
         self.train()  # set model in train mode
-        myTimer = timer()
+        myTimer = timer(cfg)
         if cfg.model.visu_episode_list:
             curr_visu_idx = 0
             outputFile = os.path.join(self.train_dir, "../outputs/cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx])+".json")
