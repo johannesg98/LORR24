@@ -32,7 +32,7 @@ checkpoint_path: "TEST_new_obs"  # Path where to save model checkpoints
 
 train: True # Switches updating the weights on and off
 
-start_training_at_episode: 10
+start_training_at_episode: 3
 
 skip_actor: false # Use skip_actor-ILP instead of the actor
 

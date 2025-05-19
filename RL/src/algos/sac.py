@@ -31,6 +31,7 @@ class timer:
         self.step = 0
         self.rest = 0
         self.learning = 0
+        self.test_cycles = 0
 
     def addTime(self):
         ret = time.time() - self.now
@@ -38,7 +39,7 @@ class timer:
         return ret
     
     def printAvgTimes(self, iEpisode):
-        print(f"\n Times: Episode {iEpisode} | Avg outer-loop: {self.outerLoop/iEpisode:.2f} | Avg select-action: {self.selectAction/iEpisode:.2f} | Avg solve-reb: {self.solveReb/iEpisode:.2f} | Avg step: {self.step/iEpisode:.2f} | Avg rest: {self.rest/iEpisode:.2f} | Avg learning: {self.learning/max(1,iEpisode-10):.2f}")
+        print(f"\n Times: Episode {iEpisode} | Avg outer-loop: {self.outerLoop/iEpisode:.2f} | Avg select-action: {self.selectAction/iEpisode:.2f} | Avg solve-reb: {self.solveReb/iEpisode:.2f} | Avg step: {self.step/iEpisode:.2f} | Avg rest: {self.rest/iEpisode:.2f} | Avg learning: {self.learning/max(1,iEpisode-10):.2f} | Avg test-cycles: {self.test_cycles/iEpisode:.2f} |")
         
     
 
@@ -763,11 +764,15 @@ class SAC(nn.Module):
             if cfg.model.train:
                 self.checkpoint_handler(i_episode, episode_num_tasks_finished, cfg)
 
+            myTimer.outerLoop += myTimer.addTime()
+
             # test agent
             if i_episode % 20 == 0:
                 self.test_during_training(i_episode)
             if i_episode % 100 == 0:
                 self.test_best_checkpoint(i_episode, cfg)
+
+            myTimer.test_cycles += myTimer.addTime()
 
     def test_best_checkpoint(self, i_episode, cfg):
         num_tests = 5
