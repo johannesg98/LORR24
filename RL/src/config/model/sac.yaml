@@ -32,7 +32,7 @@ checkpoint_path: "TEST_new_obs"  # Path where to save model checkpoints
 
 train: True # Switches updating the weights on and off
 
-start_training_at_episode: 3
+start_training_at_episode: 1
 
 skip_actor: false # Use skip_actor-ILP instead of the actor
 
@@ -58,7 +58,7 @@ pretrained_path: null
 
 only_q_steps: 0 
 
-wandb: true # Enables Weights and Biases logging
+wandb: false # Enables Weights and Biases logging
 
 tensorboard: false # Enables Tensorboard logging
 

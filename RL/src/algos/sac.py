@@ -704,11 +704,15 @@ class SAC(nn.Module):
                 
                 # learn
                 if cfg.model.train and i_episode > cfg.model.start_training_at_episode:
+                    tmpStart = time.time()
                     batch = self.replay_buffer.sample_batch(cfg.model.batch_size)
+                    print("Sample Batch time: ", time.time()-tmpStart)
+                    tmpStart = time.time()
                     if i_episode < cfg.model.only_q_steps:
                         self.update(data=batch, only_q=True)
                     else:
                         self.update(data=batch)
+                    print("Actual Update time: ", time.time()-tmpStart)
                     myTimer.learning += myTimer.addTime()
 
                 # obs = new_obs
