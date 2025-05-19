@@ -18,7 +18,7 @@ class GNNCritic(nn.Module):
         self.lin3 = nn.Linear(hidden_size, 1)
         self.in_channels = in_channels
 
-    def forward(self, state, edge_index, action):
+    def forward(self, state, edge_index, edge_attr, action):
         # print("critic state shape:", state.shape)  # (B, N, in_channels)
         state = state.reshape(-1, self.act_dim, self.in_channels)  # (B*N, in_channels)
         # print("state shape:", state.shape)  # (B*N, in_channels)
@@ -48,7 +48,7 @@ class GNNCriticLSTM(nn.Module):
         self.lin2 = nn.Linear(hidden_size, 1)
         self.in_channels = in_channels
 
-    def forward(self, state, edge_index, action):
+    def forward(self, state, edge_index, edge_attr, action):
         out = F.relu(self.conv1(state, edge_index))
         x = out + state
         x = x.reshape(-1, self.act_dim, self.in_channels)  # (B,N,21)
@@ -82,7 +82,7 @@ class GNNCriticTD3(nn.Module):
 
         self.in_channels = in_channels
 
-    def forward(self, state, edge_index, action):
+    def forward(self, state, edge_index, edge_attr, action):
         out = F.relu(self.conv1(state, edge_index))
         x = out + state
         x = x.reshape(-1, self.act_dim, self.in_channels)  # (B,N,21)

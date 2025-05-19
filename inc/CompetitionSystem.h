@@ -14,6 +14,16 @@
 //RL added stuff
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include "edge_features.h"
+
+
+struct pair_hash {
+    std::size_t operator()(const std::pair<int, int>& p) const noexcept {
+        // Simple hash combine
+        return std::hash<int>{}(p.first) ^ (std::hash<int>{}(p.second) << 1);
+    }
+};
+
 
 
 class BaseSystem
@@ -89,8 +99,21 @@ public:
     pybind11::dict get_info();
     int loadNodes(const std::string& fname);
     pybind11::dict get_observation(std::unordered_set<std::string>& observationTypes);
-    std::tuple<int,int,std::vector<std::vector<int>>,std::vector<std::vector<int>>> get_env_vals();
-
+    std::tuple<int,
+                int,
+                std::vector<std::vector<int>>,
+                std::vector<std::vector<int>>,
+                std::vector<std::vector<int>>,
+                std::vector<double>, 
+                std::vector<std::vector<double>>, 
+                std::vector<std::vector<std::pair<int, edgeFeatures::Direction>>>,
+                std::vector<int>,
+                std::vector<int>
+                                                                    > get_env_vals(int MP_edge_limit = 0);
+    int distance_until_agent_avail_MAX = 20;
+    std::vector<std::vector<std::pair<int,edgeFeatures::Direction>>> MP_loc_to_edges;     // num_map_tiles x num_of_edges_that_pass_through_it x (edge_id, direction)
+    std::vector<int> MP_edge_lengths;
+    std::vector<int> space_per_node;
     
 
 
@@ -149,6 +172,8 @@ protected:
 
     //new functions for RL
     int num_of_task_finish_last_call = 0;
+    std::unordered_map<std::pair<int, int>, int, pair_hash> MP_edge_map;
+    vector<State> last_agent_states;
     
     
 

@@ -3,6 +3,7 @@
 #include "schedulerILP.h"
 #include "schedulerILPsparse.h"
 #include "schedulerTEMPLATE.h"
+#include "schedulerPreReserve.h"
 #include "schedulerRL.h"
 #include "scheduler.h"
 #include "const.h"

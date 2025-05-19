@@ -23,7 +23,7 @@ class GNNActorPenta(nn.Module):
         self.lin3 = nn.Linear(hidden_size, 1)
         self.pos_feat = self.get_positions()
 
-    def forward(self, state, edge_index, deterministic=False, return_dist=False, return_raw=False):
+    def forward(self, state, edge_index, edge_attr, deterministic=False, return_dist=False, return_raw=False):
         deterministic=True
         if state.dim() == 3:
             positions = self.pos_feat.unsqueeze(0).expand(state.shape[0], -1, -1)
@@ -119,7 +119,7 @@ class GNNCriticPenta(nn.Module):
         self.lin3 = nn.Linear(hidden_size, 1)
         self.in_channels = in_channels
 
-    def forward(self, state, edge_index, action):
+    def forward(self, state, edge_index, edge_attr, action):
         out1 = F.relu(self.conv1(state, edge_index))
         out2 = F.relu(self.conv2(out1, edge_index))
         out3 = F.relu(self.conv3(out2, edge_index))

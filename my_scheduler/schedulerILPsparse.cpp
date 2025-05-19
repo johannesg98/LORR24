@@ -19,16 +19,16 @@ void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
     DefaultPlanner::init_heuristics(env);
     mt.seed(0);
 
-    for (int i = 0; i < env->map.size(); i++){
-        #ifndef NDEBUG
-        std::cout << "Field " << i << " of " <<  env->map.size() << std::endl; 
-        #endif
-        for (int j = 0; j < env->map.size(); j++){
-            if (env->map[i] == 0 && env->map[j] == 0){
-                DefaultPlanner::get_h(env, i, j);
-            }
-        }
-    }
+    // for (int i = 0; i < env->map.size(); i++){
+    //     #ifndef NDEBUG
+    //     std::cout << "Field " << i << " of " <<  env->map.size() << std::endl; 
+    //     #endif
+    //     for (int j = 0; j < env->map.size(); j++){
+    //         if (env->map[i] == 0 && env->map[j] == 0){
+    //             DefaultPlanner::get_h(env, i, j);
+    //         }
+    //     }
+    // }
 
     #ifndef NDEBUG
     std::chrono::duration<double> passed = std::chrono::high_resolution_clock::now() - now;
@@ -103,7 +103,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
         #endif
 
         // Generate activation matrix aka 1 where we consider the cost and 0 where we assume the cost is so bad that we dont consider it during optimization
-        int number_of_pairs_to_consider = 3;
+        int number_of_pairs_to_consider = 20;
 
         std::vector<std::vector<int>> activation_matrix;
         if (number_of_pairs_to_consider >= std::min(num_agents, num_tasks)) {
@@ -345,7 +345,7 @@ int get_h_limited(SharedEnvironment* env, int source, int target){
 
 	int dist = static_cast<int>(1.3 * std::abs((source / env->cols) - (target / env->cols)) + std::abs((source % env->cols) - (target % env->cols)));
 
-	if (dist > 20) {
+	if (dist > 50) {
 		return dist;
 	}
 

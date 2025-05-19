@@ -485,6 +485,8 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
     pybind11::dict obs;
 
     if (observationTypes.count("node-basics")){
+        
+        clock_t start = clock();
 
         // agents per node
         // free agents per node
@@ -510,15 +512,166 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
             }
         }
         obs["free_tasks_per_node"] = free_tasks_per_node;
+
+
+        // distance until agent becomes available at node
+        std::vector<int> distance_until_agent_available(env->nodes->nNodes, distance_until_agent_avail_MAX);
+        for (int agent=0; agent<env->num_of_agents; agent++){
+            int agent_loc = env->curr_states[agent].location;
+            int task_id = env->curr_task_schedule[agent];
+            if (task_id == -1){
+                int node = env->nodes->regions[agent_loc];
+                distance_until_agent_available[node] = 0;
+            }
+            else if (env->task_pool[task_id].idx_next_loc == env->task_pool[task_id].locations.size()-1){
+                int task_loc = env->task_pool[task_id].locations.back();
+                int distance = DefaultPlanner::get_h(env, agent_loc, task_loc);
+                int node = env->nodes->regions[task_loc];
+                distance_until_agent_available[node] = std::min(distance_until_agent_available[node], distance);
+            }
+        }
+        obs["distance_until_agent_available_per_node"] = distance_until_agent_available;
+
+
+        // time
+        obs["time"] = env->curr_timestep;
+
+        // congestion ratio at nodes
+        std::vector<float> congestion_ratio_per_node(env->nodes->nNodes, 0);
+        for (int i=0; i<env->nodes->nNodes; i++){
+            if (space_per_node[i] > 0){
+                congestion_ratio_per_node[i] = (float)agents_per_node[i]/(float)space_per_node[i];
+            }
+        }
+        obs["congestion_ratio_per_node"] = congestion_ratio_per_node;
+        
+        
+
+        // congestion at edges
+        for (int loc=0; loc<env->map.size(); loc++){
+            for (int i=0; i<MP_loc_to_edges[loc].size(); i++){
+                int edge_id = MP_loc_to_edges[loc][i].first;
+                if (edge_id == 128){
+                    int x = loc % env->cols;
+                    int y = loc / env->cols;
+                }
+            }
+        }
+
+
+
+
+        std::vector<std::vector<double>> MP_congestion_per_edge(MP_edge_lengths.size(), std::vector<double>(3,0));
+        for (int agent=0; agent<env->num_of_agents; agent++){
+            int loc = env->curr_states[agent].location;
+            for (int i=0; i<MP_loc_to_edges[loc].size(); i++){
+                int edge_id = MP_loc_to_edges[loc][i].first;
+                edgeFeatures::Direction edge_dir = MP_loc_to_edges[loc][i].second;
+                // same direction
+                if (edge_dir == env->curr_states[agent].orientation){
+                    MP_congestion_per_edge[edge_id][0]++;
+                }
+                // opposite direction
+                else if (abs(edge_dir - env->curr_states[agent].orientation) == 2){
+                    MP_congestion_per_edge[edge_id][1]++;
+                }
+                // perpendicular direction
+                else {
+                    MP_congestion_per_edge[edge_id][2]++;
+                }            
+            }
+        }
+        // normalize
+        for (int edge_id=0; edge_id<MP_congestion_per_edge.size(); edge_id++){
+            for (int i=0; i<3; i++){
+                if (MP_congestion_per_edge[edge_id][i] > 0){
+                    MP_congestion_per_edge[edge_id][i] = MP_congestion_per_edge[edge_id][i]/(double)MP_edge_lengths[edge_id];
+                }
+            }
+        }
+        obs["congestion_ratio_per_edge"] = MP_congestion_per_edge;
+
+
+        // agents tell closest task to nodes
+        std::vector<int> contains_closest_task_per_node(env->nodes->nNodes, 0);
+        std::vector<int> closest_task_connection_per_MP_edge(MP_edge_lengths.size(), 0);
+        for (int agent=0; agent<env->num_of_agents; agent++){
+            if (env->curr_task_schedule[agent] == -1){
+                int agent_loc = env->curr_states[agent].location;
+                int closest_dist = INT_MAX;
+                int closest_task_id = -1;
+                for (auto& pair : env->task_pool) {
+                    int task_id = pair.first;
+                    Task& task = pair.second;
+                    if (task.agent_assigned == -1){
+                        int task_loc = task.get_next_loc();
+                        int distance = DefaultPlanner::get_h(env, agent_loc, task_loc);
+                        if (distance < closest_dist){
+                            closest_dist = distance;
+                            closest_task_id = task_id;
+                        }
+                    }
+                }
+                if (closest_task_id != -1){
+                    int goal_node = env->nodes->regions[env->task_pool[closest_task_id].locations[0]];
+                    contains_closest_task_per_node[goal_node] += 1;
+                    int agent_node = env->nodes->regions[agent_loc];
+                    if (MP_edge_map.find({agent_node, goal_node}) != MP_edge_map.end()){
+                        int edge_id = MP_edge_map[{agent_node, goal_node}];
+                        closest_task_connection_per_MP_edge[edge_id] = 1;
+                    }
+                }
+            }
+        }
+        obs["contains_closest_task_per_node"] = contains_closest_task_per_node;
+        obs["closest_task_connection_per_MP_edge"] = closest_task_connection_per_MP_edge;
+        
+        // agents that wait per edge
+        std::vector<double> agents_waiting_per_edge(MP_edge_lengths.size(), 0);
+        if (env->curr_timestep > 0){
+            for (int agent=0; agent<env->num_of_agents; agent++){
+                if (env->curr_states[agent].location == last_agent_states[agent].location && env->curr_states[agent].orientation == last_agent_states[agent].orientation){
+                    int loc = env->curr_states[agent].location;
+                    for (int i=0; i<MP_loc_to_edges[loc].size(); i++){
+                        int edge_id = MP_loc_to_edges[loc][i].first;
+                        agents_waiting_per_edge[edge_id]++;
+                    }
+                }
+            }
+        }
+        last_agent_states = env->curr_states;
+        // normalize
+        for (int edge_id=0; edge_id<MP_congestion_per_edge.size(); edge_id++){
+            if (MP_edge_lengths[edge_id] > 0){
+                agents_waiting_per_edge[edge_id] = agents_waiting_per_edge[edge_id]/(double)MP_edge_lengths[edge_id];
+            }
+        }
+        obs["agents_waiting_per_edge"] = agents_waiting_per_edge;
+
+
+
+        std::cout << "Time for getting observations: " << (double)(clock()-start)/CLOCKS_PER_SEC << std::endl;
     }
 
     return obs;
 }
 
-std::tuple<int,int,std::vector<std::vector<int>>,std::vector<std::vector<int>>> BaseSystem::get_env_vals(){
+std::tuple<int,
+            int,
+            std::vector<std::vector<int>>,
+            std::vector<std::vector<int>>,
+            std::vector<std::vector<int>>,
+            std::vector<double>,
+            std::vector<std::vector<double>>,
+            std::vector<std::vector<std::pair<int, edgeFeatures::Direction>>>,
+            std::vector<int>,
+            std::vector<int>
+                                                                                    > BaseSystem::get_env_vals(int MP_edge_limit){
+
     int max_num_agents = env->num_of_agents;
     int max_num_tasks = env->task_pool.size();
     std::vector<std::vector<int>> AdjacencyMatrix = env->nodes->AdjacencyMatrix;
+
 
     // rebalancing optimizer cost matrix
     std::vector<std::vector<int>> NodeCostMatrix;
@@ -531,6 +684,69 @@ std::tuple<int,int,std::vector<std::vector<int>>,std::vector<std::vector<int>>> 
         }
     }
 
-    return {max_num_agents, max_num_tasks, AdjacencyMatrix, NodeCostMatrix};
+    // count free spaces per node to calc congestion ratio
+    std::vector<int> space_per_node_new(env->nodes->nNodes, 0);
+    for (int id=0; id<env->map.size(); id++){
+        int node = env->nodes->regions[id];
+        if (env->map[id] == 0){
+            space_per_node_new[node]++;
+        }
+    }
+
+
+    // message passing
+    clock_t start = clock();
+    std::vector<std::vector<int>> MP_edge_index(2);
+    std::vector<double> MP_edge_weights;
+    std::vector<std::vector<std::pair<int, edgeFeatures::Direction>>> MP_loc_to_edges_new(env->map.size());
+    std::vector<int> MP_edge_lengths_new;
+    if (MP_edge_limit > 0){
+        
+        for (int o=0; o < env->nodes->nNodes; o++){
+            for (int d=0; d < env->nodes->nNodes; d++){
+                if (NodeCostMatrix[o][d] <= MP_edge_limit){
+                    
+                    // edge index
+                    MP_edge_index[0].push_back(o);
+                    MP_edge_index[1].push_back(d);
+
+                    // edge weights
+                    MP_edge_weights.push_back(1 - (double)NodeCostMatrix[o][d]/(double)MP_edge_limit);
+
+                    //edge locations
+                    std::vector<edgeFeatures::PathNode> path = edgeFeatures::astar(env->nodes->nodes[o], env->nodes->nodes[d], env, &DefaultPlanner::global_neighbors);
+                    for (int i=0; i<path.size(); i++){
+                        int loc = path[i].loc;
+                        edgeFeatures::Direction dir = path[i].dir;
+                        MP_loc_to_edges_new[loc].push_back({MP_edge_index[0].size()-1, dir});
+                    }
+                    MP_edge_lengths_new.push_back(path.size());
+                }
+            }
+        }
+    }
+    for (int i=0; i<MP_edge_lengths_new.size(); i++){
+        MP_edge_map[{MP_edge_index[0][i], MP_edge_index[1][i]}] = i;
+    }
+    std::cout << "Time for message passing and AStar: " << (double)(clock()-start)/CLOCKS_PER_SEC << std::endl;
+
+
+    // node positions
+    std::vector<std::vector<double>> node_positions(6, std::vector<double>(env->nodes->nNodes,0));
+    for (int node=0; node<env->nodes->nNodes; node++){
+        int loc = env->nodes->nodes[node];
+        int x = loc % env->cols;
+        int y = loc / env->cols;
+        double x_norm = (double)x/(double)env->cols;
+        double y_norm = (double)y/(double)env->rows;
+        node_positions[0][node] = x_norm;
+        node_positions[1][node] = y_norm;
+        node_positions[2][node] = (sin(x_norm*2*M_PI) + 1)/2;
+        node_positions[3][node] = (cos(x_norm*2*M_PI) + 1)/2;
+        node_positions[4][node] = (sin(y_norm*2*M_PI) + 1)/2;
+        node_positions[5][node] = (cos(y_norm*2*M_PI) + 1)/2;
+    }
+    
+    return {max_num_agents, max_num_tasks, AdjacencyMatrix, NodeCostMatrix, MP_edge_index, MP_edge_weights, node_positions, MP_loc_to_edges_new, MP_edge_lengths_new, space_per_node_new};
 }
 

@@ -38,7 +38,7 @@ void MAPFPlanner::plan(int time_limit,vector<Action> & actions)
 
 
     auto now = std::chrono::high_resolution_clock::now();
-    
+    // time_limit/2
     DefaultPlanner::plan(time_limit/2, actions, env);
 
     std::chrono::duration<double> passed = std::chrono::high_resolution_clock::now() - now;

@@ -30,7 +30,12 @@ private:
     std::string rewardType;
     std::unordered_set<std::string> observationTypes;
     std::string random_agents_and_tasks;
+    int message_passing_edge_limit;
+    int distance_until_agent_avail_MAX;
     json data;
+    bool is_initialized = false;
+    std::vector<std::vector<std::pair<int,edgeFeatures::Direction>>> MP_loc_to_edges;     // num_map_tiles x num_of_edges_that_pass_through_it x (edge_id, direction)
+    std::vector<int> MP_edge_lengths;
 
     // Command-line arguments stored as class variables
     std::string inputFile;
@@ -62,7 +67,9 @@ public:
         int logDetailLevel = 1,
         std::string rewardType = "task-finished",
         std::unordered_set<std::string> observationTypes = {},
-        std::string random_agents_and_tasks = "true"
+        std::string random_agents_and_tasks = "true",
+        int message_passing_edge_limit = 0,
+        int distance_until_agent_avail_MAX = 20
     );
 
     // Function declarations
@@ -79,7 +86,9 @@ public:
         int logDetailLevel_ = -1,
         std::string rewardType_ = "invalid",
         std::unordered_set<std::string> observationTypes_ = {"-1"},
-        std::string random_agents_and_tasks = "no_input"
+        std::string random_agents_and_tasks_ = "no_input",
+        int message_passing_edge_limit_ = 0,
+        int distance_until_agent_avail_MAX_ = -1
     );
     std::tuple<pybind11::dict, pybind11::dict, bool, pybind11::dict> step(const std::unordered_map<std::string, pybind11::object>& action_dict = {});
     void make_env_params_available();
@@ -88,6 +97,10 @@ public:
     int nTasks = -1;
     std::vector<std::vector<int>> AdjacencyMatrix;
     std::vector<std::vector<int>> NodeCostMatrix;
+    std::vector<std::vector<int>> MP_edge_index;
+    std::vector<double> MP_edge_weights;
+    std::vector<std::vector<double>> node_positions;
+    std::vector<int> space_per_node;
 };
 
 #endif // LRR_ENV_H

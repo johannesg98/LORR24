@@ -17,7 +17,7 @@ class GNNActor(nn.Module):
         self.lin2 = nn.Linear(hidden_size, hidden_size)
         self.lin3 = nn.Linear(hidden_size, 1)
 
-    def forward(self, state, edge_index, deterministic=False, return_dist=False):
+    def forward(self, state, edge_index, edge_attr, deterministic=False, return_dist=False):
         
         state = state.reshape(-1, self.act_dim, self.in_channels)
         print("actor state shape:", state.shape)  # (B, N, in_channels)
@@ -56,7 +56,7 @@ class GNNActorLSTM(nn.Module):
         self.lin1 = nn.Linear(hidden_size, hidden_size)
         self.lin2 = nn.Linear(hidden_size, 1)
 
-    def forward(self, state, edge_index, deterministic=False):
+    def forward(self, state, edge_attr, edge_index, deterministic=False):
         out = F.relu(self.conv1(state, edge_index))
         x = out + state
         x = x.reshape(-1, self.act_dim, self.in_channels)
@@ -98,7 +98,7 @@ class GNNActorTD3(nn.Module):
         self.constant = 0.05
 
 
-    def forward(self, state, edge_index, deterministic=False):
+    def forward(self, state, edge_index, edge_attr, deterministic=False):
         out = F.relu(self.conv1(state, edge_index))
         x = out + state
         x = x.reshape(-1, self.act_dim, self.in_channels)

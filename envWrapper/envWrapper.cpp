@@ -26,12 +26,14 @@ LRRenv::LRRenv(
                 int logDetailLevel,
                 std::string rewardType,
                 std::unordered_set<std::string> observationTypes,
-                std::string random_agents_and_tasks
+                std::string random_agents_and_tasks,
+                int message_passing_edge_limit,
+                int distance_until_agent_avail_MAX
                 ) 
                 : done(false), step_count(0), inputFile(inputFile), outputFile(outputFile), outputScreen(outputScreen), evaluationMode(evaluationMode),
                 simulationTime(simulationTime), fileStoragePath(fileStoragePath), planTimeLimit(planTimeLimit), preprocessTimeLimit(preprocessTimeLimit),
                 logFile(logFile), logDetailLevel(logDetailLevel), rewardType(rewardType), observationTypes(std::move(observationTypes)),
-                random_agents_and_tasks(random_agents_and_tasks)
+                random_agents_and_tasks(random_agents_and_tasks), message_passing_edge_limit(message_passing_edge_limit), distance_until_agent_avail_MAX(distance_until_agent_avail_MAX)
 {
     std::cout << "Environment constructed" << std::endl;
 
@@ -52,7 +54,9 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
                                                         std::string inputFile_, std::string outputFile_, int outputScreen_,
                                                         bool evaluationMode_, int simulationTime_, std::string fileStoragePath_,
                                                         int planTimeLimit_, int preprocessTimeLimit_, std::string logFile_, int logDetailLevel_, std::string rewardType_,
-                                                        std::unordered_set<std::string> observationTypes_, std::string random_agents_and_tasks_)
+                                                        std::unordered_set<std::string> observationTypes_, std::string random_agents_and_tasks_, int message_passing_edge_limit_,
+                                                        int distance_until_agent_avail_MAX_
+                                                        )
 {   
     std::cout << "reset started cpp" << std::endl;
 
@@ -85,6 +89,8 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     if (rewardType_ != "invalid") rewardType = rewardType_;
     if (!observationTypes_.count("-1")) observationTypes = observationTypes_;
     if (random_agents_and_tasks_ != "no_input") random_agents_and_tasks = random_agents_and_tasks_;
+    if (message_passing_edge_limit_ != 0) message_passing_edge_limit = message_passing_edge_limit_;
+    if (distance_until_agent_avail_MAX_ != -1) distance_until_agent_avail_MAX = distance_until_agent_avail_MAX_;
 
     // create base folder as in driver.cpp
     boost::filesystem::path p(inputFile);
@@ -173,6 +179,7 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     //new functions for RL
     if (observationTypes.count("node-basics")){
         nNodes = system_ptr->loadNodes(base_folder + read_param_json<std::string>(data, "nodeFile"));
+        system_ptr->distance_until_agent_avail_MAX = distance_until_agent_avail_MAX;
     }
 
     //initializes the environment as in BaseSystem::simulate
@@ -180,7 +187,17 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
 
 
     double reward = 0.0;
-    pybind11::dict obs = system_ptr->get_observation(observationTypes);
+    pybind11::dict obs;
+    if (is_initialized){
+        system_ptr->MP_loc_to_edges = MP_loc_to_edges;
+        system_ptr->MP_edge_lengths = MP_edge_lengths;
+        system_ptr->space_per_node = space_per_node;
+        
+        obs = system_ptr->get_observation(observationTypes);
+    }
+    is_initialized = true;
+
+    
 
     std::cout << "reset done cpp" << std::endl;
     return {obs, reward, done};
@@ -208,7 +225,7 @@ std::tuple<pybind11::dict, pybind11::dict, bool, pybind11::dict> LRRenv::step(co
 
 void LRRenv::make_env_params_available(){
     reset();
-    std::tie(nAgents, nTasks, AdjacencyMatrix, NodeCostMatrix) = system_ptr->get_env_vals();
+    std::tie(nAgents, nTasks, AdjacencyMatrix, NodeCostMatrix, MP_edge_index, MP_edge_weights, node_positions, MP_loc_to_edges, MP_edge_lengths, space_per_node) = system_ptr->get_env_vals(message_passing_edge_limit);
     return;
 }
 
@@ -217,7 +234,7 @@ void LRRenv::make_env_params_available(){
 PYBIND11_MODULE(envWrapper, m) {
     pybind11::class_<LRRenv>(m, "LRRenv")
         .def(pybind11::init<
-            std::string, std::string, int, bool, int, std::string, int, int, std::string, int, std::string, std::unordered_set<std::string>, std::string>(),
+            std::string, std::string, int, bool, int, std::string, int, int, std::string, int, std::string, std::unordered_set<std::string>, std::string, int, int>(),
             pybind11::arg("inputFile"),
             pybind11::arg("outputFile") = "./outputs/pyTest.json",
             pybind11::arg("outputScreen") = 1,
@@ -230,7 +247,9 @@ PYBIND11_MODULE(envWrapper, m) {
             pybind11::arg("logDetailLevel") = 1,
             pybind11::arg("rewardType") = "task-finished",
             pybind11::arg("observationTypes") = std::unordered_set<std::string>(),
-            pybind11::arg("random_agents_and_tasks") = "true"
+            pybind11::arg("random_agents_and_tasks") = "true",
+            pybind11::arg("message_passing_edge_limit") = 0,
+            pybind11::arg("distance_until_agent_avail_MAX") = 20
         )
         .def("reset", &LRRenv::reset,
             pybind11::arg("inputFile_") = "",
@@ -245,8 +264,9 @@ PYBIND11_MODULE(envWrapper, m) {
             pybind11::arg("logDetailLevel_") = -1,
             pybind11::arg("rewardType_") = "invalid",
             pybind11::arg("observationTypes_") = std::unordered_set<std::string>{"-1"},
-            pybind11::arg("random_agents_and_tasks_") = "no_input"
-
+            pybind11::arg("random_agents_and_tasks_") = "no_input",
+            pybind11::arg("message_passing_edge_limit_") = 0,
+            pybind11::arg("distance_until_agent_avail_MAX_") = -1
         )
         .def("step", &LRRenv::step, 
             pybind11::arg("reb_action") = pybind11::dict())   
@@ -255,5 +275,8 @@ PYBIND11_MODULE(envWrapper, m) {
         .def_readwrite("nAgents", &LRRenv::nAgents)
         .def_readwrite("nTasks", &LRRenv::nTasks)
         .def_readwrite("AdjacencyMatrix", &LRRenv::AdjacencyMatrix)
-        .def_readwrite("NodeCostMatrix", &LRRenv::NodeCostMatrix);
+        .def_readwrite("NodeCostMatrix", &LRRenv::NodeCostMatrix)
+        .def_readwrite("MP_edge_index", &LRRenv::MP_edge_index)
+        .def_readwrite("MP_edge_weights", &LRRenv::MP_edge_weights)
+        .def_readwrite("node_positions", &LRRenv::node_positions);
 }

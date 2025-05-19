@@ -47,13 +47,15 @@ class PairData(Data):
     Store 2 graphs in one Data object (s_t and s_t+1)
     """
 
-    def __init__(self, edge_index_s=None, x_s=None, reward=None, action=None, edge_index_t=None, x_t=None, next_action=None):
+    def __init__(self, edge_index_s=None, edge_attr_s=None, x_s=None, reward=None, action=None, edge_index_t=None, edge_attr_t=None, x_t=None, next_action=None):
         super().__init__()
         self.edge_index_s = edge_index_s
+        self.edge_attr_s = edge_attr_s
         self.x_s = x_s
         self.reward = reward
         self.action = action
         self.edge_index_t = edge_index_t
+        self.edge_attr_t = edge_attr_t
         self.x_t = x_t
         #self.next_action = next_action
 
@@ -76,8 +78,8 @@ class ReplayData:
         self.rewards = []
 
     def store(self, data1, action, reward, data2):
-        self.data_list.append(PairData(data1.edge_index, data1.x, torch.as_tensor(
-            reward), torch.as_tensor(action), data2.edge_index, data2.x))
+        self.data_list.append(PairData(data1.edge_index, data1.edge_attr, data1.x, torch.as_tensor(
+            reward), torch.as_tensor(action), data2.edge_index, data2.edge_attr, data2.x))
         self.rewards.append(reward)
     
     def create_dataset(self, edge_index, memory_path, rew_scale, size=60000):
@@ -182,11 +184,11 @@ class SAC(nn.Module):
             self.critic1_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
             self.critic2_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
         else:
-            self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim)
+            self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
+            self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
+            self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
+            self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
+            self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
             # self.actor = GNNActorPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
             # self.critic1 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
             # self.critic2 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
@@ -229,7 +231,7 @@ class SAC(nn.Module):
     
     def select_action(self, data, deterministic=False):
         with torch.no_grad():
-            a, _ = self.actor(data.x, data.edge_index, deterministic)
+            a, _ = self.actor(data.x, data.edge_index, data.edge_attr, deterministic)
         a = a.squeeze(0)
         a = a.detach().cpu().numpy()
         return a
@@ -239,28 +241,32 @@ class SAC(nn.Module):
         (
             state_batch,
             edge_index,
+            edge_attr,
             next_state_batch,
             edge_index2,
+            edge_attr2,
             reward_batch,
             action_batch,
         ) = (
             data.x_s,
             data.edge_index_s,
+            data.edge_attr_s,
             data.x_t,
             data.edge_index_t,
+            data.edge_attr_t,
             data.reward,
             data.action.reshape(-1, self.nodes),
         )
 
-        q1 = self.critic1(state_batch, edge_index, action_batch)
-        q2 = self.critic2(state_batch, edge_index, action_batch)
+        q1 = self.critic1(state_batch, edge_index, edge_attr, action_batch)
+        q2 = self.critic2(state_batch, edge_index, edge_attr, action_batch)
 
         self.LogQ1.append(q1.mean().item())
         with torch.no_grad():
             # Target actions come from *current* policy
-            a2, logp_a2 = self.actor(next_state_batch, edge_index2)
-            q1_pi_targ = self.critic1_target(next_state_batch, edge_index2, a2)
-            q2_pi_targ = self.critic2_target(next_state_batch, edge_index2, a2)
+            a2, logp_a2 = self.actor(next_state_batch, edge_index2, edge_attr2)
+            q1_pi_targ = self.critic1_target(next_state_batch, edge_index2, edge_attr2, a2)
+            q2_pi_targ = self.critic2_target(next_state_batch, edge_index2, edge_attr2, a2)
             q_pi_targ = torch.min(q1_pi_targ, q2_pi_targ)
 
             backup = reward_batch + self.gamma * (q_pi_targ - self.alpha * logp_a2)
@@ -329,14 +335,15 @@ class SAC(nn.Module):
         return loss_q1, loss_q2
 
     def compute_loss_pi(self, data):
-        state_batch, edge_index = (
+        state_batch, edge_index, edge_attr = (
             data.x_s,
             data.edge_index_s,
+            data.edge_attr_s
         )
 
-        actions, logp_a = self.actor(state_batch, edge_index)
-        q1_1 = self.critic1(state_batch, edge_index, actions)
-        q2_a = self.critic2(state_batch, edge_index, actions)
+        actions, logp_a = self.actor(state_batch, edge_index, edge_attr)
+        q1_1 = self.critic1(state_batch, edge_index, edge_attr, actions)
+        q2_a = self.critic2(state_batch, edge_index, edge_attr, actions)
         q_a = torch.min(q1_1, q2_a)
 
         if self.use_automatic_entropy_tuning:
@@ -726,7 +733,7 @@ class SAC(nn.Module):
             myTimer.printAvgTimes(i_episode+1)
             if self.wandb is not None:
                 self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)}, step=i_episode)
-                self.wandb_policy_logger(i_episode)
+                # self.wandb_policy_logger(i_episode)
             if self.tensorboard is not None:
                 self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
                 self.tensorboard.add_scalar("Num Tasks finished", episode_num_tasks_finished, i_episode)
@@ -770,6 +777,8 @@ class SAC(nn.Module):
             self.load_checkpoint(path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}_best_{self.last_best_checkpoint}.pth"))
             
             num_tasks_finished_sum = 0
+            task_search_durations = []
+            task_distances = []
             for test_i in range(num_tests):
                 obs, _, _ = self.env.reset()
                 obs_parsed = self.parser.parse_obs(obs).to(self.device)
@@ -788,25 +797,31 @@ class SAC(nn.Module):
                     action_dict = {"reb_action": reb_action}
                     
                     # step
-                    new_obs, reward_dict, done, _ = self.env.step(action_dict)
+                    new_obs, reward_dict, done, info = self.env.step(action_dict)
 
                     obs = new_obs
                     obs_parsed = self.parser.parse_obs(obs).to(self.device)
                     
                     # save infos
                     num_tasks_finished_sum += reward_dict["task-finished"]
+                    task_search_durations.extend(info["task-search-durations"])
+                    task_distances.extend(info["task-distances"])
             
             #load most recent checkpoint
             self.load_checkpoint(path=os.path.join(self.train_dir, f"ckpt/{cfg.model.checkpoint_path}.pth"))
 
             if self.wandb is not None:
                 self.wandb.log({"Test best checkpoint (num_tasks_finished)": num_tasks_finished_sum / num_tests}, step=i_episode)
+                self.tensorboard.add_scalar("Test best checkpoint (Task search duration)", np.mean(task_search_durations), step=i_episode)
+                self.tensorboard.add_scalar("Test best checkpoint (Task distance)", np.mean(task_distances), step=i_episode)
 
 
     def test_during_training(self, i_episode):
         obs, rew, _ = self.env.reset()
         obs_parsed = self.parser.parse_obs(obs).to(self.device)
         episode_num_tasks_finished = 0
+        task_search_durations = []
+        task_distances = []
         done = False
         while not done:
             action_rl = self.select_action(obs_parsed, deterministic=True)
@@ -822,15 +837,19 @@ class SAC(nn.Module):
             action_dict = {"reb_action": reb_action}
             
             # step
-            new_obs, reward_dict, done, _ = self.env.step(action_dict)
+            new_obs, reward_dict, done, info = self.env.step(action_dict)
 
             obs = new_obs
             obs_parsed = self.parser.parse_obs(obs).to(self.device)
             
             # save infos
             episode_num_tasks_finished += reward_dict["task-finished"]
+            task_search_durations.extend(info["task-search-durations"])
+            task_distances.extend(info["task-distances"])
         if self.wandb is not None:
             self.wandb.log({"Test during training (num_tasks_finished)": episode_num_tasks_finished}, step=i_episode)
+            self.tensorboard.add_scalar("Test during training (Task search duration)", np.mean(task_search_durations), i_episode)
+            self.tensorboard.add_scalar("Test during training (Task distance)", np.mean(task_distances), i_episode)
 
             
 
