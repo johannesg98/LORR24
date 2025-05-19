@@ -812,9 +812,6 @@ class SAC(nn.Module):
 
             if self.wandb is not None:
                 self.wandb.log({"Test best checkpoint (num_tasks_finished)": num_tasks_finished_sum / num_tests}, step=i_episode)
-                self.tensorboard.add_scalar("Test best checkpoint (Task search duration)", np.mean(task_search_durations), step=i_episode)
-                self.tensorboard.add_scalar("Test best checkpoint (Task distance)", np.mean(task_distances), step=i_episode)
-
 
     def test_during_training(self, i_episode):
         obs, rew, _ = self.env.reset()
@@ -848,8 +845,6 @@ class SAC(nn.Module):
             task_distances.extend(info["task-distances"])
         if self.wandb is not None:
             self.wandb.log({"Test during training (num_tasks_finished)": episode_num_tasks_finished}, step=i_episode)
-            self.tensorboard.add_scalar("Test during training (Task search duration)", np.mean(task_search_durations), i_episode)
-            self.tensorboard.add_scalar("Test during training (Task distance)", np.mean(task_distances), i_episode)
 
             
 
