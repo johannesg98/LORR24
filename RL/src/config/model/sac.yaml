@@ -32,7 +32,7 @@ checkpoint_path: "GPU_New_Obs_Backtrack20"  # Path where to save model checkpoin
 
 train: True # Switches updating the weights on and off
 
-start_training_at_episode: 1
+start_training_at_episode: 10
 
 skip_actor: false # Use skip_actor-ILP instead of the actor
 
@@ -44,7 +44,7 @@ load_external_actor: false  # Load externally trainged actor e.g. from imitation
 
 external_actor_path: "../nn_optimization/actors/actor_20percent_Transformer.pth"  # Path to externally trained actor
 
-deterministic_actor: True  # Use deterministic actor
+deterministic_actor: false  # Use deterministic actor
 
 use_LSTM: false  # Use LSTM in the model
 
