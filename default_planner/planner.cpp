@@ -140,8 +140,11 @@ namespace DefaultPlanner{
 
             // set the goal location of each agent
             if (env->goal_locations[i].empty()){
-                trajLNS.tasks[i] = dummy_goals.at(i);
-                // trajLNS.tasks[i] = env->curr_states[i].location;
+                if (env->use_dummy_goals_for_idle_agents){
+                    trajLNS.tasks[i] = dummy_goals.at(i);
+                }else{
+                    trajLNS.tasks[i] = env->curr_states[i].location;
+                }
                 p[i] = p_copy[i];
             }
             else{

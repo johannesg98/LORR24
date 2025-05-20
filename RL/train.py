@@ -59,7 +59,8 @@ def main(cfg: DictConfig):
         observationTypes={"node-basics"},
         random_agents_and_tasks="false",
         message_passing_edge_limit=cfg.model.message_passing_edge_limit,
-        distance_until_agent_avail_MAX=cfg.model.distance_until_agent_avail_MAX
+        distance_until_agent_avail_MAX=cfg.model.distance_until_agent_avail_MAX,
+        use_dummy_goals_for_idle_agents=cfg.model.use_dummy_goals_for_idle_agents
     )
     env.make_env_params_available()
     

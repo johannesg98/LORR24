@@ -4,8 +4,6 @@ from torch import nn
 import torch.nn.functional as F
 from torch_geometric.data import Data, Batch
 from src.algos.reb_flow_solver import solveRebFlow
-from src.nets.actor import GNNActorLSTM
-from src.nets.critic import GNNCriticLSTM
 import random
 from tqdm import trange
 import os
@@ -16,8 +14,7 @@ import wandb
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from src.nets.Transformer_actor_critic import GNNActor, GNNCritic
-from src.nets.penta_actor_critic import GNNActorPenta, GNNCriticPenta
+
 
 from src.helperfunctions.skip_actor import skip_actor
 from src.helperfunctions.assign_discrete_actions import assign_discrete_actions
@@ -127,11 +124,11 @@ class Scalar(nn.Module):
         return self.constant
 
 #########################################
-############## A2C AGENT ################
+############## SAC AGENT ################
 #########################################
 class SAC(nn.Module):
     """
-    Advantage Actor Critic algorithm for the AMoD control problem.
+    Advantage Actor Critic algorithm for the LRR control problem.
     """
 
     def __init__(
@@ -162,7 +159,6 @@ class SAC(nn.Module):
         self.gamma = 0.99 #0.99
         self.use_automatic_entropy_tuning = cfg.auto_entropy
         self.clip = cfg.clip
-        self.use_LSTM = cfg.use_LSTM
         self.parser = parser
 
         self.cplexpath = cfg.cplexpath
@@ -177,25 +173,26 @@ class SAC(nn.Module):
         self.last_best_checkpoint = None
 
         self.replay_buffer = ReplayData(device=device)
-        # nnets
+        
+
+        if cfg.net == "GCNConv":
+            from src.nets.GCNConv import GNNActor, GNNCritic
+        elif cfg.net == "GCNConvPenta":
+            from src.nets.GCNConvPenta import GNNActor, GNNCritic
+        elif cfg.net == "NNConv":
+            from src.nets.NNConv import GNNActor, GNNCritic
+        elif cfg.net == "GATConv":
+            from src.nets.GATConv import GNNActor, GNNCritic
+        elif cfg.net == "TransformerConv":
+            from src.nets.TransformerConv import GNNActor, GNNCritic
+        elif cfg.net == "TransformerConvDouble":
+            from src.nets.TransformerConvDouble import GNNActor, GNNCritic
   
-        if self.use_LSTM:
-            self.actor = GNNActorLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic1 = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic2 = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic1_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            self.critic2_target = GNNCriticLSTM(self.input_size, self.hidden_size, act_dim=self.act_dim)
-        else:
-            self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
-            self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
-            self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
-            self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
-            self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
-            # self.actor = GNNActorPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            # self.critic1 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            # self.critic2 = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            # self.critic1_target = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
-            # self.critic2_target = GNNCriticPenta(self.input_size, self.hidden_size, act_dim=self.act_dim)
+        self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
+        self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
+        self.critic2 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
+        self.critic1_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
+        self.critic2_target = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
 
         assert self.critic1.parameters() != self.critic2.parameters()
 

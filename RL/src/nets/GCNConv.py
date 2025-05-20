@@ -1,0 +1,66 @@
+from torch import nn
+import torch.nn.functional as F
+from torch.distributions import Dirichlet
+from torch_geometric.nn import GCNConv
+import torch
+
+class GNNActor(nn.Module):
+    """
+    Actor \pi(a_t | s_t) parametrizing the concentration parameters of a Dirichlet Policy.
+    """
+
+    def __init__(self, in_channels, hidden_size=32, act_dim=6, edge_feature_dim=None):
+        super().__init__()
+        self.in_channels = in_channels
+        self.act_dim = act_dim
+        self.conv1 = GCNConv(in_channels, in_channels)
+        self.lin1 = nn.Linear(in_channels, hidden_size)
+        self.lin2 = nn.Linear(hidden_size, hidden_size)
+        self.lin3 = nn.Linear(hidden_size, 1)
+
+    def forward(self, state, edge_index, edge_attr, deterministic=False, return_dist=False):
+        
+        out = F.relu(self.conv1(state, edge_index))
+        x = out + state
+        x = x.reshape(-1, self.act_dim, self.in_channels)
+        x = F.leaky_relu(self.lin1(x))
+        x = F.leaky_relu(self.lin2(x))
+        x = F.softplus(self.lin3(x))
+        concentration = x.squeeze(-1)
+        if return_dist:
+            return Dirichlet(concentration + 1e-20)
+        if deterministic:
+            action = (concentration) / (concentration.sum() + 1e-20)
+            log_prob = None
+        else:
+            m = Dirichlet(concentration + 1e-20)
+            action = m.rsample()
+            log_prob = m.log_prob(action)
+        return action, log_prob
+    
+
+class GNNCritic(nn.Module):
+    """
+    Architecture 4: GNN, Concatenation, FC, Readout
+    """
+
+    def __init__(self, in_channels, hidden_size=32, act_dim=6, edge_feature_dim=None):
+        super().__init__()
+        self.act_dim = act_dim
+        self.conv1 = GCNConv(in_channels, in_channels)
+        self.lin1 = nn.Linear(in_channels + 1, hidden_size)
+        self.lin2 = nn.Linear(hidden_size, hidden_size)
+        self.lin3 = nn.Linear(hidden_size, 1)
+        self.in_channels = in_channels
+
+    def forward(self, state, edge_index, edge_attr, action):
+        
+        out = F.relu(self.conv1(state, edge_index))
+        x = out + state
+        x = x.reshape(-1, self.act_dim, self.in_channels)  # (B,N,21)
+        concat = torch.cat([x, action.unsqueeze(-1)], dim=-1)  # (B,N,22)
+        x = F.relu(self.lin1(concat))
+        x = F.relu(self.lin2(x))  # (B, N, H)
+        x = torch.sum(x, dim=1)  # (B, H)
+        x = self.lin3(x).squeeze(-1)  # (B)
+        return x

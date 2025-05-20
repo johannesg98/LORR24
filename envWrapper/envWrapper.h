@@ -36,6 +36,7 @@ private:
     bool is_initialized = false;
     std::vector<std::vector<std::pair<int,edgeFeatures::Direction>>> MP_loc_to_edges;     // num_map_tiles x num_of_edges_that_pass_through_it x (edge_id, direction)
     std::vector<int> MP_edge_lengths;
+    bool use_dummy_goals_for_idle_agents;
 
     // Command-line arguments stored as class variables
     std::string inputFile;
@@ -69,7 +70,8 @@ public:
         std::unordered_set<std::string> observationTypes = {},
         std::string random_agents_and_tasks = "true",
         int message_passing_edge_limit = 0,
-        int distance_until_agent_avail_MAX = 20
+        int distance_until_agent_avail_MAX = 20,
+        int use_dummy_goals_for_idle_agents = true
     );
 
     // Function declarations
@@ -88,7 +90,8 @@ public:
         std::unordered_set<std::string> observationTypes_ = {"-1"},
         std::string random_agents_and_tasks_ = "no_input",
         int message_passing_edge_limit_ = 0,
-        int distance_until_agent_avail_MAX_ = -1
+        int distance_until_agent_avail_MAX_ = -1,
+        int use_dummy_goals_for_idle_agents_ = -1
     );
     std::tuple<pybind11::dict, pybind11::dict, bool, pybind11::dict> step(const std::unordered_map<std::string, pybind11::object>& action_dict = {});
     void make_env_params_available();

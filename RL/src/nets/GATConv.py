@@ -1,0 +1,88 @@
+from torch import nn
+import torch
+import torch.nn.functional as F
+from torch.distributions import Dirichlet
+from torch_geometric.nn import GATConv
+from torch_geometric.data import Data, Batch
+import numpy as np
+import os
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+class GNNActor(nn.Module):
+    def __init__(self, in_channels, hidden_size=32, act_dim=6, edge_limit=0.5, out_channel_fac=2, edge_feature_dim=6):
+        super().__init__()
+        self.in_channels = in_channels
+        self.out_channels = out_channel_fac * in_channels
+        self.act_dim = act_dim
+        self.conv1 = GATConv(in_channels, self.out_channels, edge_dim=edge_feature_dim)
+        self.lin1 = nn.Linear(in_channels+self.out_channels, hidden_size)
+        self.lin2 = nn.Linear(hidden_size, hidden_size)
+        self.lin3 = nn.Linear(hidden_size, 1)
+        self.lin1_norm = nn.LayerNorm(hidden_size)
+        self.lin2_norm = nn.LayerNorm(hidden_size)
+        
+
+    def forward(self, state, edge_index, edge_attr, deterministic=False, return_dist=False, return_raw=False):
+        
+        out1 = F.relu(self.conv1(state, edge_index, edge_attr=edge_attr))
+
+        state = state.reshape(-1, self.act_dim, self.in_channels)
+        out1 = out1.reshape(-1, self.act_dim, self.out_channels)
+        
+        x = torch.cat((out1, state), dim=-1)
+        
+        x = F.leaky_relu(self.lin1_norm(self.lin1(x)))
+        x = F.leaky_relu(self.lin2_norm(self.lin2(x)))
+        x = F.softplus(self.lin3(x))
+        concentration = x.squeeze(-1)
+        if return_dist:
+            return Dirichlet(concentration + 1e-20)
+        if return_raw:
+            action = concentration
+            log_prob = None
+        elif deterministic:
+            action = concentration / (concentration.sum(dim=-1, keepdim=True) + 1e-20)  # Normalize
+            log_prob = None
+        else:
+            m = Dirichlet(concentration + 1e-20)
+            action = m.rsample()
+            log_prob = m.log_prob(action)
+        return action, log_prob
+    
+
+
+
+class GNNCritic(nn.Module):
+    """
+    Architecture 4: GNN, Concatenation, FC, Readout
+    """
+
+    def __init__(self, in_channels, hidden_size=32, act_dim=6, edge_limit=0.5, out_channel_fac=2, edge_feature_dim=6):
+        super().__init__()
+        self.in_channels = in_channels
+        self.out_channels = out_channel_fac * in_channels
+        self.act_dim = act_dim
+        self.conv1 = GATConv(in_channels, self.out_channels, edge_dim=edge_feature_dim)
+        self.lin1 = nn.Linear(in_channels+self.out_channels+1, hidden_size)
+        self.lin2 = nn.Linear(hidden_size, hidden_size)
+        self.lin3 = nn.Linear(hidden_size, 1)
+        self.lin1_norm = nn.LayerNorm(hidden_size)
+        self.lin2_norm = nn.LayerNorm(hidden_size)
+        
+    def forward(self, state, edge_index, edge_attr, action):
+        
+        out1 = F.relu(self.conv1(state, edge_index, edge_attr=edge_attr))
+
+        state = state.reshape(-1, self.act_dim, self.in_channels)
+        out1 = out1.reshape(-1, self.act_dim, self.out_channels)
+
+        concat = torch.cat((out1, state, action.unsqueeze(-1)), dim=-1) # (B, N, C)
+
+        x = F.relu(self.lin1_norm(self.lin1(concat)))
+        x = F.relu(self.lin2(x))  # (B, N, H)
+        x = torch.sum(x, dim=1)  # (B, H)
+        x = self.lin3(x).squeeze(-1)  # (B)
+        return x
+    
