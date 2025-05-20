@@ -9,12 +9,12 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/random.domain/random_32_32_20_100.json",
+    inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",
     outputFile="./outputs/pyTest.json",
     simulationTime=150,
     planTimeLimit=150,
     preprocessTimeLimit=30000,
-    # observationTypes={"node-basics"},
+    observationTypes={"node-basics"},
     random_agents_and_tasks="true"
 )
 env.make_env_params_available()

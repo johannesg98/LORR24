@@ -25,7 +25,7 @@ void TaskScheduler::initialize(int preprocess_time_limit)
     //-SCHEDULER_TIMELIMIT_TOLERANCE for timing error tolerance
     int limit = preprocess_time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
     
-    schedulerILP::schedule_initialize(limit, env);
+    DefaultPlanner::schedule_initialize(limit, env);
     schedulerRL::schedule_initialize(limit, env);
 
     task_search_start_times.resize(env->num_of_agents, 0);
@@ -50,7 +50,7 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     std::vector<int> proposed_schedule_old = proposed_schedule;
 
     if(action_dict.empty()){
-        schedulerILP::schedule_plan(limit, proposed_schedule, env);
+        DefaultPlanner::schedule_plan(limit, proposed_schedule, env);
     }
     else{
         schedulerRL::schedule_plan(limit, proposed_schedule, env, action_dict);
