@@ -135,17 +135,27 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
             continue;
         double rew_sum = 0;
         for (int time : timesVec){
-            // double rew = 1/time;
+            double rew;
+            if (backtrack_reward_type == "DividedTime"){
+                if (time == 0)
+                    rew = 1;
+                else
+                    rew = 1/time;
+            }
+            else if (backtrack_reward_type == "MaxDist-Time"){
+                rew = max_dist - time;
+            }
+            else if (backtrack_reward_type == "SquaredNormalized"){
+                rew = max_dist - time;
+                rew = rew / max_dist;
+                // rew = (rew - 0.5) * 2;
+                float sign = 0;
+                if (rew != 0){
+                    sign = rew / abs(rew);
+                }
+                rew = sign * rew*rew*rew*rew;
+            }
             
-            double rew = max_dist - time;
-
-            // rew = rew / max_dist;
-            // // rew = (rew - 0.5) * 2;
-            // float sign = 0;
-            // if (rew != 0){
-            //     sign = rew / abs(rew);
-            // }
-            // rew = sign * rew*rew*rew*rew;
             rew_sum += rew;
         }
         env->backtrack_rewards_first_errand[starttime] = rew_sum;

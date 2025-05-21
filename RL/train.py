@@ -60,7 +60,8 @@ def main(cfg: DictConfig):
         random_agents_and_tasks="false",
         message_passing_edge_limit=cfg.model.message_passing_edge_limit,
         distance_until_agent_avail_MAX=cfg.model.distance_until_agent_avail_MAX,
-        use_dummy_goals_for_idle_agents=cfg.model.use_dummy_goals_for_idle_agents
+        use_dummy_goals_for_idle_agents=cfg.model.use_dummy_goals_for_idle_agents,
+        backtrack_reward_type = cfg.model.backtrack_reward_type
     )
     env.make_env_params_available()
     

@@ -11,6 +11,7 @@ class TaskScheduler
     public:
         SharedEnvironment* env;
         std::vector<int> task_search_start_times;
+        std::string backtrack_reward_type = "MaxDist-Time";
 
         TaskScheduler(SharedEnvironment* env): env(env){};
         TaskScheduler(){env = new SharedEnvironment();};
