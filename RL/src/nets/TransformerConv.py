@@ -76,6 +76,8 @@ class GNNCritic(nn.Module):
         state = state.reshape(-1, self.act_dim, self.in_channels)
         out1 = out1.reshape(-1, self.act_dim, self.out_channels)
 
+        print("out1.shape", out1.shape, "state.shape", state.shape, "action.shape", action.shape)
+
         concat = torch.cat((out1, state, action.unsqueeze(-1)), dim=-1) # (B, N, C)
 
         x = F.relu(self.lin1_norm(self.lin1(concat)))
