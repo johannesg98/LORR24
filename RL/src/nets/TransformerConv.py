@@ -23,7 +23,7 @@ class GNNActor(nn.Module):
 
 
     def forward(self, state, edge_index, edge_attr, deterministic=False, return_dist=False, return_raw=False):
-        
+        print("state device", state.device)
         out1 = F.relu(self.conv1(state, edge_index, edge_attr=edge_attr))
 
         state = state.reshape(-1, self.act_dim, self.in_channels)
