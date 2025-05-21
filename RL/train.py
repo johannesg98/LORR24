@@ -57,7 +57,7 @@ def main(cfg: DictConfig):
         planTimeLimit=70,
         preprocessTimeLimit=30000,
         observationTypes={"node-basics"},
-        random_agents_and_tasks="false",
+        random_agents_and_tasks="true",
         message_passing_edge_limit=cfg.model.message_passing_edge_limit,
         distance_until_agent_avail_MAX=cfg.model.distance_until_agent_avail_MAX,
         use_dummy_goals_for_idle_agents=cfg.model.use_dummy_goals_for_idle_agents,
