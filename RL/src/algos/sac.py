@@ -715,6 +715,11 @@ class SAC(nn.Module):
                             bcktr_buffer[starttime]["rew"] += cfg.model.rew_w_backtrack * bcktr_reward
                             bcktr_buffer[starttime]["bcktr_rew_added"] = True
                 myTimer.rest += myTimer.addTime()
+
+                print("New Obs device: ", new_obs_parsed.device)
+                print("Obs device: ", obs_parsed.device)
+                print("Action device: ", action_rl.device)
+                print("Reward device: ", rew.device)
                 
                 # learn
                 if cfg.model.train and i_episode > cfg.model.start_training_at_episode:
