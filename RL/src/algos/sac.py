@@ -658,12 +658,13 @@ class SAC(nn.Module):
             while not done:
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
+                print("Before select. Obs x device: ", obs_parsed.x.device)
                 if cfg.model.skip_actor:
                     action_rl = skip_actor(self.env, obs)
                 else:
                     action_rl = self.select_action(obs_parsed.to(self.device), cfg.model.deterministic_actor)
                 myTimer.selectAction += myTimer.addTime()
-
+                print("After select. Obs x device: ", obs_parsed.x.device)
             
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
