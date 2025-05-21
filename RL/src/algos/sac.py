@@ -204,6 +204,9 @@ class SAC(nn.Module):
             from src.nets.TransformerConv import GNNActor, GNNCritic
         elif cfg.net == "TransformerConvDouble":
             from src.nets.TransformerConvDouble import GNNActor, GNNCritic
+        elif cfg.net == "TransformerConvDoubleTest":
+            from src.nets.TransformerConvDoubleTest import GNNActor
+            from src.nets.TransformerConv import GNNCritic
   
         self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
         self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
