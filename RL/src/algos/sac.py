@@ -71,15 +71,37 @@ class ReplayData:
     Replay buffer for SAC agents
     """
 
-    def __init__(self, device):
+    def __init__(self, device, capacity=100000):
         self.device = device
+        self.capacity = capacity
         self.data_list = []
         self.rewards = []
+        self.position = 0
 
     def store(self, data1, action, reward, data2):
-        self.data_list.append(PairData(data1.edge_index, data1.edge_attr, data1.x, torch.as_tensor(
-            reward), torch.as_tensor(action), data2.edge_index, data2.edge_attr, data2.x))
-        self.rewards.append(reward)
+        # Create PairData with tensors on CPU to save GPU memory
+        pair_data = PairData(
+            data1.edge_index.cpu(), 
+            data1.edge_attr.cpu() if data1.edge_attr is not None else None, 
+            data1.x.cpu(),
+            torch.as_tensor(reward, device='cpu'), 
+            torch.as_tensor(action, device='cpu'), 
+            data2.edge_index.cpu(), 
+            data2.edge_attr.cpu() if data2.edge_attr is not None else None, 
+            data2.x.cpu()
+        )
+        
+        # If buffer is not full, append the data
+        if len(self.data_list) < self.capacity:
+            self.data_list.append(pair_data)
+            self.rewards.append(reward)
+        # Otherwise, replace old data with new one
+        else:
+            self.data_list[self.position] = pair_data
+            self.rewards[self.position] = reward
+            
+        # Update position for next insertion
+        self.position = (self.position + 1) % self.capacity
     
     def create_dataset(self, edge_index, memory_path, rew_scale, size=60000):
         w = open(f"data/{memory_path}.pkl", "rb")
@@ -93,26 +115,33 @@ class ReplayData:
             #data["next_action"]
         )
 
-        for i in range(len(state_batch)):
+        # Convert edge_index to CPU if it's on GPU
+        edge_index_cpu = edge_index.cpu() if isinstance(edge_index, torch.Tensor) else edge_index
+
+        # Only load up to capacity
+        load_size = min(len(state_batch), self.capacity)
+        for i in range(load_size):
             self.data_list.append(
                 PairData(
-                    edge_index,
+                    edge_index_cpu,
                     state_batch[i],
                     reward_batch[i],
                     action_batch[i],
-                    edge_index,
+                    edge_index_cpu,
                     next_state_batch[i],
                     #next_action_batch[i]
                 )
             )
+            self.position = (self.position + 1) % self.capacity
 
     def size(self):
         return len(self.data_list)
 
     def sample_batch(self, batch_size=32):
-        data = random.sample(self.data_list, batch_size)
- 
-        return Batch.from_data_list(data, follow_batch=['x_s', 'x_t']).to(self.device)
+        data = random.sample(self.data_list, min(batch_size, len(self.data_list)))
+        # Only move data to GPU when needed for the batch
+        batch = Batch.from_data_list(data, follow_batch=['x_s', 'x_t']).to(self.device)
+        return batch
 
 class Scalar(nn.Module):
     def __init__(self, init_value):
@@ -168,11 +197,12 @@ class SAC(nn.Module):
         self.step = 0
         self.nodes = env.nNodes
 
-        self.tensorboard = None
-        self.wandb = None
+        self.tensorboard = None        self.wandb = None
         self.last_best_checkpoint = None
 
-        self.replay_buffer = ReplayData(device=device)
+        # Set replay buffer capacity based on config or use default
+        buffer_capacity = cfg.replay_buffer_capacity if hasattr(cfg, 'replay_buffer_capacity') else 100000
+        self.replay_buffer = ReplayData(device=device, capacity=buffer_capacity)
         
 
         if cfg.net == "GCNConv":
