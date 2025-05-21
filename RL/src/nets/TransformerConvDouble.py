@@ -50,6 +50,9 @@ class GNNActor(nn.Module):
 
         out = F.relu(self.conv3_norm(self.conv3(x, edge_index, edge_attr=edge_attr)))
 
+        out = out.reshape(-1, self.act_dim, self.conv2_out_channels)
+        x = x.reshape(-1, self.act_dim, self.conv2_in_channels)
+
         x = torch.cat((out, x), dim=-1)
         x = F.softplus(self.lin5(x))
 
