@@ -1,0 +1,38 @@
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Currently logged in as: johannes-gaber (johannesg98) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250521_012444-d8tvgx7z
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble
+wandb: ⭐️ View project at https://wandb.ai/johannesg98/warehouse_8x6_ag200
+wandb: 🚀 View run at https://wandb.ai/johannesg98/warehouse_8x6_ag200/runs/d8tvgx7z
+  0%|          | 0/10000 [00:00<?, ?it/s]Episode 1 | Reward: 357260.00 | NumTasksFinishe: 240.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 0/10000 [00:53<?, ?it/s]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+Episode 1 | Reward: 357260.00 | NumTasksFinishe: 240.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 1/10000 [00:53<148:21:09, 53.41s/it]Episode 2 | Reward: 327020.00 | NumTasksFinishe: 216.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 1/10000 [01:44<148:21:09, 53.41s/it]Episode 2 | Reward: 327020.00 | NumTasksFinishe: 216.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 2/10000 [01:44<144:01:01, 51.86s/it]Episode 3 | Reward: 397060.00 | NumTasksFinishe: 255.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 2/10000 [02:38<144:01:01, 51.86s/it]Episode 3 | Reward: 397060.00 | NumTasksFinishe: 255.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 3/10000 [02:38<146:44:45, 52.84s/it]Episode 4 | Reward: 341400.00 | NumTasksFinishe: 234.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 3/10000 [03:29<146:44:45, 52.84s/it]Episode 4 | Reward: 341400.00 | NumTasksFinishe: 234.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 4/10000 [03:30<145:36:43, 52.44s/it]Episode 5 | Reward: 339420.00 | NumTasksFinishe: 224.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 4/10000 [04:24<145:36:43, 52.44s/it]Episode 5 | Reward: 339420.00 | NumTasksFinishe: 224.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 5/10000 [04:24<147:54:49, 53.28s/it]Episode 6 | Reward: 336040.00 | NumTasksFinishe: 227.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 5/10000 [05:17<147:54:49, 53.28s/it]Episode 6 | Reward: 336040.00 | NumTasksFinishe: 227.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 6/10000 [06:14<200:47:23, 72.33s/it]Episode 7 | Reward: 338820.00 | NumTasksFinishe: 237.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 6/10000 [07:07<200:47:23, 72.33s/it]Episode 7 | Reward: 338820.00 | NumTasksFinishe: 237.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 7/10000 [07:07<183:53:46, 66.25s/it]Episode 8 | Reward: 342040.00 | NumTasksFinishe: 226.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 7/10000 [07:58<183:53:46, 66.25s/it]Episode 8 | Reward: 342040.00 | NumTasksFinishe: 226.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 8/10000 [07:59<170:49:43, 61.55s/it]Episode 9 | Reward: 349360.00 | NumTasksFinishe: 224.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 8/10000 [08:50<170:49:43, 61.55s/it]Episode 9 | Reward: 349360.00 | NumTasksFinishe: 224.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 9/10000 [08:50<161:44:32, 58.28s/it]Episode 10 | Reward: 320100.00 | NumTasksFinishe: 220.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 9/10000 [09:43<161:44:32, 58.28s/it]Episode 10 | Reward: 320100.00 | NumTasksFinishe: 220.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 10/10000 [09:43<157:22:25, 56.71s/it]Episode 11 | Reward: 327220.00 | NumTasksFinishe: 226.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 10/10000 [10:39<157:22:25, 56.71s/it]Episode 11 | Reward: 327220.00 | NumTasksFinishe: 226.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 11/10000 [10:39<156:28:14, 56.39s/it]Episode 11 | Reward: 327220.00 | NumTasksFinishe: 226.0 | Checkpoint: GPU_TransformerConvDouble_backtrack20_noDummy_markov_HalfDouble:   0%|          | 11/10000 [10:46<163:04:13, 58.77s/it]
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/train.py", line 93, in main
+    model.learn(cfg) #online RL
+    ^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/src/algos/sac.py", line 734, in learn
+    self.update(data=batch)
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/src/algos/sac.py", line 384, in update
+    loss_q1, loss_q2 = self.compute_loss_q(data, conservative)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/src/algos/sac.py", line 290, in compute_loss_q
+    q1_pi_targ = self.critic1_target(next_state_batch, edge_index2, edge_attr2, a2)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/src/nets/TransformerConv.py", line 79, in forward
+    concat = torch.cat((out1, state, action.unsqueeze(-1)), dim=-1) # (B, N, C)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Tensors must have same number of dimensions: got 3 and 2
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
