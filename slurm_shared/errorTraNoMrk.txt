@@ -1,0 +1,36 @@
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Currently logged in as: johannes-gaber (johannesg98) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /mnt/home/jgaber/LORR24_johannesg98/wandb/run-20250520_224849-cxtqffm8
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run GPU_TransformerConv_backtrack20_NoDummy
+wandb: ⭐️ View project at https://wandb.ai/johannesg98/warehouse_8x6_ag200
+wandb: 🚀 View run at https://wandb.ai/johannesg98/warehouse_8x6_ag200/runs/cxtqffm8
+  0%|          | 0/10000 [00:00<?, ?it/s]Episode 1 | Reward: 354660.00 | NumTasksFinishe: 234.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 0/10000 [00:14<?, ?it/s]/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+Episode 1 | Reward: 354660.00 | NumTasksFinishe: 234.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 1/10000 [00:14<39:21:41, 14.17s/it]Episode 2 | Reward: 335240.00 | NumTasksFinishe: 235.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 1/10000 [00:27<39:21:41, 14.17s/it]Episode 2 | Reward: 335240.00 | NumTasksFinishe: 235.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 2/10000 [00:27<38:29:19, 13.86s/it]Episode 3 | Reward: 351020.00 | NumTasksFinishe: 227.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 2/10000 [00:42<38:29:19, 13.86s/it]Episode 3 | Reward: 351020.00 | NumTasksFinishe: 227.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 3/10000 [00:42<39:16:00, 14.14s/it]Episode 4 | Reward: 331920.00 | NumTasksFinishe: 244.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 3/10000 [00:56<39:16:00, 14.14s/it]Episode 4 | Reward: 331920.00 | NumTasksFinishe: 244.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 4/10000 [00:56<39:10:56, 14.11s/it]Episode 5 | Reward: 356620.00 | NumTasksFinishe: 250.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 4/10000 [01:10<39:10:56, 14.11s/it]Episode 5 | Reward: 356620.00 | NumTasksFinishe: 250.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 5/10000 [01:10<39:23:00, 14.19s/it]Episode 6 | Reward: 319040.00 | NumTasksFinishe: 210.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 5/10000 [01:24<39:23:00, 14.19s/it]Episode 6 | Reward: 319040.00 | NumTasksFinishe: 210.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 6/10000 [01:42<55:48:38, 20.10s/it]Episode 7 | Reward: 347140.00 | NumTasksFinishe: 240.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 6/10000 [01:56<55:48:38, 20.10s/it]Episode 7 | Reward: 347140.00 | NumTasksFinishe: 240.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 7/10000 [01:56<50:54:12, 18.34s/it]Episode 8 | Reward: 339940.00 | NumTasksFinishe: 228.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 7/10000 [02:11<50:54:12, 18.34s/it]Episode 8 | Reward: 339940.00 | NumTasksFinishe: 228.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 8/10000 [02:11<47:26:06, 17.09s/it]Episode 9 | Reward: 343560.00 | NumTasksFinishe: 228.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 8/10000 [02:26<47:26:06, 17.09s/it]Episode 9 | Reward: 343560.00 | NumTasksFinishe: 228.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 9/10000 [02:26<45:25:51, 16.37s/it]Episode 10 | Reward: 314260.00 | NumTasksFinishe: 197.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 9/10000 [02:40<45:25:51, 16.37s/it]Episode 10 | Reward: 314260.00 | NumTasksFinishe: 197.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 10/10000 [02:40<43:21:49, 15.63s/it]Episode 11 | Reward: 360940.00 | NumTasksFinishe: 236.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 10/10000 [02:54<43:21:49, 15.63s/it]Episode 11 | Reward: 360940.00 | NumTasksFinishe: 236.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 11/10000 [02:54<42:25:14, 15.29s/it]Episode 11 | Reward: 360940.00 | NumTasksFinishe: 236.0 | Checkpoint: GPU_TransformerConv_backtrack20_NoDummy:   0%|          | 11/10000 [02:57<44:42:29, 16.11s/it]
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/train.py", line 93, in main
+    model.learn(cfg) #online RL
+    ^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/src/algos/sac.py", line 722, in learn
+    batch = self.replay_buffer.sample_batch(cfg.model.batch_size)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/src/algos/sac.py", line 131, in sample_batch
+    batch = Batch.from_data_list(data, follow_batch=['x_s', 'x_t']).to(self.device)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/torch_geometric/data/batch.py", line 97, in from_data_list
+    batch, slice_dict, inc_dict = collate(
+                                  ^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/torch_geometric/data/collate.py", line 109, in collate
+    value, slices, incs = _collate(attr, values, data_list, stores,
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/jgaber/miniconda3/envs/myenv/lib/python3.12/site-packages/torch_geometric/data/collate.py", line 204, in _collate
+    value = torch.cat(values, dim=cat_dim or 0, out=out)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument tensors in method wrapper_CUDA_cat)
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
