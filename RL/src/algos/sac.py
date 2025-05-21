@@ -71,7 +71,7 @@ class ReplayData:
     Replay buffer for SAC agents
     """
 
-    def __init__(self, device, capacity=100000):
+    def __init__(self, device, capacity=10000):
         self.device = device
         self.capacity = capacity
         self.data_list = []
@@ -79,28 +79,22 @@ class ReplayData:
         self.position = 0
 
     def store(self, data1, action, reward, data2):
-        # Create PairData with tensors on CPU to save GPU memory
-        pair_data = PairData(
-            data1.edge_index.cpu(), 
-            data1.edge_attr.cpu() if data1.edge_attr is not None else None, 
-            data1.x.cpu(),
-            torch.as_tensor(reward, device='cpu'), 
-            torch.as_tensor(action, device='cpu'), 
-            data2.edge_index.cpu(), 
-            data2.edge_attr.cpu() if data2.edge_attr is not None else None, 
-            data2.x.cpu()
-        )
-        
-        # If buffer is not full, append the data
+        pair_data = PairData(data1.edge_index, 
+                             data1.edge_attr, 
+                             data1.x, 
+                             torch.as_tensor(reward), 
+                             torch.as_tensor(action), 
+                             data2.edge_index, 
+                             data2.edge_attr, 
+                             data2.x)
+
         if len(self.data_list) < self.capacity:
             self.data_list.append(pair_data)
             self.rewards.append(reward)
-        # Otherwise, replace old data with new one
         else:
             self.data_list[self.position] = pair_data
             self.rewards[self.position] = reward
             
-        # Update position for next insertion
         self.position = (self.position + 1) % self.capacity
     
     def create_dataset(self, edge_index, memory_path, rew_scale, size=60000):
@@ -115,24 +109,18 @@ class ReplayData:
             #data["next_action"]
         )
 
-        # Convert edge_index to CPU if it's on GPU
-        edge_index_cpu = edge_index.cpu() if isinstance(edge_index, torch.Tensor) else edge_index
-
-        # Only load up to capacity
-        load_size = min(len(state_batch), self.capacity)
-        for i in range(load_size):
+        for i in range(len(state_batch)):
             self.data_list.append(
                 PairData(
-                    edge_index_cpu,
+                    edge_index,
                     state_batch[i],
                     reward_batch[i],
                     action_batch[i],
-                    edge_index_cpu,
+                    edge_index,
                     next_state_batch[i],
                     #next_action_batch[i]
                 )
             )
-            self.position = (self.position + 1) % self.capacity
 
     def size(self):
         return len(self.data_list)
@@ -197,12 +185,11 @@ class SAC(nn.Module):
         self.step = 0
         self.nodes = env.nNodes
 
-        self.tensorboard = None        self.wandb = None
+        self.tensorboard = None
+        self.wandb = None
         self.last_best_checkpoint = None
 
-        # Set replay buffer capacity based on config or use default
-        buffer_capacity = cfg.replay_buffer_capacity if hasattr(cfg, 'replay_buffer_capacity') else 100000
-        self.replay_buffer = ReplayData(device=device, capacity=buffer_capacity)
+        self.replay_buffer = ReplayData(device=device, capacity=10000)
         
 
         if cfg.net == "GCNConv":
