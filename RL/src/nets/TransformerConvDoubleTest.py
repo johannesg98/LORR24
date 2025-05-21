@@ -54,6 +54,7 @@ class GNNActor(nn.Module):
 
         out = F.relu(self.conv2_norm(self.conv2(batch.x, edge_index, edge_attr=edge_attr)))
 
+        out = out.reshape(-1, self.act_dim, self.conv2_out_channels)
         x = torch.cat((out, x), dim=-1)
 
         x = F.leaky_relu(self.lin4_norm(self.lin4(x)))
@@ -65,6 +66,8 @@ class GNNActor(nn.Module):
         batch = Batch.from_data_list(data_list)
 
         out = F.relu(self.conv3_norm(self.conv3(batch.x, edge_index, edge_attr=edge_attr)))
+
+        out = out.reshape(-1, self.act_dim, self.conv2_out_channels)
 
         x = torch.cat((out, x), dim=-1)
         x = F.softplus(self.lin5(x))
