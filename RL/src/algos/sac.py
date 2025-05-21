@@ -658,14 +658,12 @@ class SAC(nn.Module):
             while not done:
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
-                print("Before select. Obs x device: ", obs_parsed.x.device)
                 if cfg.model.skip_actor:
                     action_rl = skip_actor(self.env, obs)
                 else:
                     action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
                 myTimer.selectAction += myTimer.addTime()
-                print("After select. Obs x device: ", obs_parsed.x.device)
-            
+                
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
                 desired_agent_dist = assign_discrete_actions(total_agents, action_rl)
@@ -717,10 +715,7 @@ class SAC(nn.Module):
                             bcktr_buffer[starttime]["bcktr_rew_added"] = True
                 myTimer.rest += myTimer.addTime()
 
-                print("New Obs x device: ", new_obs_parsed.x.device, " edge_index device: ", new_obs_parsed.edge_index.device, " edge_attr device: ", new_obs_parsed.edge_attr.device)
-                print("Obs x device: ", obs_parsed.x.device, " edge_index device: ", obs_parsed.edge_index.device, " edge_attr device: ", obs_parsed.edge_attr.device)
-                
-                
+
                 # learn
                 if cfg.model.train and i_episode > cfg.model.start_training_at_episode:
                     tmpStart = time.time()
