@@ -40,7 +40,7 @@ def main(cfg: DictConfig):
     for i,rew_w_backtrack in enumerate(rew_w_immitation_list):
         cfg.model.rew_w_backtrack = rew_w_backtrack
         cfg.model.net = "GCNConv"
-        cfg.mode.use_message_passing = False
+        cfg.model.use_message_passing = False
         
         cfg.model.checkpoint_path = f"CPU_GCNConv_DivideTime{rew_w_backtrack}_id{slurm_task_id}"
         if run_training(cfg):
