@@ -247,7 +247,7 @@ class SAC(nn.Module):
     
     def select_action(self, data, deterministic=False):
         with torch.no_grad():
-            a, _ = self.actor(data.x, data.edge_index, data.edge_attr, deterministic)
+            a, _ = self.actor(data.x.to(self.device), data.edge_index.to(self.device), data.edge_attr.to(self.device), deterministic)
         a = a.squeeze(0)
         a = a.detach().cpu().numpy()
         return a
@@ -662,7 +662,7 @@ class SAC(nn.Module):
                 if cfg.model.skip_actor:
                     action_rl = skip_actor(self.env, obs)
                 else:
-                    action_rl = self.select_action(obs_parsed.to(self.device), cfg.model.deterministic_actor)
+                    action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
                 myTimer.selectAction += myTimer.addTime()
                 print("After select. Obs x device: ", obs_parsed.x.device)
             
