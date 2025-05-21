@@ -1,0 +1,12 @@
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/mnt/home/jgaber/LORR24_johannesg98/RL/train_multiple_slurm.py", line 43, in main
+    cfg.mode.use_message_passing = False
+    ^^^^^^^^
+omegaconf.errors.ConfigAttributeError: Key 'mode' is not in struct
+    full_key: mode
+    object_type=dict. Did you mean: 'model'?
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+
+ERROR conda.cli.main_run:execute(125): `conda run python3 RL/train_multiple_slurm.py 15` failed. (See above for error)
