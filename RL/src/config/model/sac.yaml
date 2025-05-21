@@ -36,7 +36,7 @@ checkpoint_path: "GPU_TransformerConvDouble_backtrack20_noDummy_markov_StupidTes
 
 train: True # Switches updating the weights on and off
 
-start_training_at_episode: 1
+start_training_at_episode: 10
 
 skip_actor: false # Use skip_actor-ILP instead of the actor
 
