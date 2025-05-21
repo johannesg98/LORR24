@@ -641,7 +641,7 @@ class SAC(nn.Module):
             else:
                 obs, rew, _ = self.env.reset()
             step = 0
-            obs_parsed = self.parser.parse_obs(obs).to(self.device)
+            obs_parsed = self.parser.parse_obs(obs)
             episode_reward = 0
             episode_reward += rew
             episode_num_tasks_finished = 0
@@ -661,7 +661,7 @@ class SAC(nn.Module):
                 if cfg.model.skip_actor:
                     action_rl = skip_actor(self.env, obs)
                 else:
-                    action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
+                    action_rl = self.select_action(obs_parsed.to(self.device), cfg.model.deterministic_actor)
                 myTimer.selectAction += myTimer.addTime()
 
             
@@ -701,13 +701,13 @@ class SAC(nn.Module):
                 # backtracking
                 new_obs_parsed = self.parser.parse_obs(new_obs)
                 if not cfg.model.mask_impactless_actions or total_agents > 0:
-                    bcktr_buffer[step] = {"obs_parsed": obs_parsed.cpu(), "action_rl": action_rl, "rew": rew, "task-distances": info["task-distances"], "bcktr_rew_added": False}
+                    bcktr_buffer[step] = {"obs_parsed": obs_parsed, "action_rl": action_rl, "rew": rew, "task-distances": info["task-distances"], "bcktr_rew_added": False}
                     if not cfg.model.use_markovian_new_obs:
                         bcktr_buffer[step]["new_obs_parsed"] = new_obs_parsed
                     else:
                         last_step = list(bcktr_buffer.keys())[-1]
                         if last_step_tmp is not None:
-                            bcktr_buffer[last_step_tmp]["new_obs_parsed"] = obs_parsed.cpu()
+                            bcktr_buffer[last_step_tmp]["new_obs_parsed"] = obs_parsed
                         last_step_tmp = step
                 if cfg.model.backtrack_reward:
                     for starttime, bcktr_reward in reward_dict["backtrack-rewards-first-errand"].items():                   # backtrack-rewards-first-errand, backtrack-rewards-whole-task
@@ -731,7 +731,7 @@ class SAC(nn.Module):
 
                 # obs = new_obs
                 obs = new_obs
-                obs_parsed = new_obs_parsed.to(self.device)
+                obs_parsed = new_obs_parsed
                 
                 # save infos
                 episode_num_tasks_finished += reward_dict["task-finished"]
