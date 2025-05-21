@@ -716,8 +716,8 @@ class SAC(nn.Module):
                             bcktr_buffer[starttime]["bcktr_rew_added"] = True
                 myTimer.rest += myTimer.addTime()
 
-                print("New Obs device: ", new_obs_parsed.device)
-                print("Obs device: ", obs_parsed.device)
+                print("New Obs x device: ", new_obs_parsed.x.device, " edge_index device: ", new_obs_parsed.edge_index.device, " edge_attr device: ", new_obs_parsed.edge_attr.device)
+                print("Obs x device: ", obs_parsed.x.device, " edge_index device: ", obs_parsed.edge_index.device, " edge_attr device: ", obs_parsed.edge_attr.device)
                 print("Action device: ", action_rl.device)
                 print("Reward device: ", rew.device)
                 
