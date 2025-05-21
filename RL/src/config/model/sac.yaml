@@ -18,7 +18,7 @@ max_steps: 150  # Number of steps per episode
 
 no_cuda: false  # Disables CUDA training
 
-batch_size: 20  # Defines batch size
+batch_size: 100  # Defines batch size
 
 p_lr: 1e-3  # Define policy learning rate
 
@@ -36,7 +36,7 @@ checkpoint_path: "TestnoMarkov"  # Path where to save model checkpoints
 
 train: True # Switches updating the weights on and off
 
-start_training_at_episode: 0
+start_training_at_episode: 1
 
 skip_actor: false # Use skip_actor-ILP instead of the actor
 
