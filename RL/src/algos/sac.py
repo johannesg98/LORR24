@@ -641,7 +641,7 @@ class SAC(nn.Module):
             else:
                 obs, rew, _ = self.env.reset()
             step = 0
-            obs_parsed = self.parser.parse_obs(obs).to(self.device)
+            obs_parsed = self.parser.parse_obs(obs)#.to(self.device)
             episode_reward = 0
             episode_reward += rew
             episode_num_tasks_finished = 0
@@ -699,7 +699,7 @@ class SAC(nn.Module):
 
 
                 # backtracking
-                new_obs_parsed = self.parser.parse_obs(new_obs).to(self.device)
+                new_obs_parsed = self.parser.parse_obs(new_obs)#.to(self.device)
                 if not cfg.model.mask_impactless_actions or total_agents > 0:
                     bcktr_buffer[step] = {"obs_parsed": obs_parsed, "action_rl": action_rl, "rew": rew, "task-distances": info["task-distances"], "bcktr_rew_added": False}
                     if not cfg.model.use_markovian_new_obs:
@@ -786,7 +786,7 @@ class SAC(nn.Module):
             myTimer.outerLoop += myTimer.addTime()
 
             # test agent
-            if i_episode % 20 == 0:
+            if i_episode % 20 == 5:
                 self.test_during_training(i_episode)
             if i_episode % 100 == 0:
                 self.test_best_checkpoint(i_episode, cfg)
