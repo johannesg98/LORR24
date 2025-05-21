@@ -189,7 +189,7 @@ class SAC(nn.Module):
         self.wandb = None
         self.last_best_checkpoint = None
 
-        self.replay_buffer = ReplayData(device=device, capacity=1000)
+        self.replay_buffer = ReplayData(device=device, capacity=100000)
         
 
         if cfg.net == "GCNConv":
