@@ -76,7 +76,7 @@ normalise_obs: true # Normalise observations
 
 message_passing_edge_limit: 28 # Maximum distance of edges for message passing and edge atributes
 
-use_message_passing: false # Use message passing
+use_message_passing: true # Use message passing
 
 edge_feature_dim: 6 # Number of edge features
 
