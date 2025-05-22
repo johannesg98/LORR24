@@ -20,16 +20,19 @@ from src.helperfunctions.assign_discrete_actions import assign_discrete_actions
 
 class SimpleCfg:
     def __init__(self):
-        self.input_size = 3
+        self.input_size = 16
         self.normalise_obs = True
-        self.simulationTime = 150
+        self.max_steps = 150
+        self.distance_until_agent_avail_MAX = 20
+        self.use_message_passing = True
+        self.edge_feature_dim = 6
 cfg = SimpleCfg()
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
     inputFile=os.path.join(script_dir,"../../../example_problems/custom_warehouse.domain/warehouse_8x6.json"),
     outputFile=os.path.join(script_dir,"../../../outputs/pyTest.json"),
-    simulationTime=cfg.simulationTime,
+    simulationTime=cfg.max_steps,
     planTimeLimit=70,
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},
@@ -41,8 +44,8 @@ parser = LRRParser(env, cfg)
 
 number_of_runs = 1000
 
-obs_vec = torch.zeros((number_of_runs*cfg.simulationTime, env.nNodes, cfg.input_size))
-action_vec = torch.zeros((number_of_runs*cfg.simulationTime, env.nNodes))
+obs_vec = torch.zeros((number_of_runs*cfg.max_steps, env.nNodes, cfg.input_size))
+action_vec = torch.zeros((number_of_runs*cfg.max_steps, env.nNodes))
 next_index = 0
 
 num_tasks_finished_sum = 0
