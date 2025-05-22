@@ -4,6 +4,7 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include "schedulerNoMan.hpp"
 
 
 class TaskScheduler
@@ -18,4 +19,6 @@ class TaskScheduler
         virtual ~TaskScheduler(){delete env;};
         virtual void initialize(int preprocess_time_limit);
         virtual void plan(int time_limit, std::vector<int> & proposed_schedule, const std::unordered_map<std::string, pybind11::object>& action_dict = {});
+
+        MyScheduler schedulerNoMan;
 };

@@ -33,6 +33,23 @@ file(GLOB SOURCES "src/*.cpp" "default_planner/*.cpp" "my_scheduler/*.cpp")
 #my stuff
 include_directories("my_scheduler")
 
+# external solution - No Man's Sky
+include_directories("third_party_libraries/Solution_NoMansSky")
+include_directories("third_party_libraries/Solution_NoMansSky/Objects/Basic")
+include_directories("third_party_libraries/Solution_NoMansSky/Objects/Environment")
+include_directories("third_party_libraries/Solution_NoMansSky/Scheduler")
+
+# Include all source files from Solution_NoMansSky and its subdirectories
+file(GLOB_RECURSE SOLUTION_SOURCES 
+    "third_party_libraries/Solution_NoMansSky/*.cpp"
+    "third_party_libraries/Solution_NoMansSky/*.hpp"
+)
+
+# Exclude files containing main() functions to avoid multiple definition errors
+list(FILTER SOLUTION_SOURCES EXCLUDE REGEX ".*gg_builder\\.cpp$")
+list(FILTER SOLUTION_SOURCES EXCLUDE REGEX ".*pibt_main\\.cpp$")
+list(FILTER SOLUTION_SOURCES EXCLUDE REGEX ".*tester\\.cpp$")
+
 # ortools manual
 # include_directories("third_party_libraries/or-22/or-tools/include")
 # link_directories("third_party_libraries/or-22/or-tools/lib")
@@ -113,7 +130,7 @@ ELSE()
     #copied to IF(PYTHON) to here because always needed after for envWrapper
     find_package(pybind11 REQUIRED)
 
-    add_executable(lifelong ${SOURCES} )
+    add_executable(lifelong ${SOURCES} ${SOLUTION_SOURCES})
     target_link_libraries(lifelong ${Boost_LIBRARIES})
     
     # ortools manual

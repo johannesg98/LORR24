@@ -23,6 +23,29 @@ list(FILTER SOURCES EXCLUDE REGEX ".*driver\\.cpp$")
 include_directories("../my_scheduler")
 # include_directories("../third_party_libraries/or-22/or-tools/include")
 # link_directories("../third_party_libraries/or-22/or-tools/lib")
+
+
+
+# external solution - No Man's Sky
+include_directories("../third_party_libraries/Solution_NoMansSky")
+include_directories("../third_party_libraries/Solution_NoMansSky/Objects/Basic")
+include_directories("../third_party_libraries/Solution_NoMansSky/Scheduler")
+
+# Include all source files from Solution_NoMansSky and its subdirectories
+file(GLOB_RECURSE SOLUTION_SOURCES 
+    "../third_party_libraries/Solution_NoMansSky/*.cpp"
+    "../third_party_libraries/Solution_NoMansSky/*.hpp"
+)
+
+# Exclude files containing main() functions to avoid multiple definition errors
+list(FILTER SOLUTION_SOURCES EXCLUDE REGEX ".*gg_builder\\.cpp$")
+list(FILTER SOLUTION_SOURCES EXCLUDE REGEX ".*pibt_main\\.cpp$")
+list(FILTER SOLUTION_SOURCES EXCLUDE REGEX ".*tester\\.cpp$")
+
+list(APPEND SOURCES ${SOLUTION_SOURCES})
+
+
+
 execute_process(COMMAND lsb_release -sr
     OUTPUT_VARIABLE UBUNTU_VERSION
     OUTPUT_STRIP_TRAILING_WHITESPACE

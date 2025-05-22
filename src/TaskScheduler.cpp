@@ -8,6 +8,14 @@
 #include "scheduler.h"
 #include "const.h"
 
+#include "schedulerNoMan.hpp"
+
+
+#include <Objects/Basic/time.hpp>
+#include <Objects/Environment/environment.hpp>
+
+
+
 
 /**
  * Initializes the task scheduler with a given time limit for preprocessing.
@@ -27,6 +35,9 @@ void TaskScheduler::initialize(int preprocess_time_limit)
     
     schedulerILP::schedule_initialize(limit, env);
     schedulerRL::schedule_initialize(limit, env);
+    schedulerNoMan = MyScheduler(env);
+    init_environment(*env);
+    
 
     task_search_start_times.resize(env->num_of_agents, 0);
 }
@@ -50,7 +61,10 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     std::vector<int> proposed_schedule_old = proposed_schedule;
 
     if(action_dict.empty()){
-        schedulerILP::schedule_plan(limit, proposed_schedule, env);
+        // schedulerILP::schedule_plan(limit, proposed_schedule, env);
+        TimePoint end_time = env->plan_start_time + Milliseconds(time_limit - 10);
+        update_environment(*env);
+        schedulerNoMan.plan(end_time, proposed_schedule);
     }
     else{
         schedulerRL::schedule_plan(limit, proposed_schedule, env, action_dict);
