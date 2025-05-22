@@ -12,7 +12,7 @@ env = envWrapper.LRRenv(
     inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",
     outputFile="./outputs/pyTest.json",
     simulationTime=150,
-    planTimeLimit=150,
+    planTimeLimit=300,
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},
     random_agents_and_tasks="true"
@@ -20,7 +20,7 @@ env = envWrapper.LRRenv(
 env.make_env_params_available()
 
 
-number_of_runs = 100
+number_of_runs = 10
 
 sum_reward = 0
 sum_Astar_reward = 0

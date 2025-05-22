@@ -10,7 +10,7 @@ cplexpath: "None"  # Defines directory of the CPLEX installation
   
 directory: "saved_files"  # Defines directory where to save files
 
-net: "TransformerConv"
+net: "GCNConv"
 
 max_episodes: 10000  # Number of episodes to train agent (default: 16k)
 
@@ -32,7 +32,7 @@ hidden_size: 256  # Defines hidden units in the MLP layers
 
 clip: 500  # Clip value for gradient clipping (default: 500)
 
-checkpoint_path: "CPU_TransformerConv_DividedTime_noDummy_markov"  # Path where to save model checkpoints
+checkpoint_path: "CPU_GCNConv_MaxDist-Time_noDummy_markov"  # Path where to save model checkpoints
 
 train: True # Switches updating the weights on and off
 
@@ -68,7 +68,7 @@ mask_impactless_actions: true # Mask useless actions
 
 backtrack_reward: true # Use actual traveldistance and backtrack to initial action
 
-backtrack_reward_type: "DividedTime" # Type of backtrack reward. Options: "MaxDist-Time", "DividedTime", "SquaredNormalized"
+backtrack_reward_type: "MaxDist-Time" # Type of backtrack reward. Options: "MaxDist-Time", "DividedTime", "SquaredNormalized"
 
 use_markovian_new_obs: true # Do not use the current steps new obs but wait until next agents become available and use that obs instead
 
@@ -76,7 +76,7 @@ normalise_obs: true # Normalise observations
 
 message_passing_edge_limit: 28 # Maximum distance of edges for message passing and edge atributes
 
-use_message_passing: true # Use message passing
+use_message_passing: false # Use message passing
 
 edge_feature_dim: 6 # Number of edge features
 
@@ -88,5 +88,5 @@ distance_until_agent_avail_MAX: 20 # Max distance where agent tells node when it
 rew_w_Astar: 0    # best: 20
 rew_w_idle: 0     # best: 20
 rew_w_task_finish: 0
-rew_w_backtrack: 2000 # best: 20
+rew_w_backtrack: 20 # best: 20
 rew_w_immitation: 0

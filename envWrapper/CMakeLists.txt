@@ -29,6 +29,7 @@ include_directories("../my_scheduler")
 # external solution - No Man's Sky
 include_directories("../third_party_libraries/Solution_NoMansSky")
 include_directories("../third_party_libraries/Solution_NoMansSky/Objects/Basic")
+include_directories("../third_party_libraries/Solution_NoMansSky/Objects/Environment")
 include_directories("../third_party_libraries/Solution_NoMansSky/Scheduler")
 
 # Include all source files from Solution_NoMansSky and its subdirectories
@@ -42,9 +43,8 @@ list(FILTER SOLUTION_SOURCES EXCLUDE REGEX ".*gg_builder\\.cpp$")
 list(FILTER SOLUTION_SOURCES EXCLUDE REGEX ".*pibt_main\\.cpp$")
 list(FILTER SOLUTION_SOURCES EXCLUDE REGEX ".*tester\\.cpp$")
 
-list(APPEND SOURCES ${SOLUTION_SOURCES})
-
-
+# Ensure environment.cpp is included in the build
+list(APPEND SOLUTION_SOURCES "../third_party_libraries/Solution_NoMansSky/Objects/Environment/environment.cpp")
 
 execute_process(COMMAND lsb_release -sr
     OUTPUT_VARIABLE UBUNTU_VERSION
@@ -75,6 +75,9 @@ find_package(pybind11 REQUIRED)
 
 # Add source files
 add_library(${PROJECT_NAME} MODULE envWrapper.cpp ${SOURCES})
+
+# Explicitly link SOLUTION_SOURCES to the envWrapper target (NoManSky Solution)
+target_sources(${PROJECT_NAME} PRIVATE ${SOLUTION_SOURCES})
 
 # Link libraries (pybind11 and other dependencies)
 target_link_libraries(envWrapper PRIVATE pybind11::module ${Boost_LIBRARIES} ortools absl_base absl_strings)
