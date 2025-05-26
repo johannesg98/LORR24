@@ -664,12 +664,14 @@ class SAC(nn.Module):
                     action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
                 myTimer.selectAction += myTimer.addTime()
 
-                
+                print("blub 0")
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
+                print("blub 1")
                 desired_agent_dist = assign_discrete_actions(total_agents, action_rl)
                 myTimer.rest += myTimer.addTime()
 
+                print("blub 2")
 
                 # test stuff
                 # action_rl_skip = skip_actor(self.env, obs)
@@ -689,16 +691,16 @@ class SAC(nn.Module):
                 )
                 action_dict = {"reb_action": reb_action, "action_rl": action_rl.tolist()}
                 myTimer.solveReb += myTimer.addTime()
-
+                print("blub 3")
                 # step
                 new_obs, reward_dict, done, info = self.env.step(action_dict)
                 myTimer.step += myTimer.addTime()
-
+                print("blub 4")
                 # reward
                 rew = cfg.model.rew_w_immitation * self.immitation_reward(action_rl, obs, cfg) + cfg.model.rew_w_Astar * reward_dict["A*-distance"] + cfg.model.rew_w_idle * reward_dict["idle-agents"] + cfg.model.rew_w_task_finish * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
                 if done:
                     rew += cfg.model.rew_w_final_tasks_finished * (episode_num_tasks_finished + reward_dict["task-finished"])
-                    
+
 
                 # backtracking
                 new_obs_parsed = self.parser.parse_obs(new_obs)
