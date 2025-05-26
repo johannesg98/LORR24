@@ -10,7 +10,7 @@ cplexpath: "None"  # Defines directory of the CPLEX installation
   
 directory: "saved_files"  # Defines directory where to save files
 
-net: "TransformerConvDouble"
+net: "GATConv"
 
 max_episodes: 10000  # Number of episodes to train agent (default: 16k)
 
@@ -32,7 +32,7 @@ hidden_size: 256  # Defines hidden units in the MLP layers
 
 clip: 500  # Clip value for gradient clipping (default: 500)
 
-checkpoint_path: "GPU_TransformerConvDouble_MaxDist-Time"  # Path where to save model checkpoints
+checkpoint_path: "GPU_GATConv_MaxDist-Time"  # Path where to save model checkpoints
 
 train: True # Switches updating the weights on and off
 
