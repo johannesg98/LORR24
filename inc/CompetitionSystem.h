@@ -16,6 +16,9 @@
 #include <pybind11/stl.h>
 #include "edge_features.h"
 
+//NoManSky Solution
+#include "schedulerNoMan.hpp"
+
 
 struct pair_hash {
     std::size_t operator()(const std::pair<int, int>& p) const noexcept {
@@ -94,6 +97,7 @@ public:
 
     //new functions for RL
     void initializeExtendedBaseSystem(int simulation_time);
+    pybind11::dict get_NoManSkySolution(int time_limit = 100);
     bool step(const std::unordered_map<std::string, pybind11::object>& action_dict = {});
     pybind11::dict get_reward();
     pybind11::dict get_info();
@@ -115,6 +119,7 @@ public:
     std::vector<int> MP_edge_lengths;
     std::vector<int> space_per_node;
     
+    MyScheduler schedulerNoMan;
 
 
 protected:

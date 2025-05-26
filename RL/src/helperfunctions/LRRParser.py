@@ -81,9 +81,10 @@ class LRRParser:
         else:
             origin = []
             destination = []
-            for o in range(len(env.AdjacencyMatrix)):
-                for d in range(len(env.AdjacencyMatrix)):
-                    if env.AdjacencyMatrix[o][d] == 1:
+            ad = env.AdjacencyMatrix
+            for o in range(len(ad)):
+                for d in range(len(ad)):
+                    if ad[o][d] == 1:
                         origin.append(o)
                         destination.append(d)
 

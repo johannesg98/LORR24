@@ -96,6 +96,7 @@ public:
         int use_dummy_goals_for_idle_agents_ = -1,
         std::string backtrack_reward_type_ = ""
     );
+    pybind11::dict get_NoManSkySolution(int time_limit = 100);
     std::tuple<pybind11::dict, pybind11::dict, bool, pybind11::dict> step(const std::unordered_map<std::string, pybind11::object>& action_dict = {});
     void make_env_params_available();
     int nNodes = -1;

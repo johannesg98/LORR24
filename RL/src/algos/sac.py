@@ -663,6 +663,7 @@ class SAC(nn.Module):
                 else:
                     action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
                 myTimer.selectAction += myTimer.addTime()
+
                 
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])

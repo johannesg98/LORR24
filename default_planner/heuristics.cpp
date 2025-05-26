@@ -7,6 +7,8 @@ namespace DefaultPlanner{
 std::vector<HeuristicTable> global_heuristictable;
 Neighbors global_neighbors;
 
+std::vector<std::vector<int>> global_roadmap;
+
 
 
 void init_neighbor(SharedEnvironment* env){
@@ -37,7 +39,65 @@ void init_heuristics(SharedEnvironment* env){
 		global_heuristictable.resize(env->map.size());
 		init_neighbor(env);
 	}
+	// if (global_roadmap.size() == 0){
+	// 	load_roadmap(env);
+	// }
+	
 
+}
+
+void load_roadmap(SharedEnvironment* env){
+	global_roadmap.resize(env->map.size(), std::vector(4,0));
+
+	std::string fname = "/home/johannes/masters-thesis-MIT/LORR24/roadmap/warehouse_8x6.roadmap";
+	std::ifstream myfile ((fname).c_str());
+    if (!myfile.is_open())
+    {
+        cout << "Roadmap file " << fname << " does not exist. " << std::endl;
+        exit(-1);
+    }
+
+	std::string line;
+	// Skip the first lines
+	std::getline(myfile, line);
+	std::getline(myfile, line);
+	std::getline(myfile, line);
+	std::getline(myfile, line);
+	
+	// Read first map
+	for (int row = 0; row < env->rows; row++) {
+		std::getline(myfile, line);
+		for (int col = 0; col < env->cols; col++) {
+			char map_char = line[col];
+			int loc_id = row * env->cols + col;
+			
+			if (map_char == '>'){
+				global_roadmap[loc_id][2] = 20;
+			}
+			else if (map_char == '<'){
+				global_roadmap[loc_id][0] = 20;
+			}
+		}
+	}
+	
+	// Skip empty line between maps
+	std::getline(myfile, line);
+	
+	// Read second map
+	for (int row = 0; row < env->rows; row++) {
+		std::getline(myfile, line);
+		for (int col = 0; col < env->cols; col++) {
+			char map_char = line[col];
+			int loc_id = row * env->cols + col;
+			
+			if (map_char == '^'){
+				global_roadmap[loc_id][1] = 20;
+			}
+			else if (map_char == 'v'){
+				global_roadmap[loc_id][3] = 20;
+			}
+		}
+	}
 }
 
 void init_heuristic(HeuristicTable& ht, SharedEnvironment* env, int goal_location){

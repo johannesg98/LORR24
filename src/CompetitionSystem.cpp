@@ -11,6 +11,12 @@
 using json = nlohmann::ordered_json;
 
 
+//NoManSky Solution
+#include "schedulerNoMan.hpp"
+#include <Objects/Basic/time.hpp>
+#include <Objects/Environment/environment.hpp>
+
+
 
 
 
@@ -404,6 +410,47 @@ void BaseSystem::initializeExtendedBaseSystem(int simulation_time) {
     initialize();
     this->simulation_time = simulation_time;
     sync_shared_env();
+}
+
+pybind11::dict BaseSystem::get_NoManSkySolution(int time_limit) {
+    if (env->curr_timestep == 0){
+        schedulerNoMan = MyScheduler(env);
+        init_environment(*env);
+        std::cout << "NoManSky scheduler initialized" << std::endl;
+    }
+
+    env->plan_start_time = std::chrono::steady_clock::now();
+
+    TimePoint end_time = env->plan_start_time + Milliseconds(time_limit);
+    update_environment(*env);
+    std::vector<int> proposed_schedule_copy = proposed_schedule;
+    
+    schedulerNoMan.plan(end_time, proposed_schedule_copy);
+
+    std::vector<double> distribution(env->nodes->nNodes, 0);
+
+    int sum = 0;
+    for (int agent=0; agent < env->num_of_agents; agent++){
+        if (proposed_schedule[agent] == -1 && proposed_schedule_copy[agent] != -1){
+            int task_loc = env->task_pool[proposed_schedule_copy[agent]].locations[0];
+            int node = env->nodes->regions[task_loc];
+            distribution[node]++;
+            sum++;
+        }
+    }
+    
+    
+    if (sum > 0){
+        for (int i=0; i<env->nodes->nNodes; i++){
+            distribution[i] = distribution[i]/sum;
+        }
+    }
+
+    pybind11::dict solution_dict;
+    solution_dict["distribution"] = distribution;
+
+
+    return solution_dict;
 }
 
 bool BaseSystem::step(const std::unordered_map<std::string, pybind11::object>& action_dict){

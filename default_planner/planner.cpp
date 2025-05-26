@@ -124,7 +124,7 @@ namespace DefaultPlanner{
         // update the status of each agent and prepare for planning
         int count = 0;
         for(int i=0; i<env->num_of_agents; i++)
-        {
+        {   
             //initialise the shortest distance heuristic table for the goal location of the agent
             if ( ( std::chrono::steady_clock::now() < end_time) ){
                 for(int j=0; j<env->goal_locations[i].size(); j++)

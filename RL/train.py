@@ -63,6 +63,7 @@ def main(cfg: DictConfig):
         use_dummy_goals_for_idle_agents=cfg.model.use_dummy_goals_for_idle_agents,
         backtrack_reward_type = cfg.model.backtrack_reward_type
     )
+    
     env.make_env_params_available()
     
     parser = LRRParser(env, cfg.model)
@@ -71,7 +72,7 @@ def main(cfg: DictConfig):
     device = torch.device("cuda" if use_cuda else "cpu")
     
     model = setup_model(cfg, env, parser, device)
-
+    
     if cfg.model.tensorboard:
         from torch.utils.tensorboard import SummaryWriter
         from datetime import datetime
@@ -90,7 +91,7 @@ def main(cfg: DictConfig):
             config=config
         )
         model.wandb = wandb5
-
+    
     model.learn(cfg) #online RL
 
 if __name__ == "__main__":

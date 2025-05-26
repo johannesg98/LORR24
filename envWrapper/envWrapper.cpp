@@ -209,7 +209,10 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     std::cout << "reset done cpp" << std::endl;
     return {obs, reward, done};
 }
-
+pybind11::dict LRRenv::get_NoManSkySolution(int time_limit){
+    pybind11::dict solution_dict = system_ptr->get_NoManSkySolution(time_limit);
+    return solution_dict;
+}
 
 std::tuple<pybind11::dict, pybind11::dict, bool, pybind11::dict> LRRenv::step(const std::unordered_map<std::string, pybind11::object>& action_dict) {
     done = system_ptr->step(action_dict);
@@ -281,6 +284,7 @@ PYBIND11_MODULE(envWrapper, m) {
         )
         .def("step", &LRRenv::step, 
             pybind11::arg("reb_action") = pybind11::dict())   
+        .def("get_NoManSkySolution", &LRRenv::get_NoManSkySolution, pybind11::arg("time_limit") = 100)
         .def("make_env_params_available", &LRRenv::make_env_params_available)
         .def_readwrite("nNodes", &LRRenv::nNodes)
         .def_readwrite("nAgents", &LRRenv::nAgents)

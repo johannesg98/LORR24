@@ -48,7 +48,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
         int a_loc, t_loc, curr_task_id;
 
-        // Generate a random cost matrix
+        // Generate cost matrix
         std::vector<std::vector<int>> cost_matrix(num_agents, std::vector<int>(num_tasks));
         for (int i = 0; i < num_agents; ++i) {
 

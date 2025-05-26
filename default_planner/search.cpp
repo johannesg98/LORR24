@@ -65,10 +65,14 @@ s_node astar(SharedEnvironment* env, std::vector<Int4>& flow,
             if (next == -1){
                 continue;
             }
-
-            cost = curr->g+1;
-
+            
             assert(next >= 0 && next < env->map.size());
+
+            diff = next - curr->id;
+            d = get_d(diff,env);
+
+            // cost = curr->g+1+global_roadmap[curr->id][d];
+            cost = curr->g+1;
             depth = curr->depth + 1;
 
             //moving direction
@@ -81,8 +85,6 @@ s_node astar(SharedEnvironment* env, std::vector<Int4>& flow,
             else
                 h = get_heuristic(ht,env, next, ns);
 
-            diff = next - curr->id;
-            d = get_d(diff,env);
             if (curr->parent != nullptr){
                 p_diff = curr->id - curr->parent->id;
                 p_d = get_d(p_diff,env);

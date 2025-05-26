@@ -32,6 +32,7 @@ void MAPFPlanner::initialize(int preprocess_time_limit)
 void MAPFPlanner::plan(int time_limit,vector<Action> & actions) 
 {
     // use the remaining time after task schedule for path planning, -PLANNER_TIMELIMIT_TOLERANCE for timing error tolerance;
+    // time_limit = 400;
     int limit = time_limit - std::chrono::duration_cast<milliseconds>(std::chrono::steady_clock::now() - env->plan_start_time).count() - DefaultPlanner::PLANNER_TIMELIMIT_TOLERANCE;
 
     std::cout << "Time left for planning: " << limit << std::endl;

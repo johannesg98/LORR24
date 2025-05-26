@@ -8,9 +8,8 @@
 #include "scheduler.h"
 #include "const.h"
 
+//NoManSky Solution
 #include "schedulerNoMan.hpp"
-
-
 #include <Objects/Basic/time.hpp>
 #include <Objects/Environment/environment.hpp>
 
@@ -29,14 +28,15 @@
  */
 void TaskScheduler::initialize(int preprocess_time_limit)
 {
+    solveTimeSum = 0;
     //give at most half of the entry time_limit to scheduler;
     //-SCHEDULER_TIMELIMIT_TOLERANCE for timing error tolerance
     int limit = preprocess_time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
     
-    schedulerILP::schedule_initialize(limit, env);
+    DefaultPlanner::schedule_initialize(limit, env);
     schedulerRL::schedule_initialize(limit, env);
-    schedulerNoMan = MyScheduler(env);
-    init_environment(*env);
+    // schedulerNoMan = MyScheduler(env);
+    // init_environment(*env);
     
 
     task_search_start_times.resize(env->num_of_agents, 0);
@@ -60,15 +60,33 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     
     std::vector<int> proposed_schedule_old = proposed_schedule;
 
+    for (int i = 0; i < env->num_of_agents; i++){
+        if (proposed_schedule[i] == -1){
+            solveCount++;
+            break;
+        }
+    }
+    auto start = std::chrono::high_resolution_clock::now();
     if(action_dict.empty()){
-        // schedulerILP::schedule_plan(limit, proposed_schedule, env);
-        TimePoint end_time = env->plan_start_time + Milliseconds(time_limit - 10);
-        update_environment(*env);
-        schedulerNoMan.plan(end_time, proposed_schedule);
+        DefaultPlanner::schedule_plan(limit, proposed_schedule, env);
+        // TimePoint end_time = env->plan_start_time + Milliseconds(time_limit - 10);
+        // update_environment(*env);
+        // schedulerNoMan.plan(end_time, proposed_schedule);
     }
     else{
         schedulerRL::schedule_plan(limit, proposed_schedule, env, action_dict);
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    solveTimeSum += std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+
+    
+    std::cout << "Scheduler average solve time per step: " << (double)solveTimeSum/ solveCount  << "ms" << std::endl;
+    
+
+
+
+
+
 
     
 
@@ -151,10 +169,10 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
         for (int time : timesVec){
             double rew;
             if (backtrack_reward_type == "DividedTime"){
-                if (time == 0)
-                    rew = 1;
-                else
-                    rew = 1/time;
+                // if (time == 0)
+                //     rew = 1;
+                // else
+                rew = 1/(time+20);
             }
             else if (backtrack_reward_type == "MaxDist-Time"){
                 rew = max_dist - time;
