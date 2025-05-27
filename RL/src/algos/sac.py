@@ -688,11 +688,11 @@ class SAC(nn.Module):
                 )
                 action_dict = {"reb_action": reb_action, "action_rl": action_rl.tolist()}
                 myTimer.solveReb += myTimer.addTime()
-                print("blub 3")
+                
                 # step
                 new_obs, reward_dict, done, info = self.env.step(action_dict)
                 myTimer.step += myTimer.addTime()
-                print("blub 4")
+                
                 # reward
                 rew = cfg.model.rew_w_immitation * self.immitation_reward(action_rl, obs, cfg) + cfg.model.rew_w_Astar * reward_dict["A*-distance"] + cfg.model.rew_w_idle * reward_dict["idle-agents"] + cfg.model.rew_w_task_finish * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
                 if done:

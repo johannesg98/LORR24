@@ -50,7 +50,7 @@ external_actor_path: "../nn_optimization/actors/actor_20percent_Transformer.pth"
 
 deterministic_actor: false  # Use deterministic actor
 
-input_size: 16 # Number of node features
+input_size: 25 # Number of node features (15 + 20 (distance_until_agent_avail_MAX))
 
 test_episodes: 10 # Number of episodes to test agent
 
@@ -60,7 +60,7 @@ pretrained_path: null
 
 only_q_steps: 0 
 
-wandb: true # Enables Weights and Biases logging
+wandb: false # Enables Weights and Biases logging
 
 tensorboard: false # Enables Tensorboard logging
 
@@ -78,9 +78,9 @@ message_passing_edge_limit: 28 # Maximum distance of edges for message passing a
 
 use_message_passing: true # Use message passing
 
-edge_feature_dim: 6 # Number of edge features
+edge_feature_dim: 16 # Number of edge features (6 + 10 (distance_until_agent_avail_MAX))
 
-distance_until_agent_avail_MAX: 20 # Max distance where agent tells node when it becomes available after finishing the task(observation)
+distance_until_agent_avail_MAX: 10 # Max distance where agent tells node when it becomes available after finishing the task(observation)
 
 
 

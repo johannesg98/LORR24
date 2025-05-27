@@ -252,4 +252,9 @@ namespace DefaultPlanner{
         return;
 
     };
+
+    // Getter function to access trajLNS from outside the namespace
+    TrajLNS& get_trajLNS() {
+        return trajLNS;
+    }
 }

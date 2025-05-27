@@ -14,6 +14,8 @@ namespace DefaultPlanner{
 
     void plan(int time_limit,vector<Action> & actions,  SharedEnvironment* env);
 
+    // Add getter function to access trajLNS
+    TrajLNS& get_trajLNS();
 
 }
 #endif

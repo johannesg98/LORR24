@@ -6,6 +6,7 @@
 #include <functional>
 #include <Logger.h>
 #include <heuristics.h>
+#include "planner.h"  // Add this to access DefaultPlanner functions
 
 
 using json = nlohmann::ordered_json;
@@ -561,7 +562,7 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
         obs["free_tasks_per_node"] = free_tasks_per_node;
 
 
-        // distance until agent becomes available at node
+        // distance until agent becomes available at node (OLD)
         std::vector<int> distance_until_agent_available(env->nodes->nNodes, distance_until_agent_avail_MAX);
         for (int agent=0; agent<env->num_of_agents; agent++){
             int agent_loc = env->curr_states[agent].location;
@@ -579,6 +580,26 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
         }
         obs["distance_until_agent_available_per_node"] = distance_until_agent_available;
 
+        // distance until agent becomes available at node (NEW - aka all next steps)
+        std::vector<std::vector<int>> agents_available_next_steps(env->nodes->nNodes, std::vector<int>(distance_until_agent_avail_MAX, 0));
+        for (int agent=0; agent<env->num_of_agents; agent++){
+            int agent_loc = env->curr_states[agent].location;
+            int task_id = env->curr_task_schedule[agent];
+            if (task_id == -1){
+                int node = env->nodes->regions[agent_loc];
+                agents_available_next_steps[node][0]++;
+            }
+            else if (env->task_pool[task_id].idx_next_loc == env->task_pool[task_id].locations.size()-1){
+                int task_loc = env->task_pool[task_id].locations.back();
+                int distance = DefaultPlanner::get_h(env, agent_loc, task_loc);
+                if (distance < distance_until_agent_avail_MAX){
+                    int node = env->nodes->regions[task_loc];
+                    agents_available_next_steps[node][distance]++;
+                }
+            }
+        }
+        obs["agents_available_next_steps_per_node"] = agents_available_next_steps;
+
 
         // time
         obs["time"] = env->curr_timestep;
@@ -594,7 +615,7 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
         
         
 
-        // congestion at edges
+        // congestion at edges (directed)
         for (int loc=0; loc<env->map.size(); loc++){
             for (int i=0; i<MP_loc_to_edges[loc].size(); i++){
                 int edge_id = MP_loc_to_edges[loc][i].first;
@@ -637,6 +658,35 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
             }
         }
         obs["congestion_ratio_per_edge"] = MP_congestion_per_edge;
+
+
+        // congestion ratio (undirected) per edge next steps
+        std::vector<std::vector<double>> congestion_ratio_next_steps_per_edge(MP_edge_lengths.size(), std::vector<double>(distance_until_agent_avail_MAX, 0));
+        DefaultPlanner::TrajLNS& traj_lns_ref = DefaultPlanner::get_trajLNS();
+        int traj_length;
+        for (int agent=0; agent<env->num_of_agents; agent++){
+            traj_length = traj_lns_ref.trajs[agent].size();
+
+            traj_length = std::min(traj_length, distance_until_agent_avail_MAX);
+            for (int step=0; step<traj_length; step++){
+                int loc = traj_lns_ref.trajs[agent][step];
+
+                for (int i=0; i<MP_loc_to_edges[loc].size(); i++){
+                    int edge_id = MP_loc_to_edges[loc][i].first;
+                    congestion_ratio_next_steps_per_edge[edge_id][step] ++;          
+                }
+            }
+        }
+        // normalize
+        for (int edge_id=0; edge_id<congestion_ratio_next_steps_per_edge.size(); edge_id++){
+            if (MP_edge_lengths[edge_id] > 0){
+                for (int step=0; step<distance_until_agent_avail_MAX; step++){
+                    congestion_ratio_next_steps_per_edge[edge_id][step] = congestion_ratio_next_steps_per_edge[edge_id][step]/(double)MP_edge_lengths[edge_id];
+                }
+            }
+        }
+        obs["congestion_ratio_next_steps_per_edge"] = congestion_ratio_next_steps_per_edge;
+        
 
 
         // agents tell closest task to nodes
@@ -694,6 +744,9 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
             }
         }
         obs["agents_waiting_per_edge"] = agents_waiting_per_edge;
+
+
+        
 
 
 
