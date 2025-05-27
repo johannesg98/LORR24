@@ -38,7 +38,7 @@ cd envWrapper/build/ && cmake .. && make -j30 && cd ../..
 Map creation of 4x3 world:
 Go to masterarbeit/Benchmark-Archive/2023 Competition/Problem Generator
 Create Map (edit width and height according to comment in .yaml file):
-python3 ./script/warehouse_map_generator.py --config ./fulfillment_config.yamlcd
+python3 ./script/warehouse_map_generator.py --config ./fulfillment_config.yaml
 Task generation:
 python3 ./script/warehouse_task_generator.py --map ./myWorld/warehouse_4x3.map  --taskNum 10000 --taskFile ./myWorld/tasks_4x3.tasks --errandNum 2
 Agent and folder creation (in tmpVenv):
@@ -57,3 +57,9 @@ export WANDB_BASE_URL="https://api.wandb.ai"
 wandb login
 
  1                 10                  20                  30                  40                  50                  60                  70                  80                  90                  100                 110                 120                 130                 140                 150
+
+
+ CPLEX
+ installed in /home/johannes/cplex2211
+ run this command to connect python path: python /home/johannes/cplex2211/python/setup.py install
+ problem: need python 3.10. (or python 3.11?)

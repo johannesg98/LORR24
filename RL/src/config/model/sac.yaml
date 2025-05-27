@@ -10,7 +10,7 @@ cplexpath: "None"  # Defines directory of the CPLEX installation
   
 directory: "saved_files"  # Defines directory where to save files
 
-net: "GCNConv"
+net: "TransformerConv"
 
 max_episodes: 10000  # Number of episodes to train agent (default: 16k)
 
@@ -32,9 +32,9 @@ hidden_size: 256  # Defines hidden units in the MLP layers
 
 clip: 500  # Clip value for gradient clipping (default: 500)
 
-checkpoint_path: "Test"  # Path where to save model checkpoints
+checkpoint_path: "GPU_TransformerConv_MaxDist-Time_FixedRoadmap"  # Path where to save model checkpoints
 
-train: True # Switches updating the weights on and off
+train: true # Switches updating the weights on and off
 
 start_training_at_episode: 10
 
@@ -60,7 +60,7 @@ pretrained_path: null
 
 only_q_steps: 0 
 
-wandb: false # Enables Weights and Biases logging
+wandb: true # Enables Weights and Biases logging
 
 tensorboard: false # Enables Tensorboard logging
 
@@ -76,7 +76,7 @@ normalise_obs: true # Normalise observations
 
 message_passing_edge_limit: 28 # Maximum distance of edges for message passing and edge atributes
 
-use_message_passing: false # Use message passing
+use_message_passing: true # Use message passing
 
 edge_feature_dim: 6 # Number of edge features
 

@@ -70,9 +70,9 @@ s_node astar(SharedEnvironment* env, std::vector<Int4>& flow,
 
             diff = next - curr->id;
             d = get_d(diff,env);
-
-            // cost = curr->g+1+global_roadmap[curr->id][d];
-            cost = curr->g+1;
+            
+            // cost = curr->g+1;
+            cost = curr->g+1+global_roadmap[curr->id][d];
             depth = curr->depth + 1;
 
             //moving direction

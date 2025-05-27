@@ -33,7 +33,7 @@ void TaskScheduler::initialize(int preprocess_time_limit)
     //-SCHEDULER_TIMELIMIT_TOLERANCE for timing error tolerance
     int limit = preprocess_time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
     
-    DefaultPlanner::schedule_initialize(limit, env);
+    schedulerILP::schedule_initialize(limit, env);
     schedulerRL::schedule_initialize(limit, env);
     // schedulerNoMan = MyScheduler(env);
     // init_environment(*env);
@@ -68,7 +68,7 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     }
     auto start = std::chrono::high_resolution_clock::now();
     if(action_dict.empty()){
-        DefaultPlanner::schedule_plan(limit, proposed_schedule, env);
+        schedulerILP::schedule_plan(limit, proposed_schedule, env);
         // TimePoint end_time = env->plan_start_time + Milliseconds(time_limit - 10);
         // update_environment(*env);
         // schedulerNoMan.plan(end_time, proposed_schedule);

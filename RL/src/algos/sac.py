@@ -664,14 +664,11 @@ class SAC(nn.Module):
                     action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
                 myTimer.selectAction += myTimer.addTime()
 
-                print("blub 0")
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
-                print("blub 1")
                 desired_agent_dist = assign_discrete_actions(total_agents, action_rl)
                 myTimer.rest += myTimer.addTime()
 
-                print("blub 2")
 
                 # test stuff
                 # action_rl_skip = skip_actor(self.env, obs)

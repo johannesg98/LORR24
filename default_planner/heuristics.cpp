@@ -39,9 +39,9 @@ void init_heuristics(SharedEnvironment* env){
 		global_heuristictable.resize(env->map.size());
 		init_neighbor(env);
 	}
-	// if (global_roadmap.size() == 0){
-	// 	load_roadmap(env);
-	// }
+	if (global_roadmap.size() == 0){
+		load_roadmap(env);
+	}
 	
 
 }
@@ -98,6 +98,8 @@ void load_roadmap(SharedEnvironment* env){
 			}
 		}
 	}
+
+	std::cout << "Roadmap loaded with " << global_roadmap.size() << " locations." << std::endl;
 }
 
 void init_heuristic(HeuristicTable& ht, SharedEnvironment* env, int goal_location){

@@ -9,6 +9,7 @@ python/tmp
 python/__pycache__
 output.json
 RL/venv/
+RL/venv3p10/
 third_party_libraries/RL4AMOD/venv/
 third_party_libraries/cluster/
 slurm
