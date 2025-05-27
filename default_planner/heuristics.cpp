@@ -1,6 +1,7 @@
 
 #include "heuristics.h"
 #include <queue>
+#include <filesystem>
 
 namespace DefaultPlanner{
 
@@ -49,7 +50,9 @@ void init_heuristics(SharedEnvironment* env){
 void load_roadmap(SharedEnvironment* env){
 	global_roadmap.resize(env->map.size(), std::vector(4,0));
 
-	std::string fname = "/home/johannes/masters-thesis-MIT/LORR24/roadmap/warehouse_8x6.roadmap";
+	// Get path relative to this source file
+	std::filesystem::path source_dir = std::filesystem::path(__FILE__).parent_path();
+	std::string fname = (source_dir / ".." / "roadmap" / "warehouse_8x6.roadmap").string();
 	std::ifstream myfile ((fname).c_str());
     if (!myfile.is_open())
     {
