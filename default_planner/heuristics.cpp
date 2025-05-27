@@ -39,9 +39,9 @@ void init_heuristics(SharedEnvironment* env){
 		global_heuristictable.resize(env->map.size());
 		init_neighbor(env);
 	}
-	if (global_roadmap.size() == 0){
-		load_roadmap(env);
-	}
+	// if (global_roadmap.size() == 0){
+	// 	load_roadmap(env);
+	// }
 	
 
 }
