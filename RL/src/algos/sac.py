@@ -174,7 +174,7 @@ class SAC(nn.Module):
         self.BATCH_SIZE = cfg.batch_size
         self.p_lr = cfg.p_lr
         self.q_lr = cfg.q_lr
-        self.gamma = 0.97 #0.99
+        self.gamma = 0.95 #0.99
         self.use_automatic_entropy_tuning = cfg.auto_entropy
         self.clip = cfg.clip
         self.parser = parser
