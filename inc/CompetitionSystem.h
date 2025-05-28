@@ -113,7 +113,7 @@ public:
                 std::vector<std::vector<std::pair<int, edgeFeatures::Direction>>>,
                 std::vector<int>,
                 std::vector<int>
-                                                                    > get_env_vals(int MP_edge_limit = 0);
+                                                                    > get_env_vals(std::unordered_set<std::string>& observationTypes, int MP_edge_limit = 0);
     int distance_until_agent_avail_MAX = 20;
     std::vector<std::vector<std::pair<int,edgeFeatures::Direction>>> MP_loc_to_edges;     // num_map_tiles x num_of_edges_that_pass_through_it x (edge_id, direction)
     std::vector<int> MP_edge_lengths;

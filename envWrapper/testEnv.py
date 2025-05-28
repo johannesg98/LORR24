@@ -9,12 +9,12 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",
+    inputFile="./example_problems/custom_warehouse.domain/warehouse_large.json",
     outputFile="./outputs/pyTest.json",
     simulationTime=150,
-    planTimeLimit=70,
+    planTimeLimit=1000,
     preprocessTimeLimit=30000,
-    observationTypes={"node-basics"},
+    observationTypes={""},    #"node-basics"
     random_agents_and_tasks="true",
     scheduler_type="default",
     planner_type="default",
@@ -35,8 +35,8 @@ for i in range(number_of_runs):
 
     print("RESET PYTHON")
     print(f"Reward: {reward}, Done: {done}")
-    print(f"Free agents: {obs["free_agents_per_node"]}")
-    print(f"Free tasks: {obs["free_tasks_per_node"]}")
+    # print(f"Free agents: {obs["free_agents_per_node"]}")
+    # print(f"Free tasks: {obs["free_tasks_per_node"]}")
     print(f"nNodes: {env.nNodes}, nAgents: {env.nAgents}, nTasks: {env.nTasks}")
 
 

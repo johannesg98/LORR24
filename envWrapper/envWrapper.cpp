@@ -248,7 +248,7 @@ std::tuple<pybind11::dict, pybind11::dict, bool, pybind11::dict> LRRenv::step(co
 
 void LRRenv::make_env_params_available(){
     reset();
-    std::tie(nAgents, nTasks, AdjacencyMatrix, NodeCostMatrix, MP_edge_index, MP_edge_weights, node_positions, MP_loc_to_edges, MP_edge_lengths, space_per_node) = system_ptr->get_env_vals(message_passing_edge_limit);
+    std::tie(nAgents, nTasks, AdjacencyMatrix, NodeCostMatrix, MP_edge_index, MP_edge_weights, node_positions, MP_loc_to_edges, MP_edge_lengths, space_per_node) = system_ptr->get_env_vals(observationTypes, message_passing_edge_limit);
     return;
 }
 

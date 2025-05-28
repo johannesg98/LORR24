@@ -766,85 +766,93 @@ std::tuple<int,
             std::vector<std::vector<std::pair<int, edgeFeatures::Direction>>>,
             std::vector<int>,
             std::vector<int>
-                                                                                    > BaseSystem::get_env_vals(int MP_edge_limit){
+                                                                                    > BaseSystem::get_env_vals(std::unordered_set<std::string>& observationTypes, int MP_edge_limit){
 
     int max_num_agents = env->num_of_agents;
     int max_num_tasks = env->task_pool.size();
-    std::vector<std::vector<int>> AdjacencyMatrix = env->nodes->AdjacencyMatrix;
 
-
-    // rebalancing optimizer cost matrix
+    std::vector<std::vector<int>> AdjacencyMatrix;
     std::vector<std::vector<int>> NodeCostMatrix;
-    NodeCostMatrix.resize(env->nodes->nNodes,std::vector<int>(env->nodes->nNodes,0));
-    for (int i=0; i<env->nodes->nNodes; i++){
-        int start_loc = env->nodes->locations[i];
-        for (int j=0; j<env->nodes->nNodes; j++){
-            int target_loc = env->nodes->locations[j];
-            NodeCostMatrix[i][j] = DefaultPlanner::get_h(env, start_loc, target_loc);
-        }
-    }
-
-    // count free spaces per node to calc congestion ratio
-    std::vector<int> space_per_node_new(env->nodes->nNodes, 0);
-    for (int id=0; id<env->map.size(); id++){
-        int node = env->nodes->regions[id];
-        if (env->map[id] == 0){
-            space_per_node_new[node]++;
-        }
-    }
-
-
-    // message passing
-    clock_t start = clock();
+    std::vector<int> space_per_node_new;
     std::vector<std::vector<int>> MP_edge_index(2);
     std::vector<double> MP_edge_weights;
-    std::vector<std::vector<std::pair<int, edgeFeatures::Direction>>> MP_loc_to_edges_new(env->map.size());
+    std::vector<std::vector<double>> node_positions;
+    std::vector<std::vector<std::pair<int, edgeFeatures::Direction>>> MP_loc_to_edges_new;
     std::vector<int> MP_edge_lengths_new;
-    if (MP_edge_limit > 0){
-        
-        for (int o=0; o < env->nodes->nNodes; o++){
-            for (int d=0; d < env->nodes->nNodes; d++){
-                if (NodeCostMatrix[o][d] <= MP_edge_limit){
-                    
-                    // edge index
-                    MP_edge_index[0].push_back(o);
-                    MP_edge_index[1].push_back(d);
 
-                    // edge weights
-                    MP_edge_weights.push_back(1 - (double)NodeCostMatrix[o][d]/(double)MP_edge_limit);
+    if (observationTypes.count("node-basics")) {
+        AdjacencyMatrix = env->nodes->AdjacencyMatrix;
 
-                    //edge locations
-                    std::vector<edgeFeatures::PathNode> path = edgeFeatures::astar(env->nodes->locations[o], env->nodes->locations[d], env, &DefaultPlanner::global_neighbors);
-                    for (int i=0; i<path.size(); i++){
-                        int loc = path[i].loc;
-                        edgeFeatures::Direction dir = path[i].dir;
-                        MP_loc_to_edges_new[loc].push_back({MP_edge_index[0].size()-1, dir});
+
+        // rebalancing optimizer cost matrix
+        NodeCostMatrix.resize(env->nodes->nNodes,std::vector<int>(env->nodes->nNodes,0));
+        for (int i=0; i<env->nodes->nNodes; i++){
+            int start_loc = env->nodes->locations[i];
+            for (int j=0; j<env->nodes->nNodes; j++){
+                int target_loc = env->nodes->locations[j];
+                NodeCostMatrix[i][j] = DefaultPlanner::get_h(env, start_loc, target_loc);
+            }
+        }
+
+        // count free spaces per node to calc congestion ratio
+        space_per_node_new.resize(env->nodes->nNodes, 0);
+        for (int id=0; id<env->map.size(); id++){
+            int node = env->nodes->regions[id];
+            if (env->map[id] == 0){
+                space_per_node_new[node]++;
+            }
+        }
+
+
+        // message passing
+        clock_t start = clock();
+        MP_loc_to_edges_new.resize(env->map.size());
+        if (MP_edge_limit > 0){
+            
+            for (int o=0; o < env->nodes->nNodes; o++){
+                for (int d=0; d < env->nodes->nNodes; d++){
+                    if (NodeCostMatrix[o][d] <= MP_edge_limit){
+                        
+                        // edge index
+                        MP_edge_index[0].push_back(o);
+                        MP_edge_index[1].push_back(d);
+
+                        // edge weights
+                        MP_edge_weights.push_back(1 - (double)NodeCostMatrix[o][d]/(double)MP_edge_limit);
+
+                        //edge locations
+                        std::vector<edgeFeatures::PathNode> path = edgeFeatures::astar(env->nodes->locations[o], env->nodes->locations[d], env, &DefaultPlanner::global_neighbors);
+                        for (int i=0; i<path.size(); i++){
+                            int loc = path[i].loc;
+                            edgeFeatures::Direction dir = path[i].dir;
+                            MP_loc_to_edges_new[loc].push_back({MP_edge_index[0].size()-1, dir});
+                        }
+                        MP_edge_lengths_new.push_back(path.size());
                     }
-                    MP_edge_lengths_new.push_back(path.size());
                 }
             }
         }
-    }
-    for (int i=0; i<MP_edge_lengths_new.size(); i++){
-        MP_edge_map[{MP_edge_index[0][i], MP_edge_index[1][i]}] = i;
-    }
-    std::cout << "Time for message passing and AStar: " << (double)(clock()-start)/CLOCKS_PER_SEC << std::endl;
+        for (int i=0; i<MP_edge_lengths_new.size(); i++){
+            MP_edge_map[{MP_edge_index[0][i], MP_edge_index[1][i]}] = i;
+        }
+        std::cout << "Time for message passing and AStar: " << (double)(clock()-start)/CLOCKS_PER_SEC << std::endl;
 
 
-    // node positions
-    std::vector<std::vector<double>> node_positions(6, std::vector<double>(env->nodes->nNodes,0));
-    for (int node=0; node<env->nodes->nNodes; node++){
-        int loc = env->nodes->locations[node];
-        int x = loc % env->cols;
-        int y = loc / env->cols;
-        double x_norm = (double)x/(double)env->cols;
-        double y_norm = (double)y/(double)env->rows;
-        node_positions[0][node] = x_norm;
-        node_positions[1][node] = y_norm;
-        node_positions[2][node] = (sin(x_norm*2*M_PI) + 1)/2;
-        node_positions[3][node] = (cos(x_norm*2*M_PI) + 1)/2;
-        node_positions[4][node] = (sin(y_norm*2*M_PI) + 1)/2;
-        node_positions[5][node] = (cos(y_norm*2*M_PI) + 1)/2;
+        // node positions
+        node_positions.resize(6, std::vector<double>(env->nodes->nNodes,0));
+        for (int node=0; node<env->nodes->nNodes; node++){
+            int loc = env->nodes->locations[node];
+            int x = loc % env->cols;
+            int y = loc / env->cols;
+            double x_norm = (double)x/(double)env->cols;
+            double y_norm = (double)y/(double)env->rows;
+            node_positions[0][node] = x_norm;
+            node_positions[1][node] = y_norm;
+            node_positions[2][node] = (sin(x_norm*2*M_PI) + 1)/2;
+            node_positions[3][node] = (cos(x_norm*2*M_PI) + 1)/2;
+            node_positions[4][node] = (sin(y_norm*2*M_PI) + 1)/2;
+            node_positions[5][node] = (cos(y_norm*2*M_PI) + 1)/2;
+        }
     }
     
     return {max_num_agents, max_num_tasks, AdjacencyMatrix, NodeCostMatrix, MP_edge_index, MP_edge_weights, node_positions, MP_loc_to_edges_new, MP_edge_lengths_new, space_per_node_new};
