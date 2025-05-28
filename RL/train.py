@@ -61,7 +61,9 @@ def main(cfg: DictConfig):
         message_passing_edge_limit=cfg.model.message_passing_edge_limit,
         distance_until_agent_avail_MAX=cfg.model.distance_until_agent_avail_MAX,
         use_dummy_goals_for_idle_agents=cfg.model.use_dummy_goals_for_idle_agents,
-        backtrack_reward_type = cfg.model.backtrack_reward_type
+        backtrack_reward_type = cfg.model.backtrack_reward_type,
+        scheduler_type="RL",
+        planner_type="default"
     )
     
     env.make_env_params_available()

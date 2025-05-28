@@ -25,5 +25,6 @@ class TaskScheduler
 
         int solveTimeSum = 0;
         int solveCount = 0;
+        std::string scheduler_type;
         
 };

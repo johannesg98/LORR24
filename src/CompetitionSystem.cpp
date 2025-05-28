@@ -777,9 +777,9 @@ std::tuple<int,
     std::vector<std::vector<int>> NodeCostMatrix;
     NodeCostMatrix.resize(env->nodes->nNodes,std::vector<int>(env->nodes->nNodes,0));
     for (int i=0; i<env->nodes->nNodes; i++){
-        int start_loc = env->nodes->nodes[i];
+        int start_loc = env->nodes->locations[i];
         for (int j=0; j<env->nodes->nNodes; j++){
-            int target_loc = env->nodes->nodes[j];
+            int target_loc = env->nodes->locations[j];
             NodeCostMatrix[i][j] = DefaultPlanner::get_h(env, start_loc, target_loc);
         }
     }
@@ -814,7 +814,7 @@ std::tuple<int,
                     MP_edge_weights.push_back(1 - (double)NodeCostMatrix[o][d]/(double)MP_edge_limit);
 
                     //edge locations
-                    std::vector<edgeFeatures::PathNode> path = edgeFeatures::astar(env->nodes->nodes[o], env->nodes->nodes[d], env, &DefaultPlanner::global_neighbors);
+                    std::vector<edgeFeatures::PathNode> path = edgeFeatures::astar(env->nodes->locations[o], env->nodes->locations[d], env, &DefaultPlanner::global_neighbors);
                     for (int i=0; i<path.size(); i++){
                         int loc = path[i].loc;
                         edgeFeatures::Direction dir = path[i].dir;
@@ -834,7 +834,7 @@ std::tuple<int,
     // node positions
     std::vector<std::vector<double>> node_positions(6, std::vector<double>(env->nodes->nNodes,0));
     for (int node=0; node<env->nodes->nNodes; node++){
-        int loc = env->nodes->nodes[node];
+        int loc = env->nodes->locations[node];
         int x = loc % env->cols;
         int y = loc / env->cols;
         double x_norm = (double)x/(double)env->cols;

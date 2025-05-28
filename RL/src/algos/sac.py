@@ -165,6 +165,7 @@ class SAC(nn.Module):
         self.device = device
         self.path = None
         self.act_dim = env.nNodes
+        self.cfg = cfg
 
         # SAC parameters
         self.alpha = cfg.alpha
@@ -284,8 +285,14 @@ class SAC(nn.Module):
             q1_pi_targ = self.critic1_target(next_state_batch, edge_index2, edge_attr2, a2)
             q2_pi_targ = self.critic2_target(next_state_batch, edge_index2, edge_attr2, a2)
             q_pi_targ = torch.min(q1_pi_targ, q2_pi_targ)
+            
+            times = next_state_batch.reshape(-1, self.act_dim, self.input_size)[:, 0, -3] - state_batch.reshape(-1, self.act_dim, self.input_size)[:, 0, -3]
+            if self.cfg.normalise_obs:
+                times *= self.cfg.max_steps
+            gamma = self.gamma ** (times)
 
-            backup = reward_batch + self.gamma * (q_pi_targ - self.alpha * logp_a2)
+            backup = reward_batch + gamma * (q_pi_targ - self.alpha * logp_a2)
+
 
         loss_q1 = F.mse_loss(q1, backup)
         loss_q2 = F.mse_loss(q2, backup)

@@ -15,12 +15,15 @@ env = envWrapper.LRRenv(
     planTimeLimit=70,
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},
-    random_agents_and_tasks="true"
+    random_agents_and_tasks="true",
+    scheduler_type="default",
+    planner_type="default",
+    guarantee_planner_time = True
 )
 env.make_env_params_available()
 
 
-number_of_runs = 1
+number_of_runs = 10
 
 sum_reward = 0
 sum_Astar_reward = 0

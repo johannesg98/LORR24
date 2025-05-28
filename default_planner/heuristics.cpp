@@ -43,8 +43,12 @@ void init_heuristics(SharedEnvironment* env){
 	// if (global_roadmap.size() == 0){
 	// 	load_roadmap(env);
 	// }
-	
+}
 
+
+void reset_heuristictable(SharedEnvironment* env){
+	global_heuristictable.clear();
+	global_heuristictable.resize(env->map.size());
 }
 
 void load_roadmap(SharedEnvironment* env){

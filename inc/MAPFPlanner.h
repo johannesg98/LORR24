@@ -19,4 +19,7 @@ public:
     // return next states for all agents
     virtual void plan(int time_limit, std::vector<Action> & plan);
 
+    bool guarantee_planner_time = false;
+    std::string planner_type;
+
 };

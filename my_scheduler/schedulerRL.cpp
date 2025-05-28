@@ -134,7 +134,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
                 }
                 int already_filled_tasks = tasks_per_node[node].size();
                 for (int task = 0; task < outgoing_agents_targets.size(); task++){
-                    task_loc = env->nodes->nodes[outgoing_agents_targets[task]];
+                    task_loc = env->nodes->locations[outgoing_agents_targets[task]];
                     cost_matrix[agent][already_filled_tasks + task] = DefaultPlanner::get_h(env, agent_loc, task_loc);
                 }
             }
@@ -142,7 +142,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
             // add incoming agents
             int already_filled_agents = free_agents_per_node[node].size();
             for (int agent = 0; agent < incoming_agents_origins.size(); agent++){
-                agent_loc = env->nodes->nodes[incoming_agents_origins[agent]];
+                agent_loc = env->nodes->locations[incoming_agents_origins[agent]];
                 for (int task = 0; task < tasks_per_node[node].size(); task++){
                     task_loc = env->task_pool[tasks_per_node[node][task]].locations[0];
                     cost_matrix[already_filled_agents + agent][task] = DefaultPlanner::get_h(env, agent_loc, task_loc);
@@ -272,7 +272,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
             //incoming
             else if (incoming_agents_origins.size() == 1){
                 int start_node = incoming_agents_origins[0];
-                int start_loc = env->nodes->nodes[start_node];
+                int start_loc = env->nodes->locations[start_node];
                 min_task_i = -1;
                 min_task_makespan = INT_MAX;
                 for (int task = 0; task < tasks_per_node[node].size(); task++){

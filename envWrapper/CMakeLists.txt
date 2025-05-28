@@ -70,7 +70,7 @@ find_package( Boost 1.49.0 REQUIRED COMPONENTS program_options system filesystem
 include_directories( ${Boost_INCLUDE_DIRS} )
 
 # Find Python and pybind11
-# find_package(Python3 3.10 EXACT REQUIRED COMPONENTS Interpreter Development)
+# find_package(Python3 3.10 EXACT REQUIRED COMPONENTS Interpreter Development)      # to use cplex rebalance solver python3.10 is required
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 find_package(pybind11 REQUIRED)
 

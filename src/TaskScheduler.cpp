@@ -7,6 +7,7 @@
 #include "schedulerRL.h"
 #include "scheduler.h"
 #include "const.h"
+#include "heuristics.h"
 
 //NoManSky Solution
 #include "schedulerNoMan.hpp"
@@ -33,10 +34,32 @@ void TaskScheduler::initialize(int preprocess_time_limit)
     //-SCHEDULER_TIMELIMIT_TOLERANCE for timing error tolerance
     int limit = preprocess_time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
     
-    schedulerILP::schedule_initialize(limit, env);
-    schedulerRL::schedule_initialize(limit, env);
-    // schedulerNoMan = MyScheduler(env);
-    // init_environment(*env);
+    
+    if (scheduler_type.empty()){
+        // fallback for LRR standard build
+        DefaultPlanner::schedule_initialize(limit, env);
+    }
+    else if (scheduler_type == "default"){
+        DefaultPlanner::schedule_initialize(limit, env);
+    }
+    else if (scheduler_type == "ILP"){
+        schedulerILP::schedule_initialize(limit, env);
+    }
+    else if (scheduler_type == "ILPsparse"){
+        schedulerILPsparse::schedule_initialize(limit, env);
+    }
+    else if (scheduler_type == "RL"){
+        schedulerRL::schedule_initialize(limit, env);
+    }
+    else if (scheduler_type == "NoManSky"){
+        schedulerNoMan = MyScheduler(env);
+        init_environment(*env);
+    }
+    else{
+        std::cerr << "Unknown scheduler type: " << scheduler_type << std::endl;
+        exit(1);
+    }
+    
     
 
     task_search_start_times.resize(env->num_of_agents, 0);
@@ -67,19 +90,42 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
         }
     }
     auto start = std::chrono::high_resolution_clock::now();
-    if(action_dict.empty()){
-        schedulerILP::schedule_plan(limit, proposed_schedule, env);
-        // TimePoint end_time = env->plan_start_time + Milliseconds(time_limit - 10);
-        // update_environment(*env);
-        // schedulerNoMan.plan(end_time, proposed_schedule);
+
+
+
+
+    DefaultPlanner::reset_heuristictable(env);
+
+
+
+
+
+    if (scheduler_type.empty()){
+        // fallback for LRR standard build
+        DefaultPlanner::schedule_plan(limit, proposed_schedule, env);
     }
-    else{
+    else if (scheduler_type == "default"){
+        DefaultPlanner::schedule_plan(limit, proposed_schedule, env);
+    }
+    else if (scheduler_type == "ILP"){
+        schedulerILP::schedule_plan(limit, proposed_schedule, env);
+    }
+    else if (scheduler_type == "ILPsparse"){
+        schedulerILPsparse::schedule_plan(limit, proposed_schedule, env);
+    }
+    else if (scheduler_type == "RL"){
         schedulerRL::schedule_plan(limit, proposed_schedule, env, action_dict);
     }
+    else if (scheduler_type == "NoManSky"){
+        TimePoint end_time = env->plan_start_time + Milliseconds(time_limit - 10);
+        update_environment(*env);
+        schedulerNoMan.plan(end_time, proposed_schedule);
+    }
+
+
+
     auto end = std::chrono::high_resolution_clock::now();
     solveTimeSum += std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-
-    
     std::cout << "Scheduler average solve time per step: " << (double)solveTimeSum/ solveCount  << "ms" << std::endl;
     
 
