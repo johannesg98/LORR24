@@ -193,15 +193,15 @@ namespace DefaultPlanner{
                 break;
                 std::cout << "Planner ended before every agent got guidepath!" << std::endl;
             }
-            // if (require_guide_path[i]){
-            //     if (!trajLNS.trajs[i].empty())
-            //         remove_traj(trajLNS, i);
-            //     update_traj(trajLNS, i);
-            // }
+            if (require_guide_path[i]){
+                if (!trajLNS.trajs[i].empty())
+                    remove_traj(trajLNS, i);
+                update_traj(trajLNS, i);
+            }
             
-            if (!trajLNS.trajs[i].empty())
-                remove_traj(trajLNS, i);
-            update_traj(trajLNS, i);
+            // if (!trajLNS.trajs[i].empty())
+            //     remove_traj(trajLNS, i);
+            // update_traj(trajLNS, i);
             
         }
 

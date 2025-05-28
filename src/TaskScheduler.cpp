@@ -94,7 +94,7 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
 
 
 
-    DefaultPlanner::reset_heuristictable(env);
+    // DefaultPlanner::reset_heuristictable(env);
 
 
 
