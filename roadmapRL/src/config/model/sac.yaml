@@ -34,7 +34,7 @@ clip: 500  # Clip value for gradient clipping (default: 500)
 
 checkpoint_path: "NO_ROADS"  # Path where to save model checkpoints
 
-train: true # Switches updating the weights on and off
+train: false # Switches updating the weights on and off
 
 start_training_at_episode: 10
 
