@@ -548,6 +548,7 @@ class SAC(nn.Module):
 
                 # step
                 action_dict = {"roadmap_activation": action_rl.tolist()}
+                action_dict = {"roadmap_activation": [1] * self.nodes}
                 new_obs, reward_dict, done, info = self.env.step(action_dict)
                 myTimer.step += myTimer.addTime()
                 
