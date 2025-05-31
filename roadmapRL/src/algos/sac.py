@@ -544,11 +544,11 @@ class SAC(nn.Module):
             while not done:
                 # actor step
                 action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
+                action_rl = np.ones(self.nodes)
                 myTimer.selectAction += myTimer.addTime()
 
                 # step
                 action_dict = {"roadmap_activation": action_rl.tolist()}
-                action_dict = {"roadmap_activation": [1] * self.nodes}
                 new_obs, reward_dict, done, info = self.env.step(action_dict)
                 myTimer.step += myTimer.addTime()
                 
