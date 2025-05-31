@@ -66,7 +66,7 @@ def main(cfg: DictConfig):
         for key in cfg.model.keys():
             config[key] = cfg.model[key]
         wandb5 = wandb.init(
-            project= "Roadmap: " + cfg.model.map_path.split("/")[-1].replace(".json", "") + "_ag" + str(env.nAgents),
+            project= "Roadmap " + cfg.model.map_path.split("/")[-1].replace(".json", "") + "_ag" + str(env.nAgents),
             entity="johannesg98",
             name=cfg.model.checkpoint_path,
             config=config
