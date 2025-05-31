@@ -52,7 +52,7 @@ input_size: 14 # Number of node features (15 + 20 (distance_until_agent_avail_MA
 
 only_q_steps: 0 
 
-wandb: false # Enables Weights and Biases logging
+wandb: true # Enables Weights and Biases logging
 
 tensorboard: false # Enables Tensorboard logging
 
