@@ -48,6 +48,7 @@ class GNNActor(nn.Module):
         else:
             action = dist.sample()
             log_prob = dist.log_prob(action)
+            log_prob = log_prob.sum(dim=-1)
             return action, log_prob
         
 

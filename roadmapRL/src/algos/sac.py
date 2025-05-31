@@ -282,11 +282,7 @@ class SAC(nn.Module):
             q2_pi_targ = self.critic2_target(next_state_batch, edge_index2, edge_attr2, a2)
             q_pi_targ = torch.min(q1_pi_targ, q2_pi_targ)
 
-            print("a2 shape:", a2.shape)
-            print("logp_a2 shape:", logp_a2.shape)
-            print("q1_pi_targ shape:", q1_pi_targ.shape)
-            print("reward_batch shape:", reward_batch.shape)
-            
+
             
             # times = next_state_batch.reshape(-1, self.act_dim, self.input_size)[:, 0, -3] - state_batch.reshape(-1, self.act_dim, self.input_size)[:, 0, -3]
             # if self.cfg.normalise_obs:
