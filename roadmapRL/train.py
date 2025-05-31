@@ -40,7 +40,7 @@ def main(cfg: DictConfig):
         observationTypes={"roadmap-activation"},
         random_agents_and_tasks="true",
         use_dummy_goals_for_idle_agents=cfg.model.use_dummy_goals_for_idle_agents,
-        scheduler_type="default",
+        scheduler_type="ILP",
         planner_type="default",
         guarantee_planner_time = True
     )
