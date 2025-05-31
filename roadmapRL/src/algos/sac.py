@@ -544,7 +544,7 @@ class SAC(nn.Module):
             while not done:
                 # actor step
                 action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
-                action_rl = np.ones(self.nodes).astype(int)
+                action_rl = np.zeros(self.nodes).astype(int)
                 myTimer.selectAction += myTimer.addTime()
 
                 # step
