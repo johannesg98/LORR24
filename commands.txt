@@ -1,6 +1,6 @@
 build:
 cmake -B build ./ -DCMAKE_BUILD_TYPE=Release
-make -C build -j8
+make -C build -j30
 
 Run
 ./build/lifelong --inputFile ./example_problems/random.domain/random_32_32_20_200.json -o ./outputs/tmp.json -s 20

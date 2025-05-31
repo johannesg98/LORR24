@@ -18,8 +18,6 @@ void init_heuristic(HeuristicTable& ht, SharedEnvironment* env, int goal_locatio
 
 void reset_heuristictable(SharedEnvironment* env);
 
-void load_roadmap(SharedEnvironment* env);
-
 int get_heuristic(HeuristicTable& ht, SharedEnvironment* env, int source, Neighbors* ns);
 
 int get_h(SharedEnvironment* env, int source, int target);

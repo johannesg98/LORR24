@@ -3,6 +3,9 @@
 
 #include "search.h"
 
+//RL stuff
+#include "Roadmap.h"
+
 
 namespace DefaultPlanner{
 std::chrono::nanoseconds t;
@@ -71,8 +74,16 @@ s_node astar(SharedEnvironment* env, std::vector<Int4>& flow,
             diff = next - curr->id;
             d = get_d(diff,env);
             
-            cost = curr->g+1;
-            // cost = curr->g+1+global_roadmap[curr->id][d];
+
+            // check if env roadmap exists aka is not nullptr
+            if (env->roadmap != nullptr){
+                cost = curr->g+1+env->roadmap->activated_roadmap[curr->id][d];
+            }
+            else{
+                cost = curr->g+1;
+            }
+
+
             depth = curr->depth + 1;
 
             //moving direction

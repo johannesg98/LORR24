@@ -8,6 +8,7 @@
 #include "scheduler.h"
 #include "const.h"
 #include "heuristics.h"
+#include "Roadmap.h"
 
 //NoManSky Solution
 #include "schedulerNoMan.hpp"
@@ -80,7 +81,8 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     //give at most half of the entry time_limit to scheduler;
     //-SCHEDULER_TIMELIMIT_TOLERANCE for timing error tolerance
     int limit = time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
-    
+    auto start = std::chrono::high_resolution_clock::now();
+
     std::vector<int> proposed_schedule_old = proposed_schedule;
 
     for (int i = 0; i < env->num_of_agents; i++){
@@ -89,15 +91,19 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
             break;
         }
     }
-    auto start = std::chrono::high_resolution_clock::now();
+    
 
+    if (env->roadmap != nullptr){
+        if (action_dict.find("roadmap_activation") != action_dict.end()){
+            auto roadmap_activation = action_dict.at("roadmap_activation").cast<std::vector<int>>();
+            env->roadmap->update_roadmap(env, roadmap_activation);
+        }
+        if (env->roadmap->updated_last_step){
+            DefaultPlanner::reset_heuristictable(env);
+        }
+    }
 
-
-
-    // DefaultPlanner::reset_heuristictable(env);
-
-
-
+    
 
 
     if (scheduler_type.empty()){
@@ -268,4 +274,29 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
         }
         env->backtrack_rewards_whole_task[starttime] = rew_sum;
     }
+
+    if (env->curr_timestep = 0 && env->roadmap != nullptr){
+        std::cout << "Calculating roadmap reward first distance" << std::endl;
+        env->roadmap_reward_first_distance = 0;
+        for (int agent = 0; agent < env->num_of_agents; agent++){
+            if (proposed_schedule[agent] != -1){
+                int agent_loc = env->curr_states[agent].location;
+                int task_id = proposed_schedule[agent];
+                int task_loc = env->task_pool[task_id].get_next_loc();
+                int distance = DefaultPlanner::get_h(env, agent_loc, task_loc);
+                env->roadmap_reward_first_distance += distance;
+            }
+        }
+    }
+
+
+
+
+
+
+    auto endEnd = std::chrono::high_resolution_clock::now();
+    auto rewardCalcTime = std::chrono::duration_cast<std::chrono::milliseconds>(endEnd - end).count();
+    std::cout << "Scheduler time to calc reward metrics: " << rewardCalcTime  << "ms" << std::endl;
+
+
 }

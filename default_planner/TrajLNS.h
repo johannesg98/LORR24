@@ -17,8 +17,6 @@ enum ADAPTIVE {RANDOM, CONGESTION, DEVIATION, COUNT};
 extern std::vector<HeuristicTable> global_heuristictable;
 extern Neighbors global_neighbors;
 
-extern std::vector<std::vector<int>> global_roadmap;
-
 struct FW_Metric{
     int id;
     int deviation;

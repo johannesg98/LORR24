@@ -117,6 +117,9 @@ public:
     std::vector<double> MP_edge_weights;
     std::vector<std::vector<double>> node_positions;
     std::vector<int> space_per_node;
+    int nRoadmapNodes = -1;
+    std::vector<std::vector<int>> roadmapAdjacencyMatrix;
+    std::vector<std::vector<double>> roadmapNodePositions;
 };
 
 #endif // LRR_ENV_H

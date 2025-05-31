@@ -15,6 +15,8 @@ typedef std::chrono::steady_clock::time_point TimePoint;
 typedef std::chrono::milliseconds milliseconds;
 typedef std::unordered_map<int, Task> TaskPool;
 
+class Roadmap; // for forward declaration
+
 class SharedEnvironment
 {
 public:
@@ -58,6 +60,11 @@ public:
     std::unordered_map<int,double> backtrack_rewards_whole_task;
     std::unordered_map<int,std::vector<float>> action_rl;
     bool use_dummy_goals_for_idle_agents = true;
+
+    // Roadmap stuff
+    Roadmap* roadmap = nullptr;
+    int roadmap_reward_first_distance = 0;
+    
 
 
     SharedEnvironment(){}

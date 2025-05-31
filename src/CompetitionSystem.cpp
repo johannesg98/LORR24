@@ -17,6 +17,9 @@ using json = nlohmann::ordered_json;
 #include <Objects/Basic/time.hpp>
 #include <Objects/Environment/environment.hpp>
 
+//RL stuff
+#include <Roadmap.h>
+
 
 
 
@@ -474,6 +477,8 @@ bool BaseSystem::step(const std::unordered_map<std::string, pybind11::object>& a
 
     vector<State> curr_states = simulator.move(proposed_actions);
 
+    get_roadmap_reward(curr_states);
+
     task_manager.update_tasks(curr_states, proposed_schedule, simulator.get_curr_timestep());
 
     logger->log_info("Step done.", simulator.get_curr_timestep());
@@ -485,6 +490,50 @@ bool BaseSystem::step(const std::unordered_map<std::string, pybind11::object>& a
     }
 
     return done;
+}
+
+void BaseSystem::get_roadmap_reward(const std::vector<State>& curr_states) {
+    if (env->roadmap != nullptr) {
+        // only during first time step since we dont have previous goals
+        if (env->curr_timestep == 0){
+            std::cout << "Roadmap reward initialized during first step." << std::endl;
+            int this_distance_sum = 0;
+            for (int agent=0; agent < env->num_of_agents; agent++){
+                if (!env->goal_locations[agent].empty()){
+                    int goal_loc = env->goal_locations[agent][0].first;
+                    int agent_loc = env->curr_states[agent].location;
+                    this_distance_sum += DefaultPlanner::get_h(env, agent_loc, goal_loc);
+                    last_agent_goals.push_back(goal_loc);
+                } else {
+                    last_agent_goals.push_back(-1);
+                }                
+            }
+            roadmap_progress_reward = env->roadmap_reward_first_distance - this_distance_sum;
+            last_roadmap_distance_sum = this_distance_sum;
+        }
+        // all other time steps
+        else {
+            int this_distance_sum = 0;
+            int ignored_distance_sum = 0;
+            for (int agent=0; agent < env->num_of_agents; agent++){
+                if (!env->goal_locations[agent].empty()){
+                    int goal_loc = env->goal_locations[agent][0].first;
+                    if (goal_loc == last_agent_goals[agent]){
+                        this_distance_sum += DefaultPlanner::get_h(env, curr_states[agent].location, goal_loc);
+                    }
+                    else {
+                        ignored_distance_sum += DefaultPlanner::get_h(env, curr_states[agent].location, goal_loc);
+                        last_agent_goals[agent] = goal_loc;
+                    }
+                }
+                else {
+                    last_agent_goals[agent] = -1;
+                }
+            }
+            roadmap_progress_reward = last_roadmap_distance_sum - this_distance_sum;
+            last_roadmap_distance_sum = this_distance_sum + ignored_distance_sum;
+        }
+    }
 }
 
 pybind11::dict BaseSystem::get_reward(){
@@ -504,6 +553,12 @@ pybind11::dict BaseSystem::get_reward(){
     reward_dict["backtrack-rewards-first-errand"] = env->backtrack_rewards_first_errand;
 
     reward_dict["backtrack-rewards-whole-task"] = env->backtrack_rewards_whole_task;    
+
+    // Roadmap reward
+    if (env->roadmap != nullptr){
+        reward_dict["roadmap-progress-reward"] = roadmap_progress_reward;
+    }
+    
     
     return reward_dict;
 }
@@ -527,19 +582,35 @@ int BaseSystem::loadNodes(const std::string& fname){
     return env->nodes->nNodes;
 }
 
+int BaseSystem::loadRoadmapNodes(const std::string& fname) {
+    roadmap = Roadmap(env, fname);
+    env->roadmap = &roadmap;
+    return env->roadmap->graph.nNodes;
+}
+
 
 
 pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& observationTypes){
+    
     pybind11::dict obs;
+    clock_t start = clock();
 
+    // time
+    obs["time"] = env->curr_timestep;
+
+    //////////////////////////////////////////////////////////////////
+    ////////////////////// Basic Node Observations ////////////////////////
+
+    std::vector<int> agents_per_node;
+    std::vector<int> free_agents_per_node;
     if (observationTypes.count("node-basics")){
         
-        clock_t start = clock();
+        
 
         // agents per node
         // free agents per node
-        std::vector<int> agents_per_node(env->nodes->nNodes, 0);
-        std::vector<int> free_agents_per_node(env->nodes->nNodes, 0);
+        agents_per_node.resize(env->nodes->nNodes, 0);
+        free_agents_per_node.resize(env->nodes->nNodes, 0);
         for (int i=0; i < env->num_of_agents; i++){
             int loc = env->curr_states[i].location;
             int node = env->nodes->regions[loc];
@@ -560,7 +631,18 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
             }
         }
         obs["free_tasks_per_node"] = free_tasks_per_node;
+    }
 
+
+
+
+    //////////////////////////////////////////////////////////////////
+    ////////////// Advanced Node (+edge) Observations ////////////////
+
+    if (observationTypes.count("node-advanced")){
+        if (!observationTypes.count("node-basics")){
+            throw std::runtime_error("node-advanced observation requires node-basics observation");
+        }
 
         // distance until agent becomes available at node (OLD)
         std::vector<int> distance_until_agent_available(env->nodes->nNodes, distance_until_agent_avail_MAX);
@@ -601,8 +683,6 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
         obs["agents_available_next_steps_per_node"] = agents_available_next_steps;
 
 
-        // time
-        obs["time"] = env->curr_timestep;
 
         // congestion ratio at nodes
         std::vector<float> congestion_ratio_per_node(env->nodes->nNodes, 0);
@@ -745,16 +825,95 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
         }
         obs["agents_waiting_per_edge"] = agents_waiting_per_edge;
 
-
-        
-
-
-
-        std::cout << "Time for getting observations: " << (double)(clock()-start)/CLOCKS_PER_SEC << std::endl;
+ 
     }
 
+    //////////////////////////////////////////////////////////
+    ///////////////// Roadmap (RM) Observations ///////////////////
+
+
+
+    if (observationTypes.count("roadmap-activation")){
+        // agents and directions and free agents per node 
+
+        std::vector<int> RM_agents_per_node(env->roadmap->graph.nNodes, 0);
+        std::vector<int> RM_free_agents_per_node(env->roadmap->graph.nNodes, 0);
+        std::vector<int> RM_agents_per_node_in_dir(env->roadmap->graph.nNodes, 0);
+        std::vector<int> RM_agents_per_node_90_dir(env->roadmap->graph.nNodes, 0);
+        std::vector<int> RM_agents_per_node_op_dir(env->roadmap->graph.nNodes, 0);
+        for (int agent=0; agent<env->num_of_agents; agent++){
+            int loc = env->curr_states[agent].location;
+            int node = env->roadmap->graph.loc_to_node[loc];
+            if (node != -1){
+                RM_agents_per_node[node]++;
+                if (env->curr_task_schedule[agent] == -1){
+                    RM_free_agents_per_node[node]++;
+                }
+                int node_dir = env->roadmap->graph.node_direction[node];
+                int agent_dir = env->curr_states[agent].orientation;
+                if (node_dir == agent_dir){
+                    RM_agents_per_node_in_dir[node]++;
+                }
+                else if (abs(node_dir - agent_dir) == 2){
+                    RM_agents_per_node_op_dir[node]++;
+                }
+                else {
+                    RM_agents_per_node_90_dir[node]++;
+                }
+            }
+        }
+        obs["RM_agents_per_node"] = RM_agents_per_node;
+        obs["RM_free_agents_per_node"] = RM_free_agents_per_node;
+        obs["RM_agents_per_node_in_dir"] = RM_agents_per_node_in_dir;
+        obs["RM_agents_per_node_90_dir"] = RM_agents_per_node_90_dir;
+        obs["RM_agents_per_node_op_dir"] = RM_agents_per_node_op_dir;
+
+        // agents in direction per edge
+        std::vector<int> RM_agents_per_edge_in_dir(env->roadmap->graph.nEdges, 0);
+        std::vector<int> RM_agents_per_edge_90_dir(env->roadmap->graph.nEdges, 0);
+        std::vector<int> RM_agents_per_edge_op_dir(env->roadmap->graph.nEdges, 0);
+        for (int agent=0; agent<env->num_of_agents; agent++){
+            int agent_loc = env->curr_states[agent].location;
+            if (!env->roadmap->graph.loc_to_edges[agent_loc].empty()){
+                int agent_dir = env->curr_states[agent].orientation;
+                for (int edge_id : env->roadmap->graph.loc_to_edges[agent_loc]){
+                    int target_node = env->roadmap->graph.edge_to_node_start_end[edge_id].second;
+                    int node_dir = env->roadmap->graph.node_direction[target_node];
+                    if (node_dir == agent_dir){
+                        RM_agents_per_edge_in_dir[edge_id]++;
+                    }
+                    else if (abs(node_dir - agent_dir) == 2){
+                        RM_agents_per_edge_op_dir[edge_id]++;
+                    }
+                    else {
+                        RM_agents_per_edge_90_dir[edge_id]++;
+                    }
+                }
+            }
+        }
+        obs["RM_agents_per_edge_in_dir"] = RM_agents_per_edge_in_dir;
+        obs["RM_agents_per_edge_90_dir"] = RM_agents_per_edge_90_dir;
+        obs["RM_agents_per_edge_op_dir"] = RM_agents_per_edge_op_dir;
+
+
+
+
+    }
+
+    std::cout << "Time for getting observations: " << (double)(clock()-start)/CLOCKS_PER_SEC << std::endl;
     return obs;
 }
+
+    //////////////// End Observations ////////////////////////
+    //////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
 
 std::tuple<int,
             int,
@@ -765,7 +924,9 @@ std::tuple<int,
             std::vector<std::vector<double>>,
             std::vector<std::vector<std::pair<int, edgeFeatures::Direction>>>,
             std::vector<int>,
-            std::vector<int>
+            std::vector<int>,
+            std::vector<std::vector<int>>,
+            std::vector<std::vector<double>>
                                                                                     > BaseSystem::get_env_vals(std::unordered_set<std::string>& observationTypes, int MP_edge_limit){
 
     int max_num_agents = env->num_of_agents;
@@ -844,8 +1005,8 @@ std::tuple<int,
             int loc = env->nodes->locations[node];
             int x = loc % env->cols;
             int y = loc / env->cols;
-            double x_norm = (double)x/(double)env->cols;
-            double y_norm = (double)y/(double)env->rows;
+            double x_norm = (double)x/(double)(env->cols-1);
+            double y_norm = (double)y/(double)(env->rows-1);
             node_positions[0][node] = x_norm;
             node_positions[1][node] = y_norm;
             node_positions[2][node] = (sin(x_norm*2*M_PI) + 1)/2;
@@ -854,7 +1015,39 @@ std::tuple<int,
             node_positions[5][node] = (cos(y_norm*2*M_PI) + 1)/2;
         }
     }
+
+    ///////////////////////////////////////////////
+    ///////////// Roadmap stuff ///////////////////
+
+    std::vector<std::vector<int>> RM_AdjacencyMatrix;
+    std::vector<std::vector<double>> RM_node_positions;
+
+    if (observationTypes.count("roadmap-activation")){
+        if (env->roadmap == nullptr){
+            throw std::runtime_error("roadmap-activation observation requires roadmap to be loaded");
+        }
+
+        // roadmap adjacency matrix
+        RM_AdjacencyMatrix = env->roadmap->graph.AdjacencyMatrix;
+
+        // roadmap node positions
+        RM_node_positions.resize(6, std::vector<double>(env->roadmap->graph.nNodes,0));
+        for (int node=0; node<env->roadmap->graph.nNodes; node++){
+            int loc = env->roadmap->graph.node_to_locs[node][0];
+            int x = loc % env->cols;
+            int y = loc / env->cols;
+            double x_norm = (double)x/(double)(env->cols-1);
+            double y_norm = (double)y/(double)(env->rows-1);
+            RM_node_positions[0][node] = x_norm;
+            RM_node_positions[1][node] = y_norm;
+            RM_node_positions[2][node] = (sin(x_norm*2*M_PI) + 1)/2;
+            RM_node_positions[3][node] = (cos(x_norm*2*M_PI) + 1)/2;
+            RM_node_positions[4][node] = (sin(y_norm*2*M_PI) + 1)/2;
+            RM_node_positions[5][node] = (cos(y_norm*2*M_PI) + 1)/2;
+        }
+
+    }
     
-    return {max_num_agents, max_num_tasks, AdjacencyMatrix, NodeCostMatrix, MP_edge_index, MP_edge_weights, node_positions, MP_loc_to_edges_new, MP_edge_lengths_new, space_per_node_new};
+    return {max_num_agents, max_num_tasks, AdjacencyMatrix, NodeCostMatrix, MP_edge_index, MP_edge_weights, node_positions, MP_loc_to_edges_new, MP_edge_lengths_new, space_per_node_new, RM_AdjacencyMatrix, RM_node_positions};
 }
 

@@ -189,21 +189,24 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     system_ptr->set_preprocess_time_limit(preprocessTimeLimit);
     system_ptr->set_num_tasks_reveal(read_param_json<float>(data, "numTasksReveal", 1));
 
+
+    //initializes the environment as in BaseSystem::simulate
+    system_ptr->initializeExtendedBaseSystem(simulationTime);
+
+
     //new functions for RL
-    if (observationTypes.count("node-basics")){
+    if (observationTypes.count("node-basics") || observationTypes.count("roadmap-activation")){
         nNodes = system_ptr->loadNodes(base_folder + read_param_json<std::string>(data, "nodeFile"));
         system_ptr->distance_until_agent_avail_MAX = distance_until_agent_avail_MAX;
+    }
+    if (observationTypes.count("roadmap-activation")){
+        nRoadmapNodes = system_ptr->loadRoadmapNodes(base_folder + read_param_json<std::string>(data, "roadmapFile"));
     }
     planner->env->use_dummy_goals_for_idle_agents = use_dummy_goals_for_idle_agents;
     planner->scheduler->backtrack_reward_type = backtrack_reward_type;
     planner->scheduler->scheduler_type = scheduler_type;
     planner->planner->guarantee_planner_time = guarantee_planner_time;
     planner->planner->planner_type = planner_type;
-
-
-
-    //initializes the environment as in BaseSystem::simulate
-    system_ptr->initializeExtendedBaseSystem(simulationTime);
 
 
     double reward = 0.0;
@@ -248,7 +251,7 @@ std::tuple<pybind11::dict, pybind11::dict, bool, pybind11::dict> LRRenv::step(co
 
 void LRRenv::make_env_params_available(){
     reset();
-    std::tie(nAgents, nTasks, AdjacencyMatrix, NodeCostMatrix, MP_edge_index, MP_edge_weights, node_positions, MP_loc_to_edges, MP_edge_lengths, space_per_node) = system_ptr->get_env_vals(observationTypes, message_passing_edge_limit);
+    std::tie(nAgents, nTasks, AdjacencyMatrix, NodeCostMatrix, MP_edge_index, MP_edge_weights, node_positions, MP_loc_to_edges, MP_edge_lengths, space_per_node, roadmapAdjacencyMatrix, roadmapNodePositions) = system_ptr->get_env_vals(observationTypes, message_passing_edge_limit);
     return;
 }
 
@@ -312,5 +315,8 @@ PYBIND11_MODULE(envWrapper, m) {
         .def_readwrite("NodeCostMatrix", &LRRenv::NodeCostMatrix)
         .def_readwrite("MP_edge_index", &LRRenv::MP_edge_index)
         .def_readwrite("MP_edge_weights", &LRRenv::MP_edge_weights)
-        .def_readwrite("node_positions", &LRRenv::node_positions);
+        .def_readwrite("node_positions", &LRRenv::node_positions)
+        .def_readwrite("nRoadmapNodes", &LRRenv::nRoadmapNodes)
+        .def_readwrite("roadmapAdjacencyMatrix", &LRRenv::roadmapAdjacencyMatrix)
+        .def_readwrite("roadmapNodePositions", &LRRenv::roadmapNodePositions);
 }

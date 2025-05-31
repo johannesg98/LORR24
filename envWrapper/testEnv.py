@@ -9,21 +9,21 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/custom_warehouse.domain/warehouse_large.json",
+    inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",
     outputFile="./outputs/pyTest.json",
     simulationTime=150,
-    planTimeLimit=1000,
+    planTimeLimit=70,
     preprocessTimeLimit=30000,
-    observationTypes={""},    #"node-basics"
+    observationTypes={"node-basics", "roadmap-activation"},    
     random_agents_and_tasks="true",
-    scheduler_type="default",
+    scheduler_type="ILP",
     planner_type="default",
     guarantee_planner_time = True
 )
 env.make_env_params_available()
 
 
-number_of_runs = 10
+number_of_runs = 1
 
 sum_reward = 0
 sum_Astar_reward = 0
@@ -35,14 +35,15 @@ for i in range(number_of_runs):
 
     print("RESET PYTHON")
     print(f"Reward: {reward}, Done: {done}")
-    # print(f"Free agents: {obs["free_agents_per_node"]}")
-    # print(f"Free tasks: {obs["free_tasks_per_node"]}")
-    print(f"nNodes: {env.nNodes}, nAgents: {env.nAgents}, nTasks: {env.nTasks}")
+    print(f"Free agents: {obs["free_agents_per_node"]}")
+    print(f"Free tasks: {obs["free_tasks_per_node"]}")
+    print(f"nNodes: {env.nNodes}, nAgents: {env.nAgents}, nTasks: {env.nTasks}, nRoadmapNodes: {env.nRoadmapNodes}")
 
 
     while not done:
         # Take a step in the environment
-        obs, reward, done, info = env.step()
+        action_dict = {"roadmap_activation": [1] * env.nRoadmapNodes}
+        obs, reward, done, info = env.step(action_dict)
         this_reward += reward["task-finished"]
         Astar_reward += reward["A*-distance"]
         print(f"Astar reward: {reward['A*-distance']}, Task reward: {reward['task-finished']}, Idle agents reward: {reward['idle-agents']}")

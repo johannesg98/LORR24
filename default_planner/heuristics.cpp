@@ -8,8 +8,6 @@ namespace DefaultPlanner{
 std::vector<HeuristicTable> global_heuristictable;
 Neighbors global_neighbors;
 
-std::vector<std::vector<int>> global_roadmap;
-
 
 
 void init_neighbor(SharedEnvironment* env){
@@ -40,9 +38,6 @@ void init_heuristics(SharedEnvironment* env){
 		global_heuristictable.resize(env->map.size());
 		init_neighbor(env);
 	}
-	// if (global_roadmap.size() == 0){
-	// 	load_roadmap(env);
-	// }
 }
 
 
@@ -51,63 +46,8 @@ void reset_heuristictable(SharedEnvironment* env){
 	global_heuristictable.resize(env->map.size());
 }
 
-void load_roadmap(SharedEnvironment* env){
-	global_roadmap.resize(env->map.size(), std::vector(4,0));
 
-	// Get path relative to this source file
-	std::filesystem::path source_dir = std::filesystem::path(__FILE__).parent_path();
-	std::string fname = (source_dir / ".." / "roadmap" / "warehouse_8x6.roadmap").string();
-	std::ifstream myfile ((fname).c_str());
-    if (!myfile.is_open())
-    {
-        cout << "Roadmap file " << fname << " does not exist. " << std::endl;
-        exit(-1);
-    }
 
-	std::string line;
-	// Skip the first lines
-	std::getline(myfile, line);
-	std::getline(myfile, line);
-	std::getline(myfile, line);
-	std::getline(myfile, line);
-	
-	// Read first map
-	for (int row = 0; row < env->rows; row++) {
-		std::getline(myfile, line);
-		for (int col = 0; col < env->cols; col++) {
-			char map_char = line[col];
-			int loc_id = row * env->cols + col;
-			
-			if (map_char == '>'){
-				global_roadmap[loc_id][2] = 20;
-			}
-			else if (map_char == '<'){
-				global_roadmap[loc_id][0] = 20;
-			}
-		}
-	}
-	
-	// Skip empty line between maps
-	std::getline(myfile, line);
-	
-	// Read second map
-	for (int row = 0; row < env->rows; row++) {
-		std::getline(myfile, line);
-		for (int col = 0; col < env->cols; col++) {
-			char map_char = line[col];
-			int loc_id = row * env->cols + col;
-			
-			if (map_char == '^'){
-				global_roadmap[loc_id][1] = 20;
-			}
-			else if (map_char == 'v'){
-				global_roadmap[loc_id][3] = 20;
-			}
-		}
-	}
-
-	std::cout << "Roadmap loaded with " << global_roadmap.size() << " locations." << std::endl;
-}
 
 void init_heuristic(HeuristicTable& ht, SharedEnvironment* env, int goal_location){
 	// initialize my_heuristic, but have error on malloc: Region cookie corrupted for region

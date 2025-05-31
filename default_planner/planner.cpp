@@ -5,6 +5,9 @@
 #include "flow.h"
 #include "const.h"
 
+//RL stuff
+#include "Roadmap.h"
+
 
 namespace DefaultPlanner{
 
@@ -190,20 +193,18 @@ namespace DefaultPlanner{
         // compute the congestion minimised guide path for the agents that need guide path update
         for (int i = 0; i < env->num_of_agents;i++){
             if (std::chrono::steady_clock::now() >end_time){
-                break;
                 std::cout << "Planner ended before every agent got guidepath!" << std::endl;
+                break;
+                
             }
-            if (require_guide_path[i]){
+            if (require_guide_path[i] || env->roadmap->updated_last_step){
                 if (!trajLNS.trajs[i].empty())
                     remove_traj(trajLNS, i);
                 update_traj(trajLNS, i);
             }
             
-            // if (!trajLNS.trajs[i].empty())
-            //     remove_traj(trajLNS, i);
-            // update_traj(trajLNS, i);
-            
         }
+        env->roadmap->updated_last_step = false;
 
         // iterate and recompute the guide path to optimise traffic flow
         std::unordered_set<int> updated;

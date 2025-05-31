@@ -18,51 +18,29 @@ from src.helperfunctions.LRRParser import LRRParser
 def setup_model(cfg, env, parser, device):
     model_name = cfg.model.name
     cfg = cfg.model
-    if model_name == "a2c":
-        from src.algos.a2c import A2C
-        return A2C(env=env, input_size=cfg.input_size,cfg=cfg, parser=parser, train_dir=script_dir, device=device).to(device)
-    elif model_name == "sac":
+    if model_name == "sac":
         from src.algos.sac import SAC
         return SAC(env=env, input_size=cfg.input_size, cfg=cfg, parser=parser, train_dir=script_dir, device=device).to(device)
-    elif model_name == "td3":
-        from src.algos.td3 import TD3
-        return TD3(env=env, input_size=cfg.input_size, cfg=cfg, parser=parser, train_dir=script_dir, device=device).to(device)
     else:
         raise ValueError(f"Unknown model or baseline: {model_name}")
 
 
 
 
-def load_actor_weights(model, path):
-    full_model_state = torch.load(f"ckpt/{path}.pth")
-
-    actor_encoder_state = {
-        k.replace("actor.", ""): v
-        for k, v in full_model_state["model"].items()
-        if "actor" in k
-    }
-    model.actor.load_state_dict(actor_encoder_state)
-    return model
-
-
 @hydra.main(version_base=None, config_path=os.path.join(script_dir, "src/config/"), config_name="config")
 def main(cfg: DictConfig):
 
-    # json_path = "../example_problems/custom_warehouse.domain/warehouse_8x6.json"
     
     env = envWrapper.LRRenv(
         inputFile=os.path.join(script_dir, cfg.model.map_path),
-        outputFile=os.path.join(script_dir, "../outputs/trainRL.json"),
+        outputFile=os.path.join(script_dir, "../outputs/trainRoadmapRL.json"),
         simulationTime=cfg.model.max_steps,
         planTimeLimit=70,
         preprocessTimeLimit=30000,
-        observationTypes={"node-basics", "node-advanced"},
+        observationTypes={"roadmap-activation"},
         random_agents_and_tasks="true",
-        message_passing_edge_limit=cfg.model.message_passing_edge_limit,
-        distance_until_agent_avail_MAX=cfg.model.distance_until_agent_avail_MAX,
         use_dummy_goals_for_idle_agents=cfg.model.use_dummy_goals_for_idle_agents,
-        backtrack_reward_type = cfg.model.backtrack_reward_type,
-        scheduler_type="RL",
+        scheduler_type="default",
         planner_type="default",
         guarantee_planner_time = True
     )
@@ -88,7 +66,7 @@ def main(cfg: DictConfig):
         for key in cfg.model.keys():
             config[key] = cfg.model[key]
         wandb5 = wandb.init(
-            project=cfg.model.map_path.split("/")[-1].replace(".json", "") + "_ag" + str(env.nAgents),
+            project= "Roadmap: " + cfg.model.map_path.split("/")[-1].replace(".json", "") + "_ag" + str(env.nAgents),
             entity="johannesg98",
             name=cfg.model.checkpoint_path,
             config=config

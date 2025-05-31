@@ -15,6 +15,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include "edge_features.h"
+#include "Roadmap.h"
 
 //NoManSky Solution
 #include "schedulerNoMan.hpp"
@@ -99,9 +100,11 @@ public:
     void initializeExtendedBaseSystem(int simulation_time);
     pybind11::dict get_NoManSkySolution(int time_limit = 100);
     bool step(const std::unordered_map<std::string, pybind11::object>& action_dict = {});
+    void get_roadmap_reward(const std::vector<State>& curr_states);
     pybind11::dict get_reward();
     pybind11::dict get_info();
     int loadNodes(const std::string& fname);
+    int loadRoadmapNodes(const std::string& fname);
     pybind11::dict get_observation(std::unordered_set<std::string>& observationTypes);
     std::tuple<int,
                 int,
@@ -112,7 +115,9 @@ public:
                 std::vector<std::vector<double>>, 
                 std::vector<std::vector<std::pair<int, edgeFeatures::Direction>>>,
                 std::vector<int>,
-                std::vector<int>
+                std::vector<int>,
+                std::vector<std::vector<int>>,
+                std::vector<std::vector<double>>
                                                                     > get_env_vals(std::unordered_set<std::string>& observationTypes, int MP_edge_limit = 0);
     int distance_until_agent_avail_MAX = 20;
     std::vector<std::vector<std::pair<int,edgeFeatures::Direction>>> MP_loc_to_edges;     // num_map_tiles x num_of_edges_that_pass_through_it x (edge_id, direction)
@@ -120,6 +125,7 @@ public:
     std::vector<int> space_per_node;
     
     MyScheduler schedulerNoMan;
+    Roadmap roadmap;
 
 
 protected:
@@ -179,6 +185,11 @@ protected:
     int num_of_task_finish_last_call = 0;
     std::unordered_map<std::pair<int, int>, int, pair_hash> MP_edge_map;
     vector<State> last_agent_states;
+
+    // roadmap
+    int last_roadmap_distance_sum;
+    std::vector<int> last_agent_goals;
+    int roadmap_progress_reward;
     
     
 

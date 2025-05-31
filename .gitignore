@@ -27,3 +27,8 @@ RL/__pycache__
 nn_optimization/data
 nn_optimization/output
 nn_optimization/nets/__pycache__
+roadmapRL/__pycache__
+roadmapRL/src/algos/__pycache__/
+roadmapRL/src/nets/__pycache__/
+roadmapRL/src/helperfunctions/__pycache__/
+roadmapRL/ckpt/
