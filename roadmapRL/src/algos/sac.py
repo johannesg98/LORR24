@@ -592,7 +592,7 @@ class SAC(nn.Module):
             # log wandb + tensorboard
             myTimer.printAvgTimes(i_episode+1)
             if self.wandb is not None:
-                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Roads active (%)": road_active_sum/(road_active_sum+road_inactive_sum), "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)}, step=i_episode)
+                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Roads active (%)": road_active_sum/(road_active_sum+road_inactive_sum)*100, "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)}, step=i_episode)
                 # self.wandb_policy_logger(i_episode)
             if self.tensorboard is not None:
                 self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
