@@ -275,7 +275,9 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
         env->backtrack_rewards_whole_task[starttime] = rew_sum;
     }
 
-    if (env->curr_timestep = 0 && env->roadmap != nullptr){
+
+    // initial distance for roadmap reward
+    if (env->curr_timestep == 0 && env->roadmap != nullptr){
         std::cout << "Calculating roadmap reward first distance" << std::endl;
         env->roadmap_reward_first_distance = 0;
         for (int agent = 0; agent < env->num_of_agents; agent++){
