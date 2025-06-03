@@ -205,6 +205,8 @@ class SAC(nn.Module):
             from src.nets.TransformerConv import GNNActor, GNNCritic
         elif cfg.net == "TransformerConvDouble":
             from src.nets.TransformerConvDouble import GNNActor, GNNCritic
+        elif cfg.net == "TransformerConvAction":
+            from src.nets.TransformerConvAction import GNNActor, GNNCritic
   
         self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
         self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
@@ -798,7 +800,11 @@ class SAC(nn.Module):
             if i_episode % 20 == 5:
                 self.test_during_training(i_episode)
             if i_episode % 100 == 0:
-                self.test_best_checkpoint(i_episode, cfg)
+                try:
+                    self.test_best_checkpoint(i_episode, cfg)
+                except Exception as e:
+                    print(f"Error during testing best checkpoint: {e}")
+                    
 
             myTimer.test_cycles += myTimer.addTime()
 

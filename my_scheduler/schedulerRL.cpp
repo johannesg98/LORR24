@@ -38,6 +38,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     // }
     // std::cout << std::endl;
 
+
     if (free_agents.size() == 0){
         std::cout << "SchedulerRL end, no free agents" << std::endl;
         return;
@@ -45,12 +46,14 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     
     if (action_dict.find("action_rl") != action_dict.end()) {
         env->action_rl[env->curr_timestep] = action_dict.at("action_rl").cast<std::vector<float>>();
+        
     }
 
     int min_task_i, min_task_makespan, dist, agent_loc, task_loc, count, node_id;
     count = 0;
 
     std::map<pair<int,int>, int> reb_action = action_dict.at("reb_action").cast<std::map<pair<int,int>, int>>();
+    
 
     std::vector<std::vector<int>> tasks_per_node(env->nodes->nNodes);
     for (int task_id : free_tasks){
@@ -67,7 +70,6 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
     //copy tasks_per_node and fill with -1
 
-
     // create reservation list for each node for each task that indicates which task is reserved for which incoming node
     std::vector<std::vector<int>> task_reserved_for_incoming_node(tasks_per_node.size());
     for (size_t i = 0; i < tasks_per_node.size(); ++i) {
@@ -76,7 +78,6 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
     // create a list of incoming agents for each node that contains tuple of agent id and origin node
     std::vector<std::vector<tuple<int, int>>> agent_a_incoming_from_node_b(env->nodes->nNodes);
-
 
 
 
@@ -301,7 +302,6 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
         
     }
 
-
     for (int node = 0; node < env->nodes->nNodes; node++){
 
         //check timeout
@@ -330,7 +330,6 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
         }
     }
 
-    
 
     // std::cout << "SchedulerRL end,   proposed_schedule: ";
     // for (int i = 0; i < proposed_schedule.size(); i++){

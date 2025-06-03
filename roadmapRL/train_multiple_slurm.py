@@ -23,7 +23,7 @@ def main(cfg: DictConfig):
         "../example_problems/custom_warehouse.domain/warehouse_4x3.json"
     ]
     use_markovian_new_obs_list = [False, True]
-    rew_w_list = [5,10,20,30,50,100,200,300,500,750,1000,1500,3000,6000,12000,20000,50000]
+    rew_w_list = [5,10,20,30,50,100,200,300,500,750,1000,1500,3000,6000,12000,20000,50000,100000]
     trys = range(2)
 
     
@@ -37,7 +37,7 @@ def main(cfg: DictConfig):
     for i,rew_w_roadmap_progress in enumerate(rew_w_list):
         cfg.model.rew_w_roadmap_progress = rew_w_roadmap_progress
         
-        cfg.model.checkpoint_path = f"CPU_roadmap-progress{rew_w_roadmap_progress}_id{slurm_task_id}"
+        cfg.model.checkpoint_path = f"CPU_200_roadmap-progress{rew_w_roadmap_progress}_id{slurm_task_id}"
         if run_training(cfg):
             return
 

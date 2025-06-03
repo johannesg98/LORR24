@@ -197,14 +197,16 @@ namespace DefaultPlanner{
                 break;
                 
             }
-            if (require_guide_path[i] || env->roadmap->updated_last_step){
+            if (require_guide_path[i] || (env->roadmap != nullptr && env->roadmap->updated_last_step)){
                 if (!trajLNS.trajs[i].empty())
                     remove_traj(trajLNS, i);
                 update_traj(trajLNS, i);
             }
             
         }
-        env->roadmap->updated_last_step = false;
+        if (env->roadmap != nullptr){
+            env->roadmap->updated_last_step = false;
+        }
 
         // iterate and recompute the guide path to optimise traffic flow
         std::unordered_set<int> updated;

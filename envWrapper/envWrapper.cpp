@@ -191,6 +191,8 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
 
 
     //initializes the environment as in BaseSystem::simulate
+    planner->scheduler->scheduler_type = scheduler_type;
+    planner->planner->planner_type = planner_type;
     system_ptr->initializeExtendedBaseSystem(simulationTime);
 
 
@@ -204,9 +206,8 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     }
     planner->env->use_dummy_goals_for_idle_agents = use_dummy_goals_for_idle_agents;
     planner->scheduler->backtrack_reward_type = backtrack_reward_type;
-    planner->scheduler->scheduler_type = scheduler_type;
     planner->planner->guarantee_planner_time = guarantee_planner_time;
-    planner->planner->planner_type = planner_type;
+    
 
 
     double reward = 0.0;

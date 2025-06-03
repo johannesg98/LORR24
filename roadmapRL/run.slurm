@@ -7,6 +7,6 @@
 #SBATCH -p cpu
 #SBATCH -o slurm/output_%j.txt
 #SBATCH -e slurm/error_%j.txt
-#SBATCH --array=1-17
+#SBATCH --array=1-18
 
 conda run -n myenv python3 roadmapRL/train_multiple_slurm.py $SLURM_ARRAY_TASK_ID
