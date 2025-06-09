@@ -641,6 +641,9 @@ class ActivationSAC(nn.Module):
             self.LogQ1Loss = []
             self.LogPolicyLoss = []
             bcktr_buffer = {}
+            agents_activated_sum = 0
+            tasks_activated_sum = 0
+            total_activation_possibilities = 0
             last_step_tmp = None
             done = False
             myTimer.outerLoop += myTimer.addTime()
@@ -706,6 +709,9 @@ class ActivationSAC(nn.Module):
                 episode_num_tasks_finished += reward_dict["task-finished"]
                 task_search_durations.extend(info["task-search-durations"])
                 task_distances.extend(info["task-distances"])
+                agents_activated_sum += action_rl[:, 0].sum().item()
+                tasks_activated_sum += action_rl[:, 1].sum().item()
+                total_activation_possibilities += action_rl.shape[0]
                 step+= 1
                 myTimer.rest += myTimer.addTime()      
 
@@ -721,7 +727,7 @@ class ActivationSAC(nn.Module):
             # log wandb + tensorboard
             myTimer.printAvgTimes(i_episode+1)
             if self.wandb is not None:
-                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)}, step=i_episode)
+                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Agents activated (%)": agents_activated_sum/total_activation_possibilities*100, "Tasks activated (%)": tasks_activated_sum/total_activation_possibilities*100, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)}, step=i_episode)
                 # self.wandb_policy_logger(i_episode)
             if self.tensorboard is not None:
                 self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
