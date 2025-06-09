@@ -1,5 +1,6 @@
 import sys
 import os
+import numpy as np
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 build_path = os.path.join(script_dir, "build")
@@ -14,9 +15,9 @@ env = envWrapper.LRRenv(
     simulationTime=150,
     planTimeLimit=70,
     preprocessTimeLimit=30000,
-    observationTypes={"node-basics", "roadmap-activation"},    
+    observationTypes={"node-basics"},    
     random_agents_and_tasks="true",
-    scheduler_type="ILP",
+    scheduler_type="ActivatedGreedy",    # ActivatedGreedy, ActivatedAdvantage, NoManSky, default
     planner_type="default",
     guarantee_planner_time = True
 )
@@ -42,8 +43,9 @@ for i in range(number_of_runs):
 
     while not done:
         # Take a step in the environment
-        action_dict = {"roadmap_activation": [1] * env.nRoadmapNodes}
-        obs, reward, done, info = env.step(action_dict)
+        # action_dict = {"roadmap_activation": [1] * env.nRoadmapNodes}
+        # action_dict = {"activation_action": np.ones((env.nNodes, 2), dtype=int)}
+        obs, reward, done, info = env.step()
         this_reward += reward["task-finished"]
         Astar_reward += reward["A*-distance"]
         print(f"Astar reward: {reward['A*-distance']}, Task reward: {reward['task-finished']}, Idle agents reward: {reward['idle-agents']}")

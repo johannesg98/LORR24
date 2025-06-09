@@ -1,6 +1,6 @@
-#include "schedulerTEMPLATE.h"
+#include "schedulerActivatedGreedy.h"
 
-namespace schedulerTEMPLATE{
+namespace schedulerActivatedGreedy{
 
 std::mt19937 mt;
 std::unordered_set<int> free_agents;
@@ -17,7 +17,7 @@ void schedule_initialize(int preprocess_time_limit, SharedEnvironment* env)
     return;
 }
 
-void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  SharedEnvironment* env)
+void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  SharedEnvironment* env, const std::unordered_map<std::string, pybind11::object>& action_dict)
 {
     //use at most half of time_limit to compute schedule, -10 for timing error tolerance
     //so that the remainning time are left for path planner
@@ -28,9 +28,16 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     free_agents.insert(env->new_freeagents.begin(), env->new_freeagents.end());
     free_tasks.insert(env->new_tasks.begin(), env->new_tasks.end());
 
-    int min_task_i, min_task_makespan, dist, c_loc, count;
+    int min_task_i, min_task_makespan, dist, c_loc, count, t_loc, node;
     clock_t start = clock();
 
+
+    bool activation_active = false;
+    std::vector<std::vector<int>> activation_action;
+    if (action_dict.find("activation_action") != action_dict.end()) {
+        activation_action = action_dict.at("activation_action").cast<std::vector<std::vector<int>>>();
+        activation_active = true;        
+    }
     
 
 
@@ -46,6 +53,17 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
         int i = *it;
 
         assert(env->curr_task_schedule[i] == -1);
+
+        if (activation_active){
+            int agent_loc = env->curr_states.at(i).location;
+            node = env->nodes->regions.at(agent_loc);
+            if (activation_action[node][0] != 1){
+                // if the agent is not activated, skip to the next agent
+                proposed_schedule[i] = -1;
+                it++;
+                continue;
+            }
+        }
             
         min_task_i = -1;
         min_task_makespan = INT_MAX;
@@ -59,22 +77,39 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
             {
                 break;
             }
-            dist = 0;
-            c_loc = env->curr_states.at(i).location;
+            count++;
 
+            if (activation_active){
+                t_loc = env->task_pool[t_id].locations[0];
+                node = env->nodes->regions.at(t_loc);
+                if (activation_action[node][1] != 1){
+                    continue;
+                }
+            }
+            
+
+
+
+
+            
+            c_loc = env->curr_states.at(i).location;
+            dist = DefaultPlanner::get_h(env, c_loc, env->task_pool[t_id].locations[0]);
+
+
+            // dist = 0;
             // iterate over the locations (errands) of the task to compute the makespan to finish the task
             // makespan: the time for the agent to complete all the errands of the task t_id in order
-            for (int loc : env->task_pool[t_id].locations){
-                dist += DefaultPlanner::get_h(env, c_loc, loc);
-                c_loc = loc;
-            }
+            // for (int loc : env->task_pool[t_id].locations){
+            //     dist += DefaultPlanner::get_h(env, c_loc, loc);
+            //     c_loc = loc;
+            // }
+            
 
             // update the new minimum makespan
             if (dist < min_task_makespan){
                 min_task_i = t_id;
                 min_task_makespan = dist;
-            }
-            count++;            
+            }           
         }
 
         // assign the best free task to the agent i (assuming one exists)

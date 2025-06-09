@@ -3,7 +3,6 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 from torch_geometric.data import Data, Batch
-from src.algos.reb_flow_solver import solveRebFlow
 import random
 from tqdm import trange
 import os
@@ -15,9 +14,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-
-from src.helperfunctions.skip_actor import skip_actor
-from src.helperfunctions.assign_discrete_actions import assign_discrete_actions
 
 class timer:
     def __init__(self, cfg):
@@ -143,7 +139,7 @@ class Scalar(nn.Module):
 #########################################
 ############## SAC AGENT ################
 #########################################
-class SAC(nn.Module):
+class ActivationSAC(nn.Module):
     """
     Advantage Actor Critic algorithm for the LRR control problem.
     """
@@ -157,7 +153,7 @@ class SAC(nn.Module):
         train_dir,
         device=torch.device("cpu"),
     ):
-        super(SAC, self).__init__()
+        super(ActivationSAC, self).__init__()
         self.env = env
         self.eps = np.finfo(np.float32).eps.item(),
         self.input_size = input_size
@@ -193,20 +189,9 @@ class SAC(nn.Module):
         self.replay_buffer = ReplayData(device=device, capacity=100000)
         
 
-        if cfg.net == "GCNConv":
-            from src.nets.GCNConv import GNNActor, GNNCritic
-        elif cfg.net == "GCNConvPenta":
-            from src.nets.GCNConvPenta import GNNActor, GNNCritic
-        elif cfg.net == "NNConv":
-            from src.nets.NNConv import GNNActor, GNNCritic
-        elif cfg.net == "GATConv":
-            from src.nets.GATConv import GNNActor, GNNCritic
-        elif cfg.net == "TransformerConv":
-            from src.nets.TransformerConv import GNNActor, GNNCritic
-        elif cfg.net == "TransformerConvDouble":
-            from src.nets.TransformerConvDouble import GNNActor, GNNCritic
-        elif cfg.net == "TransformerConvAction":
-            from src.nets.TransformerConvAction import GNNActor, GNNCritic
+        if cfg.net == "ActivationTransformerConv":
+            from src.nets.ActivationTransformerConv import GNNActor, GNNCritic
+        
   
         self.actor = GNNActor(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
         self.critic1 = GNNCritic(self.input_size, self.hidden_size, act_dim=self.act_dim, edge_feature_dim=cfg.edge_feature_dim)
@@ -292,6 +277,7 @@ class SAC(nn.Module):
             # if self.cfg.normalise_obs:
             #     times *= self.cfg.max_steps
             # gamma = self.gamma ** (times)
+
 
             backup = reward_batch + self.gamma * (q_pi_targ - self.alpha * logp_a2)
 
@@ -615,11 +601,6 @@ class SAC(nn.Module):
 
             self.last_wandb_policy_log = i_episode
 
-    def immitation_reward(self, action_rl, obs, cfg):
-        if cfg.model.rew_w_immitation > 0:
-            skip_action_rl = skip_actor(self.env, obs)
-            return -float(np.linalg.norm(action_rl - skip_action_rl))
-        return 0
     
     def learn(self, cfg, Dataset=None):
         if cfg.model.load_from_ckeckpoint:
@@ -667,52 +648,28 @@ class SAC(nn.Module):
             while not done:
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
-                if cfg.model.skip_actor:
-                    action_rl = skip_actor(self.env, obs)
-                else:
-                    action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
+                action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
                 myTimer.selectAction += myTimer.addTime()
 
-                # create discrete action distribution
-                total_agents = sum(obs["free_agents_per_node"])
-                desired_agent_dist = assign_discrete_actions(total_agents, action_rl)
-                myTimer.rest += myTimer.addTime()
-
-
-                # test stuff
-                # action_rl_skip = skip_actor(self.env, obs)
-                # diff = assign_discrete_actions(total_agents, action_rl) - assign_discrete_actions(total_agents, action_rl_skip)
-                # wrong_assignments = np.sum(np.abs(diff))/2
-                # skip_assigments = np.where(diff < 0)
-                # actor_assignments = np.where(diff > 0)
-                # print(f"wrong assignments: {wrong_assignments}/{total_agents}, skip assignments: {skip_assigments}, actor_assignments assignments: {actor_assignments}")
-
                 
-                # solve rebalancing
-                reb_action = solveRebFlow(
-                    self.env,
-                    obs,
-                    desired_agent_dist,
-                    self.cplexpath,
-                )
-                action_dict = {"reb_action": reb_action, "action_rl": action_rl.tolist()}
-                myTimer.solveReb += myTimer.addTime()
+
+                total_agents = sum(obs["free_agents_per_node"])
+                action_dict = {"activation_action":action_rl}
                 
                 # step
                 new_obs, reward_dict, done, info = self.env.step(action_dict)
                 myTimer.step += myTimer.addTime()
                 
                 # reward
-                rew = cfg.model.rew_w_immitation * self.immitation_reward(action_rl, obs, cfg) + cfg.model.rew_w_Astar * reward_dict["A*-distance"] + cfg.model.rew_w_idle * reward_dict["idle-agents"] + cfg.model.rew_w_task_finish * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
+                rew = cfg.model.rew_w_Astar * reward_dict["A*-distance"] + cfg.model.rew_w_idle * reward_dict["idle-agents"] + cfg.model.rew_w_task_finish * reward_dict["task-finished"]       # dist-reward, A*-distance, task-finished
                 if done:
                     rew += cfg.model.rew_w_final_tasks_finished * (episode_num_tasks_finished + reward_dict["task-finished"])
 
-                print("XXXXXXXXXXXXXXXXXXXXXXXXX action_rl shape: ", action_rl.shape)
 
                 # backtracking
                 new_obs_parsed = self.parser.parse_obs(new_obs)
                 if not cfg.model.mask_impactless_actions or total_agents > 0:
-                    bcktr_buffer[step] = {"obs_parsed": obs_parsed, "action_rl": action_rl, "rew": rew, "task-distances": info["task-distances"], "bcktr_rew_added": False}
+                    bcktr_buffer[step] = {"obs_parsed": obs_parsed, "action_rl": action_rl.flatten(), "rew": rew, "task-distances": info["task-distances"], "bcktr_rew_added": False}
                     if not cfg.model.use_markovian_new_obs:
                         bcktr_buffer[step]["new_obs_parsed"] = new_obs_parsed
                     else:
@@ -826,15 +783,7 @@ class SAC(nn.Module):
                 while not done:
                     action_rl = self.select_action(obs_parsed, deterministic=True)
                     
-                    total_agents = sum(obs["free_agents_per_node"])
-                    desired_agent_dist = assign_discrete_actions(total_agents, action_rl)
-                    reb_action = solveRebFlow(
-                        self.env,
-                        obs,
-                        desired_agent_dist,
-                        self.cplexpath,
-                    )
-                    action_dict = {"reb_action": reb_action}
+                    action_dict = {"activation_action":action_rl.tolist()}
                     
                     # step
                     new_obs, reward_dict, done, info = self.env.step(action_dict)
@@ -863,15 +812,7 @@ class SAC(nn.Module):
         while not done:
             action_rl = self.select_action(obs_parsed, deterministic=True)
             
-            total_agents = sum(obs["free_agents_per_node"])
-            desired_agent_dist = assign_discrete_actions(total_agents, action_rl)
-            reb_action = solveRebFlow(
-                self.env,
-                obs,
-                desired_agent_dist,
-                self.cplexpath,
-            )
-            action_dict = {"reb_action": reb_action}
+            action_dict = {"activation_action":action_rl.tolist()}
             
             # step
             new_obs, reward_dict, done, info = self.env.step(action_dict)

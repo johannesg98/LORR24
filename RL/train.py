@@ -27,6 +27,9 @@ def setup_model(cfg, env, parser, device):
     elif model_name == "td3":
         from src.algos.td3 import TD3
         return TD3(env=env, input_size=cfg.input_size, cfg=cfg, parser=parser, train_dir=script_dir, device=device).to(device)
+    elif model_name == "activation_sac":
+        from src.algos.activation_sac import ActivationSAC
+        return ActivationSAC(env=env, input_size=cfg.input_size, cfg=cfg, parser=parser, train_dir=script_dir, device=device).to(device)
     else:
         raise ValueError(f"Unknown model or baseline: {model_name}")
 
@@ -62,7 +65,7 @@ def main(cfg: DictConfig):
         distance_until_agent_avail_MAX=cfg.model.distance_until_agent_avail_MAX,
         use_dummy_goals_for_idle_agents=cfg.model.use_dummy_goals_for_idle_agents,
         backtrack_reward_type = cfg.model.backtrack_reward_type,
-        scheduler_type="RL",
+        scheduler_type=cfg.model.scheduler_type,
         planner_type="default",
         guarantee_planner_time = True
     )
