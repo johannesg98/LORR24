@@ -32,7 +32,7 @@ hidden_size: 256  # Defines hidden units in the MLP layers
 
 clip: 500  # Clip value for gradient clipping (default: 500)
 
-checkpoint_path: "FIXED_ROADS"  # Path where to save model checkpoints
+checkpoint_path: "GPU_ownExploration"  # Path where to save model checkpoints
 
 train: true # Switches updating the weights on and off
 
@@ -65,4 +65,4 @@ edge_feature_dim: 7 # Number of edge features (6 + 10 (distance_until_agent_avai
 # Reward weigths
 rew_w_task_finish: 0
 rew_w_final_tasks_finished: 0
-rew_w_roadmap_progress: 20
+rew_w_roadmap_progress: 3000

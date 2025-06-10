@@ -36,16 +36,19 @@ class GNNActor(nn.Module):
         x = torch.sigmoid(self.lin3(x))
         continous_action = x.squeeze(-1)
         
-        dist = torch.distributions.Bernoulli(probs=continous_action)
+        
     
         if return_dist:
-            return dist
+            return torch.distributions.Bernoulli(probs=continous_action)
         if return_raw:
             return continous_action, None
         if deterministic:
             action = (continous_action > 0.5).float()  # Convert to binary action
             return action, None
         else:
+            eps = 0.1
+            continous_action = (1-eps) * continous_action + eps * torch.rand_like(continous_action)
+            dist = torch.distributions.Bernoulli(probs=continous_action)
             action = dist.sample()
             log_prob = dist.log_prob(action)
             log_prob = log_prob.sum(dim=-1)
