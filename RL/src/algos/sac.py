@@ -707,8 +707,6 @@ class SAC(nn.Module):
                 if done:
                     rew += cfg.model.rew_w_final_tasks_finished * (episode_num_tasks_finished + reward_dict["task-finished"])
 
-                print("XXXXXXXXXXXXXXXXXXXXXXXXX action_rl shape: ", action_rl.shape)
-
                 # backtracking
                 new_obs_parsed = self.parser.parse_obs(new_obs)
                 if not cfg.model.mask_impactless_actions or total_agents > 0:
