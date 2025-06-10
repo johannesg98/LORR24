@@ -46,8 +46,8 @@ class GNNActor(nn.Module):
             action = (continous_action > 0.5).float()  # Convert to binary action
             return action, None
         else:
-            eps = 0.1
-            continous_action = (1-eps) * continous_action + eps * torch.rand_like(continous_action)
+            # eps = 0.1
+            # continous_action = (1-eps) * continous_action + eps * torch.rand_like(continous_action)
             dist = torch.distributions.Bernoulli(probs=continous_action)
             action = dist.sample()
             log_prob = dist.log_prob(action)
