@@ -28,7 +28,7 @@ q_lr: 1e-3  # Defines q-value learning rate
 
 alpha: 0.3  # Defines entropy coefficient
 
-auto_entropy: true  # Use automatic entropy tuning
+auto_entropy: false  # Use automatic entropy tuning
 
 hidden_size: 256  # Defines hidden units in the MLP layers
 
