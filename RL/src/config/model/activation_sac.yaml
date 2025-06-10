@@ -2,7 +2,7 @@ name: activation_sac
 
 agent_name: ${now:%Y%m%d}_sac_gnn  # Agent name for training or evaluation (default: today's date + '_sac_gnn')
 
-map_path: "../example_problems/custom_warehouse.domain/warehouse_large.json"  # Path to json file with map, agents, tasks, etc.
+map_path: "../example_problems/custom_warehouse.domain/warehouse_8x6.json"  # Path to json file with map, agents, tasks, etc.
 
 use_dummy_goals_for_idle_agents: false  # Use dummy goals for idle agents in PIBT planner
 
