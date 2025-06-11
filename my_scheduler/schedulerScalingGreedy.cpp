@@ -75,24 +75,24 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
             
             c_loc = env->curr_states.at(i).location;
-            // dist = DefaultPlanner::get_h(env, c_loc, env->task_pool[t_id].locations[0]);
+            dist = DefaultPlanner::get_h(env, c_loc, env->task_pool[t_id].locations[0]);
 
             
 
 
-            dist = 0;
-            // iterate over the locations (errands) of the task to compute the makespan to finish the task
-            // makespan: the time for the agent to complete all the errands of the task t_id in order
-            for (int loc : env->task_pool[t_id].locations){
-                dist += DefaultPlanner::get_h(env, c_loc, loc);
-                c_loc = loc;
-            }
+            // dist = 0;
+            // // iterate over the locations (errands) of the task to compute the makespan to finish the task
+            // // makespan: the time for the agent to complete all the errands of the task t_id in order
+            // for (int loc : env->task_pool[t_id].locations){
+            //     dist += DefaultPlanner::get_h(env, c_loc, loc);
+            //     c_loc = loc;
+            // }
 
             if (scaling_active){
                 a_node = env->nodes->regions.at(c_loc);
                 t_node = env->nodes->regions.at(env->task_pool[t_id].locations[0]);
-                // dist = dist * (scaling_action[a_node][0]+0.5) * (scaling_action[t_node][1]+0.5);
-                dist = dist * (2.7*scaling_action[a_node][0]+0.3) * (2.7*scaling_action[t_node][1]+0.3);
+                dist = dist * (scaling_action[a_node][0]+0.5) * (scaling_action[t_node][1]+0.5);
+                // dist = dist * (2.7*scaling_action[a_node][0]+0.3) * (2.7*scaling_action[t_node][1]+0.3);
             }
             
 
