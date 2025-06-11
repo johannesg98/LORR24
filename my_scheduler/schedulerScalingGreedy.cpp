@@ -75,7 +75,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
             
             c_loc = env->curr_states.at(i).location;
-            dist = DefaultPlanner::get_h(env, c_loc, env->task_pool[t_id].locations[0]);
+            // dist = DefaultPlanner::get_h(env, c_loc, env->task_pool[t_id].locations[0]);
 
             if (scaling_active){
                 a_node = env->nodes->regions.at(c_loc);
@@ -84,13 +84,13 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
             }
 
 
-            // dist = 0;
-            // // iterate over the locations (errands) of the task to compute the makespan to finish the task
-            // // makespan: the time for the agent to complete all the errands of the task t_id in order
-            // for (int loc : env->task_pool[t_id].locations){
-            //     dist += DefaultPlanner::get_h(env, c_loc, loc);
-            //     c_loc = loc;
-            // }
+            dist = 0;
+            // iterate over the locations (errands) of the task to compute the makespan to finish the task
+            // makespan: the time for the agent to complete all the errands of the task t_id in order
+            for (int loc : env->task_pool[t_id].locations){
+                dist += DefaultPlanner::get_h(env, c_loc, loc);
+                c_loc = loc;
+            }
             
 
             // update the new minimum makespan
