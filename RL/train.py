@@ -30,6 +30,9 @@ def setup_model(cfg, env, parser, device):
     elif model_name == "activation_sac":
         from src.algos.activation_sac import ActivationSAC
         return ActivationSAC(env=env, input_size=cfg.input_size, cfg=cfg, parser=parser, train_dir=script_dir, device=device).to(device)
+    elif model_name == "scaling_sac":
+        from src.algos.scaling_sac import ScalingSAC
+        return ScalingSAC(env=env, input_size=cfg.input_size, cfg=cfg, parser=parser, train_dir=script_dir, device=device).to(device)
     else:
         raise ValueError(f"Unknown model or baseline: {model_name}")
 
@@ -57,7 +60,7 @@ def main(cfg: DictConfig):
         inputFile=os.path.join(script_dir, cfg.model.map_path),
         outputFile=os.path.join(script_dir, "../outputs/trainRL.json"),
         simulationTime=cfg.model.max_steps,
-        planTimeLimit=1000,
+        planTimeLimit=70,
         preprocessTimeLimit=30000,
         observationTypes={"node-basics", "node-advanced"},
         random_agents_and_tasks="true",

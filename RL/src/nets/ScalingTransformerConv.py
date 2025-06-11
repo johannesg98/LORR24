@@ -39,20 +39,17 @@ class GNNActor(nn.Module):
         
     
         if return_dist:
-            return torch.distributions.Bernoulli(probs=continous_action)
+            return torch.distributions.Normal(continous_action, std)
         if return_raw:
             return continous_action, None
         if deterministic:
-            action = (continous_action > 0.5).int()  # Convert to binary action
-            return action, None
+            return continous_action, None
         else:
-            # eps = 0.1
-            # continous_action = (1-eps) * continous_action + eps * torch.rand_like(continous_action)
-            dist = torch.distributions.Bernoulli(probs=continous_action)
-            action = dist.sample()
-            log_prob = dist.log_prob(action)
-            log_prob = log_prob.sum(dim=-1).sum(dim=-1)
-            return action.int(), log_prob
+            std = 0.1  # Small standard deviation for low exploration
+            dist = torch.distributions.Normal(continous_action, std)
+            action = dist.rsample()  # Use rsample for reparameterization
+            action = torch.clamp(action, 0.0, 1.0)
+            return action, 0
     
 
 

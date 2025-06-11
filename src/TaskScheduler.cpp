@@ -7,6 +7,7 @@
 #include "schedulerRL.h"
 #include "schedulerActivatedGreedy.h"
 #include "schedulerActivatedAdvantage.h"
+#include "schedulerScalingGreedy.h"
 #include "scheduler.h"
 #include "const.h"
 #include "heuristics.h"
@@ -60,6 +61,9 @@ void TaskScheduler::initialize(int preprocess_time_limit)
     }
     else if (scheduler_type == "ActivatedAdvantage"){
         schedulerActivatedAdvantage::schedule_initialize(limit, env);
+    }
+    else if (scheduler_type == "ScalingGreedy"){
+        schedulerScalingGreedy::schedule_initialize(limit, env);
     }
     else if (scheduler_type == "NoManSky"){
         schedulerNoMan = MyScheduler(env);
@@ -138,6 +142,9 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     }
     else if (scheduler_type == "ActivatedAdvantage"){
         schedulerActivatedAdvantage::schedule_plan(limit, proposed_schedule, env, action_dict);
+    }
+    else if (scheduler_type == "ScalingGreedy"){
+        schedulerScalingGreedy::schedule_plan(limit, proposed_schedule, env, action_dict);
     }
     else if (scheduler_type == "NoManSky"){
         TimePoint end_time = env->plan_start_time + Milliseconds(time_limit - 10);
