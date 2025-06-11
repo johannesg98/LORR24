@@ -45,7 +45,7 @@ class GNNActor(nn.Module):
         if deterministic:
             return continous_action, None
         else:
-            std = 0.1  # Small standard deviation for low exploration
+            std = 0.2  # Small standard deviation for low exploration
             dist = torch.distributions.Normal(continous_action, std)
             action = dist.rsample()  # Use rsample for reparameterization
             action = torch.clamp(action, 0.0, 1.0)
