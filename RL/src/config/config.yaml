@@ -1,2 +1,2 @@
 defaults:
-  - model: scaling_sac    #activation_sac  , sac, scaling_sac
+  - model: sac    #activation_sac  , sac, scaling_sac
