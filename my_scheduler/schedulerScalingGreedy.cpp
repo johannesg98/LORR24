@@ -91,8 +91,8 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
             if (scaling_active){
                 a_node = env->nodes->regions.at(c_loc);
                 t_node = env->nodes->regions.at(env->task_pool[t_id].locations[0]);
-                dist = dist * (scaling_action[a_node][0]+0.5) * (scaling_action[t_node][1]+0.5);
-                // dist = dist * (2.7*scaling_action[a_node][0]+0.3) * (2.7*scaling_action[t_node][1]+0.3);
+                // dist = dist * (scaling_action[a_node][0]+0.5) * (scaling_action[t_node][1]+0.5);
+                dist = dist * (2.7*scaling_action[a_node][0]+0.3) * (2.7*scaling_action[t_node][1]+0.3);
             }
             
 
