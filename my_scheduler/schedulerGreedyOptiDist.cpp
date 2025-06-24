@@ -1,6 +1,7 @@
-#include "schedulerActivatedGreedy.h"
+#include "schedulerGreedyOptiDist.h"
+#include <Objects/Environment/environment.hpp>
 
-namespace schedulerActivatedGreedy{
+namespace schedulerGreedyOptiDist{
 
 std::mt19937 mt;
 std::unordered_set<int> free_agents;
@@ -27,6 +28,30 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     // the default scheduler keep track of all the free agents and unassigned (=free) tasks across timesteps
     free_agents.insert(env->new_freeagents.begin(), env->new_freeagents.end());
     free_tasks.insert(env->new_tasks.begin(), env->new_tasks.end());
+
+
+    //rebuild free tasks and agents so that tasks can eb changed
+    free_agents.clear();
+    for (int agent = 0; agent < env->num_of_agents; agent++)
+    {
+        if (env->curr_task_schedule[agent] == -1) {
+            free_agents.insert(agent);
+        }
+        else{
+            int task_id = env->curr_task_schedule[agent];
+            if (env->task_pool[task_id].idx_next_loc == 0) {
+                free_tasks.insert(task_id);
+                env->task_pool[task_id].agent_assigned = -1;
+                free_agents.insert(agent);
+                env->curr_task_schedule[agent] = -1;
+                proposed_schedule[agent] = -1;
+            }
+        }
+    }
+
+
+
+
 
     int min_task_i, min_task_makespan, dist, c_loc, count, t_loc, node;
     clock_t start = clock();
@@ -93,12 +118,27 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
             
             c_loc = env->curr_states.at(i).location;
-            dist = DefaultPlanner::get_h(env, c_loc, env->task_pool[t_id].locations[0]);
+            // dist = DefaultPlanner::get_h(env, c_loc, env->task_pool[t_id].locations[0]);
+
+            uint32_t source = get_robots_handler().get_robot(i).node;
+            int task_loc_node = env->task_pool[t_id].locations[0] + 1;
+            dist = get_hm().get(source, task_loc_node);
+
+            
+            // add task length to the start distance
+            dist *= 5;
+            auto &task = env->task_pool[t_id];            
+            for (int loc_i = 0; loc_i + 1 < task.locations.size(); loc_i++) {
+                int source = task.locations[loc_i] + 1;
+                int target = task.locations[loc_i + 1] + 1;
+                dist += get_hm().get(get_graph().get_node(Position(source, 0)), target);
+            }
 
 
-            // dist = 0;
+            
             // iterate over the locations (errands) of the task to compute the makespan to finish the task
             // makespan: the time for the agent to complete all the errands of the task t_id in order
+            // dist = 0;
             // bool first = true;
             // for (int loc : env->task_pool[t_id].locations){
             //     dist += DefaultPlanner::get_h(env, c_loc, loc);

@@ -38,6 +38,27 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     // }
     // std::cout << std::endl;
 
+    // allow task changes before agent reaches first errand
+    if (env->allow_task_change){
+        free_agents.clear();
+        for (int agent = 0; agent < env->num_of_agents; agent++)
+        {
+            if (env->curr_task_schedule[agent] == -1) {
+                free_agents.insert(agent);
+            }
+            else{
+                int task_id = env->curr_task_schedule[agent];
+                if (env->task_pool[task_id].idx_next_loc == 0) {
+                    free_tasks.insert(task_id);
+                    env->task_pool[task_id].agent_assigned = -1;
+                    free_agents.insert(agent);
+                    env->curr_task_schedule[agent] = -1;
+                    proposed_schedule[agent] = -1;
+                }
+            }
+        }
+    }
+
 
     if (free_agents.size() == 0){
         std::cout << "SchedulerRL end, no free agents" << std::endl;

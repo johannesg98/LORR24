@@ -41,6 +41,7 @@ private:
     std::string scheduler_type;
     std::string planner_type;
     int guarantee_planner_time;
+    bool allow_task_change;
 
     // Command-line arguments stored as class variables
     std::string inputFile;
@@ -79,7 +80,8 @@ public:
         std::string backtrack_reward_type = "MaxDist-Time",
         std::string scheduler_type = "default",
         std::string planner_type = "default",
-        int guarantee_planner_time = false
+        int guarantee_planner_time = false,
+        int allow_task_change = false
     );
 
     // Function declarations
@@ -103,7 +105,8 @@ public:
         std::string backtrack_reward_type_ = "",
         std::string scheduler_type_ = "",
         std::string planner_type_ = "",
-        int guarantee_planner_time_ = -1
+        int guarantee_planner_time_ = -1,
+        int allow_task_change_ = -1
     );
     pybind11::dict get_NoManSkySolution(int time_limit = 100);
     std::tuple<pybind11::dict, pybind11::dict, bool, pybind11::dict> step(const std::unordered_map<std::string, pybind11::object>& action_dict = {});

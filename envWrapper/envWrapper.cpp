@@ -33,14 +33,15 @@ LRRenv::LRRenv(
                 std::string backtrack_reward_type,
                 std::string scheduler_type,
                 std::string planner_type,
-                int guarantee_planner_time
+                int guarantee_planner_time,
+                int allow_task_change
                 ) 
                 : done(false), step_count(0), inputFile(inputFile), outputFile(outputFile), outputScreen(outputScreen), evaluationMode(evaluationMode),
                 simulationTime(simulationTime), fileStoragePath(fileStoragePath), planTimeLimit(planTimeLimit), preprocessTimeLimit(preprocessTimeLimit),
                 logFile(logFile), logDetailLevel(logDetailLevel), rewardType(rewardType), observationTypes(std::move(observationTypes)),
                 random_agents_and_tasks(random_agents_and_tasks), message_passing_edge_limit(message_passing_edge_limit), distance_until_agent_avail_MAX(distance_until_agent_avail_MAX),
                 use_dummy_goals_for_idle_agents(use_dummy_goals_for_idle_agents), backtrack_reward_type(backtrack_reward_type),
-                scheduler_type(scheduler_type), planner_type(planner_type), guarantee_planner_time(guarantee_planner_time)
+                scheduler_type(scheduler_type), planner_type(planner_type), guarantee_planner_time(guarantee_planner_time), allow_task_change(allow_task_change)
 {
     std::cout << "Environment constructed" << std::endl;
 
@@ -63,7 +64,7 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
                                                         int planTimeLimit_, int preprocessTimeLimit_, std::string logFile_, int logDetailLevel_, std::string rewardType_,
                                                         std::unordered_set<std::string> observationTypes_, std::string random_agents_and_tasks_, int message_passing_edge_limit_,
                                                         int distance_until_agent_avail_MAX_, int use_dummy_goals_for_idle_agents_, std::string backtrack_reward_type_,
-                                                        std::string scheduler_type_, std::string planner_type_, int guarantee_planner_time_
+                                                        std::string scheduler_type_, std::string planner_type_, int guarantee_planner_time_, int allow_task_change_
                                                         )
 {   
     std::cout << "reset started cpp" << std::endl;
@@ -104,6 +105,7 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     if (!scheduler_type_.empty()) scheduler_type = scheduler_type_;
     if (!planner_type_.empty()) planner_type = planner_type_;
     if (guarantee_planner_time_ != -1) guarantee_planner_time = guarantee_planner_time_;
+    if (allow_task_change_ != -1) allow_task_change = allow_task_change_;
 
     // create base folder as in driver.cpp
     boost::filesystem::path p(inputFile);
@@ -205,6 +207,7 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
         nRoadmapNodes = system_ptr->loadRoadmapNodes(base_folder + read_param_json<std::string>(data, "roadmapFile"));
     }
     planner->env->use_dummy_goals_for_idle_agents = use_dummy_goals_for_idle_agents;
+    planner->env->allow_task_change = allow_task_change;
     planner->scheduler->backtrack_reward_type = backtrack_reward_type;
     planner->planner->guarantee_planner_time = guarantee_planner_time;
     
@@ -261,7 +264,7 @@ void LRRenv::make_env_params_available(){
 PYBIND11_MODULE(envWrapper, m) {
     pybind11::class_<LRRenv>(m, "LRRenv")
         .def(pybind11::init<
-            std::string, std::string, int, bool, int, std::string, int, int, std::string, int, std::string, std::unordered_set<std::string>, std::string, int, int, int, std::string, std::string, std::string, int>(),
+            std::string, std::string, int, bool, int, std::string, int, int, std::string, int, std::string, std::unordered_set<std::string>, std::string, int, int, int, std::string, std::string, std::string, int, int>(),
             pybind11::arg("inputFile"),
             pybind11::arg("outputFile") = "./outputs/pyTest.json",
             pybind11::arg("outputScreen") = 1,
@@ -281,7 +284,8 @@ PYBIND11_MODULE(envWrapper, m) {
             pybind11::arg("backtrack_reward_type") = "MaxDist-Time",
             pybind11::arg("scheduler_type") = "default",
             pybind11::arg("planner_type") = "default",
-            pybind11::arg("guarantee_planner_time") = false
+            pybind11::arg("guarantee_planner_time") = false,
+            pybind11::arg("allow_task_change") = false
         )
         .def("reset", &LRRenv::reset,
             pybind11::arg("inputFile_") = "",
@@ -303,7 +307,8 @@ PYBIND11_MODULE(envWrapper, m) {
             pybind11::arg("backtrack_reward_type_") = "",
             pybind11::arg("scheduler_type_") = "",
             pybind11::arg("planner_type_") = "",
-            pybind11::arg("guarantee_planner_time_") = -1
+            pybind11::arg("guarantee_planner_time_") = -1,
+            pybind11::arg("allow_task_change_") = -1
         )
         .def("step", &LRRenv::step, 
             pybind11::arg("reb_action") = pybind11::dict())   

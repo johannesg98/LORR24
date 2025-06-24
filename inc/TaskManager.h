@@ -53,7 +53,7 @@ public:
     nlohmann::ordered_json to_json(int map_cols) const;
 
 
-
+    int num_of_first_errands_started = 0;
     int num_of_task_finish = 0;
 
     ~ TaskManager()

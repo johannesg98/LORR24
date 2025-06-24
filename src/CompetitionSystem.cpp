@@ -432,6 +432,7 @@ pybind11::dict BaseSystem::get_NoManSkySolution(int time_limit) {
     schedulerNoMan.plan(end_time, proposed_schedule_copy);
 
     std::vector<double> distribution(env->nodes->nNodes, 0);
+    std::vector<std::vector<bool>> activation(env->nodes->nNodes, std::vector<bool>(2, false));
 
     int sum = 0;
     for (int agent=0; agent < env->num_of_agents; agent++){
@@ -440,6 +441,11 @@ pybind11::dict BaseSystem::get_NoManSkySolution(int time_limit) {
             int node = env->nodes->regions[task_loc];
             distribution[node]++;
             sum++;
+
+            activation[node][1] = true;
+            int agent_loc = env->curr_states[agent].location;
+            int agent_node = env->nodes->regions[agent_loc];
+            activation[agent_node][0] = true;
         }
     }
     
@@ -452,6 +458,7 @@ pybind11::dict BaseSystem::get_NoManSkySolution(int time_limit) {
 
     pybind11::dict solution_dict;
     solution_dict["distribution"] = distribution;
+    solution_dict["activation"] = activation;
 
 
     return solution_dict;
@@ -541,6 +548,9 @@ pybind11::dict BaseSystem::get_reward(){
 
     reward_dict["task-finished"] = task_manager.num_of_task_finish - num_of_task_finish_last_call;
     num_of_task_finish_last_call = task_manager.num_of_task_finish;
+
+    reward_dict["first-errands-started"] = task_manager.num_of_first_errands_started - num_of_first_errands_started_last_call;
+    num_of_first_errands_started_last_call = task_manager.num_of_first_errands_started;
   
     reward_dict["A*-distance"] = env->Astar_reward;
 

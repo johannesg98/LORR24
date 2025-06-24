@@ -8,6 +8,8 @@
 #include "schedulerActivatedGreedy.h"
 #include "schedulerActivatedAdvantage.h"
 #include "schedulerScalingGreedy.h"
+#include "schedulerGreedyOptiDist.h"
+#include "schedulerILPOptiDist.h"
 #include "scheduler.h"
 #include "const.h"
 #include "heuristics.h"
@@ -68,6 +70,16 @@ void TaskScheduler::initialize(int preprocess_time_limit)
     else if (scheduler_type == "NoManSky"){
         schedulerNoMan = MyScheduler(env);
         init_environment(*env);
+    }
+    else if (scheduler_type == "GreedyOptiDist"){
+        // schedulerNoMan = MyScheduler(env);
+        init_environment(*env);
+        schedulerGreedyOptiDist::schedule_initialize(limit, env);
+    }
+    else if (scheduler_type == "ILPOptiDist"){
+        // schedulerNoMan = MyScheduler(env);
+        init_environment(*env);
+        schedulerILPOptiDist::schedule_initialize(limit, env);
     }
     else{
         std::cerr << "Unknown scheduler type: " << scheduler_type << std::endl;
@@ -150,6 +162,14 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
         TimePoint end_time = env->plan_start_time + Milliseconds(time_limit - 10);
         update_environment(*env);
         schedulerNoMan.plan(end_time, proposed_schedule);
+    }
+    else if (scheduler_type == "GreedyOptiDist"){
+        update_environment(*env);
+        schedulerGreedyOptiDist::schedule_plan(limit, proposed_schedule, env, action_dict);
+    }
+    else if (scheduler_type == "ILPOptiDist"){
+        update_environment(*env);
+        schedulerILPOptiDist::schedule_plan(limit, proposed_schedule, env);
     }
     
 

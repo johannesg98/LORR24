@@ -19,16 +19,20 @@ import envWrapper
 env = envWrapper.LRRenv(
     inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",
     outputFile="./outputs/pyTest.json",
-    simulationTime=1000,
+    simulationTime=150,
     planTimeLimit=100,
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},
-    random_agents_and_tasks="true"
+    random_agents_and_tasks="true",
+    use_dummy_goals_for_idle_agents=True,
+    scheduler_type="ActivatedGreedy",
+    planner_type="default",
+    guarantee_planner_time = True
 )
 env.make_env_params_available()
 
 
-number_of_runs = 1
+number_of_runs = 10
 
 sum_reward = 0
 sum_Astar_reward = 0
@@ -47,7 +51,7 @@ for i in range(number_of_runs):
 
     while not done:
 
-        # # Stupid stuff
+        # # Test standard RL distribution and rebalance solver
         # solution_dict = env.get_NoManSkySolution(100)
         # action_rl = solution_dict["distribution"]
 
@@ -65,6 +69,13 @@ for i in range(number_of_runs):
         #     "None",
         # )
         # action_dict = {"reb_action": reb_action}    #, "action_rl": action_rl.tolist()
+
+        # Test activation and greedy solver
+        solution_dict = env.get_NoManSkySolution(100)
+        action_rl = solution_dict["distribution"]
+        action_rl = np.array([action_rl])
+
+        action_dict = {"activation_action": action_rl}
 
         # Take a step in the environment
         obs, reward, done, info = env.step()

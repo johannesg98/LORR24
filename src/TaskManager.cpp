@@ -134,6 +134,7 @@ list<int> TaskManager::check_finished_tasks(vector<State>& states, int timestep)
             Task * task = ongoing_tasks[current_assignment[k]];
             if (task->idx_next_loc == 0){
                 agent_first_errand_time.push_back(make_pair(k,timestep));
+                num_of_first_errands_started++;
             }
             task->idx_next_loc += 1;
 

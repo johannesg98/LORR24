@@ -1,8 +1,9 @@
-#include "schedulerILP.h"
+#include "schedulerILPOptiDist.h"
+#include <Objects/Environment/environment.hpp>
 
 using namespace operations_research;
 
-namespace schedulerILP{
+namespace schedulerILPOptiDist{
 
 std::mt19937 mt;
 std::unordered_set<int> free_agents;
@@ -31,6 +32,31 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     free_tasks.insert(free_tasks.end(), env->new_tasks.begin(), env->new_tasks.end());
 
 
+    bool reserve_tasks = true;
+    bool allow_task_changes = false;
+    bool OptiDist = false;
+    bool use_5x1 = false;
+
+    //rebuild free tasks and agents so that tasks can eb changed
+    if (allow_task_changes){
+        free_agents.clear();
+        for (int agent = 0; agent < env->num_of_agents; agent++)
+        {
+            if (env->curr_task_schedule[agent] == -1) {
+                free_agents.insert(agent);
+            }
+            else{
+                int task_id = env->curr_task_schedule[agent];
+                if (env->task_pool[task_id].idx_next_loc == 0) {
+                    free_tasks.push_back(task_id);
+                    env->task_pool[task_id].agent_assigned = -1;
+                    free_agents.insert(agent);
+                    env->curr_task_schedule[agent] = -1;
+                    proposed_schedule[agent] = -1;
+                }
+            }
+        }
+    }
 
 
 
@@ -46,7 +72,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
         const int num_agents = env->num_of_agents;
         const int num_tasks = free_tasks.size();
 
-        int a_loc, t_loc, curr_task_id;
+        int a_loc, a_dir, t_loc, curr_task_id;
 
         // Generate cost matrix
         std::vector<std::vector<int>> cost_matrix(num_agents, std::vector<int>(num_tasks,0));
@@ -54,14 +80,39 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
             if (env->curr_task_schedule[i] == -1){
                 a_loc = env->curr_states.at(i).location;
+                a_dir = env->curr_states.at(i).orientation;
             }else{
                 curr_task_id = env->curr_task_schedule[i];
                 a_loc = env->task_pool[curr_task_id].locations.back();
+                a_dir = 0;
             }
 
             for (int j = 0; j < num_tasks; ++j) {
+                // start dist
                 t_loc = env->task_pool[free_tasks[j]].locations[0];
-                cost_matrix[i][j] = DefaultPlanner::get_h(env, a_loc, t_loc);
+                if (!OptiDist){
+                    cost_matrix[i][j] = DefaultPlanner::get_h(env, a_loc, t_loc);
+                }
+                else{
+                    cost_matrix[i][j] = get_hm().get(get_graph().get_node(Position(a_loc + 1, a_dir)), t_loc + 1);
+                }
+
+                // add 5x1
+                if (use_5x1){
+                    cost_matrix[i][j] *= 5;
+                    int t_id = free_tasks[j];
+                    auto &task = env->task_pool[t_id];
+                    for (int loc_i = 0; loc_i + 1 < task.locations.size(); loc_i++) {
+                        int source = task.locations[loc_i];
+                        int target = task.locations[loc_i + 1];
+                        if (!OptiDist){
+                            cost_matrix[i][j] += DefaultPlanner::get_h(env, source, target);
+                        }
+                        else{
+                            cost_matrix[i][j] += get_hm().get(get_graph().get_node(Position(source + 1, 0)), target + 1);
+                        }
+                    }   
+                }
             }
 
             // for (int j = 0; j < num_tasks; ++j) {
@@ -104,37 +155,10 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
         }
         objective->SetMinimization();
 
-
-        // tasks >= agents: all agents get one task
-        if (num_tasks >= num_agents){
-            for (int i = 0; i < num_agents; ++i) {
-                LinearExpr agent_constraint;
-                for (int j = 0; j < num_tasks; ++j) {
-                    agent_constraint += x[i][j];
-                }
-                solver->MakeRowConstraint(agent_constraint == 1);
-            }
-            for (int j = 0; j < num_tasks; ++j) {
-                LinearExpr task_constraint;
-                for (int i = 0; i < num_agents; ++i) {
-                    task_constraint += x[i][j];
-                }
-                solver->MakeRowConstraint(task_constraint <= 1);
-            }
-        }
-        //tasks < agents: all tasks get one agent
-        else {
-            for (int j = 0; j < num_tasks; ++j) {
-                LinearExpr task_constraint;
-                for (int i = 0; i < num_agents; ++i) {
-                    task_constraint += x[i][j];
-                }
-                solver->MakeRowConstraint(task_constraint == 1);
-            }
-
-            // tasks >= emtpy agents (aka have no task assigned at all): all empty agents get one task
-            int empty_agents = std::count(env->curr_task_schedule.begin(), env->curr_task_schedule.end(), -1);
-            if (num_tasks >= empty_agents){
+        // Switch off reserving
+        if (!reserve_tasks){
+            //tasks >= agents: all free agents get one task, busy get none
+            if (num_tasks >= free_agents.size()){
                 for (int i = 0; i < num_agents; ++i) {
                     LinearExpr agent_constraint;
                     for (int j = 0; j < num_tasks; ++j) {
@@ -144,12 +168,25 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
                         solver->MakeRowConstraint(agent_constraint == 1);
                     }
                     else {
-                        solver->MakeRowConstraint(agent_constraint <= 1);
+                        solver->MakeRowConstraint(agent_constraint == 0.0);
                     }
                 }
+                for (int j = 0; j < num_tasks; ++j) {
+                    LinearExpr task_constraint;
+                    for (int i = 0; i < num_agents; ++i) {
+                        task_constraint += x[i][j];
+                    }
+                    solver->MakeRowConstraint(task_constraint <= 1);
+                }
             }
-            // tasks < empty agents: all non-empty agents get no task
             else{
+                for (int j = 0; j < num_tasks; ++j) {
+                    LinearExpr task_constraint;
+                    for (int i = 0; i < num_agents; ++i) {
+                        task_constraint += x[i][j];
+                    }
+                    solver->MakeRowConstraint(task_constraint == 1);
+                }
                 for (int i = 0; i < num_agents; ++i) {
                     LinearExpr agent_constraint;
                     for (int j = 0; j < num_tasks; ++j) {
@@ -159,7 +196,70 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
                         solver->MakeRowConstraint(agent_constraint <= 1);
                     }
                     else {
-                        solver->MakeRowConstraint(agent_constraint == static_cast<double>(0));
+                        solver->MakeRowConstraint(agent_constraint == 0.0);
+                    }
+                }
+            }
+
+        }
+        // The normal reserving ILP
+        else{
+            // tasks >= agents: all agents get one task
+            if (num_tasks >= num_agents){
+                for (int i = 0; i < num_agents; ++i) {
+                    LinearExpr agent_constraint;
+                    for (int j = 0; j < num_tasks; ++j) {
+                        agent_constraint += x[i][j];
+                    }
+                    solver->MakeRowConstraint(agent_constraint == 1);
+                }
+                for (int j = 0; j < num_tasks; ++j) {
+                    LinearExpr task_constraint;
+                    for (int i = 0; i < num_agents; ++i) {
+                        task_constraint += x[i][j];
+                    }
+                    solver->MakeRowConstraint(task_constraint <= 1);
+                }
+            }
+            //tasks < agents: all tasks get one agent
+            else {
+                for (int j = 0; j < num_tasks; ++j) {
+                    LinearExpr task_constraint;
+                    for (int i = 0; i < num_agents; ++i) {
+                        task_constraint += x[i][j];
+                    }
+                    solver->MakeRowConstraint(task_constraint == 1);
+                }
+
+                // tasks >= emtpy agents (aka have no task assigned at all): all empty agents get one task
+                int empty_agents = std::count(env->curr_task_schedule.begin(), env->curr_task_schedule.end(), -1);
+                if (num_tasks >= empty_agents){
+                    for (int i = 0; i < num_agents; ++i) {
+                        LinearExpr agent_constraint;
+                        for (int j = 0; j < num_tasks; ++j) {
+                            agent_constraint += x[i][j];
+                        }
+                        if (env->curr_task_schedule[i] == -1){
+                            solver->MakeRowConstraint(agent_constraint == 1);
+                        }
+                        else {
+                            solver->MakeRowConstraint(agent_constraint <= 1);
+                        }
+                    }
+                }
+                // tasks < empty agents: all non-empty agents get no task
+                else{
+                    for (int i = 0; i < num_agents; ++i) {
+                        LinearExpr agent_constraint;
+                        for (int j = 0; j < num_tasks; ++j) {
+                            agent_constraint += x[i][j];
+                        }
+                        if (env->curr_task_schedule[i] == -1){
+                            solver->MakeRowConstraint(agent_constraint <= 1);
+                        }
+                        else {
+                            solver->MakeRowConstraint(agent_constraint == static_cast<double>(0));
+                        }
                     }
                 }
             }
