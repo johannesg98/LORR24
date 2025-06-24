@@ -95,4 +95,4 @@ rew_w_task_finish: 0
 rew_w_backtrack: 0 # best: 20
 rew_w_immitation: 0
 rew_w_final_tasks_finished: 0
-rew_w_first_errand: 100
+rew_w_first_errand: 2000
