@@ -14,6 +14,7 @@
 #include "const.h"
 #include "heuristics.h"
 #include "Roadmap.h"
+#include <cmath>
 
 //NoManSky Solution
 #include "schedulerNoMan.hpp"
@@ -190,7 +191,7 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     double Astar_reward = 0;
     double idle_agents = 0;
     int tasks_assigned = 0;
-    int dist_reward = 0;
+    double dist_reward = 0;
     std::vector<int> task_search_durations;
     std::vector<int> task_distances;
     
@@ -202,10 +203,10 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
           
         }
         // agent received a new task
-        if (proposed_schedule_old[agent] == -1 && proposed_schedule[agent] != -1){
+        if (proposed_schedule_old[agent] == -1 && proposed_schedule[agent] != -1 || (env->allow_task_change && proposed_schedule[agent] != -1 && proposed_schedule[agent] != proposed_schedule_old[agent])){
             int dist = DefaultPlanner::get_h(env, env->curr_states[agent].location, env->task_pool[proposed_schedule[agent]].locations[0]);
             task_distances.push_back(dist);
-            dist_reward += -dist;
+            dist_reward += -sqrt((double)dist/(double)max_dist);
             double rew = max_dist - dist;
             rew = static_cast<float>(rew) / max_dist;
             // float sign = 0;

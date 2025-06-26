@@ -705,7 +705,7 @@ class SAC(nn.Module):
                 myTimer.step += myTimer.addTime()
                 
                 # reward
-                rew = cfg.model.rew_w_immitation * self.immitation_reward(action_rl, obs, cfg) + cfg.model.rew_w_Astar * reward_dict["A*-distance"] + cfg.model.rew_w_idle * reward_dict["idle-agents"] + cfg.model.rew_w_task_finish * reward_dict["task-finished"] + cfg.model.rew_w_first_errand * reward_dict["first-errands-started"]       # dist-reward, A*-distance, task-finished
+                rew = cfg.model.rew_w_immitation * self.immitation_reward(action_rl, obs, cfg) + cfg.model.rew_w_Astar * reward_dict["A*-distance"] + cfg.model.rew_w_dist * reward_dict["dist-reward"] + cfg.model.rew_w_idle * reward_dict["idle-agents"] + cfg.model.rew_w_task_finish * reward_dict["task-finished"] + cfg.model.rew_w_first_errand * reward_dict["first-errands-started"]       # dist-reward, A*-distance, task-finished
                 if done:
                     rew += cfg.model.rew_w_final_tasks_finished * (episode_num_tasks_finished + reward_dict["task-finished"])
 
