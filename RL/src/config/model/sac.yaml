@@ -90,8 +90,8 @@ distance_until_agent_avail_MAX: 20 # Max distance where agent tells node when it
 
 # Reward weigths
 rew_w_Astar: 0    # best: 20
-rew_w_dist: 20
-rew_w_idle: 20     # best: 20
+rew_w_dist: 200
+rew_w_idle: 400     # best: 20
 rew_w_task_finish: 0
 rew_w_backtrack: 0 # best: 20
 rew_w_immitation: 0
