@@ -216,8 +216,13 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
             rew = rew*rew*rew*rew;    // rew^4, otherwise often high rewards
             Astar_reward += rew;//(rew-0.5)*20; // onyl rew
             tasks_assigned++;
-            task_search_durations.push_back(env->curr_timestep - task_search_start_times[agent]);
-            task_search_start_times[agent] = -1;            
+            if (proposed_schedule_old[agent] == -1 && proposed_schedule[agent] != -1){
+                task_search_durations.push_back(env->curr_timestep - task_search_start_times[agent]);
+                task_search_start_times[agent] = -1;            
+            }
+            else if(env->allow_task_change){
+                task_search_durations.push_back(0);
+            }
         }
         // agent is idle and did not get a task
         if (proposed_schedule[agent] == -1){
