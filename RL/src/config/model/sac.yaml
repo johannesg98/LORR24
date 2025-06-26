@@ -36,7 +36,7 @@ hidden_size: 256  # Defines hidden units in the MLP layers
 
 clip: 500  # Clip value for gradient clipping (default: 500)
 
-checkpoint_path: "GPU_ChangeTask_TransformerConvAction_FirstErrand2000_idle100"  # Path where to save model checkpoints
+checkpoint_path: "GPU_ChangeTask_TransformerConvAction_FirstErrand2000"  # Path where to save model checkpoints
 
 train: true # Switches updating the weights on and off
 
@@ -91,7 +91,7 @@ distance_until_agent_avail_MAX: 20 # Max distance where agent tells node when it
 # Reward weigths
 rew_w_Astar: 0    # best: 20
 rew_w_dist: 0
-rew_w_idle: 100     # best: 20
+rew_w_idle: 0     # best: 20
 rew_w_task_finish: 0
 rew_w_backtrack: 0 # best: 20
 rew_w_immitation: 0
