@@ -114,6 +114,8 @@ public:
     int nNodes = -1;
     int nAgents = -1;
     int nTasks = -1;
+    int cols = -1;
+    int rows = -1;
     std::vector<std::vector<int>> AdjacencyMatrix;
     std::vector<std::vector<int>> NodeCostMatrix;
     std::vector<std::vector<int>> MP_edge_index;

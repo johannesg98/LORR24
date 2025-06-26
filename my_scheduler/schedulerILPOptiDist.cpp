@@ -37,6 +37,20 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     bool OptiDist = false;
     bool use_5x1 = false;
 
+    std::cout << "Check for double tasks at the beginning:" << std::endl;
+
+    std::unordered_map<int, int> tasks_seen_for_agent;
+    for (int i=0; i < env->num_of_agents; i++){
+        if (proposed_schedule[i] != -1){
+            int task_id = proposed_schedule[i];
+            if (tasks_seen_for_agent.find(task_id) == tasks_seen_for_agent.end()){
+                tasks_seen_for_agent[task_id] = i;
+            } else {
+                std::cout << "Task " << task_id << " assigned to multiple agents: " << tasks_seen_for_agent[task_id] << " and " << i << std::endl;
+            }
+        }
+    }
+
     //rebuild free tasks and agents so that tasks can eb changed
     if (allow_task_changes){
         free_agents.clear();
@@ -309,6 +323,21 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - startElapsed;
     std::cout << "Time Total ILP Scheduler: " << elapsed.count() << " seconds" << std::endl;
+
+
+    std::cout << "Check for double tasks at the end:" << std::endl;
+
+    tasks_seen_for_agent.clear();
+    for (int i=0; i < env->num_of_agents; i++){
+        if (proposed_schedule[i] != -1){
+            int task_id = proposed_schedule[i];
+            if (tasks_seen_for_agent.find(task_id) == tasks_seen_for_agent.end()){
+                tasks_seen_for_agent[task_id] = i;
+            } else {
+                std::cout << "Task " << task_id << " assigned to multiple agents: " << tasks_seen_for_agent[task_id] << " and " << i << std::endl;
+            }
+        }
+    }
 
 
     #ifndef NDEBUG

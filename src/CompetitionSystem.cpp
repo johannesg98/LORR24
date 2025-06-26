@@ -641,6 +641,23 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
             }
         }
         obs["free_tasks_per_node"] = free_tasks_per_node;
+
+        // in case we allow task changes: we add already assigned tasks and agents that didnt arrive at the first errand yet back into free agents and tasks
+        if (env->allow_task_change){
+            for (int i=0; i < env->num_of_agents; i++){
+                int task_id = env->curr_task_schedule[i];
+                if (task_id != -1 and env->task_pool[task_id].idx_next_loc == 0){
+                    int a_loc = env->curr_states[i].location;
+                    int a_node = env->nodes->regions[a_loc];
+                    free_agents_per_node[a_node]++;
+                    int t_loc = env->task_pool[task_id].locations[0];
+                    int t_node = env->nodes->regions[t_loc];
+                    free_tasks_per_node[t_node]++;
+                }
+            }
+            obs["free_agents_per_node"] = free_agents_per_node;
+            obs["free_tasks_per_node"] = free_tasks_per_node;
+        }
     }
 
 
@@ -654,12 +671,12 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
             throw std::runtime_error("node-advanced observation requires node-basics observation");
         }
 
-        // distance until agent becomes available at node (OLD)
+        // distance until first agent becomes available at node (one scalar entry)
         std::vector<int> distance_until_agent_available(env->nodes->nNodes, distance_until_agent_avail_MAX);
         for (int agent=0; agent<env->num_of_agents; agent++){
             int agent_loc = env->curr_states[agent].location;
             int task_id = env->curr_task_schedule[agent];
-            if (task_id == -1){
+            if (task_id == -1 or (env->allow_task_change and env->task_pool[task_id].idx_next_loc == 0)){
                 int node = env->nodes->regions[agent_loc];
                 distance_until_agent_available[node] = 0;
             }
@@ -672,12 +689,12 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
         }
         obs["distance_until_agent_available_per_node"] = distance_until_agent_available;
 
-        // distance until agent becomes available at node (NEW - aka all next steps)
+        // distance until agent becomes available at node (individual entry for each next step)
         std::vector<std::vector<int>> agents_available_next_steps(env->nodes->nNodes, std::vector<int>(distance_until_agent_avail_MAX, 0));
         for (int agent=0; agent<env->num_of_agents; agent++){
             int agent_loc = env->curr_states[agent].location;
             int task_id = env->curr_task_schedule[agent];
-            if (task_id == -1){
+            if (task_id == -1 or (env->allow_task_change and env->task_pool[task_id].idx_next_loc == 0)){
                 int node = env->nodes->regions[agent_loc];
                 agents_available_next_steps[node][0]++;
             }
@@ -691,6 +708,26 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
             }
         }
         obs["agents_available_next_steps_per_node"] = agents_available_next_steps;
+
+
+        // min task length per node
+        int max_length = 2 * (env->cols + env->rows);
+        std::vector<int> min_task_length_per_node(env->nodes->nNodes, max_length);
+        for (auto& [id, task] : env->task_pool){
+            if (task.agent_assigned == -1 or (env->allow_task_change and task.idx_next_loc == 0)){
+                if (task.length == -1){
+                    task.length = 0;
+                    for (int i=0; i<task.locations.size()-1; i++){
+                        task.length += DefaultPlanner::get_h(env, task.locations[i], task.locations[i+1]);
+                    }
+                }
+                int node = env->nodes->regions[task.locations[0]];
+                if (task.length < min_task_length_per_node[node]){
+                    min_task_length_per_node[node] = task.length;
+                }
+            }
+        }
+        obs["min_task_length_per_node"] = min_task_length_per_node;
 
 
 
@@ -783,7 +820,8 @@ pybind11::dict BaseSystem::get_observation(std::unordered_set<std::string>& obse
         std::vector<int> contains_closest_task_per_node(env->nodes->nNodes, 0);
         std::vector<int> closest_task_connection_per_MP_edge(MP_edge_lengths.size(), 0);
         for (int agent=0; agent<env->num_of_agents; agent++){
-            if (env->curr_task_schedule[agent] == -1){
+            int task_id = env->curr_task_schedule[agent];
+            if (task_id == -1 or (env->allow_task_change and env->task_pool[task_id].idx_next_loc == 0)){
                 int agent_loc = env->curr_states[agent].location;
                 int closest_dist = INT_MAX;
                 int closest_task_id = -1;

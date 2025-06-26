@@ -7,6 +7,7 @@ struct Task
     int t_completed = -1;
     int t_revealed = -1;
     int agent_assigned = -1;
+    int length = -1;
 
     vector<int> locations;
     int idx_next_loc = 0;

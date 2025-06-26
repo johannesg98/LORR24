@@ -122,6 +122,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
             uint32_t source = get_robots_handler().get_robot(i).node;
             int task_loc_node = env->task_pool[t_id].locations[0] + 1;
+            //get dfist + add random int between 0 and 30
             dist = get_hm().get(source, task_loc_node);
 
             

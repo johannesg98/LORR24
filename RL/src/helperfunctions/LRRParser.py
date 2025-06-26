@@ -15,6 +15,7 @@ class LRRParser:
         self.MP_edge_weights = env.MP_edge_weights
         self.MP_nEdges = len(self.MP_edge_weights)
         self.node_positions = env.node_positions
+        self.max_length_shortest_task = 2 * (env.cols + env.rows)
         
         
     def parse_obs(self, obs):
@@ -29,12 +30,13 @@ class LRRParser:
                 (torch.tensor(obs["distance_until_agent_available_per_node"])/self.cfg.distance_until_agent_avail_MAX).view(1, self.nNodes).float(),        # distance until agent available per node
                 # torch.clip(torch.tensor(obs["agents_available_next_steps_per_node"])*self.agent_scale_fac, 0, 1).T.view(self.cfg.distance_until_agent_avail_MAX, self.nNodes).float(),                    # number agents available per node at next steps
                 torch.clip(torch.tensor(obs["contains_closest_task_per_node"])*self.agent_scale_fac, 0, 1).view(1, self.nNodes).float(),                    # indicates how many free agents have there closest task in this node
+                torch.clip(torch.tensor(obs["min_task_length_per_node"])/self.max_length_shortest_task, 0, 1).view(1, self.nNodes).float(),                 # min task length per node
 
                 # same for every node
                 (torch.tensor(obs["free_agents_per_node"])*self.agent_scale_fac).sum().view(1, 1).expand(1, self.nNodes).float(),                           # total free agents world
                 (torch.tensor(obs["time"])/self.cfg.max_steps).view((1,1)).expand(1, self.nNodes).float(),                                                  # time         
-                torch.tensor((np.sin(obs["time"]/100*2*np.pi)+1)/2).view((1,1)).expand(1, self.nNodes).float(),                                           # sin(time)     
-                torch.tensor((np.cos(obs["time"]/100*2*np.pi)+1)/2).view((1,1)).expand(1, self.nNodes).float(),                                           # cos(time)    
+                torch.tensor((np.sin(obs["time"]/100*2*np.pi)+1)/2).view((1,1)).expand(1, self.nNodes).float(),                                             # sin(time)     
+                torch.tensor((np.cos(obs["time"]/100*2*np.pi)+1)/2).view((1,1)).expand(1, self.nNodes).float(),                                             # cos(time)    
 
             )
             
@@ -49,6 +51,7 @@ class LRRParser:
                 torch.tensor(obs["distance_until_agent_available_per_node"]).view(1, self.nNodes).float(),
                 # torch.tensor(obs["agents_available_next_steps_per_node"]).T.view(self.cfg.distance_until_agent_avail_MAX, self.nNodes).float(),
                 torch.tensor(obs["contains_closest_task_per_node"]).view(1, self.nNodes).float(),
+                torch.tensor(obs["min_task_length_per_node"]).view(1, self.nNodes).float(),
 
                 torch.tensor(obs["free_agents_per_node"]).sum().view(1, 1).expand(1, self.nNodes).float(),
                 torch.tensor(obs["time"]).reshape((1,1)).expand(1, self.nNodes).float(),

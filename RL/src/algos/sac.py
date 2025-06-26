@@ -675,6 +675,8 @@ class SAC(nn.Module):
 
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
+                print("total agents in SAC", total_agents)
+                print("total tasks in SAC", sum(obs["free_tasks_per_node"]))
                 desired_agent_dist = assign_discrete_actions(total_agents, action_rl)
                 myTimer.rest += myTimer.addTime()
 

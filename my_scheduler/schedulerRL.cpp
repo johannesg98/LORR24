@@ -38,6 +38,9 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     // }
     // std::cout << std::endl;
 
+
+    
+
     // allow task changes before agent reaches first errand
     if (env->allow_task_change){
         free_agents.clear();
@@ -57,7 +60,11 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
                 }
             }
         }
+
     }
+
+    std::cout << "Total agents in scheulderRL beginning: " << free_agents.size() << std::endl;
+    std::cout << "Total tasks in scheulderRL beginning: " << free_tasks.size() << std::endl;
 
 
     if (free_agents.size() == 0){
@@ -413,6 +420,8 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     //         }
     //     }
     // }
+
+    
     cout << "Scheduler Time Usage: " <<  ((float)(clock() - start))/CLOCKS_PER_SEC <<endl;
     #ifndef NDEBUG    
     cout << "new free agents: " << env->new_freeagents.size() << " new tasks: "<< env->new_tasks.size() <<  endl;

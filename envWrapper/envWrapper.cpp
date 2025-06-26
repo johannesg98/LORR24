@@ -210,6 +210,8 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     planner->env->allow_task_change = allow_task_change;
     planner->scheduler->backtrack_reward_type = backtrack_reward_type;
     planner->planner->guarantee_planner_time = guarantee_planner_time;
+    cols = planner->env->cols;
+    rows = planner->env->rows;
     
 
 
@@ -317,6 +319,8 @@ PYBIND11_MODULE(envWrapper, m) {
         .def_readwrite("nNodes", &LRRenv::nNodes)
         .def_readwrite("nAgents", &LRRenv::nAgents)
         .def_readwrite("nTasks", &LRRenv::nTasks)
+        .def_readwrite("cols", &LRRenv::cols)
+        .def_readwrite("rows", &LRRenv::rows)
         .def_readwrite("AdjacencyMatrix", &LRRenv::AdjacencyMatrix)
         .def_readwrite("NodeCostMatrix", &LRRenv::NodeCostMatrix)
         .def_readwrite("MP_edge_index", &LRRenv::MP_edge_index)

@@ -70,7 +70,8 @@ def main(cfg: DictConfig):
         backtrack_reward_type = cfg.model.backtrack_reward_type,
         scheduler_type=cfg.model.scheduler_type,
         planner_type="default",
-        guarantee_planner_time = True
+        guarantee_planner_time = True,
+        allow_task_change=cfg.model.allow_task_change
     )
     
     env.make_env_params_available()

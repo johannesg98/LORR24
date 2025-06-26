@@ -98,6 +98,7 @@ bool TaskManager::set_task_assignment(vector< int>& assignment)
     {
         if (assignment[a] < 0)
         {
+            current_assignment[a] = -1;     // was missing in the OG LRR code??? Otherwise, we cant take away an assignment from an agent without giving it a new task
             continue;
         }
         int t_id = assignment[a];
