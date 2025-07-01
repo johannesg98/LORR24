@@ -17,14 +17,14 @@ env = envWrapper.LRRenv(
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},    
     random_agents_and_tasks="true",
-    scheduler_type="GreedyOptiDist",    # ActivatedGreedy, ActivatedAdvantage, NoManSky, default, ILP, GreedyOptiDist, ILPOptiDist
+    scheduler_type="ILP",    # ActivatedGreedy, ActivatedAdvantage, NoManSky, default, ILP, GreedyOptiDist, ILPOptiDist
     planner_type="default",
     guarantee_planner_time = True
 )
 env.make_env_params_available()
 
 
-number_of_runs = 1
+number_of_runs = 10
 
 sum_reward = 0
 sum_Astar_reward = 0
