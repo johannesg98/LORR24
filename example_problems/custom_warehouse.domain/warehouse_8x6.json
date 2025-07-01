@@ -3,7 +3,7 @@
     "agentFile": "agents/warehouse_8x6_543.agents",
     "teamSize": 200,
     "taskFile": "tasks/tasks_8x6.tasks",
-    "numTasksReveal": 2.0,
+    "numTasksReveal": 5.0,
     "nodeFile": "nodes/warehouse_8x6_withOuter.nodes",
     "roadmapFile": "roadmaps/warehouse_8x6.roadmap"
 }
