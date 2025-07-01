@@ -664,6 +664,7 @@ class SAC(nn.Module):
             done = False
             myTimer.outerLoop += myTimer.addTime()
 
+
             while not done:
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
@@ -703,11 +704,14 @@ class SAC(nn.Module):
                 # step
                 new_obs, reward_dict, done, info = self.env.step(action_dict)
                 myTimer.step += myTimer.addTime()
+
                 
                 # reward
                 rew = cfg.model.rew_w_immitation * self.immitation_reward(action_rl, obs, cfg) + cfg.model.rew_w_Astar * reward_dict["A*-distance"] + cfg.model.rew_w_dist * reward_dict["dist-reward"] + cfg.model.rew_w_idle * reward_dict["idle-agents"] + cfg.model.rew_w_task_finish * reward_dict["task-finished"] + cfg.model.rew_w_first_errand * reward_dict["first-errands-started"]       # dist-reward, A*-distance, task-finished
                 if done:
                     rew += cfg.model.rew_w_final_tasks_finished * (episode_num_tasks_finished + reward_dict["task-finished"])
+
+                
 
                 # backtracking
                 new_obs_parsed = self.parser.parse_obs(new_obs)
@@ -777,6 +781,18 @@ class SAC(nn.Module):
 
             episode_tasks_finished_sum += episode_num_tasks_finished
             print("Avg num_task_fisnished reward: ", episode_tasks_finished_sum / (i_episode + 1))
+
+
+            # slope rewards
+            if cfg.model.slope_rewards:
+                cfg = self.slope_rewards(cfg, i_episode)
+
+            # learning rate scheduler
+            if cfg.model.lr_rate_scheduling:
+                self.lr_rate_scheduler(cfg, i_episode)
+
+
+
             # if i_episode == 300:
             #     new_lr = 0.0003  # Set your new learning rate
 
@@ -808,6 +824,10 @@ class SAC(nn.Module):
                     
 
             myTimer.test_cycles += myTimer.addTime()
+
+
+
+
 
     def test_best_checkpoint(self, i_episode, cfg):
         num_tests = 5
@@ -886,7 +906,37 @@ class SAC(nn.Module):
         if self.wandb is not None:
             self.wandb.log({"Test during training (num_tasks_finished)": episode_num_tasks_finished}, step=i_episode)
 
-            
+    def slope_rewards(self, cfg, i_episode):
+        if i_episode == 0:
+            self.backtrack_start_w = cfg.model.rew_w_backtrack
+            self.first_errand_start_w = cfg.model.rew_w_first_errand
+
+        if i_episode > cfg.model.slope_backtrack_start_t and i_episode <= cfg.model.slope_backtrack_end_t:
+            progress = (i_episode - cfg.model.slope_backtrack_start_t) / (cfg.model.slope_backtrack_end_t - cfg.model.slope_backtrack_start_t)
+            cfg.model.rew_w_backtrack = self.backtrack_start_w + progress * (cfg.model.slope_backtrack_final_w - self.backtrack_start_w)
+
+        if i_episode > cfg.model.slope_first_errand_start_t and i_episode <= cfg.model.slope_first_errand_end_t:
+            progress = (i_episode - cfg.model.slope_first_errand_start_t) / (cfg.model.slope_first_errand_end_t - cfg.model.slope_first_errand_start_t)
+            cfg.model.rew_w_first_errand = self.first_errand_start_w + progress * (cfg.model.slope_first_errand_final_w - self.first_errand_start_w)
+
+        return cfg
+    
+    def lr_rate_scheduler(self, cfg, i_episode):
+        if i_episode > cfg.model.lr_rate_scheduling_start_t and i_episode <= cfg.model.lr_rate_scheduling_end_t:
+            progress = (i_episode - cfg.model.lr_rate_scheduling_start_t) / (cfg.model.lr_rate_scheduling_end_t - cfg.model.lr_rate_scheduling_start_t)
+            self.p_lr = cfg.model.p_lr + progress * (cfg.model.lr_rate_scheduling_final_p_lr - cfg.model.p_lr)
+            self.q_lr = cfg.model.q_lr + progress * (cfg.model.lr_rate_scheduling_final_q_lr - cfg.model.q_lr)
+
+
+            for param_group in self.optimizers["a_optimizer"].param_groups:
+                param_group['lr'] = self.p_lr
+
+            for param_group in self.optimizers["c1_optimizer"].param_groups:
+                param_group['lr'] = self.q_lr
+
+            for param_group in self.optimizers["c2_optimizer"].param_groups:
+                param_group['lr'] = self.q_lr
+
 
     def test(self, test_episodes, env, verbose = True):
         sim = env.cfg.name
