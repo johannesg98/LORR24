@@ -24,7 +24,7 @@ env = envWrapper.LRRenv(
 env.make_env_params_available()
 
 
-number_of_runs = 10
+number_of_runs = 100
 
 sum_reward = 0
 sum_Astar_reward = 0

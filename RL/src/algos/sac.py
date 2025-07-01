@@ -643,12 +643,12 @@ class SAC(nn.Module):
         for i_episode in epochs:
             self.i_episode = i_episode
             if cfg.model.visu_episode_list:
-                obs, rew, _ = self.env.reset(outputFile_=outputFile)
+                obs, rew, _ = self.env.reset(outputFile_=outputFile, allow_task_change_=cfg.model.allow_task_change)
                 if cfg.model.visu_episode_list[curr_visu_idx] == i_episode and curr_visu_idx < len(cfg.model.visu_episode_list)-1:
                     curr_visu_idx += 1
                     outputFile = os.path.join(self.train_dir, "../outputs/cont_outputs/", cfg.model.checkpoint_path, str(cfg.model.visu_episode_list[curr_visu_idx])+".json")
             else:
-                obs, rew, _ = self.env.reset()
+                obs, rew, _ = self.env.reset(allow_task_change_=cfg.model.allow_task_change)
             step = 0
             obs_parsed = self.parser.parse_obs(obs)
             episode_reward = 0
@@ -815,7 +815,7 @@ class SAC(nn.Module):
 
             # test agent
             if i_episode % 20 == 5:
-                self.test_during_training(i_episode)
+                self.test_during_training(i_episode, cfg)
             if i_episode % 100 == 0:
                 try:
                     self.test_best_checkpoint(i_episode, cfg)
@@ -840,7 +840,7 @@ class SAC(nn.Module):
             task_search_durations = []
             task_distances = []
             for test_i in range(num_tests):
-                obs, _, _ = self.env.reset()
+                obs, _, _ = self.env.reset(allow_task_change_=(cfg.model.allow_task_change or cfg.model.allow_task_change_only_during_testing))
                 obs_parsed = self.parser.parse_obs(obs).to(self.device)
                 done = False
                 while not done:
@@ -873,8 +873,8 @@ class SAC(nn.Module):
             if self.wandb is not None:
                 self.wandb.log({"Test best checkpoint (num_tasks_finished)": num_tasks_finished_sum / num_tests}, step=i_episode)
 
-    def test_during_training(self, i_episode):
-        obs, rew, _ = self.env.reset()
+    def test_during_training(self, i_episode, cfg):
+        obs, rew, _ = self.env.reset(allow_task_change_=(cfg.model.allow_task_change or cfg.model.allow_task_change_only_during_testing))
         obs_parsed = self.parser.parse_obs(obs).to(self.device)
         episode_num_tasks_finished = 0
         task_search_durations = []
