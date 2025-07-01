@@ -36,7 +36,7 @@ hidden_size: 256  # Defines hidden units in the MLP layers
 
 clip: 500  # Clip value for gradient clipping (default: 500)
 
-checkpoint_path: "GPU_TransformerConvAction_Err50_Back20_Fin50_SLOPING"  # Path where to save model checkpoints
+checkpoint_path: "GPU_TransformerConvAction_Err50_Back20_Fin50_LRSCHEDULING"  # Path where to save model checkpoints
 
 train: true # Switches updating the weights on and off
 
@@ -102,7 +102,7 @@ rew_w_first_errand: 50
 
 
 # Slope rewards: adjust rewards over training time. Starts at normal weights above
-slope_rewards: true
+slope_rewards: false
 
 slope_backtrack_start_t: 1000
 slope_backtrack_end_t: 2000
@@ -115,7 +115,7 @@ slope_first_errand_final_w: 0
 
 
 # lr_rate_scheduling
-lr_rate_scheduling: false
+lr_rate_scheduling: true
 
 lr_rate_scheduling_start_t: 1000
 lr_rate_scheduling_end_t: 2000
