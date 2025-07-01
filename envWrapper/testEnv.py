@@ -17,7 +17,7 @@ env = envWrapper.LRRenv(
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},    
     random_agents_and_tasks="true",
-    scheduler_type="ILP",    # ActivatedGreedy, ActivatedAdvantage, NoManSky, default, ILP, GreedyOptiDist, ILPOptiDist
+    scheduler_type="NoManSky",    # ActivatedGreedy, ActivatedAdvantage, NoManSky, default, ILP, GreedyOptiDist, ILPOptiDist
     planner_type="default",
     guarantee_planner_time = True
 )
