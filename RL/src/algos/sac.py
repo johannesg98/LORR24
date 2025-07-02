@@ -1041,7 +1041,7 @@ class SAC(nn.Module):
         torch.save(checkpoint, path)
 
     def load_checkpoint(self, path="ckpt.pth"):
-        checkpoint = torch.load(path)
+        checkpoint = torch.load(path, map_location=self.device)
         try:
             # Attempt to load the model state dict as is
             self.load_state_dict(checkpoint["model"])
