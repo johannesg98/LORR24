@@ -63,8 +63,6 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
     }
 
-    std::cout << "Total agents in scheulderRL beginning: " << free_agents.size() << std::endl;
-    std::cout << "Total tasks in scheulderRL beginning: " << free_tasks.size() << std::endl;
 
 
     if (free_agents.size() == 0){
