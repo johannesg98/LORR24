@@ -278,7 +278,7 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
                 rew = (double)1.0/(time+20);
             }
             else if (backtrack_reward_type == "MaxDist-Time"){
-                rew = max_dist - 0.5 * time;
+                rew = max_dist - 2 * time;
             }
             else if (backtrack_reward_type == "OnlyTime"){
                 rew = -time;
