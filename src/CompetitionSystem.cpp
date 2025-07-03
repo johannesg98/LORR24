@@ -562,7 +562,9 @@ pybind11::dict BaseSystem::get_reward(){
 
     reward_dict["backtrack-rewards-first-errand"] = env->backtrack_rewards_first_errand;
 
-    reward_dict["backtrack-rewards-whole-task"] = env->backtrack_rewards_whole_task;    
+    reward_dict["backtrack-rewards-whole-task"] = env->backtrack_rewards_whole_task;   
+    
+    reward_dict["CTBT-rewards"] = env->CTBT_rewards;
 
     // Roadmap reward
     if (env->roadmap != nullptr){

@@ -727,6 +727,10 @@ class SAC(nn.Module):
                         if starttime in bcktr_buffer:
                             bcktr_buffer[starttime]["rew"] += cfg.model.rew_w_backtrack * bcktr_reward
                             bcktr_buffer[starttime]["bcktr_rew_added"] = True
+                if cfg.model.rew_w_change_task_backtrack > 0:
+                    for starttime, CTBT_reward in reward_dict["CTBT-rewards"]:
+                        for step_i in range(starttime, step):
+                            bcktr_buffer[step_i]["rew"] += cfg.model.rew_w_change_task_backtrack * CTBT_reward / (step - starttime)
                 myTimer.rest += myTimer.addTime()
 
 
@@ -757,8 +761,10 @@ class SAC(nn.Module):
             # replay buffer
             for step in bcktr_buffer:
                 if (not cfg.model.backtrack_reward or bcktr_buffer[step]["bcktr_rew_added"]) and "new_obs_parsed" in bcktr_buffer[step]:
-                    self.replay_buffer.store(bcktr_buffer[step]["obs_parsed"], bcktr_buffer[step]["action_rl"], bcktr_buffer[step]["rew"], bcktr_buffer[step]["new_obs_parsed"])
-                    episode_reward += bcktr_buffer[step]["rew"]
+                    if not cfg.model.only_consider_first_n_steps_for_training or step < cfg.model.only_consider_first_n_steps_for_training:
+                        # store in replay buffer
+                        self.replay_buffer.store(bcktr_buffer[step]["obs_parsed"], bcktr_buffer[step]["action_rl"], bcktr_buffer[step]["rew"], bcktr_buffer[step]["new_obs_parsed"])
+                        episode_reward += bcktr_buffer[step]["rew"]
             
             # print episode infos
             epochs.set_description(f"Episode {i_episode+1} | Reward: {episode_reward:.2f} | NumTasksFinishe: {episode_num_tasks_finished:.1f} | Checkpoint: {cfg.model.checkpoint_path}")

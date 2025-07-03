@@ -59,6 +59,7 @@ public:
     std::unordered_map<int,std::vector<int>> backtrack_times_whole_task;
     std::unordered_map<int,double> backtrack_rewards_whole_task;
     std::unordered_map<int,std::vector<float>> action_rl;
+    std::vector<std::pair<int, int>> CTBT_rewards;
     bool use_dummy_goals_for_idle_agents = true;
     bool allow_task_change = false;
 

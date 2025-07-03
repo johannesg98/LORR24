@@ -39,6 +39,9 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     // std::cout << std::endl;
 
 
+    bool use_5x1 = false;
+
+
     
 
     // allow task changes before agent reaches first errand
@@ -158,11 +161,39 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
                 for (int task = 0; task < tasks_per_node[node].size(); task++){
                     task_loc = env->task_pool[tasks_per_node[node][task]].locations[0];
                     cost_matrix[agent][task] = DefaultPlanner::get_h(env, agent_loc, task_loc);
+                    if (use_5x1) {
+                        int task_id = tasks_per_node[node][task];
+                        if (env->task_pool[task_id].length == -1){
+                            env->task_pool[task_id].length = 0;
+                            for (int i = 0; i < env->task_pool[task_id].locations.size()-1; i++){
+                                env->task_pool[task_id].length += DefaultPlanner::get_h(env, env->task_pool[task_id].locations[i], env->task_pool[task_id].locations[i+1]);
+                            }
+                        }
+                        cost_matrix[agent][task] *= 5;
+                        cost_matrix[agent][task] += env->task_pool[task_id].length;
+                    }
                 }
                 int already_filled_tasks = tasks_per_node[node].size();
                 for (int task = 0; task < outgoing_agents_targets.size(); task++){
                     task_loc = env->nodes->locations[outgoing_agents_targets[task]];
                     cost_matrix[agent][already_filled_tasks + task] = DefaultPlanner::get_h(env, agent_loc, task_loc);
+                    if (use_5x1){
+                        int target_node = outgoing_agents_targets[task];
+                        int shortest_task_length = INT_MAX;
+                        for (int task_id : tasks_per_node[target_node]){
+                            if (env->task_pool[task_id].length == -1){
+                                env->task_pool[task_id].length = 0;
+                                for (int i = 0; i < env->task_pool[task_id].locations.size()-1; i++){
+                                    env->task_pool[task_id].length += DefaultPlanner::get_h(env, env->task_pool[task_id].locations[i], env->task_pool[task_id].locations[i+1]);
+                                }
+                            }
+                            if (env->task_pool[task_id].length < shortest_task_length){
+                                shortest_task_length = env->task_pool[task_id].length;
+                            }
+                        }
+                        cost_matrix[agent][already_filled_tasks + task] *= 5;
+                        cost_matrix[agent][already_filled_tasks + task] += shortest_task_length;
+                    }
                 }
             }
 
@@ -173,6 +204,17 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
                 for (int task = 0; task < tasks_per_node[node].size(); task++){
                     task_loc = env->task_pool[tasks_per_node[node][task]].locations[0];
                     cost_matrix[already_filled_agents + agent][task] = DefaultPlanner::get_h(env, agent_loc, task_loc);
+                    if (use_5x1) {
+                        int task_id = tasks_per_node[node][task];
+                        if (env->task_pool[task_id].length == -1){
+                            env->task_pool[task_id].length = 0;
+                            for (int i = 0; i < env->task_pool[task_id].locations.size()-1; i++){
+                                env->task_pool[task_id].length += DefaultPlanner::get_h(env, env->task_pool[task_id].locations[i], env->task_pool[task_id].locations[i+1]);
+                            }
+                        }
+                        cost_matrix[already_filled_agents + agent][task] *= 5;
+                        cost_matrix[already_filled_agents + agent][task] += env->task_pool[task_id].length;
+                    }
                 }
                 // incoming agents are not allowed to go to outgoing tasks, so no need to add these costs
             }

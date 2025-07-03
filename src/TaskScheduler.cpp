@@ -90,6 +90,7 @@ void TaskScheduler::initialize(int preprocess_time_limit)
     
 
     task_search_start_times.resize(env->num_of_agents, 0);
+    CTBT_task_search_start_times.resize(env->num_of_agents, 0);
 }
 
 /**
@@ -236,6 +237,26 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     env->task_search_durations = task_search_durations;
     env->dist_reward = dist_reward;
     env->task_distances = task_distances;
+
+
+
+
+
+    //Change Task BackTracking (CTBT) reward
+    std::vector<std::pair<int, int>> CTBT_reward_vec;       //pair(search_start_time, total_reward)
+    for (int agent = 0; agent < env->num_of_agents; agent++){
+        int task_id = proposed_schedule[agent];
+        if (CTBT_task_search_start_times[agent] != -1 && task_id != -1 && env->task_pool[task_id].idx_next_loc != 0){
+                int reward = max_dist - (env->curr_timestep - 1 - CTBT_task_search_start_times[agent]);
+                CTBT_reward_vec.push_back(std::make_pair(CTBT_task_search_start_times[agent], reward));
+                CTBT_task_search_start_times[agent] = -1; // reset search start time
+        }
+        else if (CTBT_task_search_start_times[agent] == -1 && proposed_schedule_old[agent] == -1){
+            CTBT_task_search_start_times[agent] = env->curr_timestep;
+        }
+    }
+    env->CTBT_rewards = CTBT_reward_vec;
+
 
 
     //Backtracking
