@@ -14,9 +14,9 @@ net: "TransformerConvAction"
 
 scheduler_type: "RL"
 
-allow_task_change: true  # Allow agents to change tasks while they didnt arrive at the first errand yet
+allow_task_change: false  # Allow agents to change tasks while they didnt arrive at the first errand yet
 
-allow_task_change_only_during_testing: false
+allow_task_change_only_during_testing: true
 
 max_episodes: 10000  # Number of episodes to train agent (default: 16k)
 
@@ -38,7 +38,7 @@ hidden_size: 256  # Defines hidden units in the MLP layers
 
 clip: 500  # Clip value for gradient clipping (default: 500)
 
-checkpoint_path: "GPU_TransformerConvAction_ChangeTaskBacktrack100"  # Path where to save model checkpoints
+checkpoint_path: "GPU_TransformerConvAction_Err50_bcktr20_Fin50"  # Path where to save model checkpoints
 
 train: true # Switches updating the weights on and off
 
@@ -72,7 +72,7 @@ tensorboard: false # Enables Tensorboard logging
 
 mask_impactless_actions: true # Mask useless actions
 
-backtrack_reward: false # Use actual traveldistance and backtrack to initial action
+backtrack_reward: true # Use actual traveldistance and backtrack to initial action
 
 backtrack_reward_type: "MaxDist-Time" # Type of backtrack reward. Options: "MaxDist-Time", "DividedTime", "SquaredNormalized", "OnlyTime"
 
@@ -88,7 +88,7 @@ edge_feature_dim: 6 # Number of edge features (6 + 10 (distance_until_agent_avai
 
 distance_until_agent_avail_MAX: 20 # Max distance where agent tells node when it becomes available after finishing the task(observation)
 
-only_consider_first_n_steps_for_training: 125         # Only consider first n env-steps for training. Can be either False or an integer value (number of steps).
+only_consider_first_n_steps_for_training: false         # Only consider first n env-steps for training. Can be either False or an integer value (number of steps).
 
 
 
@@ -97,12 +97,12 @@ only_consider_first_n_steps_for_training: 125         # Only consider first n en
 rew_w_Astar: 0    # best: 20
 rew_w_dist: 0
 rew_w_idle: 0     # best: 20
-rew_w_task_finish: 0
-rew_w_backtrack: 0 # best: 20
+rew_w_task_finish: 50
+rew_w_backtrack: 20 # best: 20
 rew_w_immitation: 0
 rew_w_final_tasks_finished: 0
-rew_w_first_errand: 0
-rew_w_change_task_backtrack: 100 
+rew_w_first_errand: 50
+rew_w_change_task_backtrack: 0 
 
 
 
