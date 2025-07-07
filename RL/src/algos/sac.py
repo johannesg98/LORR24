@@ -668,11 +668,15 @@ class SAC(nn.Module):
             while not done:
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
+                tmp_time = time.time()
                 if cfg.model.skip_actor:
                     action_rl = skip_actor(self.env, obs)
                 else:
                     action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
                 myTimer.selectAction += myTimer.addTime()
+
+                print("Actor time: ", time.time() - tmp_time)
+                tmp_time = time.time()
 
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
@@ -698,10 +702,16 @@ class SAC(nn.Module):
                 )
                 action_dict = {"reb_action": reb_action, "action_rl": action_rl.tolist()}
                 myTimer.solveReb += myTimer.addTime()
+
+                print("Rebalancing solve time: ", time.time() - tmp_time)
+                tmp_time = time.time()
                 
                 # step
                 new_obs, reward_dict, done, info = self.env.step(action_dict)
                 myTimer.step += myTimer.addTime()
+
+                print("Step time: ", time.time() - tmp_time)
+                tmp_time = time.time()
 
                 
                 # reward
