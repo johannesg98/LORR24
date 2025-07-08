@@ -10,21 +10,21 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",
+    inputFile="./example_problems/custom_warehouse.domain/warehouse_31x15.json",
     outputFile="./outputs/pyTest.json",
-    simulationTime=10000,
-    planTimeLimit=70,
+    simulationTime=150,
+    planTimeLimit=200,
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},    
     random_agents_and_tasks="true",
-    scheduler_type="ILPOptiDist",    # ActivatedGreedy, ActivatedAdvantage, NoManSky, default, ILP, GreedyOptiDist, ILPOptiDist
+    scheduler_type="NoManSky",    # ActivatedGreedy, ActivatedAdvantage, NoManSky, default, ILP, GreedyOptiDist, ILPOptiDist
     planner_type="default",
     guarantee_planner_time = True
 )
 env.make_env_params_available()
 
 
-number_of_runs = 1
+number_of_runs = 10
 
 sum_reward = 0
 sum_Astar_reward = 0

@@ -42,7 +42,7 @@ checkpoint_path: "GPU1000_TransformerConvAction_Err50_bcktr20_Fin50"  # Path whe
 
 train: true # Switches updating the weights on and off
 
-start_training_at_episode: 1
+start_training_at_episode: 10
 
 skip_actor: false # Use skip_actor-ILP instead of the actor
 
@@ -66,7 +66,7 @@ pretrained_path: null
 
 only_q_steps: 0 
 
-wandb: false # Enables Weights and Biases logging
+wandb: true # Enables Weights and Biases logging
 
 tensorboard: false # Enables Tensorboard logging
 
