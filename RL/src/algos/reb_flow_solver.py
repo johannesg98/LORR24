@@ -4,6 +4,7 @@ from collections import defaultdict
 from pulp import LpMinimize, LpProblem, LpVariable, lpSum, LpStatus, value
 import pulp
 import time
+import numpy as np
 
 # try:
 #     import cplex
@@ -30,14 +31,23 @@ def solveRebFlow_pulp(env, obs, desired_agent_dist):
     # edges = [(i, j) for i in range(env.nNodes) for j in range(env.nNodes) if i!=j]
     edges = [(i, j) for i in range(nNodes) for j in range(nNodes) if i!=j and ((obs["free_agents_per_node"][i] > 0 and desired_agent_dist[j] > 0) or (obs["free_agents_per_node"][j] > 0 and desired_agent_dist[i] > 0))]
 
+    print("Blub 0")
+
     # Define the PuLP problem
     model = LpProblem("RebalancingFlowMinimization", LpMinimize)
   
     # Decision variables: rebalancing flow on each edge
-    rebFlow = {(i, j): LpVariable(f"rebFlow_{i}_{j}", lowBound=0, cat='Integer') for (i, j) in edges}
+    # rebFlow = {(i, j): LpVariable(f"rebFlow_{i}_{j}", lowBound=0, cat='Integer') for (i, j) in edges}
+    rebFlow = {(i, j): LpVariable(f"rebFlow_{i}_{j}", lowBound=0, cat='Continuous') for (i, j) in edges}
+
+    
+    print("Blub 1")
    
     # Objective: minimize total distance (cost) of rebalancing flows
     model += lpSum(rebFlow[(i, j)] * NodeCostMatrix[i][j] for (i, j) in edges), "TotalRebalanceCost"
+
+    
+    print("Blub 2")
     
     # Constraints for each region (node)
     for k in range(nNodes):
@@ -52,30 +62,51 @@ def solveRebFlow_pulp(env, obs, desired_agent_dist):
             f"RebalanceSupply_{k}"
         )
 
+    
+    print("Blub 3")
+
     # Solve the problem
     status = model.solve(pulp.PULP_CBC_CMD(msg=False, options=["primalTol=1e-9", "dualTol=1e-9", "mipGap=1e-9"]))
 
+    
+    print("Blub 4")
+
     # Check if the solution is optimal
     if LpStatus[status] == "Optimal":
-        # Collect the rebalancing flows
-        flow = defaultdict(int)
-        outgoing_per_node = [0] * nNodes
-        for (i, j) in edges:
-            flow[(i, j)] = int(rebFlow[(i, j)].varValue)
-            outgoing_per_node[i] += flow[(i, j)]
-        #add all agents that stay at a node
-        for i in range(nNodes):
-            flow[(i, i)] = obs["free_agents_per_node"][i] - outgoing_per_node[i]
-        #add edges that are not in edges (and therefore 0 by default)
-        for i in range(nNodes):
-            for j in range(nNodes):
-                if (i,j) not in edges and i!=j:
-                    flow[(i,j)] = 0
+        # # Collect the rebalancing flows
+        # flow = defaultdict(int)
+        # outgoing_per_node = [0] * nNodes
+        # for (i, j) in edges:
+        #     flow[(i, j)] = int(rebFlow[(i, j)].varValue)
+        #     outgoing_per_node[i] += flow[(i, j)]
+        # #add all agents that stay at a node
+        # for i in range(nNodes):
+        #     flow[(i, i)] = obs["free_agents_per_node"][i] - outgoing_per_node[i]
+        # #add edges that are not in edges (and therefore 0 by default)
+        # for i in range(nNodes):
+        #     for j in range(nNodes):
+        #         if (i,j) not in edges and i!=j:
+        #             flow[(i,j)] = 0
         #print(len(rebFlow.keys()))
        
         #flow_result = {(i, j): value(rebFlow[(i, j)]) for (i, j) in edges}
         
         #action = [flow[i,j] for i,j in env.edges]
+
+
+        # Collect the rebalancing flows
+        flow = np.zeros((nNodes, nNodes), dtype=int)
+        outgoing_per_node = np.zeros(nNodes, dtype=int)
+        for (i, j) in edges:
+            flow[i,j] = int(rebFlow[(i, j)].varValue)
+            outgoing_per_node[i] += flow[i, j]
+        #add all agents that stay at a node
+        np.fill_diagonal(flow, np.array(obs["free_agents_per_node"]) - outgoing_per_node)
+        #add edges that are not in edges (and therefore 0 by default)
+        # - not necessary
+
+        print("Blub 5")
+
         return flow
     else:
         print(f"Optimization failed with status: {LpStatus[status]}")

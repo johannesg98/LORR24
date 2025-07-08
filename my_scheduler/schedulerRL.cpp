@@ -81,7 +81,8 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     int min_task_i, min_task_makespan, dist, agent_loc, task_loc, count, node_id;
     count = 0;
 
-    std::map<pair<int,int>, int> reb_action = action_dict.at("reb_action").cast<std::map<pair<int,int>, int>>();
+    // std::map<pair<int,int>, int> reb_action = action_dict.at("reb_action").cast<std::map<pair<int,int>, int>>();
+    std::vector<std::vector<int>> reb_action = action_dict.at("reb_action").cast<std::vector<std::vector<int>>>();
     
 
     std::vector<std::vector<int>> tasks_per_node(env->nodes->nNodes);
@@ -124,20 +125,20 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
         int staying_agents = 0;
         std::vector<int> incoming_agents_origins;
         for (int end = 0; end < env->nodes->nNodes; end++){
-            if (reb_action[{node, end}] > 0){
+            if (reb_action[node][end] > 0){
                 if (node == end){
-                    staying_agents = reb_action[{node, end}];
+                    staying_agents = reb_action[node][end];
                 } else {
-                    for (int i = 0; i < reb_action[{node, end}]; i++){
+                    for (int i = 0; i < reb_action[node][end]; i++){
                         outgoing_agents_targets.push_back(end);
                     }
                 }
             }
         }
         for (int start_node = 0; start_node < env->nodes->nNodes; start_node++){
-            if (reb_action[{start_node, node}] > 0){
+            if (reb_action[start_node][node] > 0){
                 if (start_node != node){
-                    for (int i = 0; i < reb_action[{start_node, node}]; i++){
+                    for (int i = 0; i < reb_action[start_node][node]; i++){
                         incoming_agents_origins.push_back(start_node);
                     }
                 }
