@@ -6,6 +6,23 @@ import pulp
 import time
 import numpy as np
 
+try:
+    from ortools.graph.python import min_cost_flow
+    ORTOOLS_AVAILABLE = True
+except ImportError:
+    ORTOOLS_AVAILABLE = False
+    print("FAILED TO IMPORT OR-TOOLS. Rebalancing flow solver will use PuLP as fallback.")
+    1/0
+    
+
+try:
+    import networkx as nx
+    NETWORKX_AVAILABLE = True
+except ImportError:
+    NETWORKX_AVAILABLE = False
+
+
+
 # try:
 #     import cplex
 #     CPLEX_AVAILABLE = True
@@ -16,6 +33,13 @@ def solveRebFlow(env, obs, desired_agent_dist, CPLEXPATH):
     # if CPLEX_AVAILABLE:
     #     return solveRebFlow_cplex(env, obs, desired_agent_dist)
     # else: 
+    
+    if ORTOOLS_AVAILABLE:
+        return solveRebFlow_ortools(env, obs, desired_agent_dist)
+    elif NETWORKX_AVAILABLE:
+        return solveRebFlow_networkx(env, obs, desired_agent_dist)
+    
+    # Fall back to PuLP
     return solveRebFlow_pulp(env, obs, desired_agent_dist)
         
 
@@ -31,24 +55,17 @@ def solveRebFlow_pulp(env, obs, desired_agent_dist):
     # edges = [(i, j) for i in range(env.nNodes) for j in range(env.nNodes) if i!=j]
     edges = [(i, j) for i in range(nNodes) for j in range(nNodes) if i!=j and ((obs["free_agents_per_node"][i] > 0 and desired_agent_dist[j] > 0) or (obs["free_agents_per_node"][j] > 0 and desired_agent_dist[i] > 0))]
 
-    print("Blub 0")
 
     # Define the PuLP problem
     model = LpProblem("RebalancingFlowMinimization", LpMinimize)
   
     # Decision variables: rebalancing flow on each edge
-    # rebFlow = {(i, j): LpVariable(f"rebFlow_{i}_{j}", lowBound=0, cat='Integer') for (i, j) in edges}
-    rebFlow = {(i, j): LpVariable(f"rebFlow_{i}_{j}", lowBound=0, cat='Continuous') for (i, j) in edges}
+    rebFlow = {(i, j): LpVariable(f"rebFlow_{i}_{j}", lowBound=0, cat='Integer') for (i, j) in edges}
+    # rebFlow = {(i, j): LpVariable(f"rebFlow_{i}_{j}", lowBound=0, cat='Continuous') for (i, j) in edges}
 
-    
-    print("Blub 1")
-   
     # Objective: minimize total distance (cost) of rebalancing flows
     model += lpSum(rebFlow[(i, j)] * NodeCostMatrix[i][j] for (i, j) in edges), "TotalRebalanceCost"
 
-    
-    print("Blub 2")
-    
     # Constraints for each region (node)
     for k in range(nNodes):
         # 1. Flow conservation constraint (ensure net inflow/outflow achieves desired vehicle distribution)
@@ -62,14 +79,9 @@ def solveRebFlow_pulp(env, obs, desired_agent_dist):
             f"RebalanceSupply_{k}"
         )
 
-    
-    print("Blub 3")
-
     # Solve the problem
     status = model.solve(pulp.PULP_CBC_CMD(msg=False, options=["primalTol=1e-9", "dualTol=1e-9", "mipGap=1e-9"]))
 
-    
-    print("Blub 4")
 
     # Check if the solution is optimal
     if LpStatus[status] == "Optimal":
@@ -105,7 +117,6 @@ def solveRebFlow_pulp(env, obs, desired_agent_dist):
         #add edges that are not in edges (and therefore 0 by default)
         # - not necessary
 
-        print("Blub 5")
 
         return flow
     else:
@@ -261,6 +272,133 @@ def solveRebFlow_cplex(env, obs, desired_agent_dist, CPLEXPATH=None):
             
     except Exception as e:
         print(f"CPLEX error: {e}")
+        print("Falling back to PuLP solver...")
+        return solveRebFlow_pulp(env, obs, desired_agent_dist)
+
+
+def solveRebFlow_ortools(env, obs, desired_agent_dist):
+    start_time = time.time()
+    
+    NodeCostMatrix = env.NodeCostMatrix
+    nNodes = env.nNodes
+    
+    # Create edges - same logic as PuLP version
+    edges = [(i, j) for i in range(nNodes) for j in range(nNodes) 
+             if i != j and ((obs["free_agents_per_node"][i] > 0 and desired_agent_dist[j] > 0) or 
+                           (obs["free_agents_per_node"][j] > 0 and desired_agent_dist[i] > 0))]
+    
+    # Create the min cost flow solver using the correct API for OR-Tools 9.7
+    mcf = min_cost_flow.SimpleMinCostFlow()
+    
+    # Add edges with costs and capacities
+    for i, j in edges:
+        # Edge from node i to node j
+        # Cost is the distance/cost from NodeCostMatrix
+        # Capacity is limited by available vehicles at source
+        cost = int(NodeCostMatrix[i][j])
+        capacity = obs["free_agents_per_node"][i]  # Max flow is available vehicles
+        mcf.add_arc_with_capacity_and_unit_cost(i, j, capacity, cost)
+    
+    # Set supply and demand for each node
+    for k in range(nNodes):
+        supply = obs["free_agents_per_node"][k] - desired_agent_dist[k]
+        mcf.set_node_supply(k, supply)
+    
+    # Solve the problem
+    solve_status = mcf.solve()
+    
+    if solve_status == mcf.OPTIMAL:
+        print(f"OR-Tools solve time: {time.time() - start_time:.4f}s")
+        
+        # Build flow matrix
+        flow = np.zeros((nNodes, nNodes), dtype=int)
+        
+        # Extract solution
+        for i in range(mcf.num_arcs()):
+            from_node = mcf.tail(i)
+            to_node = mcf.head(i)
+            flow_value = mcf.flow(i)
+            flow[from_node, to_node] = flow_value
+        
+        # Add agents that stay at each node (diagonal)
+        outgoing_per_node = np.sum(flow, axis=1)
+        np.fill_diagonal(flow, np.array(obs["free_agents_per_node"]) - outgoing_per_node)
+        
+        return flow
+        
+    else:
+        print(f"OR-Tools solver failed with status: {solve_status}")
+        if solve_status == mcf.INFEASIBLE:
+            print("Problem is infeasible - check supply/demand balance")
+        elif solve_status == mcf.UNBALANCED:
+            print("Problem is unbalanced - total supply != total demand")
+        
+        # Fallback to PuLP
+        print("Falling back to PuLP solver...")
+        return solveRebFlow_pulp(env, obs, desired_agent_dist)
+
+
+def solveRebFlow_networkx(env, obs, desired_agent_dist):
+    """
+    Solve rebalancing flow optimization using NetworkX min_cost_flow.
+    Alternative fast implementation using network simplex algorithm.
+    """
+    try:
+        import networkx as nx
+    except ImportError:
+        print("NetworkX not available, falling back to PuLP")
+        return solveRebFlow_pulp(env, obs, desired_agent_dist)
+    
+    start_time = time.time()
+    
+    NodeCostMatrix = env.NodeCostMatrix
+    nNodes = env.nNodes
+    
+    # Create directed graph
+    G = nx.DiGraph()
+    
+    # Add nodes with supply/demand
+    for k in range(nNodes):
+        demand = desired_agent_dist[k] - obs["free_agents_per_node"][k]
+        G.add_node(k, demand=demand)
+    
+    # Add edges with costs and capacities
+    edges_added = 0
+    for i in range(nNodes):
+        for j in range(nNodes):
+            if i != j and ((obs["free_agents_per_node"][i] > 0 and desired_agent_dist[j] > 0) or 
+                          (obs["free_agents_per_node"][j] > 0 and desired_agent_dist[i] > 0)):
+                cost = NodeCostMatrix[i][j]
+                capacity = obs["free_agents_per_node"][i]
+                G.add_edge(i, j, weight=cost, capacity=capacity)
+                edges_added += 1
+    
+    print(f"NetworkX solving with {nNodes} nodes and {edges_added} edges")
+    
+    try:
+        # Solve min cost flow
+        flow_dict = nx.min_cost_flow(G)
+        
+        print(f"NetworkX solve time: {time.time() - start_time:.4f}s")
+        
+        # Convert to matrix format
+        flow = np.zeros((nNodes, nNodes), dtype=int)
+        for i in flow_dict:
+            for j in flow_dict[i]:
+                flow[i, j] = int(flow_dict[i][j])
+        
+        # Add agents that stay at each node (diagonal)
+        outgoing_per_node = np.sum(flow, axis=1)
+        np.fill_diagonal(flow, np.array(obs["free_agents_per_node"]) - outgoing_per_node)
+        
+        return flow
+        
+    except nx.NetworkXUnfeasible:
+        print("NetworkX: Problem is infeasible")
+        print("Falling back to PuLP solver...")
+        return solveRebFlow_pulp(env, obs, desired_agent_dist)
+    except Exception as e:
+        print(f"NetworkX error: {e}")
         print("Falling back to PuLP solver...")
         return solveRebFlow_pulp(env, obs, desired_agent_dist)
 

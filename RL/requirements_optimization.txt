@@ -1,0 +1,19 @@
+# Fast optimization solvers for reb_flow_solver.py
+# Install with: pip install -r requirements_optimization.txt
+
+# WORKING COMBINATION - Compatible with TensorFlow 2.18.0 and wandb
+# Google OR-Tools 9.7 (compatible with protobuf 5.x)
+ortools==9.7.2996
+
+# NetworkX (good backup, pure Python)
+networkx>=2.8
+
+# PuLP (already in use, fallback)
+pulp
+
+# Ensure compatible versions
+protobuf==5.29.3
+numpy==1.26.4
+
+# CPLEX (commercial, requires license)
+# cplex  # uncomment if you have CPLEX license
