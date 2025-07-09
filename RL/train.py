@@ -60,7 +60,7 @@ def main(cfg: DictConfig):
         inputFile=os.path.join(script_dir, cfg.model.map_path),
         outputFile=os.path.join(script_dir, "../outputs/trainRL.json"),
         simulationTime=cfg.model.max_steps,
-        planTimeLimit=200,
+        planTimeLimit=70,
         preprocessTimeLimit=30000,
         observationTypes={"node-basics", "node-advanced"},
         random_agents_and_tasks="true",
