@@ -198,7 +198,7 @@ void BaseSystem::simulate(int simulation_time)
         planner_times.push_back(std::chrono::duration<double>(diff).count());
 
         // update tasks
-        task_manager.update_tasks(curr_states, proposed_schedule, simulator.get_curr_timestep());
+        task_manager.update_tasks(curr_states, proposed_schedule, simulator.get_curr_timestep(), env);
     }
 }
 
@@ -486,7 +486,7 @@ bool BaseSystem::step(const std::unordered_map<std::string, pybind11::object>& a
 
     get_roadmap_reward(curr_states);
 
-    task_manager.update_tasks(curr_states, proposed_schedule, simulator.get_curr_timestep());
+    task_manager.update_tasks(curr_states, proposed_schedule, simulator.get_curr_timestep(), env);
 
     logger->log_info("Step done.", simulator.get_curr_timestep());
 
@@ -585,7 +585,20 @@ pybind11::dict BaseSystem::get_info(){
     info_dict["backtrack-times-first-errand"] = env->backtrack_times_first_errand;
 
     info_dict["backtrack-times-whole-task"] = env->backtrack_times_whole_task;
-    
+
+    int agents_in_task = 0;
+    for (int agent=0; agent < env->num_of_agents; agent++){
+        int task_id = env->curr_task_schedule[agent];
+        if (task_id != -1 && env->task_pool[task_id].idx_next_loc != 0){
+            agents_in_task ++;            
+        }
+    }
+    info_dict["agents-in-task"] = agents_in_task;
+
+    info_dict["length-of-tasks-finished"] = task_manager.length_of_tasks_finished - length_of_tasks_finished_last_call;
+    length_of_tasks_finished_last_call = task_manager.length_of_tasks_finished;
+
+
     return info_dict;
 }
 

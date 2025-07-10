@@ -639,6 +639,8 @@ class SAC(nn.Module):
             os.makedirs(os.path.join(self.train_dir, "../outputs/cont_outputs/", cfg.model.checkpoint_path), exist_ok=True)
 
         episode_tasks_finished_sum = 0
+        episode_time_in_task_sum = 0
+        episode_length_of_tasks_finished_sum = 0
 
         for i_episode in epochs:
             self.i_episode = i_episode
@@ -654,6 +656,8 @@ class SAC(nn.Module):
             episode_reward = 0
             episode_reward += rew
             episode_num_tasks_finished = 0
+            episode_time_in_task = 0
+            episode_length_of_tasks_finished = 0
             task_search_durations = []
             task_distances = []
             self.LogQ1 = []
@@ -668,15 +672,12 @@ class SAC(nn.Module):
             while not done:
                 # actor step
                 print("free agents per node", obs["free_agents_per_node"])
-                tmp_time = time.time()
                 if cfg.model.skip_actor:
                     action_rl = skip_actor(self.env, obs)
                 else:
                     action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
                 myTimer.selectAction += myTimer.addTime()
 
-                print("Actor time: ", time.time() - tmp_time)
-                tmp_time = time.time()
 
                 # create discrete action distribution
                 total_agents = sum(obs["free_agents_per_node"])
@@ -703,15 +704,10 @@ class SAC(nn.Module):
                 action_dict = {"reb_action": reb_action, "action_rl": action_rl.tolist()}
                 myTimer.solveReb += myTimer.addTime()
 
-                print("Rebalancing solve time: ", time.time() - tmp_time)
-                tmp_time = time.time()
                 
                 # step
                 new_obs, reward_dict, done, info = self.env.step(action_dict)
                 myTimer.step += myTimer.addTime()
-
-                print("Step time: ", time.time() - tmp_time)
-                tmp_time = time.time()
 
                 
                 # reward
@@ -765,6 +761,8 @@ class SAC(nn.Module):
                 episode_num_tasks_finished += reward_dict["task-finished"]
                 task_search_durations.extend(info["task-search-durations"])
                 task_distances.extend(info["task-distances"])
+                episode_time_in_task += info["agents-in-task"]
+                episode_length_of_tasks_finished += info["length-of-tasks-finished"]
                 step+= 1
                 myTimer.rest += myTimer.addTime()      
 
@@ -782,7 +780,7 @@ class SAC(nn.Module):
             # log wandb + tensorboard
             myTimer.printAvgTimes(i_episode+1)
             if self.wandb is not None:
-                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)}, step=i_episode)
+                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Time in Task": episode_time_in_task, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)}, step=i_episode)
                 # self.wandb_policy_logger(i_episode)
             if self.tensorboard is not None:
                 self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
@@ -794,7 +792,11 @@ class SAC(nn.Module):
                 self.tensorboard.add_scalar("Q1", np.mean(self.LogQ1), i_episode)
 
             episode_tasks_finished_sum += episode_num_tasks_finished
+            episode_time_in_task_sum += episode_time_in_task
+            episode_length_of_tasks_finished_sum += episode_length_of_tasks_finished
             print("Avg num_task_fisnished reward: ", episode_tasks_finished_sum / (i_episode + 1))
+            print("Avg time in task: ", episode_time_in_task_sum / (i_episode + 1))
+            print("Avg length of tasks finished: ", episode_length_of_tasks_finished_sum / (i_episode + 1))
 
 
             # slope rewards

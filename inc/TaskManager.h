@@ -17,14 +17,14 @@ public:
     vector<int> new_freeagents;
     vector<int> new_tasks;
 
-    list<int> check_finished_tasks(vector<State>& states, int timestep);
+    list<int> check_finished_tasks(vector<State>& states, int timestep, SharedEnvironment* env);
 
     int curr_timestep;
 
 
     // reveal new task
     void reveal_tasks(int timestep);
-    void update_tasks(vector<State>& states, vector<int>& assignment, int timestep);
+    void update_tasks(vector<State>& states, vector<int>& assignment, int timestep, SharedEnvironment* env);
 
     void sync_shared_env(SharedEnvironment* env);
 
@@ -55,6 +55,7 @@ public:
 
     int num_of_first_errands_started = 0;
     int num_of_task_finish = 0;
+    int length_of_tasks_finished = 0;
 
     ~ TaskManager()
     {

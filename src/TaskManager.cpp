@@ -124,7 +124,7 @@ bool TaskManager::set_task_assignment(vector< int>& assignment)
  * @param states a vector of states of all agents, including the current location of each agent on the map.
  * @param timestep the current timestep.
  */
-list<int> TaskManager::check_finished_tasks(vector<State>& states, int timestep)
+list<int> TaskManager::check_finished_tasks(vector<State>& states, int timestep, SharedEnvironment* env)
 { 
     list<int> finished_tasks_this_timestep; // <agent_id, task_id, timestep>
     new_freeagents.clear(); //prepare to push all new free agents to the shared environment
@@ -148,6 +148,12 @@ list<int> TaskManager::check_finished_tasks(vector<State>& states, int timestep)
                 finished_tasks_this_timestep.push_back(task->task_id);
                 finished_tasks[task->agent_assigned].emplace_back(task);
                 num_of_task_finish++;
+                int length = env->task_pool[task->task_id].length;
+                if (length == -1){
+                    std::cout << "Task " << task->task_id << " has no length!!!!" << std::endl;
+                    std::cerr << "Task " << task->task_id << " has no length!!!!" << std::endl;
+                }
+                length_of_tasks_finished += length;
                 new_freeagents.push_back(k); // record the new free agent
                 logger->log_info("Agent " + std::to_string(task->agent_assigned) + " finishes task " + std::to_string(task->task_id), timestep);
                 logger->flush();
@@ -166,6 +172,12 @@ list<int> TaskManager::check_finished_tasks(vector<State>& states, int timestep)
  */
 void TaskManager::sync_shared_env(SharedEnvironment* env) 
 {
+    for (auto& task: ongoing_tasks)
+    {
+        if (env->task_pool.find(task.first) != env->task_pool.end()){
+            task.second->length = env->task_pool[task.first].length;
+        }
+    }
     env->task_pool.clear();
     for (auto& task: ongoing_tasks)
     {
@@ -230,11 +242,11 @@ void TaskManager::reveal_tasks(int timestep)
  * @param assignment a vector of task_ids, one for each agent. The length of the vector should be equal to the number of agents.
  * @param timestep the current timestep.
  */
-void TaskManager::update_tasks(vector<State>& states, vector<int>& assignment, int timestep)
+void TaskManager::update_tasks(vector<State>& states, vector<int>& assignment, int timestep, SharedEnvironment* env)
 {
     curr_timestep = timestep;
     set_task_assignment(assignment);
-    check_finished_tasks(states,timestep);
+    check_finished_tasks(states,timestep,env);
     reveal_tasks(timestep);
 }
 

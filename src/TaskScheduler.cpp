@@ -239,6 +239,17 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     env->task_distances = task_distances;
 
 
+    // Calc all task length that are not yet calculated
+    for (auto& [id, task] : env->task_pool){
+        if (task.length == -1){
+            task.length = 0;
+            for (int i=0; i<task.locations.size()-1; i++){
+                task.length += DefaultPlanner::get_h(env, task.locations[i], task.locations[i+1]);
+            }
+        }
+    }
+
+
 
 
 
