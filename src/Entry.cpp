@@ -20,6 +20,9 @@ void Entry::initialize(int preprocess_time_limit)
 //NB: the parameter time_limit is specified in milliseconds.
 void Entry::compute(int time_limit, std::vector<Action> & plan, std::vector<int> & proposed_schedule, const std::unordered_map<std::string, pybind11::object>& action_dict)
 {   
+    env->n_best_pibt_step = 0;
+    env->n_not_best_pibt_step = 0;
+
     //call the task scheduler to assign tasks to agents
     scheduler->plan(time_limit,proposed_schedule, action_dict);
 

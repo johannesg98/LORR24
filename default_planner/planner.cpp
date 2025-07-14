@@ -70,6 +70,13 @@ namespace DefaultPlanner{
             for (int i = 0; i < ids.size();i++){
                 ids[i] = i;
             }
+            pibt_wait_map.clear();
+            pibt_wait_map.resize(env->map.size(), 0);
+            for (int i = 0; i < env->map.size(); i++) {
+                if (env->map[i] == 1) {
+                    pibt_wait_map[i] = -1;  // obstacle
+                }
+            }
 
             // initialise the heuristics tables containers
             init_heuristics(env);
@@ -143,10 +150,17 @@ namespace DefaultPlanner{
 
             // set the goal location of each agent
             if (env->goal_locations[i].empty()){
-                if (env->use_dummy_goals_for_idle_agents){
+                if (env->use_dummy_goals_for_idle_agents == 1){
                     trajLNS.tasks[i] = dummy_goals.at(i);
-                }else{
+                } else if (env->use_dummy_goals_for_idle_agents == 0){
                     trajLNS.tasks[i] = env->curr_states[i].location;
+                } else {
+                    //assign random goal location
+                    int loc = mt1() % env->map.size();
+                    while (env->map[loc] != 0 || loc == env->curr_states[i].location){
+                        loc = mt1() % env->map.size();
+                    }
+                    trajLNS.tasks[i] = loc;
                 }
                 p[i] = p_copy[i];
             }
@@ -218,6 +232,9 @@ namespace DefaultPlanner{
             }
         );
 
+        n_best_pibt_step = 0;
+        n_not_best_pibt_step = 0;
+
         // compute the targeted next location for each agent using PIBT
         for (int i : ids){
             if (decided[i].state == DONE::NOT_DONE){
@@ -230,6 +247,12 @@ namespace DefaultPlanner{
                     occupied, trajLNS);
             }
         }
+
+        env->n_best_pibt_step = n_best_pibt_step;
+        env->n_not_best_pibt_step = n_not_best_pibt_step;
+        env->pibt_wait_map = pibt_wait_map;
+
+
         
         // post processing the targeted next location to turning or moving actions
         actions.resize(env->num_of_agents);

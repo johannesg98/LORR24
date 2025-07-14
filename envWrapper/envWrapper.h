@@ -36,7 +36,7 @@ private:
     bool is_initialized = false;
     std::vector<std::vector<std::pair<int,edgeFeatures::Direction>>> MP_loc_to_edges;     // num_map_tiles x num_of_edges_that_pass_through_it x (edge_id, direction)
     std::vector<int> MP_edge_lengths;
-    bool use_dummy_goals_for_idle_agents;
+    int use_dummy_goals_for_idle_agents;
     std::string backtrack_reward_type;
     std::string scheduler_type;
     std::string planner_type;

@@ -641,6 +641,9 @@ class SAC(nn.Module):
         episode_tasks_finished_sum = 0
         episode_time_in_task_sum = 0
         episode_length_of_tasks_finished_sum = 0
+        episode_wait_time_sum = 0
+        episode_n_best_pibt_step_sum = 0
+        episode_n_not_best_pibt_step_sum = 0
 
         for i_episode in epochs:
             self.i_episode = i_episode
@@ -658,6 +661,9 @@ class SAC(nn.Module):
             episode_num_tasks_finished = 0
             episode_time_in_task = 0
             episode_length_of_tasks_finished = 0
+            episode_wait_time = 0
+            episode_n_best_pibt_step = 0
+            episode_n_not_best_pibt_step = 0
             task_search_durations = []
             task_distances = []
             self.LogQ1 = []
@@ -763,6 +769,11 @@ class SAC(nn.Module):
                 task_distances.extend(info["task-distances"])
                 episode_time_in_task += info["agents-in-task"]
                 episode_length_of_tasks_finished += info["length-of-tasks-finished"]
+                episode_wait_time += info["wait-time"]
+                episode_n_best_pibt_step += info["n-best-pibt-step"]
+                episode_n_not_best_pibt_step += info["n-not-best-pibt-step"]
+                if done and i_episode == train_episodes - 1:
+                    np.save(os.path.join(self.train_dir, f"../outputs/pibt_wait_map_RL.npy"), np.array(info["pibt-wait-map"]))
                 step+= 1
                 myTimer.rest += myTimer.addTime()      
 
@@ -780,7 +791,7 @@ class SAC(nn.Module):
             # log wandb + tensorboard
             myTimer.printAvgTimes(i_episode+1)
             if self.wandb is not None:
-                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Time in Task": episode_time_in_task, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)}, step=i_episode)
+                self.wandb.log({"Reward": episode_reward, "Num Tasks finished": episode_num_tasks_finished, "Time in Task": episode_time_in_task, "Length of tasks finished": episode_length_of_tasks_finished, "Wait time": episode_wait_time, "Task search duration": np.mean(task_search_durations), "Task distance": np.mean(task_distances), "Step": i_episode, "Q1 Loss": np.mean(self.LogQ1Loss), "Policy Loss": np.mean(self.LogPolicyLoss), "Q1": np.mean(self.LogQ1)}, step=i_episode)
                 # self.wandb_policy_logger(i_episode)
             if self.tensorboard is not None:
                 self.tensorboard.add_scalar("Reward", episode_reward, i_episode)
@@ -794,9 +805,15 @@ class SAC(nn.Module):
             episode_tasks_finished_sum += episode_num_tasks_finished
             episode_time_in_task_sum += episode_time_in_task
             episode_length_of_tasks_finished_sum += episode_length_of_tasks_finished
+            episode_wait_time_sum += episode_wait_time
+            episode_n_best_pibt_step_sum += episode_n_best_pibt_step
+            episode_n_not_best_pibt_step_sum += episode_n_not_best_pibt_step
             print("Avg num_task_fisnished reward: ", episode_tasks_finished_sum / (i_episode + 1))
             print("Avg time in task: ", episode_time_in_task_sum / (i_episode + 1))
             print("Avg length of tasks finished: ", episode_length_of_tasks_finished_sum / (i_episode + 1))
+            print("Avg wait time: ", episode_wait_time_sum / (i_episode + 1))
+            print("Avg n-best-pibt-step: ", episode_n_best_pibt_step_sum / (i_episode + 1))
+            print("Avg n-not-best-pibt-step: ", episode_n_not_best_pibt_step_sum / (i_episode + 1))
 
 
             # slope rewards

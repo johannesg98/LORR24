@@ -30,6 +30,13 @@ vector<State> Simulator::move(vector<Action>& actions)
     curr_states = model->result_states(curr_states, actions);
     timestep++;
 
+    for (int agent = 0; agent < num_of_agents; agent++){
+        if (actions[agent] == Action::W){
+            wait_time_map[curr_states[agent].location]++;
+            wait_time_sum++;
+        }
+    }
+
     for (int k = 0; k < num_of_agents; k++){
         paths[k].push_back(curr_states[k]);
         actual_movements[k].push_back(actions[k]);

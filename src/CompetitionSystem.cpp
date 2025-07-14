@@ -598,6 +598,15 @@ pybind11::dict BaseSystem::get_info(){
     info_dict["length-of-tasks-finished"] = task_manager.length_of_tasks_finished - length_of_tasks_finished_last_call;
     length_of_tasks_finished_last_call = task_manager.length_of_tasks_finished;
 
+    info_dict["wait-time"] = simulator.wait_time_sum - wait_time_last_call;
+    wait_time_last_call = simulator.wait_time_sum;
+
+    info_dict["n-best-pibt-step"] = env->n_best_pibt_step;
+    info_dict["n-not-best-pibt-step"] = env->n_not_best_pibt_step;
+
+    info_dict["pibt-wait-map"] = env->pibt_wait_map;
+
+
 
     return info_dict;
 }

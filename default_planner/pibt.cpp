@@ -1,13 +1,12 @@
-
-
-
 #include "pibt.h"
 
 
 
-
-
 namespace DefaultPlanner{
+
+int n_best_pibt_step = 0;
+int n_not_best_pibt_step = 0;
+std::vector<int> pibt_wait_map;
 
 int get_gp_h(TrajLNS& lns, int ai, int target){
     int min_heuristic;
@@ -73,8 +72,9 @@ bool causalPIBT(int curr_id, int higher_id,std::vector<State>& prev_states,
 			return a.heuristic < b.heuristic; 
 		});
 
-
+	int count = -1;
     for (auto& next: successors){
+		count++;
 		if(occupied[next.location])
 			continue;
 		assert(validateMove(prev_loc, next.location, lns.env));
@@ -97,9 +97,17 @@ bool causalPIBT(int curr_id, int higher_id,std::vector<State>& prev_states,
 				continue;
             }
         }
-
+		if (count == 0){
+			n_best_pibt_step++;
+		}else{
+			n_not_best_pibt_step++;
+			pibt_wait_map[prev_loc]++;
+		}
         return true;
     }
+
+	n_not_best_pibt_step++;
+	pibt_wait_map[prev_loc]++;
 
     next_states.at(curr_id) = State(prev_loc,-1 ,-1);;
     decision.at(prev_loc) = curr_id;     
@@ -165,7 +173,7 @@ Action getAction(State& prev, int next_loc, SharedEnvironment* env){
 }
 
 bool moveCheck(int id, std::vector<bool>& checked,
-		std::vector<DCR>& decided, std::vector<Action>& actions, std::vector<int>& prev_decision){
+	 std::vector<DCR>& decided, std::vector<Action>& actions, std::vector<int>& prev_decision){
 	if (checked.at(id) && actions.at(id) == Action::FW)
 		return true;
 	checked.at(id) = true;

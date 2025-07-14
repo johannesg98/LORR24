@@ -185,6 +185,7 @@ protected:
     int num_of_task_finish_last_call = 0;
     int num_of_first_errands_started_last_call = 0;
     int length_of_tasks_finished_last_call = 0;
+    int wait_time_last_call = 0;
     std::unordered_map<std::pair<int, int>, int, pair_hash> MP_edge_map;
     vector<State> last_agent_states;
 

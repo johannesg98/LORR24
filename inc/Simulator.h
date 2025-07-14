@@ -32,6 +32,8 @@ public:
 
         actual_movements.resize(num_of_agents);
         planner_movements.resize(num_of_agents);
+
+        wait_time_map.resize(map.map.size(), 0);
     }
 
     vector<State> move(vector<Action>& next_actions);
@@ -58,6 +60,9 @@ public:
     nlohmann::ordered_json node_regions_to_json(SharedEnvironment* env) const;
 
     int get_number_errors() const {return model->errors.size();}
+
+    std::vector<int> wait_time_map;
+    int wait_time_sum = 0;
 
 private:
     Grid map;

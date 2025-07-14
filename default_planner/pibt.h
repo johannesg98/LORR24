@@ -1,4 +1,3 @@
-
 #ifndef pibt_hpp
 #define pibt_hpp
 
@@ -17,6 +16,10 @@
 
 
 namespace DefaultPlanner{
+
+extern int n_best_pibt_step;
+extern int n_not_best_pibt_step;
+extern std::vector<int> pibt_wait_map;
 
 int get_gp_h(TrajLNS& lns, int ai, int target);
 
