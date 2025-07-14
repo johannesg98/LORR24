@@ -4,5 +4,5 @@
     "teamSize": 300,
     "taskFile": "tasks/tasks_9x8.tasks",
     "numTasksReveal": 1.5,
-    "nodeFile": "nodes/warehouse_9x8.nodes"
+    "nodeFile": "nodes/warehouse_9x8_withOuter.nodes"
 }
