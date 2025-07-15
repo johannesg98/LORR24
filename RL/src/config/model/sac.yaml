@@ -10,7 +10,7 @@ cplexpath: "None"  # Defines directory of the CPLEX installation
   
 directory: "saved_files"  # Defines directory where to save files
 
-net: "TransformerConvAction"
+net: "TransformerConv"
 
 scheduler_type: "RL"
 
