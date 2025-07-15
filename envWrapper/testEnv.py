@@ -10,7 +10,7 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/custom_warehouse.domain/warehouse_6x4.json",
+    inputFile="./example_problems/custom_warehouse.domain/warehouse_9x8.json",
     outputFile="./outputs/pyTest.json",
     simulationTime=150,
     planTimeLimit=70,
