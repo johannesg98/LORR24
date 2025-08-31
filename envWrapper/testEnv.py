@@ -10,14 +10,14 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/custom_warehouse.domain/warehouse_6x4.json",
+    inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",
     outputFile="./outputs/pyTest.json",
     simulationTime=10000,
-    planTimeLimit=70,
+    planTimeLimit=100,
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},    
     random_agents_and_tasks="true",
-    scheduler_type="NoManSky",    # ActivatedGreedy, ActivatedAdvantage, NoManSky, default, ILP, GreedyOptiDist, ILPOptiDist
+    scheduler_type="default",    # ActivatedGreedy, ActivatedAdvantage, NoManSky, default, ILP, GreedyOptiDist, ILPOptiDist
     planner_type="default",
     guarantee_planner_time = True
 )

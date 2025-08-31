@@ -35,7 +35,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     bool reserve_tasks = false;
     bool allow_task_changes = true;
     bool OptiDist = false;
-    bool use_5x1 = true;
+    bool use_5x1 = false;
 
     std::cout << "Check for double tasks at the beginning:" << std::endl;
 
