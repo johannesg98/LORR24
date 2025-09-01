@@ -65,7 +65,7 @@ For tracking the training progress, we recommend WandB. It can be activated in t
 
 # Testing
 ## RL
-Testing the RL-controller can be done right away (default 10,000 steps) with:
+Testing the RL-controller can be done right away (default 200 agents, 10,000 steps) with:
 ```shell
 python3 RL/test.py
 ```
