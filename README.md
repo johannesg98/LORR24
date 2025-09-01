@@ -1,114 +1,89 @@
-# Start-Kit
-
-## Join the competition
-
-Log in to the [competition website](http://www.leagueofrobotrunners.org/) with a GitHub account, and we will automatically create a private GitHub submission repo for you.
-The repo will be the place where you submit codes. In the `My Submission` page, you can click "My Repo" to open your GitHub submission repo page.
-
-## Clone your submission repo
-
-Clone your submission repo to your local machine. The repo contains starter codes to help you prepare your submission.
-
-```
-$ git clone git@github.com:your_submission_repo_address
-$ cd your_submission_repo
-```
-
-## Compile the start-kit
-
-### Dependencies
-
+# Installation
+## Dependencies
 - [cmake >= 3.16](https://cmake.org/)
 - [libboost >= 1.49.0](https://www.boost.org/)
-- Python3 >= 3.11 and [pybind11](https://pybind11.readthedocs.io/en/stable/) >=2.10.1 are recommanded for python interface user.
+- Python3 >= 3.11 and [pybind11](https://pybind11.readthedocs.io/en/stable/) >=2.10.1
 
-Install dependencies on Ubuntu or Debian Linux:
+### Ubuntu:
 ```shell
 sudo apt-get update
 sudo apt-get install build-essential libboost-all-dev python3-dev python3-pybind11 
 ```
 
-[Homebrew](https://brew.sh/) is recomanded for installing dependencies on Mac OS.
-
-### Compiling
-
-Using `compile.sh`:
-```shell
-./compile.sh
-```
-
-Using cmake: 
-```shell
-mkdir build
-cmake -B build ./ -DCMAKE_BUILD_TYPE=Release
-make -C build -j
-```
-
-## Run the start kit
-
-Running the start-kit using commands: 
-```shell
-./build/lifelong --inputFile the_input_file_name -o output_file_location
-```
-
-for example:
-```shell
-./build/lifelong --inputFile ./example_problems/random.domain/random_32_32_20_100.json -o test.json
-```
-
-more info on help:
-```shell
-./build/lifelong --help
-```
-
-## Windows users
-If you are a Windows user, the most straightforward method to utilize our start-kits is by employing the WSL (Windows Subsystem for Linux) subsystem. Follow these steps:
-1. Install WSL, please refer to [https://learn.microsoft.com/en-us/windows/wsl/install](https://learn.microsoft.com/en-us/windows/wsl/install)
-2. Open a shell in WSL and execute the following commands to install the necessary tools (CMake, GCC, Boost, pip, Pybind11):
+### Windows
+1. Install WSL
+2. Install necessary tools (CMake, GCC, Boost, pip, Pybind11):
 ```shell
 sudo apt-get update
 sudo apt-get install cmake g++ libboost-all-dev python3-dev python3-pip
 pip install pybind11-global numpy
 ```
-3. Employ the commands provided above to compile the start-kit.
 
-While it's technically possible to use our start-kit with Cygwin, Mingw, and MSVC, doing so would be more complex compared to using WSL. You would likely need to configure the environment yourself.
+## Install python requirements
+```shell
+python3 -m venv RL/venv
+source RL/venv/bin/activate
+pip install -r RL/requirements.txt
+```
 
-If you are a docker user, another choice is to develop and test your python implementation under a docker environment. You can the re-create the evaluation environment locally on your machine. For more details, check out the [Test in Docker](./Prepare_Your_Submission.md#test-in-docker) section.
 
-## Upgrade Your Start-Kit
+## Build environment wrapper
+```shell
+cd envWrapper
+mkdir build
+cd build
+cmake ..
+make -j8
+cd ../..
+```
 
-If your private start-kit copy repo was created before a start-kit upgrade, you could run the script `./upgrade_start_kit.sh` to upgrade your start-kit to the latest version.
 
-You can check `version.txt` to know the current version of your start-kit.
+# Overview
+The folder structure is based on the github repository of the League of Robot Runners. Additional parts for learning are integrated.
+The main folder (LORR24) contains the folders src, inc and default_planner which contain the source code provided by the LRR as well as the CMakeLists.txt for the LRR build.
+The folder example_problems contains all maps and simulation scenarios including agents and tasks.
+The gymnasium style python wrapper is located with source code and build folder in envWrapper. This folder also contains the test-script to execute different schedulers easily.
+Everything related to Reinforcement Learning is found in RL.
 
-The `upgrade_start_kit.sh` will check which file is marked as an upgrade needed and pull those files from the start-kit. It will pull and stage the files, but not commit them. This allows you to review the changes before committing them. 
+# Training
+For training the RL-controller, the config script can be found in RL/src/config/model/sac.yaml
+The default setting includes 200 agents and can be trained right away with running:
+```shell
+python3 RL/train.py
+```
+We provide 4 different warehouse maps:
+- warehouse_6x4 --> contains 100 agents, mapsize: 589
+- warehouse_8x6 --> contains 200 agents, mapsize: 975
+- warehouse_9x8 --> contains 300 agents, mapsize: 1333
+- warehouse_13x12 --> contains 500 agents, mapsize: 2537
 
-For files stated as unmodifiable in [Parepare_Your_Planner.md](./Prepare_Your_Submission.md), you always commit their changes.
+This can be set with choosing the "map_path" (line 10) in the sac.yaml config file.
+The file name of the output weights can be set in the config file with "checkpoint_path" (line 71). The file will be saved in RL/ckpt.
+Further changes of the map, agents, tasks, etc. can be made in example_problems/custom_warehouse.domain.
 
-⚠️ But please be aware that, the start-kit v2.1.0 introduces requested API changes on `task_pool`. This requires minor revision to your implementation to adapt to the new API.  
-This change also impacts the implementation of function `update_goal_locations` in `src/Entry.cpp`, therefore, the upgrade script will pull the new version of `src/Entry.cpp` and may overwrite your changes. You could compare the difference using `git diff` and decide whether to revert some modifications or partially accept changes on this file. 
+For tracking the training progress, we recommend WandB. It can be activated in the config file (line 65) and configured in RL/train.py (line 79-89).
 
-The upgrade script will not touch most of the participants' implementation file.
-How every the example implementation in `python/pyMAPFPlanner.py`,`python/pyTaskScheduler.py`, `inc/MAPFPlanner.h`, `inc/TaskScheduler.h`, `src/MAPFPlanner.cpp`, `src/TaskScheduler.cpp`, `default_planner/planner.cpp` and `default_planner/scheduler.cpp` are updated with with new API and additional documentaion. You may want to view changes on these files. 
+# Testing
+## RL
+Testing the RL-controller can be done with:
+```shell
+python3 RL/test.py
+```
+In the same config file as for training, the map needs to be chosen with "map_path" (line 10).
+For the 4 provided training settings, we provide final training weights in RL/example_checkpoints.
+They need to be specified accordingly in the config file in "load_test_checkpoint_path" (line 42).
+Other relevant options for testing are found there as well. To make results comparable with the LRR, a computation time per step of 1000ms should be choosen. But for quick testing, 70ms is enough. The task-scheduler and path-planner for these small maps mostly converge in that time anyway. The throughput should be pretty much the same.
 
-## Input output description
-
-Please refer to the [Input_Output_Format.md](./Input_Output_Format.md).
-
-## Prepare Your Planner
-
-Please refer to the [Prepare_Your_Submission.md](./Prepare_Your_Submission.md).
-
-## Debug and Visualise Your Planner
-We provide a visualisation tool written in Python: [https://github.com/MAPF-Competition/PlanViz](https://github.com/MAPF-Competition/PlanViz).
-It is able to visualise the output of the start-kit program and help participants debug the implementations. 
-
-Please refer to the project website for more information. Also the document [Debug_and_Visualise_Your_Planner](./Debug_and_Visualise_Your_Planner.md) which provides helpful hints for interpreting and diagnosing planner output.
-
-## Submission Instruction
-
-Please refer to the [Submission_Instruction.md](./Submission_Instruction.md).
-
+## Other schedulers
+To compare the results to the default greedy, ILP and LRR-winner (NoManSky), a testing script can be used with:
+```shell
+python3 envWrapper/testEnv.py
+```
+Interesting options to change in the script are:
+- Line 13 - inputFile: Choice of warehouse map/setting
+- Line 15 - simulationTime: 10000 simuation steps in lifelong setting
+- Line 16 - planTimeLimit: 1000ms in LRR, 70ms for quick testing (results should be the same again)
+- Line 20 - scheduler_type: Choice of task-scheduler
+- Line 28 - number_of_runs: Select the number of test runs. For lifelong, 1 run is often significant enough.
 
 

@@ -10,16 +10,17 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",
+    inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",  # options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12
     outputFile="./outputs/pyTest.json",
-    simulationTime=10000,
-    planTimeLimit=100,
+    simulationTime=10000,       # number of simulation steps
+    planTimeLimit=70,           # time in ms that the task-scheduler and path-planner have
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},    
     random_agents_and_tasks="true",
-    scheduler_type="default",    # ActivatedGreedy, ActivatedAdvantage, NoManSky, default, ILP, GreedyOptiDist, ILPOptiDist
+    scheduler_type="ILP",    # NoManSky, default, ILP,                          #ActivatedGreedy, ActivatedAdvantage, GreedyOptiDist, ILPOptiDist
     planner_type="default",
-    guarantee_planner_time = True
+    guarantee_planner_time = True,
+    allow_task_change = True
 )
 env.make_env_params_available()
 
@@ -27,6 +28,7 @@ env.make_env_params_available()
 number_of_runs = 1
 
 sum_reward = 0
+sum_num_tasks_finished = 0
 sum_Astar_reward = 0
 sum_episode_time_in_task = 0
 sum_length_of_tasks_finished = 0
@@ -35,6 +37,7 @@ sum_n_best_pibt_step = 0
 sum_n_not_best_pibt_step = 0
 for i in range(number_of_runs):
     this_reward = 0
+    num_tasks_finished = 0
     Astar_reward = 0
     episode_time_in_task = 0
     episode_length_of_tasks_finished = 0
@@ -57,6 +60,7 @@ for i in range(number_of_runs):
         # action_dict = {"activation_action": np.ones((env.nNodes, 2), dtype=int)}
         obs, reward, done, info = env.step()
         this_reward += reward["task-finished"]
+        num_tasks_finished += reward["task-finished"]
         Astar_reward += reward["A*-distance"]
         episode_time_in_task += info["agents-in-task"]
         episode_length_of_tasks_finished += info["length-of-tasks-finished"]
@@ -68,10 +72,10 @@ for i in range(number_of_runs):
             np.save(os.path.join(script_dir, f"../outputs/pibt_wait_map_test.npy"), np.array(info["pibt-wait-map"]))
 
     print("One simulation complete with reward: ", this_reward)
-    print("avergae reward: ", this_reward / env.nTasks)
     print("Astar reward: ", Astar_reward)
     print("Time in task: ", episode_time_in_task)
     sum_reward += this_reward
+    sum_num_tasks_finished += num_tasks_finished
     sum_Astar_reward += Astar_reward
     sum_episode_time_in_task += episode_time_in_task
     sum_length_of_tasks_finished += episode_length_of_tasks_finished
@@ -79,13 +83,13 @@ for i in range(number_of_runs):
     sum_n_best_pibt_step += episode_n_best_pibt_step
     sum_n_not_best_pibt_step += episode_n_not_best_pibt_step
     print(f"Average reward after {i+1} runs: {sum_reward/(i+1)}")
+    print(f"Average number of tasks finished after {i+1} runs: {sum_num_tasks_finished/(i+1)}")
     print(f"Average Time in task after {i+1} runs: {sum_episode_time_in_task/(i+1)}")
     print(f"Average Length of tasks finished after {i+1} runs: {sum_length_of_tasks_finished/(i+1)}")
     print(f"Average Wait time after {i+1} runs: {sum_wait_time/(i+1)}")
     print(f"Average n_best_pibt_step after {i+1} runs: {sum_n_best_pibt_step/(i+1)}")
     print(f"Average n_not_best_pibt_step after {i+1} runs: {sum_n_not_best_pibt_step/(i+1)}")
 
-
-print("Average reward over ", number_of_runs, " runs: ", sum_reward/number_of_runs)
-print("Average Astar reward over ", number_of_runs, " runs: ", sum_Astar_reward/number_of_runs)
+print("\n XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n\n")
+print("Average number of tasks finished after ", number_of_runs, " runs: ", sum_num_tasks_finished/number_of_runs)
 print("Simulation complete.")

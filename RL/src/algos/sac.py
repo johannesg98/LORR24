@@ -939,6 +939,58 @@ class SAC(nn.Module):
         if self.wandb is not None:
             self.wandb.log({"Test during training (num_tasks_finished)": episode_num_tasks_finished}, step=i_episode)
 
+    def test_seperate(self, cfg):
+        self.load_checkpoint(path=os.path.join(self.train_dir, f"ckpt/{cfg.model.load_test_checkpoint_path}.pth"))
+        print("test checkpoint loaded")
+        
+        self.eval()
+        episode_tasks_finished_sum = 0
+
+        epochs = trange(cfg.model.test_episodes)
+        for i_episode in epochs:
+            self.i_episode = i_episode
+            obs, rew, _ = self.env.reset(allow_task_change_=cfg.model.test_allow_task_change)
+            obs_parsed = self.parser.parse_obs(obs)
+            episode_num_tasks_finished = 0
+            done = False
+
+
+            while not done:
+                # actor step
+                print("free agents per node", obs["free_agents_per_node"])
+                if cfg.model.skip_actor:
+                    action_rl = skip_actor(self.env, obs)
+                else:
+                    action_rl = self.select_action(obs_parsed, cfg.model.deterministic_actor)
+
+                # create discrete action distribution
+                total_agents = sum(obs["free_agents_per_node"])
+                desired_agent_dist = assign_discrete_actions(total_agents, action_rl)
+
+                # solve rebalancing
+                reb_action = solveRebFlow(
+                    self.env,
+                    obs,
+                    desired_agent_dist,
+                    self.cplexpath,
+                )
+                action_dict = {"reb_action": reb_action}
+
+                # step
+                new_obs, reward_dict, done, info = self.env.step(action_dict)
+
+                # obs = new_obs
+                obs = new_obs
+                obs_parsed = self.parser.parse_obs(new_obs)
+                
+                # save infos
+                episode_num_tasks_finished += reward_dict["task-finished"]
+
+            
+            episode_tasks_finished_sum += episode_num_tasks_finished
+            print("\n XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
+            print(f"Average number of tasks finished after {i_episode + 1} episodes: {episode_tasks_finished_sum / (i_episode + 1)}")
+
     def slope_rewards(self, cfg, i_episode):
         if i_episode == 0:
             self.backtrack_start_w = cfg.model.rew_w_backtrack
@@ -971,100 +1023,7 @@ class SAC(nn.Module):
                 param_group['lr'] = self.q_lr
 
 
-    def test(self, test_episodes, env, verbose = True):
-        sim = env.cfg.name
-        if sim == "sumo":
-            # traci.close(wait=False)
-            os.makedirs(f'saved_files/sumo_output/{env.cfg.city}/', exist_ok=True)
-            matching_steps = int(env.cfg.matching_tstep * 60 / env.cfg.sumo_tstep)  # sumo steps between each matching
-            if env.scenario.is_meso:
-                matching_steps -= 1
-
-            sumo_cmd = [
-                "sumo", "--no-internal-links", "-c", env.cfg.sumocfg_file,
-                "--step-length", str(env.cfg.sumo_tstep),
-                "--device.taxi.dispatch-algorithm", "traci",
-                "--device.rerouting.threads", "1",
-                "--summary-output", "saved_files/sumo_output/" + env.cfg.city + "/" + self.agent_name + "_dua_meso.static.summary.xml",
-                "--tripinfo-output", "saved_files/sumo_output/" + env.cfg.city + "/" + self.agent_name + "_dua_meso.static.tripinfo.xml",
-                "--tripinfo-output.write-unfinished", "true",
-                "-b", str(env.cfg.time_start * 60 * 60), "--seed", str(env.cfg.seed),
-                "-W", 'true', "-v", 'false',
-            ]
-            assert os.path.exists(env.cfg.sumocfg_file), "SUMO configuration file not found!"
-        if verbose:
-            epochs = trange(test_episodes)  # epoch iterator
-        else: 
-            epochs = range(test_episodes)
-        episode_reward = []
-        episode_served_demand = []
-        episode_rebalancing_cost = []
-        episode_rebalanced_vehicles = []
-        seeds = list(range(env.cfg.seed, env.cfg.seed + test_episodes+1))
-        episode_actions = []
-        episode_inflows = []
-        for i_episode in epochs:
-            eps_reward = 0
-            eps_served_demand = 0
-            eps_rebalancing_cost = 0
-            eps_rebalancing_veh = 0
-            # Set seed for reproducibility across different policies
-            np.random.seed(seeds[i_episode])
-            done = False
-            if sim =='sumo':
-                traci.start(sumo_cmd)
-            obs, rew = env.reset()  # initialize environment
-            obs = self.parser.parse_obs(obs).to(self.device)
-            eps_reward += rew
-            eps_served_demand += rew
-            actions = []
-            inflow = np.zeros(len(env.region))
-            while not done:
-                
-                action_rl = self.select_action(obs, deterministic=True)
-                actions.append(action_rl)
-                desiredAcc = {env.region[i]: int(action_rl[i] * dictsum(env.acc, env.time + 1))
-                    for i in range(len(self.env.region))
-                }
-                reb_action = solveRebFlow(
-                    self.env,
-                    self.env.cfg.directory,
-                    desiredAcc,
-                    self.cplexpath,
-                )
-                new_obs, rew, done, info = env.step(reb_action=reb_action)
-                #calculate inflow to each node in the graph
-               
-                for k in range(len(env.edges)):
-                    i,j = env.edges[k]
-                    inflow[j] += reb_action[k]
-
-                if not done:
-                    obs = self.parser.parse_obs(new_obs).to(self.device)
-                
-                eps_reward += rew
-                eps_served_demand += info["profit"]
-                eps_rebalancing_cost += info["rebalancing_cost"]
-                #eps_rebalancing_veh += info["rebalanced_vehicles"]
-
-            if verbose:
-                epochs.set_description(
-                    f"Test Episode {i_episode+1} | Reward: {eps_reward:.2f} | ServedDemand: {eps_served_demand:.2f} | Reb. Cost: {eps_rebalancing_cost:.2f}"
-                )
-            episode_reward.append(eps_reward)
-            episode_served_demand.append(eps_served_demand)
-            episode_rebalancing_cost.append(eps_rebalancing_cost)
-            episode_actions.append(np.mean(actions, axis=0))
-            episode_inflows.append(inflow)
-            #episode_rebalanced_vehicles.append(eps_rebalancing_veh)
-        
-
-        return (
-            episode_reward,
-            episode_served_demand,
-            episode_rebalancing_cost,
-            episode_inflows,
-        )
+    
 
     def save_checkpoint(self, path="ckpt.pth"):
         checkpoint = dict()

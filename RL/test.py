@@ -38,6 +38,7 @@ def setup_model(cfg, env, parser, device):
 
 
 
+
 @hydra.main(version_base=None, config_path=os.path.join(script_dir, "src/config/"), config_name="config")
 def main(cfg: DictConfig):
 
@@ -46,8 +47,8 @@ def main(cfg: DictConfig):
     env = envWrapper.LRRenv(
         inputFile=os.path.join(script_dir, cfg.model.map_path),
         outputFile=os.path.join(script_dir, "../outputs/trainRL.json"),
-        simulationTime=cfg.model.max_steps,
-        planTimeLimit=cfg.model.time_per_step,
+        simulationTime=cfg.model.test_max_steps,
+        planTimeLimit=cfg.model.test_time_per_step,
         preprocessTimeLimit=30000,
         observationTypes={"node-basics", "node-advanced"},
         random_agents_and_tasks="true",
@@ -58,7 +59,7 @@ def main(cfg: DictConfig):
         scheduler_type=cfg.model.scheduler_type,
         planner_type="default",
         guarantee_planner_time = True,
-        allow_task_change=cfg.model.allow_task_change
+        allow_task_change=cfg.model.test_allow_task_change
     )
     
     env.make_env_params_available()
@@ -70,26 +71,7 @@ def main(cfg: DictConfig):
     
     model = setup_model(cfg, env, parser, device)
     
-    if cfg.model.tensorboard:
-        from torch.utils.tensorboard import SummaryWriter
-        from datetime import datetime
-        model.tensorboard = SummaryWriter(os.path.join(script_dir, "logs/", cfg.model.checkpoint_path, datetime.now().strftime("%Y%m%d-%H%M%S")))
-    
-    
-    if cfg.model.wandb: 
-        import wandb
-        config = {}
-        for key in cfg.model.keys():
-            config[key] = cfg.model[key]
-        wandb5 = wandb.init(
-            project=cfg.model.map_path.split("/")[-1].replace(".json", "") + "_ag" + str(env.nAgents),
-            entity="johannesg98",
-            name=cfg.model.checkpoint_path,
-            config=config
-        )
-        model.wandb = wandb5
-    
-    model.learn(cfg) #online RL
+    model.test_seperate(cfg)
 
 if __name__ == "__main__":
     main()
