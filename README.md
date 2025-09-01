@@ -65,11 +65,11 @@ For tracking the training progress, we recommend WandB. It can be activated in t
 
 # Testing
 ## RL
-Testing the RL-controller can be done with:
+Testing the RL-controller can be done right away (default 10,000 steps) with:
 ```shell
 python3 RL/test.py
 ```
-In the same config file as for training, the map needs to be chosen with "map_path" (line 10).
+In the same config file as for training, the map can be chosen with "map_path" (line 10).
 For the 4 provided training settings, we provide final training weights in RL/example_checkpoints.
 They need to be specified accordingly in the config file in "load_test_checkpoint_path" (line 42).
 Other relevant options for testing are found there as well. To make results comparable with the LRR, a computation time per step of 1000ms should be choosen. But for quick testing, 70ms is enough. The task-scheduler and path-planner for these small maps mostly converge in that time anyway. The throughput should be pretty much the same.
@@ -79,7 +79,7 @@ To compare the results to the default greedy, ILP and LRR-winner (NoManSky), a t
 ```shell
 python3 envWrapper/testEnv.py
 ```
-Interesting options to change in the script are:
+Relevant options to change in the script are:
 - Line 13 - inputFile: Choice of warehouse map/setting
 - Line 15 - simulationTime: 10000 simuation steps in lifelong setting
 - Line 16 - planTimeLimit: 1000ms in LRR, 70ms for quick testing (results should be the same again)
