@@ -46,8 +46,8 @@ The gymnasium style python wrapper is located with source code and build folder 
 Everything related to Reinforcement Learning is found in RL.
 
 # Training
-For training the RL-controller, the config script can be found in RL/src/config/model/sac.yaml
-The default setting includes 200 agents and can be trained right away with running:
+For training the RL-controller, the config script can be found in RL/src/config/model/sac.yaml.
+The default setting includes 200 agents and can be trained right away with running (preferably on GPU):
 ```shell
 python3 RL/train.py
 ```
