@@ -23,7 +23,7 @@ clip: 500  # Clip value for gradient clipping (default: 500)
 
 
 # Training
-train: false # Switches updating the weights on and off (default: true)
+train: true # Switches updating the weights on and off (default: true)
 max_episodes: 4000  # Number of episodes to train agent (default: 10k)
 max_steps: 150  # Number of steps per episode (default: 150)
 start_training_at_episode: 10 # collects samples for the first x episodes and only then starts training (default: 10)
