@@ -2,7 +2,7 @@
 ## Dependencies
 - [cmake >= 3.16](https://cmake.org/)
 - [libboost >= 1.49.0](https://www.boost.org/)
-- Python3 >= 3.11 and [pybind11](https://pybind11.readthedocs.io/en/stable/) >=2.10.1
+- Python3 >= 3.11 (mainly tested 3.12.3) and [pybind11](https://pybind11.readthedocs.io/en/stable/) >=2.10.1
 
 ### Ubuntu:
 ```shell
