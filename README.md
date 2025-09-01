@@ -60,6 +60,7 @@ We provide 4 different warehouse maps:
 This can be set with choosing the "map_path" (line 10) in the sac.yaml config file.
 The file name of the output weights can be set in the config file with "checkpoint_path" (line 71). The file will be saved in RL/ckpt.
 Further changes of the map, agents, tasks, etc. can be made in example_problems/custom_warehouse.domain.
+(6x4, 8x6, etc. stands for the number of storage shelf blocks)
 
 For tracking the training progress, we recommend WandB. It can be activated in the config file (line 65) and configured in RL/train.py (line 79-89).
 
