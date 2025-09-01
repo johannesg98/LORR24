@@ -16,7 +16,6 @@ sudo apt-get install build-essential libboost-all-dev python3-dev python3-pybind
 ```shell
 sudo apt-get update
 sudo apt-get install cmake g++ libboost-all-dev python3-dev python3-pip
-pip install pybind11-global numpy
 ```
 
 ## Install python requirements
