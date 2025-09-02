@@ -64,6 +64,7 @@ def main(cfg: DictConfig):
     
     env.make_env_params_available()
     
+    cfg.model.max_steps = cfg.model.test_max_steps
     parser = LRRParser(env, cfg.model)
     
     use_cuda = not cfg.model.no_cuda and torch.cuda.is_available()

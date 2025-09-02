@@ -645,6 +645,7 @@ class SAC(nn.Module):
         episode_n_best_pibt_step_sum = 0
         episode_n_not_best_pibt_step_sum = 0
 
+
         for i_episode in epochs:
             self.i_episode = i_episode
             if cfg.model.visu_episode_list:
@@ -847,16 +848,20 @@ class SAC(nn.Module):
             myTimer.outerLoop += myTimer.addTime()
 
             # test agent
-            if i_episode % 20 == 5:
-                self.test_during_training(i_episode, cfg)
-            if i_episode % 100 == 0:
-                try:
-                    self.test_best_checkpoint(i_episode, cfg)
-                except Exception as e:
-                    print(f"Error during testing best checkpoint: {e}")
+            if cfg.model.train:
+                if i_episode % 20 == 5:
+                    self.test_during_training(i_episode, cfg)
+                if i_episode % 100 == 0:
+                    try:
+                        self.test_best_checkpoint(i_episode, cfg)
+                    except Exception as e:
+                        print(f"Error during testing best checkpoint: {e}")
                     
 
             myTimer.test_cycles += myTimer.addTime()
+
+         
+            
 
 
 
@@ -986,10 +991,12 @@ class SAC(nn.Module):
                 # save infos
                 episode_num_tasks_finished += reward_dict["task-finished"]
 
+
             
             episode_tasks_finished_sum += episode_num_tasks_finished
             print("\n XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
             print(f"Average number of tasks finished after {i_episode + 1} episodes: {episode_tasks_finished_sum / (i_episode + 1)}")
+
 
     def slope_rewards(self, cfg, i_episode):
         if i_episode == 0:

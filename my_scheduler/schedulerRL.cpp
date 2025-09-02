@@ -46,6 +46,7 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
 
     // allow task changes before agent reaches first errand
     if (env->allow_task_change){
+        std::cout << "SchedulerRL: allow_task_change: true" << std::endl;
         free_agents.clear();
         for (int agent = 0; agent < env->num_of_agents; agent++)
         {
@@ -64,6 +65,9 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
             }
         }
 
+    }
+    else{
+        std::cout << "SchedulerRL: allow_task_change: false" << std::endl;
     }
 
 
