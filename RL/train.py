@@ -42,6 +42,8 @@ def setup_model(cfg, env, parser, device):
 def main(cfg: DictConfig):
 
     # json_path = "../example_problems/custom_warehouse.domain/warehouse_8x6.json"
+
+    print("blub1")
     
     env = envWrapper.LRRenv(
         inputFile=os.path.join(script_dir, cfg.model.map_path),
@@ -60,6 +62,8 @@ def main(cfg: DictConfig):
         guarantee_planner_time = True,
         allow_task_change=cfg.model.allow_task_change
     )
+
+    print("blub2")
     
     env.make_env_params_available()
     
@@ -67,6 +71,8 @@ def main(cfg: DictConfig):
     
     use_cuda = not cfg.model.no_cuda and torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
+
+    print("blub3")
     
     model = setup_model(cfg, env, parser, device)
     
@@ -75,6 +81,7 @@ def main(cfg: DictConfig):
         from datetime import datetime
         model.tensorboard = SummaryWriter(os.path.join(script_dir, "logs/", cfg.model.checkpoint_path, datetime.now().strftime("%Y%m%d-%H%M%S")))
     
+    print("blub4")
     
     if cfg.model.wandb: 
         import wandb
@@ -88,6 +95,8 @@ def main(cfg: DictConfig):
             config=config
         )
         model.wandb = wandb5
+    
+    print("blub5")
     
     model.learn(cfg) #online RL
 
