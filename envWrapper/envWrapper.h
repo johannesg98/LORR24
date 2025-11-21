@@ -48,7 +48,6 @@ private:
     std::string outputFile;
     int outputScreen;
     bool evaluationMode;
-    int simulationTime;
     std::string fileStoragePath;
     int planTimeLimit;
     int preprocessTimeLimit;
@@ -116,6 +115,7 @@ public:
     int nTasks = -1;
     int cols = -1;
     int rows = -1;
+    int simulationTime;
     std::vector<std::vector<int>> AdjacencyMatrix;
     std::vector<std::vector<int>> NodeCostMatrix;
     std::vector<std::vector<int>> MP_edge_index;

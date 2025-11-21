@@ -811,6 +811,7 @@ class SAC(nn.Module):
             episode_n_not_best_pibt_step_sum += episode_n_not_best_pibt_step
             print("Avg num_task_fisnished reward: ", episode_tasks_finished_sum / (i_episode + 1))
             print("Avg time in task: ", episode_time_in_task_sum / (i_episode + 1))
+            print(f"Average share of time that agents are occupied in tasks after {i_episode+1} runs: {(episode_time_in_task_sum/(self.env.simulationTime * self.env.nAgents)) * 100 / (i_episode+1)}%")
             print("Avg length of tasks finished: ", episode_length_of_tasks_finished_sum / (i_episode + 1))
             print("Avg wait time: ", episode_wait_time_sum / (i_episode + 1))
             print("Avg n-best-pibt-step: ", episode_n_best_pibt_step_sum / (i_episode + 1))
@@ -950,6 +951,8 @@ class SAC(nn.Module):
         
         self.eval()
         episode_tasks_finished_sum = 0
+        episode_time_in_task_sum = 0
+        sum_first_errands_started = 0
 
         epochs = trange(cfg.model.test_episodes)
         for i_episode in epochs:
@@ -957,6 +960,8 @@ class SAC(nn.Module):
             obs, rew, _ = self.env.reset(allow_task_change_=cfg.model.test_allow_task_change)
             obs_parsed = self.parser.parse_obs(obs)
             episode_num_tasks_finished = 0
+            episode_time_in_task = 0
+            episode_first_errands_started = 0
             done = False
 
 
@@ -990,12 +995,19 @@ class SAC(nn.Module):
                 
                 # save infos
                 episode_num_tasks_finished += reward_dict["task-finished"]
+                episode_time_in_task += info["agents-in-task"]
+                episode_first_errands_started += reward_dict["first-errands-started"]
 
 
             
             episode_tasks_finished_sum += episode_num_tasks_finished
+            episode_time_in_task_sum += episode_time_in_task
+            sum_first_errands_started += episode_first_errands_started
             print("\n XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
             print(f"Average number of tasks finished after {i_episode + 1} episodes: {episode_tasks_finished_sum / (i_episode + 1)}")
+            print(f"Average share of time that agents are occupied in tasks after {i_episode+1} runs: {(episode_time_in_task_sum/(self.env.simulationTime * self.env.nAgents)) * 100 / (i_episode+1)}%")
+            print(f"Average avg. time out of task per first errand  {i_episode+1} runs: {(((i_episode+1) *self.env.simulationTime * self.env.nAgents - episode_time_in_task_sum) / sum_first_errands_started if sum_first_errands_started > 0 else 0) / (i_episode+1)}")
+            print(f"Average evg. time to finish second errand after {i_episode+1} runs: {episode_time_in_task_sum / episode_tasks_finished_sum if episode_tasks_finished_sum > 0 else 0}")
 
 
     def slope_rewards(self, cfg, i_episode):

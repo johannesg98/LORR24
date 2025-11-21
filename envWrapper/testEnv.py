@@ -10,14 +10,14 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",  # options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12
+    inputFile="./example_problems/custom_warehouse.domain/warehouse_24x15.json",  # options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12
     outputFile="./outputs/pyTest.json",
     simulationTime=10000,       # number of simulation steps
-    planTimeLimit=70,           # time in ms that the task-scheduler and path-planner have
+    planTimeLimit=200,           # time in ms that the task-scheduler and path-planner have
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},    
     random_agents_and_tasks="true",
-    scheduler_type="ILP",    # NoManSky, default, ILP,                          #ActivatedGreedy, ActivatedAdvantage, GreedyOptiDist, ILPOptiDist
+    scheduler_type="NoManSky",    # NoManSky, default, ILP,                          #ActivatedGreedy, ActivatedAdvantage, GreedyOptiDist, ILPOptiDist
     planner_type="default",
     guarantee_planner_time = True,
     allow_task_change = True
@@ -35,6 +35,7 @@ sum_length_of_tasks_finished = 0
 sum_wait_time = 0
 sum_n_best_pibt_step = 0
 sum_n_not_best_pibt_step = 0
+sum_first_errands_started = 0
 for i in range(number_of_runs):
     this_reward = 0
     num_tasks_finished = 0
@@ -44,6 +45,7 @@ for i in range(number_of_runs):
     episode_wait_time = 0
     episode_n_best_pibt_step = 0
     episode_n_not_best_pibt_step = 0
+    episode_first_errands_started = 0
     # Reset environment with optional new parameters
     obs, reward, done = env.reset()
 
@@ -67,6 +69,7 @@ for i in range(number_of_runs):
         episode_wait_time += info["wait-time"]
         episode_n_best_pibt_step += info["n-best-pibt-step"]
         episode_n_not_best_pibt_step += info["n-not-best-pibt-step"]
+        episode_first_errands_started += reward["first-errands-started"]
         print(f"Astar reward: {reward['A*-distance']}, Task reward: {reward['task-finished']}, Idle agents reward: {reward['idle-agents']}")
         if done:
             np.save(os.path.join(script_dir, f"../outputs/pibt_wait_map_test.npy"), np.array(info["pibt-wait-map"]))
@@ -82,14 +85,21 @@ for i in range(number_of_runs):
     sum_wait_time += episode_wait_time
     sum_n_best_pibt_step += episode_n_best_pibt_step
     sum_n_not_best_pibt_step += episode_n_not_best_pibt_step
+    sum_first_errands_started += episode_first_errands_started
     print(f"Average reward after {i+1} runs: {sum_reward/(i+1)}")
     print(f"Average number of tasks finished after {i+1} runs: {sum_num_tasks_finished/(i+1)}")
-    print(f"Average Time in task after {i+1} runs: {sum_episode_time_in_task/(i+1)}")
+    print(f"Average time in task after {i+1} runs: {sum_episode_time_in_task/(i+1)}")
+    print(f"Average share of time that agents are occupied in tasks after {i+1} runs: {(sum_episode_time_in_task/(env.simulationTime * env.nAgents)) * 100 / (i+1)}%")
     print(f"Average Length of tasks finished after {i+1} runs: {sum_length_of_tasks_finished/(i+1)}")
     print(f"Average Wait time after {i+1} runs: {sum_wait_time/(i+1)}")
     print(f"Average n_best_pibt_step after {i+1} runs: {sum_n_best_pibt_step/(i+1)}")
     print(f"Average n_not_best_pibt_step after {i+1} runs: {sum_n_not_best_pibt_step/(i+1)}")
+    print(f"Average avg. time out of task per first errand  {i+1} runs: {(((i+1) *env.simulationTime * env.nAgents - sum_episode_time_in_task) / sum_first_errands_started if sum_first_errands_started > 0 else 0) / (i+1)}")
+    print(f"Average evg. time to finish second errand after {i+1} runs: {sum_episode_time_in_task / sum_num_tasks_finished if sum_num_tasks_finished > 0 else 0}")
 
 print("\n XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n\n")
 print("Average number of tasks finished after ", number_of_runs, " runs: ", sum_num_tasks_finished/number_of_runs)
+print(f"Average share of time that agents are occupied in tasks after {i+1} runs: {(sum_episode_time_in_task/(env.simulationTime * env.nAgents)) * 100 / (i+1)}%")
+print(f"Average avg. time out of task per first errand  {i+1} runs: {(((i+1) *env.simulationTime * env.nAgents - sum_episode_time_in_task) / sum_first_errands_started if sum_first_errands_started > 0 else 0) / (i+1)}")
+print(f"Average evg. time to finish second errand after {i+1} runs: {sum_episode_time_in_task / sum_num_tasks_finished if sum_num_tasks_finished > 0 else 0}")
 print("Simulation complete.")

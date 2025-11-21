@@ -321,6 +321,7 @@ PYBIND11_MODULE(envWrapper, m) {
         .def_readwrite("nTasks", &LRRenv::nTasks)
         .def_readwrite("cols", &LRRenv::cols)
         .def_readwrite("rows", &LRRenv::rows)
+        .def_readwrite("simulationTime", &LRRenv::simulationTime)
         .def_readwrite("AdjacencyMatrix", &LRRenv::AdjacencyMatrix)
         .def_readwrite("NodeCostMatrix", &LRRenv::NodeCostMatrix)
         .def_readwrite("MP_edge_index", &LRRenv::MP_edge_index)
