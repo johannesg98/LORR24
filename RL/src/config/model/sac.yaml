@@ -68,14 +68,14 @@ visu_episode_list: [0, 5, 10, 12, 15, 20, 30, 50, 100, 200, 300, 400, 500, 750, 
 
 
 # Checkpoints
-checkpoint_path: "GPU_TransformerConvAction_F50_Astar25_Fin50_warehouse8x6"  # Path where to save model checkpoints or load them from
+checkpoint_path: "GPU_TransformerConvAction_F50_Astar30_Fin50_warehouse8x6"  # Path where to save model checkpoints or load them from
 load_from_ckeckpoint: false  # Load model from checkpoint (default: false)
 load_external_actor: false  # Load externally trained actor e.g. from imitation learning in colab
 external_actor_path: "../nn_optimization/actors/actor_20percent_Transformer.pth"  # Path to externally trained actor
 
 
 # Reward (default for best performing RL: rew_w_task_finish = 50, rew_w_backtrack = 20, rew_w_first_errand = 50, rest = 0)
-rew_w_Astar: 25    # best: 20
+rew_w_Astar: 30    # best: 20
 rew_w_dist: 0
 rew_w_idle: 0     # best: 20
 rew_w_task_finish: 50
