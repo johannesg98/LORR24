@@ -10,10 +10,10 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/custom_warehouse.domain/warehouse_24x15.json",  # options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12
+    inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",  # options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12
     outputFile="./outputs/pyTest.json",
     simulationTime=10000,       # number of simulation steps
-    planTimeLimit=200,           # time in ms that the task-scheduler and path-planner have
+    planTimeLimit=70,           # time in ms that the task-scheduler and path-planner have
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},    
     random_agents_and_tasks="true",
