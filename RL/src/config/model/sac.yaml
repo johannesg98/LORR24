@@ -26,7 +26,7 @@ clip: 500  # Clip value for gradient clipping (default: 500)
 train: true # Switches updating the weights on and off (default: true)
 max_episodes: 4000  # Number of episodes to train agent (default: 10k)
 max_steps: 150  # Number of steps per episode (default: 150)
-start_training_at_episode: 10 # collects samples for the first x episodes and only then starts training (default: 10)
+start_training_at_episode: 1 # collects samples for the first x episodes and only then starts training (default: 10)
 only_q_steps: 0 # Only use Q-learning for x episodes (default: 0)
 skip_actor: false # Use skip_actor-ILP instead of the actor (default: false)
 mask_impactless_actions: true # Mask actions where no free agents are available and action therefore has no impact on performance (default: true)
@@ -68,18 +68,18 @@ visu_episode_list: [0, 5, 10, 12, 15, 20, 30, 50, 100, 200, 300, 400, 500, 750, 
 
 
 # Checkpoints
-checkpoint_path: "GPU_TransformerConvAction_F50_B20_Fin50_warehouse8x6"  # Path where to save model checkpoints or load them from
+checkpoint_path: "GPU_TransformerConvAction_F50_Astar20_Fin50_warehouse8x6_try2"  # Path where to save model checkpoints or load them from
 load_from_ckeckpoint: false  # Load model from checkpoint (default: false)
 load_external_actor: false  # Load externally trained actor e.g. from imitation learning in colab
 external_actor_path: "../nn_optimization/actors/actor_20percent_Transformer.pth"  # Path to externally trained actor
 
 
 # Reward (default for best performing RL: rew_w_task_finish = 50, rew_w_backtrack = 20, rew_w_first_errand = 50, rest = 0)
-rew_w_Astar: 0    # best: 20
+rew_w_Astar: 20    # best: 20
 rew_w_dist: 0
 rew_w_idle: 0     # best: 20
 rew_w_task_finish: 50
-rew_w_backtrack: 20 # best: 20
+rew_w_backtrack: 0 # best: 20
 rew_w_immitation: 0
 rew_w_final_tasks_finished: 0
 rew_w_first_errand: 50
