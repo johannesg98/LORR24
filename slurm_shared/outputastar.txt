@@ -1,3 +1,0 @@
-Environment constructed
-reset started cpp
-Shuffling agents and tasks

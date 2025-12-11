@@ -1,0 +1,6 @@
+defaults:
+  - model: sac    #sac, a2c, td3
+  
+hydra:
+  run:
+    dir: GRAND/outputs/run_${now:%Y-%m-%d_%H-%M-%S}

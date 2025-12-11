@@ -147,7 +147,8 @@ void init_environment(SharedEnvironment &env) {
         }
     }*/
 #else
-    Printer().get() = std::ofstream("printer.txt");
+    // Avoid creating a local printer.txt file; discard file output on Linux
+    Printer().get() = std::ofstream("/dev/null");
     get_guidance_map() = GuidanceMap(get_map_type(), get_map());
     // warehouse bad guidance map
     if (get_map_type() == MapType::RANDOM

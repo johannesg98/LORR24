@@ -1,3 +1,0 @@
-defaults:
-  - simulator: macro   # This will load from simulator/macro.yaml
-  - model: a2c         

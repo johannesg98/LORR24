@@ -1,0 +1,166 @@
+cmake_minimum_required(VERSION 3.16)
+project(lifelong)
+
+set(CMAKE_CXX_STANDARD 17)
+
+# Set the default value of PYTHON to false
+option(PYTHON "Enable Python" OFF)
+
+if(PYTHON)
+    set(PYTHON_FLAG 1)
+else()
+    set(PYTHON_FLAG 0)
+endif()
+
+
+# Print the value of PYTHON
+message(STATUS "PYTHON: ${PYTHON}")
+
+IF(NOT CMAKE_BUILD_TYPE)
+    SET(CMAKE_BUILD_TYPE "DEBUG")
+    #SET(CMAKE_BUILD_TYPE "RELEASE")
+    #SET(CMAKE_BUILD_TYPE "RELWITHDEBINFO")
+    #SET(CMAKE_BUILD_TYPE "MINSIZEREL")
+ENDIF()
+
+include_directories("inc")
+
+# default planner
+include_directories("default_planner")
+
+file(GLOB SOURCES "src/*.cpp" "default_planner/*.cpp" "my_scheduler/*.cpp" "../../GRAND/Task_Assignment/*.cpp")
+
+#my stuff
+include_directories("my_scheduler")
+include_directories("../../GRAND/Task_Assignment/")
+
+# external solution - No Man's Sky
+include_directories("../third_party_libraries/Solution_NoMansSky")
+include_directories("../third_party_libraries/Solution_NoMansSky/Objects/Basic")
+include_directories("../third_party_libraries/Solution_NoMansSky/Objects/Environment")
+include_directories("../third_party_libraries/Solution_NoMansSky/Scheduler")
+
+# Include all source files from Solution_NoMansSky and its subdirectories
+file(GLOB_RECURSE SOLUTION_SOURCES 
+    "../third_party_libraries/Solution_NoMansSky/*.cpp"
+    "../third_party_libraries/Solution_NoMansSky/*.hpp"
+)
+
+# Exclude files containing main() functions to avoid multiple definition errors
+list(FILTER SOLUTION_SOURCES EXCLUDE REGEX ".*gg_builder\\.cpp$")
+list(FILTER SOLUTION_SOURCES EXCLUDE REGEX ".*pibt_main\\.cpp$")
+list(FILTER SOLUTION_SOURCES EXCLUDE REGEX ".*tester\\.cpp$")
+
+# ortools manual
+# include_directories("../third_party_libraries/or-22/or-tools/include")
+# link_directories("../third_party_libraries/or-22/or-tools/lib")
+
+# Link against ortools from conda
+# set(CMAKE_PREFIX_PATH "${CONDA_PREFIX}/lib/cmake/ortools")
+# find_package(ortools REQUIRED)
+
+
+
+
+execute_process(COMMAND lsb_release -sr
+    OUTPUT_VARIABLE UBUNTU_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+if(UBUNTU_VERSION VERSION_GREATER_EQUAL 24)
+    message(STATUS "Running on Ubuntu 24 or later")
+    include_directories("../third_party_libraries/or-24/or-tools/include")
+    link_directories("../third_party_libraries/or-24/or-tools/lib")
+elseif(UBUNTU_VERSION VERSION_GREATER_EQUAL 22)
+    message(STATUS "Running on Ubuntu 22")
+    include_directories("../third_party_libraries/or-22/or-tools/include")
+    link_directories("../third_party_libraries/or-22/or-tools/lib")
+else()
+    message(STATUS "Unknown Ubuntu version: ${UBUNTU_VERSION}")
+endif()
+
+
+
+
+
+
+
+
+# Find Boost
+ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)
+#SET(Boost_USE_STATIC_LIBS ON)
+find_package( Boost 1.49.0 REQUIRED COMPONENTS program_options system filesystem log log_setup)
+
+include_directories( ${Boost_INCLUDE_DIRS} )
+
+
+
+
+
+IF(PYTHON)
+    message(STATUS "Python support is enabled")
+
+    find_package(pybind11 REQUIRED)
+    set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ version selection")
+
+     # check if python/tmp exists, raise an error if it does not
+    if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/python/tmp")
+        message(FATAL_ERROR "Track is not configured for python bindings. Please run python/set_track.bash <combined|planner|scheduler> to configure the track before compiling.")
+    endif()
+
+    include_directories("python/tmp")
+
+    pybind11_add_module(MAPF "./src/Grid.cpp"   "./src/States.cpp" "./python/tmp/MAPFbinding.cpp")
+    target_link_libraries(MAPF PRIVATE ) 
+
+    file(GLOB PY_SOURCES "python/tmp/*.cpp")
+    list(FILTER PY_SOURCES EXCLUDE REGEX ".*python/MAPFbinding\.cpp")
+
+    add_executable(lifelong  ${PY_SOURCES} ${SOURCES})
+    target_link_libraries(lifelong PRIVATE pybind11::embed ${Boost_LIBRARIES})
+    target_compile_definitions(lifelong PRIVATE PYTHON=${PYTHON_FLAG})
+
+    if (COPY_PY_PATH_CONFIG)
+        file(COPY "config.json" DESTINATION ${CMAKE_BINARY_DIR})
+    endif()
+
+
+ELSE()
+    message(STATUS "Python support is disabled")
+
+    #copied to IF(PYTHON) to here because always needed after for envWrapper
+    find_package(pybind11 REQUIRED)
+
+    add_executable(lifelong ${SOURCES} ${SOLUTION_SOURCES})
+    target_link_libraries(lifelong ${Boost_LIBRARIES})
+    
+    # ortools manual
+    target_link_libraries(lifelong ortools absl_base absl_strings)
+
+    # Link against ortools from conda
+    # target_link_libraries(lifelong PRIVATE ortools::ortools)
+   
+    target_compile_definitions(lifelong PRIVATE PYTHON=${PYTHON_FLAG})
+
+    #copied to IF(PYTHON) to here because always needed after for envWrapper
+    target_link_libraries(lifelong pybind11::embed ${Boost_LIBRARIES})
+ENDIF()
+
+
+add_custom_target(clean_all
+    COMMAND ${CMAKE_BUILD_TOOL} clean
+    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/CMakeCache.txt
+    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/lifelong
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/build
+    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/*.so
+)
+
+
+set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES
+    "${CMAKE_BINARY_DIR}/lifelong;
+     ${CMAKE_BINARY_DIR}/build;
+     ${CMAKE_BINARY_DIR}/*.so"
+)
+
+
+
