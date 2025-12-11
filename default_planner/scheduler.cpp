@@ -29,8 +29,37 @@ void schedule_plan(int time_limit, std::vector<int> & proposed_schedule,  Shared
     free_agents.insert(env->new_freeagents.begin(), env->new_freeagents.end());
     free_tasks.insert(env->new_tasks.begin(), env->new_tasks.end());
 
+
+    // allow task changes before agent reaches first errand
+    if (env->allow_task_change){
+        std::cout << "SchedulerRL: allow_task_change: true" << std::endl;
+        free_agents.clear();
+        for (int agent = 0; agent < env->num_of_agents; agent++)
+        {
+            if (env->curr_task_schedule[agent] == -1) {
+                free_agents.insert(agent);
+            }
+            else{
+                int task_id = env->curr_task_schedule[agent];
+                if (env->task_pool[task_id].idx_next_loc == 0) {
+                    free_tasks.insert(task_id);
+                    env->task_pool[task_id].agent_assigned = -1;
+                    free_agents.insert(agent);
+                    env->curr_task_schedule[agent] = -1;
+                    proposed_schedule[agent] = -1;
+                }
+            }
+        }
+
+    }
+    else{
+        std::cout << "SchedulerRL: allow_task_change: false" << std::endl;
+    }
+
+
     int min_task_i, min_task_makespan, dist, c_loc, count;
     clock_t start = clock();
+
 
     // iterate over the free agents to decide which task to assign to each of them
     std::unordered_set<int>::iterator it = free_agents.begin();

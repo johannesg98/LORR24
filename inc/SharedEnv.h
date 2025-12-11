@@ -65,6 +65,7 @@ public:
     int n_best_pibt_step = 0;
     int n_not_best_pibt_step = 0;
     std::vector<int> pibt_wait_map;
+    std::vector<std::vector<int>> pibt_wait_locs_per_timestep;
 
     // Roadmap stuff
     Roadmap* roadmap = nullptr;

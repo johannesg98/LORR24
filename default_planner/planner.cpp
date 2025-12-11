@@ -77,6 +77,7 @@ namespace DefaultPlanner{
                     pibt_wait_map[i] = -1;  // obstacle
                 }
             }
+            pibt_wait_locs_per_timestep.clear();
 
             // initialise the heuristics tables containers
             init_heuristics(env);
@@ -116,7 +117,9 @@ namespace DefaultPlanner{
         //cap the time for distance to goal heuristic table initialisation to half of the given time_limit;
         int pibt_time = PIBT_RUNTIME_PER_100_AGENTS * env->num_of_agents/100;
         //traffic flow assignment end time, leave PIBT_RUNTIME_PER_100_AGENTS ms per 100 agent and TRAFFIC_FLOW_ASSIGNMENT_END_TIME_TOLERANCE ms for computing pibt actions;
-        TimePoint end_time = start_time + std::chrono::milliseconds(time_limit - pibt_time - TRAFFIC_FLOW_ASSIGNMENT_END_TIME_TOLERANCE); 
+        TimePoint end_time = start_time + std::chrono::milliseconds(time_limit - pibt_time - TRAFFIC_FLOW_ASSIGNMENT_END_TIME_TOLERANCE);
+
+        pibt_wait_locs_per_timestep.push_back(std::vector<int>());
 
         // recrod the initial location of each agent as dummy goals in case no goal is assigned to the agent.
         if (env->curr_timestep == 0){
@@ -251,6 +254,7 @@ namespace DefaultPlanner{
         env->n_best_pibt_step = n_best_pibt_step;
         env->n_not_best_pibt_step = n_not_best_pibt_step;
         env->pibt_wait_map = pibt_wait_map;
+        env->pibt_wait_locs_per_timestep = pibt_wait_locs_per_timestep;
 
 
         

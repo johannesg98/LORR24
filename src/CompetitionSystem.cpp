@@ -400,7 +400,11 @@ void BaseSystem::saveResults(const string &fileName, int screen) const
         {
             js["nodeRegions"] = simulator.node_regions_to_json(env);
             js["action_rl"] = simulator.action_rl_to_json(env);
+
         }
+
+        // for the animated waiting map video for the paper submission
+        js["pibt_wait_locs_per_timestep"] = env->pibt_wait_locs_per_timestep;
 
     }
 

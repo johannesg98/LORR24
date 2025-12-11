@@ -7,6 +7,7 @@ namespace DefaultPlanner{
 int n_best_pibt_step = 0;
 int n_not_best_pibt_step = 0;
 std::vector<int> pibt_wait_map;
+std::vector<std::vector<int>> pibt_wait_locs_per_timestep;
 
 int get_gp_h(TrajLNS& lns, int ai, int target){
     int min_heuristic;
@@ -102,12 +103,14 @@ bool causalPIBT(int curr_id, int higher_id,std::vector<State>& prev_states,
 		}else{
 			n_not_best_pibt_step++;
 			pibt_wait_map[prev_loc]++;
+			pibt_wait_locs_per_timestep.back().push_back(prev_loc);
 		}
         return true;
     }
 
 	n_not_best_pibt_step++;
 	pibt_wait_map[prev_loc]++;
+	pibt_wait_locs_per_timestep.back().push_back(prev_loc);
 
     next_states.at(curr_id) = State(prev_loc,-1 ,-1);;
     decision.at(prev_loc) = curr_id;     

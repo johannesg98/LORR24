@@ -10,7 +10,7 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",  # options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12
+    inputFile="./example_problems/custom_warehouse.domain/warehouse_8x6.json",  # options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12, warehouse_24x15
     outputFile="./outputs/pyTest.json",
     simulationTime=10000,       # number of simulation steps
     planTimeLimit=70,           # time in ms that the task-scheduler and path-planner have
@@ -20,7 +20,7 @@ env = envWrapper.LRRenv(
     scheduler_type="NoManSky",    # NoManSky, default, ILP,                          #ActivatedGreedy, ActivatedAdvantage, GreedyOptiDist, ILPOptiDist
     planner_type="default",
     guarantee_planner_time = True,
-    allow_task_change = True
+    allow_task_change = True        # switch only works for RL, ILP and default. For NoManSky always True hardcoded.
 )
 env.make_env_params_available()
 
@@ -40,6 +40,7 @@ for i in range(number_of_runs):
     this_reward = 0
     num_tasks_finished = 0
     Astar_reward = 0
+
     episode_time_in_task = 0
     episode_length_of_tasks_finished = 0
     episode_wait_time = 0
