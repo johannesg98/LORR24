@@ -42,6 +42,8 @@ void TaskScheduler::initialize(int preprocess_time_limit)
     int limit = preprocess_time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
     
     DefaultPlanner::schedule_initialize(limit, env);
+
+    std::cout << "Blub scheduler initialize start" << std::endl;
     
     if (scheduler_type.empty()){
         // fallback for LRR standard build
@@ -87,11 +89,13 @@ void TaskScheduler::initialize(int preprocess_time_limit)
         exit(1);
     }
     
+    std::cout << "Blub scheduler initialize end" << std::endl;
     
 
     task_search_start_times.resize(env->num_of_agents, 0);
     CTBT_task_search_start_times.resize(env->num_of_agents, 0);
 }
+
 
 /**
  * Plans a task schedule within a specified time limit.
@@ -109,6 +113,9 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     //-SCHEDULER_TIMELIMIT_TOLERANCE for timing error tolerance
     int limit = time_limit/2 - DefaultPlanner::SCHEDULER_TIMELIMIT_TOLERANCE;
     auto start = std::chrono::high_resolution_clock::now();
+
+
+    std::cout << "Blub scheduler plan start" << std::endl;
 
     std::vector<int> proposed_schedule_old = proposed_schedule;
 
@@ -133,7 +140,7 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
     }
 
     
-
+    std::cout << "Blub scheduler give to nomansky" << std::endl;
 
     if (scheduler_type.empty()){
         // fallback for LRR standard build
@@ -173,6 +180,8 @@ void TaskScheduler::plan(int time_limit, std::vector<int> & proposed_schedule, c
         update_environment(*env);
         schedulerILPOptiDist::schedule_plan(limit, proposed_schedule, env);
     }
+
+    std::cout << "Blub scheduler plan end" << std::endl;
     
 
 

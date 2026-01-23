@@ -49,6 +49,17 @@ python3 script/createGraphNodes.py --mapFile "myWorld/warehouse_4x3.map" --outpu
 "nodeFile": "nodes/warehouse_4x3.nodes"
 
 
+Uniform node creation for existing map:
+Go to masterarbeit/Benchmark-Archive/2023 Competition/Problem Generator and put map and task files in myWorld folder
+Agent and folder creation (in tmpVenv):
+python3 ./script/benchmark_generator.py  --mapFile ./myWorld/warehouse_4x3.map  --problemName warehouse_4x3 --taskFile ./myWorld/tasks_4x3.tasks --teamSizes 100 --benchmark_folder ./4x3
+Graph nodes creation
+python3 script/createGraphNodes.py --mapFile "myWorld/warehouse_4x3.map" --outputFile "myWorld/warehouse_4x3.nodes" --includeCheckMap --mapType "random"
+.json file: edit numTaskReveal to 1.5, remove strategy, add node line:
+"nodeFile": "nodes/warehouse_4x3.nodes"
+
+
+
 start tensorboard panel, click on link generated:
 tensorboard --logdir RL/logs/
 

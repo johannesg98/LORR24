@@ -183,6 +183,7 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
 
     if (agents.size() > tasks.size())
         logger->log_warning("Not enough tasks for robots (number of tasks < team size)");
+    
     system_ptr = std::make_unique<BaseSystem>(*grid, planner, agents, tasks, model);
 
     //add parameters as in driver.cpp
@@ -191,12 +192,10 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     system_ptr->set_preprocess_time_limit(preprocessTimeLimit);
     system_ptr->set_num_tasks_reveal(read_param_json<float>(data, "numTasksReveal", 1));
 
-
     //initializes the environment as in BaseSystem::simulate
     planner->scheduler->scheduler_type = scheduler_type;
     planner->planner->planner_type = planner_type;
     system_ptr->initializeExtendedBaseSystem(simulationTime);
-
 
     //new functions for RL
     if (observationTypes.count("node-basics") || observationTypes.count("roadmap-activation")){
@@ -212,8 +211,6 @@ std::tuple<pybind11::dict, double, bool> LRRenv::reset(
     planner->planner->guarantee_planner_time = guarantee_planner_time;
     cols = planner->env->cols;
     rows = planner->env->rows;
-    
-
 
     double reward = 0.0;
     pybind11::dict obs;
