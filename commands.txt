@@ -41,6 +41,8 @@ Create Map (edit width and height according to comment in script/fullfillment_co
 python3 ./script/warehouse_map_generator.py --config ./fulfillment_config.yaml
 Task generation:
 python3 ./script/warehouse_task_generator.py --map ./myWorld/warehouse_4x3.map  --taskNum 10000 --taskFile ./myWorld/tasks_4x3.tasks --errandNum 2
+[Optional] Count empty tiles on map to find max number of agents:
+python3 script/emptyTilesCounter.py --mapFile "myWorld/warehouse_4x3.map"
 Agent and folder creation (in tmpVenv):
 python3 ./script/benchmark_generator.py  --mapFile ./myWorld/warehouse_4x3.map  --problemName warehouse_4x3 --taskFile ./myWorld/tasks_4x3.tasks --teamSizes 100 --benchmark_folder ./4x3
 Graph nodes creation
@@ -51,6 +53,8 @@ python3 script/createGraphNodes.py --mapFile "myWorld/warehouse_4x3.map" --outpu
 
 Uniform node creation for existing map:
 Go to masterarbeit/Benchmark-Archive/2023 Competition/Problem Generator and put map and task files in myWorld folder
+[Optional] Count empty tiles on map to find max number of agents:
+python3 script/emptyTilesCounter.py --mapFile "myWorld/warehouse_4x3.map"
 Agent and folder creation (in tmpVenv):
 python3 ./script/benchmark_generator.py  --mapFile ./myWorld/warehouse_4x3.map  --problemName warehouse_4x3 --taskFile ./myWorld/tasks_4x3.tasks --teamSizes 100 --benchmark_folder ./4x3
 Graph nodes creation
