@@ -10,14 +10,14 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/random.domain/random_32_32_20_nodes.json",  # options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12, warehouse_24x15
+    inputFile="./example_problems/room.domain/room_32_32_4.json",  # options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12, warehouse_24x15
     outputFile="./outputs/pyTest.json",
     simulationTime=150,       # number of simulation steps
-    planTimeLimit=200,           # time in ms that the task-scheduler and path-planner have
+    planTimeLimit=70,           # time in ms that the task-scheduler and path-planner have
     preprocessTimeLimit=30000,
     observationTypes={"node-basics"},    
     random_agents_and_tasks="true",
-    scheduler_type="ILP",    # NoManSky, default, ILP,                          #ActivatedGreedy, ActivatedAdvantage, GreedyOptiDist, ILPOptiDist
+    scheduler_type="NoManSky",    # NoManSky, default, ILP,                          #ActivatedGreedy, ActivatedAdvantage, GreedyOptiDist, ILPOptiDist
     planner_type="default",
     guarantee_planner_time = True,
     allow_task_change = True        # switch only works for RL, ILP and default. For NoManSky always True hardcoded.
@@ -27,7 +27,7 @@ print("python blub start")
 env.make_env_params_available()
 print("python blub end")
 
-number_of_runs = 10
+number_of_runs = 1
 
 sum_reward = 0
 sum_num_tasks_finished = 0

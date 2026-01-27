@@ -1,0 +1,8 @@
+{
+    "mapFile": "maps/room_32_32_4.map",
+    "agentFile": "agents/room_32_32_4_682.agents",
+    "teamSize": 300,
+    "taskFile": "tasks/room_32_32_4.tasks",
+    "numTasksReveal": 1.5,
+    "nodeFile": "nodes/room_32_32_4.nodes"
+}

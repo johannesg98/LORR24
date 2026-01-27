@@ -7,7 +7,7 @@ no_cuda: false  # Disables CUDA training
 
 
 # Environment
-map_path: "../example_problems/random.domain/random_32_32_20_nodes.json"  # Path to json file with map, agents, tasks, etc., options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12, warehouse_24x15 (default: "../example_problems/custom_warehouse.domain/warehouse_8x6.json")
+map_path: "../example_problems/room.domain/room_32_32_4.json"  # Path to json file with map, agents, tasks, etc., options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12, warehouse_24x15 (default: "../example_problems/custom_warehouse.domain/warehouse_8x6.json")
 use_dummy_goals_for_idle_agents: false  # Use dummy goals for idle agents in PIBT planner, 0 = goal is current postion (-> wait), 1 = goal is spawn position, 2 = goal is random position (default: 0)
 scheduler_type: "RL"  # Scheduler type, options: RL, NoManSky, default, ILP (default: "RL")
 time_per_step: 70 # time in ms that the task-scheduler and path-planner have. 1000 in LRR. For small maps ~70 is enough and more time doesn't improve the performance. (default: 70)
@@ -26,7 +26,7 @@ clip: 500  # Clip value for gradient clipping (default: 500)
 train: true # Switches updating the weights on and off (default: true)
 max_episodes: 10000  # Number of episodes to train agent (default: 10k)
 max_steps: 150  # Number of steps per episode (default: 150)
-start_training_at_episode: 1 # collects samples for the first x episodes and only then starts training (default: 10)
+start_training_at_episode: 10 # collects samples for the first x episodes and only then starts training (default: 10)
 only_q_steps: 0 # Only use Q-learning for x episodes (default: 0)
 skip_actor: false # Use skip_actor-ILP instead of the actor (default: false)
 mask_impactless_actions: true # Mask actions where no free agents are available and action therefore has no impact on performance (default: true)
@@ -68,7 +68,7 @@ visu_episode_list: [0, 5, 10, 12, 15, 20, 30, 50, 100, 200, 300, 400, 500, 750, 
 
 
 # Checkpoints
-checkpoint_path: "GPU_TransformerConvAction_F50_B20_Fin50_random32_ag500"  # Path where to save model checkpoints or load them from
+checkpoint_path: "GPU_TransformerConvAction_F50_B20_Fin50_room32_ag300"  # Path where to save model checkpoints or load them from
 load_from_ckeckpoint: false  # Load model from checkpoint (default: false)
 load_external_actor: false  # Load externally trained actor e.g. from imitation learning in colab
 external_actor_path: "../nn_optimization/actors/actor_20percent_Transformer.pth"  # Path to externally trained actor
