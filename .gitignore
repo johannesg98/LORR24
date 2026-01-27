@@ -32,3 +32,6 @@ roadmapRL/src/algos/__pycache__/
 roadmapRL/src/nets/__pycache__/
 roadmapRL/src/helperfunctions/__pycache__/
 roadmapRL/ckpt/
+# pixi environments
+.pixi/*
+!.pixi/config.toml

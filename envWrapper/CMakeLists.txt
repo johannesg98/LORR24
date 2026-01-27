@@ -85,3 +85,6 @@ target_link_libraries(envWrapper PRIVATE pybind11::module ${Boost_LIBRARIES} ort
 
 # Output the shared library with a Python-compatible name
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".so")
+
+# Add debugging symbols
+target_compile_options(${PROJECT_NAME} PRIVATE -g)
