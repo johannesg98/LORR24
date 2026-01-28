@@ -1,0 +1,8 @@
+{
+    "mapFile": "maps/random2.map",
+    "agentFile": "agents/random2_819.agents",
+    "teamSize": 200,
+    "taskFile": "tasks/random2.tasks",
+    "numTasksReveal": 1.5,
+    "nodeFile": "nodes/random2.nodes"
+}

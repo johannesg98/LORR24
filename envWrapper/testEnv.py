@@ -10,7 +10,7 @@ import envWrapper
 
 # Initialize environment with default arguments
 env = envWrapper.LRRenv(
-    inputFile="./example_problems/maze.domain/maze_40_59_1.json",  # options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12, warehouse_24x15
+    inputFile="./example_problems/random2/random2.json",  # options: warehouse_6x4, warehouse_8x6, warehouse_9x8, warehouse_13x12, warehouse_24x15
     outputFile="./outputs/pyTest.json",
     simulationTime=150,       # number of simulation steps
     planTimeLimit=70,           # time in ms that the task-scheduler and path-planner have
