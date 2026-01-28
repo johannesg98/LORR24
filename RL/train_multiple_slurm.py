@@ -20,10 +20,12 @@ def main(cfg: DictConfig):
 
     map_path_list = [
         "../example_problems/maze.domain/maze_40_59_1.json",
-        "../example_problems/maze.domain/maze_40_59_1_copy.json"
+        "../example_problems/maze.domain/maze_40_59_1_copy.json",
+        "../example_problems/random2/random2.json"
     ]
     checkpoint_path_list = ["GPU_TransformerConvAction_F50_B20_Fin50_maze_ag100_try2",
-                            "GPU_TransformerConvAction_F50_B20_Fin50_maze_ag200_try2"]
+                            "GPU_TransformerConvAction_F50_B20_Fin50_maze_ag200_try2",
+                            "GPU_TransformerConvAction_F50_B20_Fin50_maze_ag200_try3"]
     use_markovian_new_obs_list = [False, True]
     rew_w_idle_list = [0.0]
     rew_w_backtrack_list = [5,10,20,20,20,40]
