@@ -1,0 +1,8 @@
+{
+    "mapFile": "maps/maze_40_59_1.map",
+    "agentFile": "agents/maze_40_59_1_1122.agents",
+    "teamSize": 200,
+    "taskFile": "tasks/maze_40_59_1.tasks",
+    "numTasksReveal": 1.5,
+    "nodeFile": "nodes/maze_40_59_1.nodes"
+}

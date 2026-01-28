@@ -19,9 +19,11 @@ def main(cfg: DictConfig):
     ########### only change sum of exp in run.slurm ##########
 
     map_path_list = [
-        "../example_problems/custom_warehouse.domain/warehouse_8x6.json",
-        "../example_problems/custom_warehouse.domain/warehouse_4x3.json"
+        "../example_problems/maze.domain/maze_40_59_1.json",
+        "../example_problems/maze.domain/maze_40_59_1_copy.json"
     ]
+    checkpoint_path_list = ["GPU_TransformerConvAction_F50_B20_Fin50_maze_ag100_try2",
+                            "GPU_TransformerConvAction_F50_B20_Fin50_maze_ag200_try2"]
     use_markovian_new_obs_list = [False, True]
     rew_w_idle_list = [0.0]
     rew_w_backtrack_list = [5,10,20,20,20,40]
@@ -37,12 +39,16 @@ def main(cfg: DictConfig):
     #     for rew_w_immitation in rew_w_immitation_list:
     #         cfg.model.rew_w_immitation = rew_w_immitation
 
-    for i,rew_w_backtrack in enumerate(rew_w_immitation_list):
-        cfg.model.rew_w_backtrack = rew_w_backtrack
-        cfg.model.net = "GCNConv"
-        cfg.model.use_message_passing = False
+    # for i,rew_w_backtrack in enumerate(rew_w_immitation_list):
+    #     cfg.model.rew_w_backtrack = rew_w_backtrack
+    #     cfg.model.net = "GCNConv"
+    #     cfg.model.use_message_passing = False
         
-        cfg.model.checkpoint_path = f"CPU_GCNConv_DivideTime{rew_w_backtrack}_id{slurm_task_id}"
+    #     cfg.model.checkpoint_path = f"CPU_GCNConv_DivideTime{rew_w_backtrack}_id{slurm_task_id}"
+
+    for i in range(2):
+        cfg.model.map_path = map_path_list[i]
+        cfg.model.checkpoint_path = checkpoint_path_list[i]
         if run_training(cfg):
             return
 
